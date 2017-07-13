@@ -1,0 +1,11 @@
+$score = 0
+
+@Event('start')
+start() {
+    > 'share your score'
+    Input()
+    $score = :text
+    > 'your average score :'
+    avg = Users.avg('score')
+    > '{avg}'
+}

@@ -1,0 +1,9 @@
+@Event('start')
+start() {
+    
+}
+
+@Intent('input.departure')
+search() {
+    > 'search'
+}

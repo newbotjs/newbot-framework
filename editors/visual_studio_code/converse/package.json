@@ -1,0 +1,26 @@
+{
+    "name": "converse",
+    "displayName": "converse",
+    "description": "",
+    "version": "0.0.1",
+    "publisher": "ConverseScript",
+    "engines": {
+        "vscode": "^1.13.0"
+    },
+    "categories": [
+        "Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "converse",
+            "aliases": ["ConverseScript", "converse"],
+            "extensions": [".converse"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "converse",
+            "scopeName": "source.converse",
+            "path": "./syntaxes/converse.tmLanguage.json"
+        }]
+    }
+}

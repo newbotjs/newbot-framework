@@ -1,0 +1,6 @@
+@Intent('departure') {
+    (unknown :intent.city) > 'What is your city?'
+}
+search() {
+    > 'Your city : {:intent.city}'
+}

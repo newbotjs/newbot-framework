@@ -1,0 +1,8 @@
+@Event('start')
+start() {
+    > hello
+    > you have nb message [5]
+    message = 3
+    > you have nb message [message]
+    
+}

@@ -1,0 +1,13 @@
+@Event('start')
+start() {
+    
+    val = 0
+
+    while (val < 3) {
+        > '{val}'
+        Input()
+        val++
+    }
+    
+}
+

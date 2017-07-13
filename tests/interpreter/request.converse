@@ -1,0 +1,6 @@
+@Event('start')
+start() {
+    > 'get'
+    Request('https://jsonplaceholder.typicode.com/users')
+    > 'thanks'
+}

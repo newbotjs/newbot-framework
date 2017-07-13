@@ -1,0 +1,9 @@
+@Event('start')
+start() {
+    @Format('quick', ['Français', 'Anglais', 'Espagnol'])
+    > 'Choise your language'
+    Input('language', {
+        fr: 'Français',
+        en: 'English'
+    })
+}

@@ -1,0 +1,10 @@
+@Event('start')
+start() {
+    
+}
+
+@Intent('departure')
+search() {
+    > 'Your departure : {:intent.city}'
+    > '{:intent.speech}'
+}

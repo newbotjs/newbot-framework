@@ -1,0 +1,11 @@
+foo = 1
+test = foo + 10 - 9 // 2
+foo++ // 2
+test += foo // 4
+$score = test / 2 // 2
+
+@Event('start')
+start() {
+    foo = 1
+    $score += foo // 3
+}

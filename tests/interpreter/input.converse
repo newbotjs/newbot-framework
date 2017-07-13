@@ -1,0 +1,6 @@
+@Event('start')
+start() {
+    > 'your name'
+    Input()
+    > 'hello {:text}'
+}

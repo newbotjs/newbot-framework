@@ -1,0 +1,9 @@
+$score = 0
+
+@Event('start')
+start() {
+    $score++
+   Input()
+    $score += 3
+    > 'your score {$score}'
+}

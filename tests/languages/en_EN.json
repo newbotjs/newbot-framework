@@ -1,0 +1,17 @@
+[
+    {
+        "hello": "hello world",
+        "$you": {
+            "you have": "you have"
+        },
+        "$you nb message": "{1} %d message%p",
+        "$you no message": "{1} no message"
+    },
+    {
+        "plurial": {
+            "p": [
+                "s"
+            ]
+        }
+    }
+]

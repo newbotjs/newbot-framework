@@ -1,0 +1,27 @@
+@Event('start')
+start() {
+    
+    val = 0
+
+    bool1 = true
+    opposite1 = !bool1
+
+    bool2 = bool1 && opposite1
+    bool3 = bool1 || opposite1
+    bool4 = true && bool3 && bool2
+    (bool1) {
+        val++
+        Input()
+        > 'a'
+        (true) {
+            > 'b'
+            Input()
+            > '{:text}'
+            (true) {
+                val++
+            }
+        }
+        > 'c'
+    }
+    > 'd'
+}

@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --timeout 0 tests/*.spec.js"
+    "test": "mocha --timeout 0 tests/*.spec.js",
+    "postinstall": "cd botframework && npm install"
   },
   "author": "",
   "license": "ISC",

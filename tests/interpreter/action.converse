@@ -1,0 +1,4 @@
+@Action('buy') 
+buy() {
+    > 'transaction : {:action}'
+}

@@ -26,6 +26,11 @@ class UserTesting {
         return this
     }
 
+    action(name, value, callback) {
+        this.testing.push({ type: 'action', name, value, callback })
+        return this
+    }
+
     spy(fnName, callback) {
         this.spyFn[fnName] = { callback }
         return this
@@ -84,6 +89,9 @@ class UserTesting {
                         data: test.value
                     })
                 }
+                break
+            case 'action':
+                converse(`action?${test.name}=${test.value}`)
                 break
             case 'input':
                 converse(test.str)

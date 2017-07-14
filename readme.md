@@ -36,3 +36,13 @@ Powerful Scripting for Automated Conversations (Chatbot)
 * Run an offline ConverseScript file
 * Syntax color on Visual Studio Code
 * BotFramework integration
+
+# ConverseScript scenario example 
+
+```converse
+@Event('start') {
+    > 'Hello'
+}
+```
+
+If this is the first time the user interacts then the chatbot sends "Hello"

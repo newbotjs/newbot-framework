@@ -12,6 +12,7 @@
     "apiai": "^4.0.2",
     "chai": "^4.0.0",
     "colors": "^1.1.2",
+    "dotenv-extended": "^2.0.1",
     "languages-js": "^2.2.3",
     "lodash": "^4.17.4",
     "mathjs": "^3.13.3",

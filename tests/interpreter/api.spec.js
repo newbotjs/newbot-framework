@@ -2,7 +2,7 @@ module.exports = function (user, assert, converse) {
 
     converse.configure({
         'api.ai': {
-            token: process.env.TOKEN
+            token: process.env.APITOKEN
         }
     })
 

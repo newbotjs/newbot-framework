@@ -11,7 +11,7 @@ class Execution {
 
     constructor(user, input, options, start, interpreter) {
         this.user = user
-        this.input = input.text
+        this.input = ''+input.text
         this.intents = input.intents
         if (input.type === 'event') {
             this.event = {
@@ -59,6 +59,30 @@ class Execution {
         }
     }
 
+    triggerAction() {
+        const action = this.action(this.input)
+        if (action) {
+            this.user.setMagicVariable('action', action.value)
+            const actions = this.decorators.get('Action', action.name)
+            if (actions.length > 0) {
+                this.decorators.exec(actions, this)
+                return true
+            }
+        }
+    }
+
+    action(text) {
+        const match = text.match(/^action\?([a-zA-Z0-9_-]+)(=?)(.*)$/) 
+        if (!match) return false
+        const ret = {
+            name: match[1]
+        }
+        if (match[3]) {
+            ret.value = match[3]
+        }
+        return ret
+    }
+
     go(deepFn = 0) {
         const self = this
         const address = this.interpreter.index[this.user.getAddress()]
@@ -69,6 +93,8 @@ class Execution {
             start: this.decorators.get('Event', 'start'),
             nothing: this.decorators.get('Event', 'nothing')
         }
+
+        if (this.triggerAction()) return
 
         if (address) {
             let { index, level, deep } = address

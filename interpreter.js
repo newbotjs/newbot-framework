@@ -282,6 +282,9 @@ class Execution {
     getValue(obj, level, next) {
         let scope = this.getScope(level)
         let value = obj
+        if (value === null) {
+            return value
+        }
         if (obj.expression) {
             value = this.execExpression(obj.expression, obj.variables, level)
         }

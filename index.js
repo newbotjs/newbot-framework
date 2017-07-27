@@ -1,5 +1,5 @@
-const Converse = require('./converse')
-const ConverseTesting = require('./testing/converse-testing')
+const Converse = require('./src/converse')
+const ConverseTesting = require('./src/testing/converse-testing')
 
 module.exports = { Converse, ConverseTesting }
 

@@ -4,8 +4,8 @@ const lib = new builder.Library('ConverseScript')
 
 module.exports = (converse) => {
     lib.dialog('exec', (session) => {
-    const { text, user } = session.message
-    converse.exec(text, user.id, {
+        const { text, user } = session.message
+        converse.exec(text, user.id, {
             output(output, done) {
                 session.send(output)
                 done()
@@ -16,4 +16,8 @@ module.exports = (converse) => {
         })
     })
     return lib
+}
+
+module.exports.exec = (session, args = {}) => {
+    session.beginDialog('ConverseScript:exec', args)
 }

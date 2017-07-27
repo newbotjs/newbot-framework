@@ -1,6 +1,6 @@
 const { expect } = require('chai')
 const _ = require('lodash')
-const Transpiler = require('../transpiler/lexer')
+const Transpiler = require('../src/transpiler/lexer')
 
 describe('Test Transpiler', () => {
 

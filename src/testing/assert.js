@@ -15,7 +15,7 @@ class Assert {
     }
     userVariable(name) {
         const user = this._getUser()
-        return user.variable['$' + name]
+        return user.getVariable(name)
     }
     magicVariable(name) {
         const user = this._getUser()

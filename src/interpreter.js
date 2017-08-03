@@ -11,7 +11,7 @@ class Execution {
 
     constructor(user, input, options, start, interpreter) {
         this.user = user
-        this.input = ''+input.text
+        this.input = '' + input.text
         this.intents = input.intents
         if (input.type === 'event') {
             this.event = {
@@ -72,7 +72,7 @@ class Execution {
     }
 
     action(text) {
-        const match = text.match(/^action\?([a-zA-Z0-9_-]+)(=?)(.*)$/) 
+        const match = text.match(/^action\?([a-zA-Z0-9_-]+)(=?)(.*)$/)
         if (!match) return false
         const ret = {
             name: match[1]
@@ -231,14 +231,14 @@ class Execution {
 
     getVariable(ins, level, value) {
         const set = !_.isUndefined(value)
-        const name = ins.variable
+        let name = ins.variable
 
         if (/^\$/.test(name)) {
             if (set) {
-                this.setDeepObject(ins, this.user.variable[name], value, level) ? null :
-                    this.user.variable[name] = value
+                this.setDeepObject(ins, this.user.setVariable(name, value), level) ? null :
+                    this.user.setVariable(name, value)
             }
-            return this.getDeepObject(ins, this.user.variable[name], level)
+            return this.getDeepObject(ins, this.user.getVariable(name), level)
         }
 
         if (set) {
@@ -355,11 +355,11 @@ class Execution {
     execVariable(ins, level, next) {
         let scope = this.getScope(level)
         let value = this.getValue(ins.value, level)
-        if (!_.isUndefined(scope[ins.variable]) && level == 'root' && !this.start) {
+        if (!_.isUndefined(scope[ins.variable.replace('$', '')]) && level == 'root' && !this.start) {
             next()
             return
         }
-        let variable = this.setVariable(ins, value, level)
+        this.setVariable(ins, value, level)
         next()
     }
 

@@ -52,6 +52,16 @@ class User {
         this.magicVar[name] = value
     }
 
+    getVariable(name) {
+        name = name.replace(/^\$/, '')
+        return this.variables[name]
+    }
+
+    setVariable(name, value) {
+        name = name.replace(/^\$/, '')
+        this.variables[name] = value
+    }
+
     saveSession(session) {
         this.session = session
     }
@@ -68,7 +78,7 @@ class User {
                 _magicVar: this.magicVar
             },
             _session: this.session,
-            data: this.variables
+            data
         }
     }
 

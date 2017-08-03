@@ -20,9 +20,7 @@ class IntentEvent extends Decorator {
             const intentName = this.params[0]
             const intent = intents[intentName]
             if (intent) {
-                for (let key in intent) {
-                    execution.setMagicVar(`intent.${key}`, intent[key])
-                }
+                execution.setMagicVar(`intent`, intent)
                 resolve(true)
             }
             resolve(false)

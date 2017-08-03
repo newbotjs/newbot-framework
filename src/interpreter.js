@@ -259,8 +259,9 @@ class Execution {
         this.user.magicVar[name] = value
     }
 
-    getMagicVar(name) {
-        return this.user.magicVar[name.replace(':', '')]
+    getMagicVar(name, ins, level) {
+        const object = this.user.magicVar[name.replace(':', '')]
+        return this.getDeepObject(ins, object, level)
     }
 
     _deepObject(ins, object, level, value) {
@@ -291,10 +292,7 @@ class Execution {
         else if (obj.variable) {
             if (/^:/.test(obj.variable)) {
                 let name = value.variable
-                if (value.deep) {
-                    name += '.' + value.deep.join('.')
-                }
-                value = this.getMagicVar(name)
+                value = this.getMagicVar(name, value, level)
             }
             else {
                 /*new ExecutionError('variable.not.exists', {

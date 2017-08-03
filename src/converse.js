@@ -19,7 +19,7 @@ class Converse {
         this._dbHook = {}
         this._mongoDbHook = {}
         this._hooks = {}
-        this.functions = Functions
+        this._functions = Functions
         this.lang = Languages.instance()
     }
 
@@ -103,7 +103,7 @@ class Converse {
     }
 
     functions(object) {
-        this.functions = _.merge(this.functions, object)
+        this._functions = _.merge(this._functions, object)
         return this
     }
 
@@ -113,13 +113,13 @@ class Converse {
             mockName += '.' + deep
         }
 
-        if (!this.functions[name]) throw "function not exists"
+        if (!this._functions[name]) throw "function not exists"
 
-        let { $call, $mock, $params } = this.functions[name]
+        let { $call, $mock, $params } = this._functions[name]
         let ret
 
         if (!$call) {
-            $call = this.functions[name]
+            $call = this._functions[name]
         }
 
         if (deep) {
@@ -131,10 +131,8 @@ class Converse {
                 switch (p) {
                     case 'users':
                         return this.users
-                        break
                     case 'user':
                         return user
-                        break
                 }
                 return p
             })
@@ -151,14 +149,13 @@ class Converse {
             }
         }
         else {
-            ret = $call.call(this.functions[name], ...params)
+            ret = $call.call(this._functions[name], ...params)
         }
 
         if (!done) {
             return ret
         }
-
-        if (ret instanceof Promise) {
+        if (ret.then) {
             return ret.then(done)
         }
         done(ret)

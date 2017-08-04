@@ -40,7 +40,7 @@ class UserTesting {
         if (this.spyFn[fnName]) {
             this.currentLevel = fnName
             this.spyFn[fnName].isCalled = true
-            this.spyFn[fnName].callback.call(this.assert)
+            this._callbackAssert(this.spyFn[fnName].callback)
         }
     }
 
@@ -64,6 +64,11 @@ class UserTesting {
         })
     }
 
+    _callbackAssert(callback) {
+        const assert = this.assert
+        if (callback) callback.call(assert, assert)
+    }
+
     _run(p, done) {
         let test = this.testing[p]
 
@@ -73,7 +78,7 @@ class UserTesting {
 
         const converse = input => {
             this._converse(input, () => {
-                if (test.callback) test.callback.call(this.assert)
+                this._callbackAssert(test.callback)
                 this._run(p + 1, done)
             })
         }

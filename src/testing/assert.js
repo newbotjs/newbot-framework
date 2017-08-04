@@ -1,3 +1,5 @@
+const _ = require('lodash')
+
 class Assert {
     constructor(testing) {
         this.testing = testing
@@ -6,8 +8,11 @@ class Assert {
     _getUser() {
         return this.testing.converse.users.get(this.testing.id)
     }
-    output() {
-        return this.testing._output
+    output(index) {
+        if (_.isUndefined(index)) {
+            return this.testing._output
+        }
+        return this.testing._output[index]
     }
     variable(name) {
         const user = this._getUser()

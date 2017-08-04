@@ -234,11 +234,12 @@ class Execution {
         let name = ins.variable
 
         if (/^\$/.test(name)) {
+            const variable = this.user.getVariable(name)
             if (set) {
-                this.setDeepObject(ins, this.user.setVariable(name, value), level) ? null :
+                this.setDeepObject(ins, variable, value, level) ? null :
                     this.user.setVariable(name, value)
             }
-            return this.getDeepObject(ins, this.user.getVariable(name), level)
+            return this.getDeepObject(ins, variable, level)
         }
 
         if (set) {

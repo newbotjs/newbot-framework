@@ -1,3 +1,5 @@
+$global = {}
+
 @Event('start')
 start() {
     twoStr = 'two'
@@ -20,6 +22,8 @@ start() {
             }
         }
     }
+    empty = {}
+
     calc = value.one + other.two + other.object.deep.three
     other.four = 4
 
@@ -32,4 +36,9 @@ start() {
 
     deep = other['object'].deep[threeStr['str'][0]]
     value.more[threeStr.str[1]]++
+    value['c'] = 1
+
+    empty[12] = 2
+
+    $global['test'] = 'test'
 }

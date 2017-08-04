@@ -29,7 +29,7 @@ class Execution {
         this.hooks = interpreter.converse._hooks
         this.obj = interpreter._obj
         this.error = new ExecutionError(interpreter.converse.script)
-        if (this.start) this.instructionsRoot()
+        this.instructionsRoot()
         if (this.event) {
             this.triggerEvent()
         }
@@ -168,14 +168,14 @@ class Execution {
     }
 
     instructionsRoot() {
-        this.instructions(this.obj, 0)
+        this.instructions(this.obj, 0, 'root', null, { refresh: !this.start })
     }
 
     instructions(instructions, pointer, level = 'root', finish, options = {}) {
         const ins = instructions[pointer]
         const { isBlock } = options
         const next = () => this.instructions(instructions, pointer + 1, level, finish, options)
-        if (!ins) {
+        if (!ins && !options.refresh) {
             if (!isBlock) {
                 if (this.options.finishFn) this.options.finishFn(level)
             }
@@ -199,7 +199,7 @@ class Execution {
         else if (ins.output && level != 'root') {
             this.execOutput(ins, level, next)
         }
-        else if (ins.type) {
+        else if (ins.type && !options.refresh) {
             switch (ins.type) {
                 case 'function':
                     next()

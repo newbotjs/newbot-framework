@@ -78,7 +78,7 @@ class User {
                 _magicVar: this.magicVar
             },
             _session: this.session,
-            data
+            data: this.variables
         }
     }
 

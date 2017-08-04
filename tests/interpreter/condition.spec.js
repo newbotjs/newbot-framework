@@ -16,5 +16,8 @@ module.exports = function(user, assert, converse) {
             assert.deepEqual(this.output(), [ 'noop2', 'c', 'd' ])
             assert.equal(this.variable('val'), 2, 'second value')
         })
+        .input('ok', function() {
+            assert.deepEqual(this.output(), [ 'e' ])
+        })
         .end()
 }

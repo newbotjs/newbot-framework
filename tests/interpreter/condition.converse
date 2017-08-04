@@ -24,4 +24,6 @@ start() {
         > 'c'
     }
     > 'd'
+    Input()
+    (:text == 'ok') > 'e'
 }

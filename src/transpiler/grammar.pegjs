@@ -131,7 +131,7 @@ RightAssign
     }
 
 Value =  
-    ExecuteFunction / Null / Array / Object / Expression / String 
+    ExecuteFunction / Null / Array / Object / String / Expression
 
 // For Loop
 
@@ -237,7 +237,7 @@ Factor
        }
        return '(' + expr + ')'
     }
-  / Integer / Boolean
+  / Integer / StringInExpression / Boolean
   / GetObject / VariableName
 
 // Text
@@ -355,6 +355,15 @@ Integer 'integer'
 VariableString
     = '{' _ value:Value _ '}' {
         return { value }
+    }
+
+StringInExpression 'string in expression'
+    = str: String {
+        const withQuote = text => `"${text}"`
+        if (str.variables) {
+            return withQuote(str.text)
+        }
+        return withQuote(str)
     }
 
 String 'string'

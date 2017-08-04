@@ -21,7 +21,7 @@ describe('Test Transpiler', () => {
         expect(obj).to.have.property('value').that.is.a('array')
         expect(obj.value).to.have.lengthOf(array.length)
         expect(obj.value).to.deep.equal(array)
-       // array.forEach((item, i) => expect(obj.value[i]).to.equal(item))
+        // array.forEach((item, i) => expect(obj.value[i]).to.equal(item))
     }
 
     const testObject = (str) => {
@@ -548,6 +548,12 @@ describe('Test Transpiler', () => {
         expect(ins).to.have.property('variable', 'test')
     }
 
+    const compareTo = str => {
+        const [obj] = t(str)
+        expect(obj.instructions[0].condition).to.have.property('variables')
+        return obj
+    }
+
     it('condition', () => {
         testCondition(
             `start() {
@@ -588,6 +594,71 @@ describe('Test Transpiler', () => {
                 test = 1
             test = 2
         }`)
+    })
+
+    it('Condition : compare variable with number', () => {
+        compareTo(`
+            start() {
+                (text == 1) {
+                    test = 1
+                }
+            }`)
+    })
+
+    it('Condition : compare variable with string', () => {
+        const obj = compareTo(`
+            start() {
+                (text == 'ye') {
+                    test = 1
+                }
+            }`)
+        const { condition } = obj.instructions[0]
+        expect(condition).to.have.property('expression', `{0} == "ye"`)
+    })
+
+    it('Condition : compare variable with boolean', () => {
+        compareTo(`
+            start() {
+                (text == true) {
+                    test = 1
+                }
+            }`)
+    })
+
+    it('Condition : compare variable with variable', () => {
+        compareTo(`
+            start() {
+                (text == other) {
+                    test = 1
+                }
+            }`)
+    })
+
+    it('Condition : compare variable with array', () => {
+        compareTo(`
+            start() {
+                (text == other[9]) {
+                    test = 1
+                }
+            }`)
+    })
+
+    it('Condition : compare variable with object', () => {
+        compareTo(`
+            start() {
+                (text == other.foo) {
+                    test = 1
+                }
+            }`)
+    })
+
+    it('Condition : compare variable with object bis', () => {
+        compareTo(`
+            start() {
+                (text == other['foo']) {
+                    test = 1
+                }
+            }`)
     })
 
     it('condition with function called', () => {

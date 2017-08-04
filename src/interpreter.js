@@ -348,8 +348,13 @@ class Execution {
 
     execExpression(expr, variables, level) {
         expr = expr.replace(/\{([0-9]+)\}/g, (match, index) => {
-            return this.getValue(variables[index], level)
+            let val = this.getValue(variables[index], level)
+            if (!/[0-9]+(\.[0-9]+)?/.test(val) && !_.isBoolean(val)) {
+                val = `"${val}"`
+            }
+            return val
         })
+        expr = expr.replace(/'/g, '"')
         return math.eval(expr)
     }
 

@@ -667,6 +667,13 @@ describe('Test Transpiler', () => {
             }`)
     })
 
+    it('Condition : function result', () => {
+        compareTo(`
+            start() {
+                (Array.length(array) > 1)  test = 1
+            }`)
+    })
+
     it('condition with function called', () => {
         const [obj] = t(`
             @Event('start')

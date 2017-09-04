@@ -205,7 +205,9 @@ Expression "expression"
         let ret = {}
         let j=0
 
-        if (isExpr && head.variable) {
+        const isVariable = obj => obj.variable || obj.type === 'executeFn'
+
+        if (isExpr && isVariable(head)) {
             variables.push(head)
             result = '{' + j + '}'
             j++
@@ -213,7 +215,7 @@ Expression "expression"
 
         for (let i = 0; i < tail.length; i++) {
             let val = tail[i][3]
-            if (val.variable) {
+            if (isVariable(val)) {
                 variables.push(val)
                 result += tail[i][1] +  '{' + j + '}'
                 j++
@@ -248,7 +250,7 @@ Factor
        }
        return '(' + expr + ')'
     }
-  / Integer / StringInExpression / Boolean
+  / Integer / ExecuteFunction / StringInExpression / Boolean
   / GetObject / VariableName
 
 // Text

@@ -355,7 +355,7 @@ class Execution {
     execExpression(expr, variables, level) {
         expr = expr.replace(/\{([0-9]+)\}/g, (match, index) => {
             let val = this.getValue(variables[index], level)
-            if (!/[0-9]+(\.[0-9]+)?/.test(val) && !_.isBoolean(val)) {
+            if (!/[0-9]+(\.[0-9]+)?/.test(val) && !_.isBoolean(val) && val !== null) {
                 val = `"${val}"`
             }
             return val
@@ -431,8 +431,8 @@ class Execution {
         this.instructions(ins.instructions, pointer, ins.name, done)
     }
 
-    execParams(params) {
-        return params.map(val => this.getValue(val))
+    execParams(params, level, done) {
+        return params.map(val => this.getValue(val, level, done))
     }
 
     execApiFn(ins, level, done, more) {
@@ -453,7 +453,7 @@ class Execution {
         return this
             .interpreter
             .converse
-            .execFunction(ins.name, this.execParams(ins.params), done, this.user, more)
+            .execFunction(ins.name, this.execParams(ins.params, level, done), done, this.user, more)
     }
 
 }

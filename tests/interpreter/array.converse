@@ -1,0 +1,6 @@
+@Event('start')
+start() {
+    array = [1, 2]
+    > '{ Array.length(array) }'
+    (Array.length(array) > 1) > 'ok'
+}

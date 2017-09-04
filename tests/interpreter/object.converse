@@ -41,4 +41,12 @@ start() {
     empty[12] = 2
 
     $global['test'] = 'test'
+
+    other2 = {
+        data: {
+            metadata: {
+                text: other.four
+            }
+        }
+    }
 }

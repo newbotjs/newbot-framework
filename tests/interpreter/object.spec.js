@@ -1,7 +1,7 @@
-module.exports = function(user, assert) {
+module.exports = function (user, assert) {
     return user
         .start()
-        .spy('start', function() {
+        .spy('start', function () {
             assert.equal(this.variable('calc'), 6)
 
             const other = this.variable('other')
@@ -19,6 +19,9 @@ module.exports = function(user, assert) {
             assert.equal(empty[12], 2)
 
             assert.deepEqual(this.userVariable('global'), { test: 'test' })
+
+            const other2 = this.variable('other2')
+            assert.equal(other2.data.metadata.text, 4)
         })
         .end()
 }

@@ -175,6 +175,12 @@ describe('Test Transpiler', () => {
         testObject(`test = {foo: 1}`)
     })
 
+    it('variable object with variable value', () => {
+        const [obj] = t(`test = {foo: foo}`)
+        expect(obj).to.have.property('variable', 'test')
+        expect(obj.value.foo).to.have.property('variable', 'foo')
+    })
+
     it('assign variable', () => {
         const [obj] = t(`test = foo`)
         expect(obj).to.have.property('variable', 'test')

@@ -1,6 +1,8 @@
 {
     const _ = require('lodash')
 
+    const DEEP_NAME = '__deepIndex'
+
     function increment(variable, sign, expression, variables=[]) {
         let _var
        
@@ -131,7 +133,16 @@ RightAssign
     }
 
 Value =  
-    ExecuteFunction / Null / Array / Object / String / Expression
+    ExecuteFunction / Null / Array / obj:Object { 
+        // Clean __deepIndex
+        const index = obj[DEEP_NAME]
+        if (!index) return obj
+        for (let address of index) {
+            let subobj = _.get(obj, address.replace(/\.[^.]+$/, ''))
+            delete subobj[DEEP_NAME]
+        }
+        return obj
+    } / String / Expression
 
 // For Loop
 
@@ -334,6 +345,13 @@ Object 'object'
             let key = object[1]
             let val = object[5]
             realObject[key] = val
+            if (!realObject[DEEP_NAME]) realObject[DEEP_NAME] = []
+            if (val[DEEP_NAME] && val[DEEP_NAME].length !== 0) {
+                realObject[DEEP_NAME] = [...realObject[DEEP_NAME], ...val[DEEP_NAME].map(d => key + '.' + d)]
+            }
+            else {
+                realObject[DEEP_NAME].push(key)
+            }
         }
         return realObject
     }

@@ -314,6 +314,7 @@ class Execution {
         }
         else if (obj.type == 'executeFn') {
             value = this.findFunctionAndExec(obj, level)
+            console.log(value)
         }
         else if (value.__deepIndex) {
             for (let address of value.__deepIndex) {

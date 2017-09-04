@@ -1,4 +1,5 @@
 const _ = require('lodash')
+const User = require('../user')
 const Assert = require('./assert')
 
 class UserTesting {
@@ -50,6 +51,16 @@ class UserTesting {
                 throw `Warning : ${fn}(...) function is never finished`
             }
         }
+    }
+
+    setVariable(name, value) {
+        let user = this.converse.users.get(this.id)
+        if (!user) {
+            user = new User(this.id)
+            this.converse.users.set(this.id, user)
+        }
+        user.setVariable(name, value)
+        return this
     }
 
     end() {

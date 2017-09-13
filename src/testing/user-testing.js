@@ -14,10 +14,14 @@ class UserTesting {
     }
 
     start(callback) {
-        return this.event('start', null, callback)
+        return this.event('start', callback)
     }
 
     event(name, value, callback) {
+        if (!callback) {
+            callback = value
+            value = null
+        }
         this.testing.push({ type: 'event', name, value, callback })
         return this
     }

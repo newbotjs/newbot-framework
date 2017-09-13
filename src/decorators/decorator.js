@@ -10,7 +10,8 @@ class Decorator {
     }
 
     findParam(params) {
-        return _.find(this.params, p => params.indexOf(p) != -1)
+        const diff = _.difference(this.params, params)
+        return diff.length === 0
     }
 
 }

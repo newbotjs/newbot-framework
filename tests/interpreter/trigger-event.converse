@@ -3,7 +3,12 @@ start() {
     
 }
 
-@Event('broadcast')
+@Event('on', 'broadcast')
 broadcast() {
     > 'ok'
+}
+
+@Event('on', 'fake')
+fake() {
+    > 'fake'
 }

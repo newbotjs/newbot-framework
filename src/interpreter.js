@@ -307,7 +307,7 @@ class Execution {
                 }
             }
         }
-        else if (obj.text) {
+        else if (obj.text && !obj.__deepIndex) {
             value = obj.text.replace(/\{([^\}]+)\}/g, (match, sub) => {
                 return this.getValue(obj.variables[sub].value, level)
             })

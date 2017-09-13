@@ -69,22 +69,39 @@ class Converse {
         })
     }
 
-    event(name, users, output) {
-        if (!output) {
-            output = users
-            users = null
+    event(name, ...more) {
+        let output, users, data
+        switch (more.length) {
+            case 2:
+                if (_.isArray(more[0])) {
+                    users = more[0]
+                }
+                else {
+                    data = more[0]
+                }
+                output = more[1]
+                break
+            case 3:
+                data = more[0]
+                users = more[1]
+                output = more[2]
+                break
+            default:
+                users = this.users
+                break
         }
-        if (!users) {
-            users = this.users
-        }
-        else if (!_.isArray(users)) {
+        if (users && !_.isArray(users)) {
             users = [users]
         }
-        users.forEach((user, id) => {
+        users.forEach((user) => {
+            if (user.id) {
+                user = user.id
+            }
             this.exec({
                 type: 'event',
-                name
-            }, id, output)
+                name,
+                data
+            }, user, output)
         })
     }
 

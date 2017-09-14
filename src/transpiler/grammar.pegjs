@@ -32,6 +32,26 @@
         return _.merge(_var, { value })
     }
 
+    function stringParser(text) {
+        let variables = []
+        let index = -1
+        text = text
+            .map(letter => {
+                if (_.isString(letter)) return letter
+                variables.push(letter)
+                index++
+                return '{' + index + '}'
+            })
+            .join('')
+        if (variables.length == 0) {
+            return text
+        }
+        return {
+            text,
+            variables
+        }
+    }
+
 }
 
     
@@ -256,22 +276,13 @@ Factor
 // Text
 
 Text 
-    = '>' _ text:(String / TextId) {
-        let translate = false, params = []
-        if (text.translate) {
-            translate = text.translate
-            params = text.params
-            text = text.text
-        }
+    = '>' _ text:(CharText)* _ params:Array? {
+        text = stringParser(text)
         if (_.isString(text)) {
             text = _.trim(text)
         }
-        return { output: text, translate, params }
+        return { output: text, params }
     }
-
-TextId = text:([^\n\[]*) _ params:Array? {
-    return { translate: true, text: text.join(''), params }
-}
 
 Variable "variable" = name:([\$:]? [a-zA-Z_0-9]+) { 
         return text() 
@@ -387,24 +398,8 @@ StringInExpression 'string in expression'
     }
 
 String 'string'
-  = Quote quote: NotQuote* Quote { 
-      let variables = []
-      let index = -1
-      let text = quote
-        .map(letter => {
-            if (_.isString(letter)) return letter
-            variables.push(letter)
-            index++
-            return '{' + index + '}'
-        })
-        .join('')
-      if (variables.length == 0) {
-        return text
-      }
-      return {
-          text,
-          variables
-      }
+  = Quote text: NotQuote* Quote { 
+      return stringParser(text)
   }
 
 Boolean = bool:('true' / 'false') { 
@@ -431,6 +426,8 @@ SingleComment = '//' [^\n]* {
 
 // Characters
 
+CharText
+  = char:(VariableString / [^\n\[]) { return char }
 NotQuote
   = !Quote char:(VariableString / .) { return char }
 

@@ -4,7 +4,7 @@ start() {
     val = 0
 
     while (val < 3) {
-        > '{val}'
+        > {val}
         Input()
         val++
     }

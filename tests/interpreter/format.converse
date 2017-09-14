@@ -3,6 +3,6 @@ start() {
     val = 42
 
     @Format('button', 42)
-    > 'ok'
+    > ok
 
 }

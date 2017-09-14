@@ -352,10 +352,8 @@ describe('Test Transpiler', () => {
             `str = 'world'
             @Event('start')
             start() {
-               > 'hello {'str'}'
+               > hello {'str'}
             }`
-
-
     })
 
 
@@ -442,12 +440,11 @@ describe('Test Transpiler', () => {
         const str =
             `@Event('start')
             start() {
-               > 'hello {'str'}'
+               > hello {'str'}
             }`
         const [obj] = t(str)
         expect(obj.instructions[0].output).to.have.property('text', 'hello {0}')
         expect(obj.instructions[0].output.variables[0]).to.have.property('value', 'str')
-        expect(obj.instructions[0]).to.have.property('translate', false)
     })
 
     it('function with string variable', () => {
@@ -482,7 +479,7 @@ describe('Test Transpiler', () => {
         const str =
             `@Event('start')
             start() {
-               > 'hello {$text}'
+               > hello {$text}
             }`
         const [obj] = t(str)
         const value = obj.instructions[0].output.variables[0].value
@@ -494,7 +491,7 @@ describe('Test Transpiler', () => {
         const str =
             `@Event('start')
             start() {
-               > 'hello {$response.test}'
+               > hello {$response.test}
             }`
         const [obj] = t(str)
         const value = obj.instructions[0].output.variables[0].value
@@ -680,7 +677,7 @@ describe('Test Transpiler', () => {
             start() {
                 val = 0
                 (val < 3) {
-                    > '{val}'
+                    > {val}
                     Input()
                     val++
                 }
@@ -713,7 +710,7 @@ describe('Test Transpiler', () => {
         const [obj] = t(`
             start() {
                 while (val < 5) {
-                    > '{val}'
+                    > {val}
                     val++
                 }
             }
@@ -727,10 +724,10 @@ describe('Test Transpiler', () => {
     it('Intent decorator with instructions', () => {
         const [obj] = t(`
             @Intent('departure') {
-                (unknown :city) > 'What is your city?'
+                (unknown :city) > What is your city?
             }
             search() {
-                > 'ok'
+                > ok
             }
         `)
         const ins = obj.decorators[0].instructions[0]
@@ -740,10 +737,10 @@ describe('Test Transpiler', () => {
     it('Intent decorator with instruction text', () => {
         const [obj] = t(`
             @Intent('departure') {
-                > 'What is your city?'
+                > What is your city?
             }
             search() {
-                > 'ok'
+                > ok
             }
         `)
         const ins = obj.decorators[0].instructions[0]
@@ -757,7 +754,7 @@ describe('Test Transpiler', () => {
             @Event('start')
             start() {
                 @Format('button')
-                > 'ok'
+                > ok
             }
         `)
         expect(obj.instructions[0]).to.have.property('decorators')

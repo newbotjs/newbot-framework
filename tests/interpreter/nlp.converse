@@ -5,5 +5,5 @@ start() {
 
 @Intent('input.departure')
 search() {
-    > 'search'
+    > search
 }

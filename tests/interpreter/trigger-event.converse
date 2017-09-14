@@ -5,10 +5,10 @@ start() {
 
 @Event('on', 'broadcast')
 broadcast() {
-    > 'ok'
+    > ok
 }
 
 @Event('on', 'fake')
 fake() {
-    > 'fake'
+    > fake
 }

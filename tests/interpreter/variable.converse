@@ -5,5 +5,5 @@ start() {
     $score++
    Input()
     $score += 3
-    > 'your score {$score}'
+    > your score {$score}
 }

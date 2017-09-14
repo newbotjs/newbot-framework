@@ -1,14 +1,14 @@
 language() {
     myvar = 1
-    > 'what your language ?'
+    > what your language ?
     Input()
-    > 'thanks'
+    > thanks
 }
 
 @Event('start')
 start() {
     myvar = 2
     language()
-    > 'your name ?'
+    > your name ?
     Input()
 }

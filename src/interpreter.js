@@ -318,8 +318,8 @@ class Execution {
         }
         else if (value.__deepIndex) {
             for (let address of value.__deepIndex) {
-               let valueObj = this.getValue(_.get(value, address), level, next)
-               _.set(value, address, valueObj)
+                let valueObj = this.getValue(_.get(value, address), level, next)
+                _.set(value, address, valueObj)
             }
         }
         return value
@@ -382,14 +382,21 @@ class Execution {
         if (!this.output) {
             return
         }
-        if (!ins.translate && ins.output.variables) {
+
+        if (ins.output.variables) {
             outputValue = this.getValue(ins.output, level)
         }
-        if (ins.translate) {
+
+        const hasTranslate =
+            converse.lang.data[converse.lang.current] &&
+            converse.lang.get(outputValue) !== ''
+
+        if (hasTranslate) {
             let params = ins.params || []
             params = params.map(p => this.getValue(p, level))
             outputValue = outputValue.t(...params)
         }
+
         if (ins.decorators) {
             for (let d of ins.decorators) {
                 if (d.name == 'Format') {
@@ -438,6 +445,7 @@ class Execution {
 
     execApiFn(ins, level, done, more) {
         switch (ins.name) {
+            case 'Prompt':
             case 'Input':
                 this.user.addAddress(ins.id)
                 if (this.hooks.input) {

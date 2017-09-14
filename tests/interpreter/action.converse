@@ -1,4 +1,4 @@
 @Action('buy') 
 buy() {
-    > 'transaction : {:action}'
+    > transaction : {:action}
 }

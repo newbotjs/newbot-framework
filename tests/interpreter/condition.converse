@@ -12,18 +12,18 @@ start() {
     (bool1) {
         val++
         Input()
-        > 'a'
+        > a
         (true) {
-            > 'b'
+            > b
             Input()
-            > '{:text}'
+            > {:text}
             (true) {
                 val++
             }
         }
-        > 'c'
+        > c
     }
-    > 'd'
+    > d
     Input()
-    (:text == 'ok') > 'e'
+    (:text == 'ok') > e
 }

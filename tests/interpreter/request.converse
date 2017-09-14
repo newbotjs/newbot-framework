@@ -1,6 +1,6 @@
 @Event('start')
 start() {
-    > 'get'
+    > get
     Request('https://jsonplaceholder.typicode.com/users')
-    > 'thanks'
+    > thanks
 }

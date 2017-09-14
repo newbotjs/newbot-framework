@@ -5,5 +5,5 @@ start() {
 
 @Intent('departure')
 search() {
-    > 'Your departure : {:intent.city}'
+    > Your departure : {:intent.city}
 }

@@ -1,4 +1,4 @@
 @Event('start')
 start() {
-    > 'test'
+    > test
 }

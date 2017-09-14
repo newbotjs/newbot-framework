@@ -93,7 +93,7 @@ GetObject
     }
 
 DeepObject
-    = deep:('.' _ Variable _ DeepArray?)+ {
+    = deep:('.' _ Variable S DeepArray?)+ {
         let array = []
         for (let d of deep) {
             array.push(d[2])
@@ -194,7 +194,7 @@ ConditionInstruction
     }
 
 ConditionSign 
-    = keyword:('and' / '&&' / 'or' / '||' / 'xor' / ([><=!] '=') / [<>]) {
+    = keyword:('and' / '&&' / 'or' / '||' / 'xor' / ([><=!] '=') / '<' / '>') {
         if (keyword == '&&') keyword = 'and'
         if (keyword == '||') keyword = 'or'
         if (_.isArray(keyword)) keyword = keyword.join('')
@@ -213,7 +213,7 @@ Not
 // Expression
 
 Expression "expression"
-  =  head:(Not? _ Factor) tail:( S (ConditionSign / '+' / '-' / '**' / '*' / '/' / '%' ) _ Factor)* {
+  =  head:(Not? _ Factor) tail:( [ ]* (ConditionSign / '+' / '-' / '**' / '*' / '/' / '%' ) _ Factor)* {
 
         const not = head[0]
         const isExpr = tail.length > 0 || not

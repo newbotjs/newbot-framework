@@ -761,5 +761,16 @@ describe('Test Transpiler', () => {
         expect(obj.instructions[0]).to.have.property('output', 'ok')
     })
 
+    it('Variable assignation and output', () => {
+        const [obj] = t(`
+            foo() {
+                a = event.data
+                > ok ok
+            }
+        `)
+        expect(obj.instructions[1]).to.have.property('output', 'ok ok')
+    })
+
+    
 
 })

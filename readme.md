@@ -23,6 +23,7 @@ Powerful Scripting for Automated Conversations (Chatbot)
 * Unit testing and function mock
 * Possible to call Javascript functions
 * Possible to put ConverScript on any framework (BotFramework, Botkit, etc)
+* Put the @Action decorator on a function. Triggers a function if an action is performed
 
 # Todo 
 
@@ -30,7 +31,6 @@ Powerful Scripting for Automated Conversations (Chatbot)
 * Trigger events or intention but according to conditions
 * Start functions with parameters
 * Function Returns a value
-* Put the @Action decorator on a function. Triggers a function if an action is performed
 * API to manage the conversation flow (cancel, go back, go forward, etc.)
 * Import / Export modules
 * Run an offline ConverseScript file
@@ -40,8 +40,9 @@ Powerful Scripting for Automated Conversations (Chatbot)
 # ConverseScript scenario example 
 
 ```converse
-@Event('start') {
-    > 'Hello'
+@Event('start')
+start() {
+    > Hello !
 }
 ```
 

@@ -4,7 +4,7 @@ module.exports = function(user, assert) {
         .spy('start', testing => {
             assert.equal(testing.output(0), 'test')
             assert.equal(testing.output(1), 'hello')
-            //assert.equal(testing.output(2), '3')
+            assert.equal(testing.output(2), '3')
         })
         .end()
 }

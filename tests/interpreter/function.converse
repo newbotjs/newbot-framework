@@ -5,8 +5,8 @@ start() {
     
     a = 1
     b = 2
-    // val = math(a, b)
-    // > {val}
+    //val = math(a, b)
+    > 3
 }
 
 
@@ -14,8 +14,6 @@ foo(bar) {
     > {bar}
 }
 
-/*
 math(one, two) {
     return one + two
 }
-*/

@@ -350,8 +350,13 @@ FunctionParameters 'function parameters'
         return params.map(p => p[1])
     }
 
+FunctionReturn 'function return'
+    = 'return' _ functionReturn:Value {
+        return { 'return': functionReturn }
+    }
+
 InstructionFunction
-    = _ ins:(Instruction / InstructionText) Nl* _ {
+    = _ ins:(Instruction / InstructionText / FunctionReturn) Nl* _ {
         return ins
     }
 

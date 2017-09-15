@@ -175,7 +175,7 @@ class Execution {
         let ins = instructions[pointer]
         const { isBlock } = options
         const next = () => this.instructions(instructions, pointer + 1, level, finish, options)
-        if (!ins && !options.refresh) {
+        if ((!ins || ins.return) && !options.refresh) {
             if (!isBlock) {
                 if (this.options.finishFn) this.options.finishFn(level)
             }

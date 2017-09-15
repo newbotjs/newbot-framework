@@ -372,7 +372,7 @@ describe('Test Transpiler', () => {
                return 'foo'
             }`
         const [obj] = t(str)
-        console.log(JSON.stringify(obj, null, 2))
+        expect(obj.instructions[0]).to.have.property('return', 'foo')
     })
 
 

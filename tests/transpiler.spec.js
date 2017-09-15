@@ -347,6 +347,16 @@ describe('Test Transpiler', () => {
 
     })
 
+    it('simple function with parameters', () => {
+        const str =
+            `start(foo, bar) {
+            
+            }`
+        const [obj] = t(str)
+        expect(obj).to.have.deep.property('params', ['foo', 'bar'])
+
+    })
+
     it('function with instruction', () => {
         const str =
             `str = 'world'
@@ -354,6 +364,15 @@ describe('Test Transpiler', () => {
             start() {
                > hello {'str'}
             }`
+    })
+
+    it('function return instruction', () => {
+        const str =
+            `start() {
+               return 'foo'
+            }`
+        const [obj] = t(str)
+        console.log(JSON.stringify(obj, null, 2))
     })
 
 

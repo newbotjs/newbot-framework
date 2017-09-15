@@ -1,4 +1,21 @@
 @Event('start')
 start() {
     > test
+    foo('hello')
+    
+    a = 1
+    b = 2
+    // val = math(a, b)
+    // > {val}
 }
+
+
+foo(bar) {
+    > {bar}
+}
+
+/*
+math(one, two) {
+    return one + two
+}
+*/

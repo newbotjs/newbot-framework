@@ -187,9 +187,6 @@ class Execution {
             }
             return
         }
-        if (!this.user.varFn[level]) {
-            this.user.varFn[level] = {}
-        }
 
         if (ins.group) {
             let groupIns = ins.group[_.random(0, ins.group.length - 1)]
@@ -224,8 +221,26 @@ class Execution {
             ins.name = variable
         }
         if (this.interpreter.fn[ins.name]) {
+            const params = ins.params
+            const insFn = this.interpreter.fn[ins.name]
+            const paramsFn = insFn.params
+
             this.user.addAddress(ins.id)
-            this.execFn(this.interpreter.fn[ins.name], 0, next)
+
+            let paramsPromises = []
+            if (params) {
+                for (let i = 0 ; i < params.length ; i++) {
+                    paramsPromises.push(new Promise((resolve) => {
+                        this.execVariable({
+                            variable: paramsFn[i],
+                            value: this.getValue(params[i], level)
+                        }, ins.name, resolve)
+                    }))
+                }
+            }
+            Promise.all(paramsPromises).then(() => {
+                this.execFn(insFn, 0, next)
+            }) 
         }
         else {
             return this.execApiFn(ins, level, next, { deep })
@@ -233,12 +248,19 @@ class Execution {
     }
 
     getScope(level) {
+        if (!this.user.varFn[level]) {
+            this.user.varFn[level] = {}
+        }
         return level == 'root' ? this.user.variable : this.user.varFn[level]
     }
 
     getVariable(ins, level, value) {
         const set = !_.isUndefined(value)
         let name = ins.variable
+
+        if (!this.user.varFn[level]) {
+            this.user.varFn[level] = {}
+        }
 
         if (/^\$/.test(name)) {
             const variable = this.user.getVariable(name)
@@ -321,7 +343,6 @@ class Execution {
         }
         else if (obj.type == 'executeFn') {
             value = this.findFunctionAndExec(obj, level)
-            console.log(value)
         }
         else if (value.__deepIndex) {
             for (let address of value.__deepIndex) {

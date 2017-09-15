@@ -340,9 +340,14 @@ DecoratorInstruction
 // Types
 
 Function 'function'
-    = name:Variable _ '(' _ ')' _ '{' _  instructions:InstructionFunction* _ '}' {
+    = name:Variable _ '(' _ params:FunctionParameters? _ ')' _ '{' _  instructions:InstructionFunction* _ '}' {
         instructions = instructions.filter(it => it)
-        return { name, type: 'function', instructions }
+        return { name, params, type: 'function', instructions }
+    }
+
+FunctionParameters 'function parameters'
+    = params:(_ Variable _ ','?)+ {
+        return params.map(p => p[1])
     }
 
 InstructionFunction

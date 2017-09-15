@@ -771,6 +771,17 @@ describe('Test Transpiler', () => {
         expect(obj.instructions[1]).to.have.property('output', 'ok ok')
     })
 
-    
+    it('Group output', () => {
+        const [obj] = t(`
+            foo() {
+                ---
+                > hello
+                > hey
+                ---
+            }
+        `)
+        expect(obj.instructions[0]).to.have.property('group')
+        expect(obj.instructions[0].group).to.have.lengthOf(2)
+    })
 
 })

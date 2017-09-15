@@ -172,7 +172,7 @@ class Execution {
     }
 
     instructions(instructions, pointer, level = 'root', finish, options = {}) {
-        const ins = instructions[pointer]
+        let ins = instructions[pointer]
         const { isBlock } = options
         const next = () => this.instructions(instructions, pointer + 1, level, finish, options)
         if (!ins && !options.refresh) {
@@ -190,6 +190,13 @@ class Execution {
         if (!this.user.varFn[level]) {
             this.user.varFn[level] = {}
         }
+
+        if (ins.group) {
+            let groupIns = ins.group[_.random(0, ins.group.length - 1)]
+            groupIns.decorators = ins.decorators
+            ins = groupIns
+        }
+
         if (ins.condition) {
             this.execCondition(ins, level, next)
         }

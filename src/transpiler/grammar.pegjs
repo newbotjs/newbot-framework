@@ -273,6 +273,13 @@ Factor
   / Integer / ExecuteFunction / StringInExpression / Boolean
   / GetObject / VariableName
 
+// Group
+
+Group
+    = '---' _ group:Text+ _ '---' {
+        return { group }
+    }
+
 // Text
 
 Text 
@@ -344,7 +351,7 @@ InstructionFunction
     }
 
 InstructionText
-    = _ decorators:DecoratorList? _ output:Text {
+    = _ decorators:DecoratorList? _ output:(Text / Group) {
         if (decorators) {
             output.decorators = decorators
         }

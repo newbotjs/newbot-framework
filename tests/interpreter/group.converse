@@ -1,0 +1,7 @@
+@Event('start') 
+start() {
+    ---
+    > hello
+    > hey
+    ---
+}

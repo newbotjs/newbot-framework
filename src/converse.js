@@ -124,7 +124,7 @@ class Converse {
         return this
     }
 
-    execFunction(name, params, done, user, { deep }) {
+    execFunction(name, params, done, user, { deep, data }) {
         let mockName = name
         if (deep) {
             mockName += '.' + deep
@@ -150,6 +150,8 @@ class Converse {
                         return this.users
                     case 'user':
                         return user
+                    case 'data':
+                        return data
                 }
                 return p
             })

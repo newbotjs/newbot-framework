@@ -243,7 +243,7 @@ class Execution {
             }) 
         }
         else {
-            return this.execApiFn(ins, level, next, { deep })
+            return this.execApiFn(ins, level, next, { deep, data: this.options.data })
         }
     }
 
@@ -549,6 +549,11 @@ class Interpreter {
             user = new User(userId)
             this._users.set(userId, user)
             start = true
+        }
+        if (options.magicVariables) {
+            for (let variable in options.magicVariables) {
+                user.setMagicVariable(variable, options.magicVariables[variable])
+            }
         }
         user.setMagicVariable('userId', userId)
         const exec = new Execution(user, input, options, start, this)

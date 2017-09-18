@@ -83,11 +83,11 @@ class User {
     }
 
     fromJson(json) {
-        this.address = json._current._address
-        this.varFn = json._current._var
-        this.magicVar = json._current._magicVar
-        this.session = json._session
-        this.variables = json.data
+        this.address = json._current._address || []
+        this.varFn = json._current._var || {}
+        this.magicVar = json._current._magicVar || {}
+        this.session = json._session || {}
+        this.variables = json.data || {}
         return this
     }
 

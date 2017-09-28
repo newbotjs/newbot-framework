@@ -175,7 +175,7 @@ class Execution {
         let ins = instructions[pointer]
         const { isBlock } = options
         const next = () => this.instructions(instructions, pointer + 1, level, finish, options)
-        if ((!ins || ins.return) && !options.refresh) {
+        if ((!ins && !options.refresh) || (ins && ins.return)) {
             if (!isBlock) {
                 if (this.options.finishFn) this.options.finishFn(level)
             }
@@ -233,7 +233,7 @@ class Execution {
                     paramsPromises.push(new Promise((resolve) => {
                         this.execVariable({
                             variable: paramsFn[i],
-                            value: this.getValue(params[i], level)
+                            value: _.isUndefined(params[i]) ? null : this.getValue(params[i], level)
                         }, ins.name, resolve)
                     }))
                 }
@@ -476,8 +476,8 @@ class Execution {
             case 'Prompt':
             case 'Input':
                 this.user.addAddress(ins.id)
-                if (this.hooks.input) {
-                    this.hooks.input(this.input, ins.params, {
+                if (this.hooks.prompt) {
+                    this.hooks.prompt(this.input, ins.params, {
                         user: this.user,
                         data: this.options.data,
                         level

@@ -37,6 +37,7 @@ class Decorators {
 
     _exec(decorators, execution, method) {
         let hasExec = false
+        let promises = []
         const execFn = (item) => {
             hasExec = true
             let fn = this.interpreter.fn[item.fnName]
@@ -53,16 +54,19 @@ class Decorators {
                 ret = item[method](execution)
             }
             if (ret instanceof Promise) {
-                hasExec = ret.then(bool => {
+                promises.push(ret.then(bool => {
                     if (bool) execFn(item)
-                    return bool
-                })
+                }))
             }
             else {
                 execFn(item)
             }
         }
-        return hasExec
+        return promises.length > 0 ?
+            Promise.all(promises).then(() => {
+                return hasExec
+            })
+            : hasExec
     }
 
     execMethod(decoratorName, method, execution) {

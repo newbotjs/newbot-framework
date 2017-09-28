@@ -15,13 +15,13 @@ class IntentEvent extends Decorator {
                 return
             }
             if (!intents) {
-                resolve(false)
+                return resolve(false)
             }
             const intentName = this.params[0]
             const intent = intents[intentName]
             if (intent) {
                 execution.setMagicVar(`intent`, intent)
-                resolve(true)
+                return resolve(true)
             }
             resolve(false)
         })

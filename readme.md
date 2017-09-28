@@ -29,7 +29,6 @@ Powerful Scripting for Automated Conversations (Chatbot)
 
 * Restriction input
 * Trigger events or intention but according to conditions
-* Start functions with parameters
 * Function Returns a value
 * API to manage the conversation flow (cancel, go back, go forward, etc.)
 * Import / Export modules
@@ -43,6 +42,85 @@ Powerful Scripting for Automated Conversations (Chatbot)
 @Event('start')
 start() {
     > Hello !
+}
+```
+
+# Experimental syntax
+
+```
+$lang = 'en'
+ask(langs) {
+    
+    @Format('quickReplies', langs)
+    > Quelle est votre langue ?
+    promptEmail()
+}
+
+@Intent('test') {
+    
+}
+test() {
+
+}
+
+
+promptEmail() {
+
+    Prompt('email') {
+        (unknow :intent.email) {
+            > Je ne connais pas votre email
+        }
+        (:intent.email.invalid) > Mettez une adresse email valide
+        (:intent.email.trash) {
+            > Email jetable ?
+            Api.get()
+        }
+    }
+    
+    > Merci !
+}
+
+@Intent('change language')
+changeLanguage() {
+    > Ok, je change votre langue
+    ask()
+}
+```
+
+/*
+    converse_modules
+        language
+            index.js
+            index.converse
+            index.spec.js
+            package.json
+    skills
+        foo
+            foo.js
+            foo.converse
+            foo.spec.js
+            package.json
+            languages
+                fr_FR.json
+                en_EN.json
+
+*/
+
+In Foo :
+
+converse.modules({
+    Language: 'language'
+})
+
+In main script
+
+converse.modules({
+    Foo: '../skills/foo'
+})
+
+```
+start() {
+    Language.ask(['français', 'anglais'])
 }
 ```
 

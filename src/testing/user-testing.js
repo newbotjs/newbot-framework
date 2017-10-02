@@ -26,6 +26,7 @@ class UserTesting {
         return this
     }
 
+    prompt(str, callback) { return this.input(str, callback) }
     input(str, callback) {
         this.testing.push({ type: 'input', str, callback })
         return this

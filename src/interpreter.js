@@ -99,6 +99,7 @@ class Execution {
         if (address) {
             let { index, level, deep } = address
             let fn = this.interpreter.fn[level]
+           
             this.user.setMagicVariable('text', this.input)
             this.user.popAddress()
 
@@ -415,14 +416,15 @@ class Execution {
             outputValue = this.getValue(ins.output, level)
         }
 
+        const lang = this.user.getLang() || converse.lang.current
         const hasTranslate =
-            converse.lang.data[converse.lang.current] &&
-            converse.lang.get(outputValue) !== ''
+            converse.lang.data[lang] &&
+            converse.lang.get(outputValue, null, lang)
 
         if (hasTranslate) {
             let params = ins.params || []
             params = params.map(p => this.getValue(p, level))
-            outputValue = outputValue.t(...params)
+            outputValue = outputValue.t(lang, ...params)
         }
 
         if (ins.decorators) {

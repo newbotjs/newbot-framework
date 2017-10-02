@@ -7,6 +7,7 @@ class User {
         this.magicVar = {}
         this.variables = {}
         this.id = id
+        this.lang = null
     }
 
     addAddress(address) {
@@ -70,6 +71,14 @@ class User {
         return this.session
     }
 
+    setLang(lang) {
+        this.lang = lang
+    }
+
+    getLang() {
+        return this.lang
+    }
+
     toJson() {
         return {
             _current: {
@@ -78,7 +87,8 @@ class User {
                 _magicVar: this.magicVar
             },
             _session: this.session,
-            data: this.variables
+            data: this.variables,
+            lang: this.lang
         }
     }
 
@@ -88,6 +98,7 @@ class User {
         this.magicVar = json._current._magicVar || {}
         this.session = json._session || {}
         this.variables = json.data || {}
+        this.lang = json.lang
         return this
     }
 

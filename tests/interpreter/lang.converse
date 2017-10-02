@@ -2,8 +2,8 @@
 start() {
     @Format('quick', ['Français', 'Anglais', 'Espagnol'])
     > Choise your language
-    Input('language', {
-        fr: 'Français',
-        en: 'English'
-    })
+    Prompt()
+    Lang.set('fr_FR')
+    > hello
+    > Your language : { Lang.name() }
 }

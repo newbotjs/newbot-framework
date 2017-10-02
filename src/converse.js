@@ -174,7 +174,7 @@ class Converse {
         if (!done) {
             return ret
         }
-        if (ret.then) {
+        if (ret && ret.then) {
             return ret.then(done)
         }
         done(ret)

@@ -371,7 +371,7 @@ class Execution {
         let bool = this.getValue(ins.condition, level)
         switch (ins.keyword) {
             case 'unknown':
-                bool = _.isUndefined(bool)
+                bool = _.isUndefined(bool) || _.isNull(bool)
                 break
         }
         if (bool) {

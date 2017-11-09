@@ -10,6 +10,13 @@ const Array = {
         return array.push(value)
     },
 
+    pushOnlyUniq(array, value) {
+        if  (array.indexOf(value) === -1) {
+            return this.push(array, value)
+        }
+        return array
+    },
+
     remove: _.remove,
 
     find: _.find,

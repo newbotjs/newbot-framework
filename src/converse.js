@@ -11,16 +11,23 @@ const Nlp = require('./nlp')
 
 class Converse {
 
-    constructor() {
-        this.users = new Map()
+    constructor(users = new Map()) {
         this._nlp = {}
         this.config = {}
         this._format = {}
         this._dbHook = {}
-        this._mongoDbHook = {}
         this._hooks = {}
+        this.script = []
+        this._obj = []
+        this._skills = new Map()
+        this._users = users
+        this.namespace = 'default'
         this._functions = Functions
         this.lang = Languages.instance()
+    }
+
+    get users() {
+        return this._users
     }
 
     configure(config) {
@@ -40,11 +47,10 @@ class Converse {
 
     open() {
         if (this._file) {
-            this.script = fs.readFileSync(this._file, 'utf-8')
+            this.code(fs.readFileSync(this._file, 'utf-8'))
         }
         this._transpiler = new Transpiler(this.script)
         this._obj = this._transpiler.run()
-        // console.log(JSON.stringify(this._obj, null, 2))
         this._interpreter = new Interpreter(this._obj, this.users, this)
         return this
     }
@@ -53,6 +59,7 @@ class Converse {
         this.open()
         let p = Promise.resolve()
         const nlp = this.getCurrentNlp()
+        p = p.then(() => this.propagateExec(input, userId, output))
         if (nlp && input.type !== 'event') {
             p = p.then(() => nlp.exec(input, userId))
         }
@@ -67,6 +74,14 @@ class Converse {
         }).catch((err) => {
             console.log(err)
         })
+    }
+
+    propagateExec(input, userId, output) {
+        const promises = []
+        this._skills.forEach((skill) => {
+            promises.push(skill.exec(input, userId, output))
+        })
+        return Promise.all(promises)
     }
 
     event(name, ...more) {
@@ -134,6 +149,8 @@ class Converse {
 
         let { $call, $mock, $params } = this._functions[name]
         let ret
+
+        this._functions[name].namespace = this.namespace
 
         if (!$call) {
             $call = this._functions[name]
@@ -226,6 +243,14 @@ class Converse {
 
     use(hooks) {
         this._hooks = hooks
+    }
+
+    skill(skillName) {
+        const root = module.parent.parent.id
+        const skill = require(`/home/samuel/www/newbot.io/conversescript/tests/modules/converse_skills/${skillName}`)
+        skill._users = this.users
+        skill.namespace = (this.namespace ? this.namespace + '-' : '') + skillName
+        this._skills.set(skillName, skill)
     }
 
 }

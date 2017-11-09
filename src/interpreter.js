@@ -29,6 +29,7 @@ class Execution {
         this.hooks = interpreter.converse._hooks
         this.obj = interpreter._obj
         this.error = new ExecutionError(interpreter.converse.script)
+        this.namespace = interpreter.namespace
         this.instructionsRoot()
         if (this.event) {
             this.triggerEvent()
@@ -85,7 +86,7 @@ class Execution {
 
     go(deepFn = 0) {
         const self = this
-        const address = this.interpreter.index[this.user.getAddress()]
+        const address = this.interpreter.index[this.user.getAddress(this.namespace)]
         let exec = false
 
         // Get decorators
@@ -99,9 +100,9 @@ class Execution {
         if (address) {
             let { index, level, deep } = address
             let fn = this.interpreter.fn[level]
-           
+
             this.user.setMagicVariable('text', this.input)
-            this.user.popAddress()
+            this.user.popAddress(this.namespace)
 
             const fnBlock = (index) => {
                 this.execFn(fn, index + 1, () => {
@@ -158,7 +159,7 @@ class Execution {
     }
 
     end() {
-        this.user.clearAddress()
+        this.user.clearAddress(this.namespace)
         if (this.hooks.finished) {
             this.hooks.finished(this.input, {
                 user: this.user,
@@ -184,7 +185,7 @@ class Execution {
                 finish(level)
             }
             if (!isBlock) {
-                this.user.garbage(level)
+                this.user.garbage(level, this.namespace)
             }
             return
         }
@@ -226,11 +227,11 @@ class Execution {
             const insFn = this.interpreter.fn[ins.name]
             const paramsFn = insFn.params
 
-            this.user.addAddress(ins.id)
+            this.user.addAddress(ins.id, this.namespace)
 
             let paramsPromises = []
             if (params) {
-                for (let i = 0 ; i < params.length ; i++) {
+                for (let i = 0; i < params.length; i++) {
                     paramsPromises.push(new Promise((resolve) => {
                         this.execVariable({
                             variable: paramsFn[i],
@@ -241,7 +242,7 @@ class Execution {
             }
             Promise.all(paramsPromises).then(() => {
                 this.execFn(insFn, 0, next)
-            }) 
+            })
         }
         else {
             return this.execApiFn(ins, level, next, { deep, data: this.options.data })
@@ -249,36 +250,34 @@ class Execution {
     }
 
     getScope(level) {
-        if (!this.user.varFn[level]) {
-            this.user.varFn[level] = {}
-        }
-        return level == 'root' ? this.user.variable : this.user.varFn[level]
+        return level == 'root' ?
+            this.user.getVariables(this.namespace) :
+            this.user.getVariableInFonction(this.namespace, level)
     }
 
     getVariable(ins, level, value) {
         const set = !_.isUndefined(value)
+
         let name = ins.variable
 
-        if (!this.user.varFn[level]) {
-            this.user.varFn[level] = {}
-        }
+        const varFn = this.user.getVariableInFonction(this.namespace, level, name)
 
         if (/^\$/.test(name)) {
-            const variable = this.user.getVariable(name)
+            const variable = this.user.getVariable(this.namespace, name)
             if (set) {
                 this.setDeepObject(ins, variable, value, level) ? null :
-                    this.user.setVariable(name, value)
+                    this.user.setVariable(this.namespace, name, value)
             }
             return this.getDeepObject(ins, variable, level)
         }
 
         if (set) {
-            this.setDeepObject(ins, this.user.varFn[level][name], value, level) ? null :
-                this.user.varFn[level][name] = value
+            this.setDeepObject(ins, varFn, value, level) ? null :
+                this.user.setVariableInFonction(this.namespace, level, name, value)
         }
 
-        if (!_.isUndefined(this.user.varFn[level][name])) {
-            return this.getDeepObject(ins, this.user.varFn[level][name], level)
+        if (!_.isUndefined(varFn)) {
+            return this.getDeepObject(ins, varFn, level)
         }
     }
 
@@ -477,7 +476,7 @@ class Execution {
         switch (ins.name) {
             case 'Prompt':
             case 'Input':
-                this.user.addAddress(ins.id)
+                this.user.addAddress(ins.id, this.namespace)
                 if (this.hooks.prompt) {
                     this.hooks.prompt(this.input, ins.params, {
                         user: this.user,
@@ -506,6 +505,7 @@ class Interpreter {
         this.fn = {}
         this.decorators = new Decorators(this)
         this.converse = converse
+        this.namespace = this.converse.namespace
         this.organize(this._obj)
     }
     organize(ins, level = 'root', deepBlock = []) {
@@ -527,12 +527,16 @@ class Interpreter {
             this.index[o.id] = {
                 level,
                 index: i,
+                namespace: this.namespace,
                 deep: deepBlock
             }
         }
     }
     setId(o, level) {
         let id = level + '-' + md5(JSON.stringify(o))
+        if (this.namespace) {
+            id += '-' + this.namespace
+        }
         let i = 1
         while (this.index[id + '-' + i]) {
             i++

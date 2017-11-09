@@ -11,7 +11,7 @@ const Users = {
     sum(name, users) {
         let sum = 0
         for (let [,user] of users) {
-            sum += +user.getVariable(name)
+            sum += +user.getVariable(this.namespace, name)
         }
         return sum
     },

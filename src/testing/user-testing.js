@@ -64,7 +64,7 @@ class UserTesting {
             user = new User(this.id)
             this.converse.users.set(this.id, user)
         }
-        user.setVariable(name, value)
+        user.setVariable('default', name, value)
         return this
     }
 
@@ -125,9 +125,9 @@ class UserTesting {
         this._output = []
         this.currentLevel = ''
         this.converse.exec(input, this.id, {
-            output: (str, done) => {
+            output: (str, outputDone) => {
                 this._output.push(str)
-                done()
+                outputDone()
             },
             waintingInput: (params, level) => {
                 this.currentLevel = level

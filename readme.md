@@ -108,6 +108,15 @@ changeLanguage() {
 
 In Foo :
 
+module.exports = () => {
+    const converse = new Converse()
+    converse.file('foo.converse')
+    converse.skills({
+        Language: 'language'
+    })
+    return converse
+}
+
 converse.modules({
     Language: 'language'
 })

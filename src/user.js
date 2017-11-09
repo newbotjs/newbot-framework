@@ -2,7 +2,7 @@ const _ = require('lodash')
 
 class User {
     constructor(id) {
-        this.address = []
+        this.address = {}
         this.varFn = {}
         this.magicVar = {}
         this.variables = {}
@@ -10,39 +10,82 @@ class User {
         this.lang = null
     }
 
-    addAddress(address) {
-        this.address.push(address)
-    }
-
-    getAddress() {
-        return _.last(this.address)
-    }
-
-    hasAddress() {
-        return this.address.length > 0
-    }
-
-    clearAddress() {
-        this.address = []
-    }
-
-    popAddress() {
-        this.address.pop()
-    }
-
-    garbage(level) {
-        delete this.varFn[level]
-    }
-
-    get variable() {
-        return this.variables
-    }
-
-    getVariableInFonction(fnName, varName) {
-        if (!this.varFn[fnName]) {
-            return
+    _createNamespace(namespace) {
+        if (!this.address[namespace]) {
+            this.address[namespace] = []
         }
-        return this.varFn[fnName][varName]
+        if (!this.variables[namespace]) {
+            this.variables[namespace] = {}
+        }
+        if (!this.varFn[namespace]) {
+            this.varFn[namespace] = {}
+        }
+    }
+
+    addAddress(address, namespace) {   
+        this._createNamespace(namespace)
+        this.address[namespace].push(address)
+    }
+
+    getAddress(namespace) {
+        this._createNamespace(namespace)
+        return _.last(this.address[namespace])
+    }
+
+    hasAddress(namespace) {
+        this._createNamespace(namespace)
+        return this.address[namespace].length > 0
+    }
+
+    clearAddress(namespace) {
+        this._createNamespace(namespace)
+        this.address[namespace] = []
+    }
+
+    popAddress(namespace) {
+        this._createNamespace(namespace)
+        this.address[namespace].pop()
+    }
+
+    garbage(level, namespace) {
+        this._createNamespace(namespace)
+        delete this.varFn[namespace][level]
+    }
+
+    getVariables(namespace) {
+        this._createNamespace(namespace)
+        return this.variables[namespace]
+    }
+
+    getVariable(namespace, name) {
+        name = name.replace(/^\$/, '')
+        this._createNamespace(namespace)
+        return this.variables[namespace][name]
+    }
+
+    setVariable(namespace, name, value) {
+        name = name.replace(/^\$/, '')
+        this._createNamespace(namespace)
+        this.variables[namespace][name] = value
+    }
+
+    getVariableInFonction(namespace, fnName, varName) {
+        this._createNamespace(namespace)
+        if (!this.varFn[namespace][fnName]) {
+            this.varFn[namespace][fnName] = {}
+        }
+        if (!varName) {
+            return this.varFn[namespace][fnName]
+        }
+        return this.varFn[namespace][fnName][varName]
+    }
+
+    setVariableInFonction(namespace, fnName, varName, value) {
+        this._createNamespace(namespace)
+        if (!this.varFn[namespace][fnName]) {
+            this.varFn[namespace][fnName] = {}
+        }
+        return this.varFn[namespace][fnName][varName] = value
     }
 
     getMagicVariable(name) {
@@ -52,17 +95,7 @@ class User {
     setMagicVariable(name, value) {
         this.magicVar[name] = value
     }
-
-    getVariable(name) {
-        name = name.replace(/^\$/, '')
-        return this.variables[name]
-    }
-
-    setVariable(name, value) {
-        name = name.replace(/^\$/, '')
-        this.variables[name] = value
-    }
-
+    
     saveSession(session) {
         this.session = session
     }

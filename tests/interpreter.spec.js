@@ -22,7 +22,8 @@ describe('Test Converse Testing', () => {
             let converse = new ConverseTesting()
             converse.file(`${dir}/${pattern}.converse`)
             let user = converse.createUser()
-            return require(`./interpreter/${pattern}.spec`)(user, assert, converse)
+            let p = require(`./interpreter/${pattern}.spec`)(user, assert, converse)
+            return p
         })
     }
 

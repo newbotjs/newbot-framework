@@ -3,6 +3,8 @@ const colors = require('colors')
 const User = require('./user')
 const md5 = require('md5')
 const math = require('mathjs')
+const async = require('async')
+const asyncReplace = require('async-replace')
 
 const Decorators = require('./decorators/decorators')
 const ExecutionError = require('./error')
@@ -31,13 +33,14 @@ class Execution {
         this.obj = interpreter._obj
         this.error = new ExecutionError(interpreter.converse.script)
         this.namespace = interpreter.namespace
-        this.instructionsRoot()
-        if (this.event) {
-            this.triggerEvent()
-        }
-        else {
-            this.go()
-        }
+        this.instructionsRoot(() => {
+            if (this.event) {
+                this.triggerEvent()
+            }
+            else {
+                this.go()
+            }
+        })
     }
 
     deepBlock(insParent, deep, pointer = 0) {
@@ -170,15 +173,15 @@ class Execution {
         if (this.options.finish) this.options.finish.call(this)
     }
 
-    instructionsRoot() {
-        this.instructions(this.obj, 0, 'root', null, { refresh: !this.start })
+    instructionsRoot(finish) {
+        this.instructions(this.obj, 0, 'root', finish)
     }
 
     instructions(instructions, pointer, level = 'root', finish, options = {}) {
         let ins = instructions[pointer]
         const { isBlock } = options
         const next = () => this.instructions(instructions, pointer + 1, level, finish, options)
-        if ((!ins && !options.refresh) || (ins && ins.return)) {
+        if ((!ins) || (ins && ins.return)) {
             if (!isBlock) {
                 if (this.options.finishFn) this.options.finishFn(level)
             }
@@ -219,35 +222,40 @@ class Execution {
     }
 
     findFunctionAndExec(ins, level, next) {
-        const { variable, type, deep } = ins.name
-        if (variable) {
-            ins.name = variable
-        }
-        if (this.interpreter.fn[ins.name]) {
-            const params = ins.params
-            const insFn = this.interpreter.fn[ins.name]
-            const paramsFn = insFn.params
-
-            this.user.addAddress(ins.id, this.namespace)
-
-            let paramsPromises = []
-            if (params) {
-                for (let i = 0; i < params.length; i++) {
-                    paramsPromises.push(new Promise((resolve) => {
-                        this.execVariable({
-                            variable: paramsFn[i],
-                            value: _.isUndefined(params[i]) ? null : this.getValue(params[i], level)
-                        }, ins.name, resolve)
-                    }))
+        return new Promise(async (resolve, reject) => {
+            const { variable, type, deep } = ins.name
+            if (variable) {
+                ins.name = variable
+            }
+            if (this.interpreter.fn[ins.name]) {
+                const params = ins.params
+                const insFn = this.interpreter.fn[ins.name]
+                const paramsFn = insFn.params
+    
+                this.user.addAddress(ins.id, this.namespace)
+    
+                let paramsPromises = []
+                if (params) {
+                    for (let i = 0; i < params.length; i++) {
+                        paramsPromises.push(new Promise(async (resolve) => {
+                            await this.execVariable({
+                                variable: paramsFn[i],
+                                value: _.isUndefined(params[i]) ? null : await this.getValue(params[i], level)
+                            }, ins.name, resolve)
+                        }))
+                    }
+                }
+                Promise.all(paramsPromises).then(() => {
+                    this.execFn(insFn, 0, next)
+                })
+            }
+            else {
+                let ret = this.execApiFn(ins, level, next, { deep, data: this.options.data })
+                if (!next) {
+                    resolve(ret)
                 }
             }
-            Promise.all(paramsPromises).then(() => {
-                this.execFn(insFn, 0, next)
-            })
-        }
-        else {
-            return this.execApiFn(ins, level, next, { deep, data: this.options.data })
-        }
+        })
     }
 
     getScope(level) {
@@ -295,9 +303,9 @@ class Execution {
         return this.getDeepObject(ins, object, level)
     }
 
-    _deepObject(ins, object, level, value) {
+    async _deepObject(ins, object, level, value) {
         const set = !_.isUndefined(value)
-        let deep = ins.deep.map(d => this.getValue(d, level))
+        let deep = await this.execParams(ins.deep, level)
         return _[set ? 'set' : 'get'](object, deep, value)
     }
 
@@ -312,46 +320,52 @@ class Execution {
     }
 
     getValue(obj, level, next) {
-        let scope = this.getScope(level)
-        let value = obj
-        if (value === null) {
-            return value
-        }
-        if (obj.expression) {
-            value = this.execExpression(obj.expression, obj.variables, level)
-        }
-        else if (obj.variable) {
-            if (/^:/.test(obj.variable)) {
-                let name = value.variable
-                value = this.getMagicVar(name, value, level)
+        return new Promise(async (resolve, reject) => {
+            let scope = this.getScope(level)
+            let value = obj
+            if (value === null) {
+                return resolve(value)
             }
-            else {
-                /*new ExecutionError('variable.not.exists', {
-                    user: this.user,
-                    name: obj.variable
-                })
-                */
-                value = this.getVariable(obj, level)
-                if (_.isUndefined(value)) {
-                    this.error.throw(obj, 'variable.not.defined')
+            if (obj.expression) {
+                value = await this.execExpression(obj.expression, obj.variables, level)
+            }
+            else if (obj.variable) {
+                if (/^:/.test(obj.variable)) {
+                    let name = value.variable
+                    value = this.getMagicVar(name, value, level)
+                }
+                else {
+                    /*new ExecutionError('variable.not.exists', {
+                        user: this.user,
+                        name: obj.variable
+                    })
+                    */
+                    value = this.getVariable(obj, level)
+                    if (_.isUndefined(value)) {
+                        this.error.throw(obj, 'variable.not.defined')
+                    }
                 }
             }
-        }
-        else if (obj.text && !obj.__deepIndex) {
-            value = obj.text.replace(/\{([^\}]+)\}/g, (match, sub) => {
-                return this.getValue(obj.variables[sub].value, level)
-            })
-        }
-        else if (obj.type == 'executeFn') {
-            value = this.findFunctionAndExec(obj, level)
-        }
-        else if (value.__deepIndex) {
-            for (let address of value.__deepIndex) {
-                let valueObj = this.getValue(_.get(value, address), level, next)
-                _.set(value, address, valueObj)
+            else if (obj.text && !obj.__deepIndex) {
+                value = await new Promise((resolve, reject) => {
+                    asyncReplace(obj.text, /\{([^\}]+)\}/g, async (match, sub, offset, string, done) => {
+                        done(null, await this.getValue(obj.variables[sub].value, level))
+                    }, (err, result) => {
+                        resolve(result)
+                    })
+                })
             }
-        }
-        return value
+            else if (obj.type == 'executeFn') {
+                value = await this.findFunctionAndExec(obj, level)
+            }
+            else if (value.__deepIndex) {
+                for (let address of value.__deepIndex) {
+                    let valueObj = await this.getValue(_.get(value, address), level, next)
+                    _.set(value, address, valueObj)
+                }
+            }
+            resolve(value)
+        })
     }
 
     execBlock(ins, pointer = 0, level, finish) {
@@ -368,98 +382,112 @@ class Execution {
     }
 
     execCondition(ins, level, next) {
-        let bool = this.getValue(ins.condition, level)
-        switch (ins.keyword) {
-            case 'unknown':
-                bool = _.isUndefined(bool) || _.isNull(bool)
-                break
-        }
-        if (bool) {
-            this.execBlock(ins, 0, level, next)
-        }
-        else {
-            next()
-        }
+        return new Promise((resolve, reject) => {
+            this.getValue(ins.condition, level).then(resolve)
+        }).then((bool) => {
+            switch (ins.keyword) {
+                case 'unknown':
+                    bool = _.isUndefined(bool) || _.isNull(bool)
+                    break
+            }
+            if (bool) {
+                this.execBlock(ins, 0, level, next)
+            }
+            else {
+                next()
+            }
+        })
     }
 
     execExpression(expr, variables, level) {
-        expr = expr.replace(/\{([0-9]+)\}/g, (match, index) => {
-            let val = this.getValue(variables[index], level)
-            if (!/[0-9]+(\.[0-9]+)?/.test(val) && !_.isBoolean(val) && val !== null) {
-                val = `"${val}"`
-            }
-            return val
+        return new Promise(async (resolve, reject) => {
+            expr = await new Promise((resolve, reject) => {
+                asyncReplace(expr, /\{([0-9]+)\}/g, async (match, index, offset, string, done) => {
+                    let val = await this.getValue(variables[index], level)
+                    if (!/[0-9]+(\.[0-9]+)?/.test(val) && !_.isBoolean(val) && val !== null) {
+                        val = `"${val}"`
+                    }
+                    done(null, val)
+                }, (err, result) => {
+                    resolve(result)
+                })
+            })  
+            expr = expr.replace(/'/g, '"')
+            resolve(math.eval(expr))
         })
-        expr = expr.replace(/'/g, '"')
-        return math.eval(expr)
     }
 
     execVariable(ins, level, next) {
-        let scope = this.getScope(level)
-        let value = this.getValue(ins.value, level)
-        if (!_.isUndefined(scope[ins.variable.replace('$', '')]) && level == 'root' && !this.start) {
+        return new Promise((resolve, reject) => {
+            this.getValue(ins.value, level).then(resolve)
+        }).then((value) => {
+            let scope = this.getScope(level)
+            if (!_.isUndefined(scope[ins.variable.replace('$', '')]) && level == 'root' && !this.start) {
+                next()
+                return
+            }
+            this.setVariable(ins, value, level)
             next()
-            return
-        }
-        this.setVariable(ins, value, level)
-        next()
+        })
     }
 
     execOutput(ins, level, done) {
-        const { converse } = this.interpreter
-        let outputValue = ins.output
-        if (!this.output) {
-            return
-        }
+        return new Promise(async (resolve, reject) => {
+            const { converse } = this.interpreter
+            let outputValue = ins.output
+            if (!this.output) {
+                return
+            }
 
-        if (ins.output.variables) {
-            outputValue = this.getValue(ins.output, level)
-        }
+            if (ins.output.variables) {
+                outputValue = await this.getValue(ins.output, level)
+            }
 
-        const lang = this.user.getLang() || converse.lang.current
-        const hasTranslate =
-            converse.lang.data[lang] &&
-            converse.lang.get(outputValue, null, lang)
+            const lang = this.user.getLang() || converse.lang.current
+            const hasTranslate =
+                converse.lang.data[lang] &&
+                converse.lang.get(outputValue, null, lang)
 
-        if (hasTranslate) {
-            let params = ins.params || []
-            params = params.map(p => this.getValue(p, level))
-            outputValue = outputValue.t(lang, ...params)
-        }
+            if (hasTranslate) {
+                let params = ins.params || []
+                params = await this.execParams(params, level)
+                outputValue = outputValue.t(lang, ...params)
+            }
 
-        if (ins.decorators) {
-            for (let d of ins.decorators) {
-                if (d.name == 'Format') {
-                    let params = [...d.params]
-                    params = params.map(p => this.getValue(p, level))
-                    let name = params[0]
-                    if (converse._format[name]) {
-                        params.splice(0, 1)
-                        outputValue = converse._format[name](outputValue, params, this.options.data)
+            if (ins.decorators) {
+                for (let d of ins.decorators) {
+                    if (d.name == 'Format') {
+                        let params = [...d.params]
+                        params = await this.execParams(params, level)
+                        let name = params[0]
+                        if (converse._format[name]) {
+                            params.splice(0, 1)
+                            outputValue = converse._format[name](outputValue, params, this.options.data)
+                        }
                     }
                 }
             }
-        }
-        const send = () => {
-            const ret = this.output(outputValue, done, {
-                user: this.user
-            })
-            if (!_.isUndefined(ret)) {
-                done()
+            const send = () => {
+                const ret = this.output(outputValue, done, {
+                    user: this.user
+                })
+                if (!_.isUndefined(ret)) {
+                    done()
+                }
             }
-        }
-        if (this.hooks.sending) {
-            this.hooks.sending(this.input, outputValue, {
-                user: this.user,
-                data: this.options.data
-            }, (err) => {
-                if (err) throw err
+            if (this.hooks.sending) {
+                this.hooks.sending(this.input, outputValue, {
+                    user: this.user,
+                    data: this.options.data
+                }, (err) => {
+                    if (err) throw err
+                    send()
+                })
+            }
+            else {
                 send()
-            })
-        }
-        else {
-            send()
-        }
+            }
+        })
     }
 
     execFn(ins, pointer, done) {
@@ -470,10 +498,17 @@ class Execution {
     }
 
     execParams(params, level, done) {
-        return params.map(val => this.getValue(val, level, done))
+        return new Promise((resolve, reject) => {
+            async.map(params, async val =>  {
+                return await this.getValue(val, level, done)
+            }, (err, result) => {
+                if (err) return reject(err)
+                resolve(result)
+            })
+        })
     }
 
-    execApiFn(ins, level, done, more) {
+    async execApiFn(ins, level, done, more) {
         switch (ins.name) {
             case 'Prompt':
             case 'Input':
@@ -492,7 +527,7 @@ class Execution {
         return this
             .interpreter
             .converse
-            .execFunction(ins.name, this.execParams(ins.params, level, done), done, this.user, more)
+            .execFunction(ins.name, await this.execParams(ins.params, level, done), done, this.user, more)
     }
 
     hasApiFn(name) {

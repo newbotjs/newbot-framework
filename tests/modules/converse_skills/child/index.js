@@ -16,6 +16,4 @@ converse.nlp('regexp', {
     }
 })
 
-converse.useNlp('regexp')
-
 module.exports = converse

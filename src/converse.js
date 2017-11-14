@@ -11,7 +11,7 @@ const Nlp = require('./nlp')
 
 class Converse {
 
-    constructor(users = new Map()) {
+    constructor() {
         this._nlp = {}
         this.config = {}
         this._format = {}
@@ -20,7 +20,7 @@ class Converse {
         this.script = []
         this._obj = []
         this._skills = new Map()
-        this._users = users
+        this._users = new Map()
         this.namespace = 'default'
         this._functions = Functions
         this.lang = Languages.instance()
@@ -55,33 +55,67 @@ class Converse {
         return this
     }
 
-    exec(input, userId, output) {
+    exec(input, userId, output, propagate = {}) {
         this.open()
-        let p = Promise.resolve()
-        const nlp = this.getCurrentNlp()
-        p = p.then(() => this.propagateExec(input, userId, output))
-        if (nlp && input.type !== 'event') {
-            p = p.then(() => nlp.exec(input, userId))
+
+        if (!_.isObjectLike(input)) {
+            input = { text: input }
         }
-        return p.then(intents => {
-            if (!_.isObjectLike(input)) {
-                input = { text: input }
+
+        let user = this._users.get(userId)
+        if (_.isFunction(output)) {
+            output = { output }
+        }
+        if (!user) {
+            user = new User(userId)
+            this._users.set(userId, user)
+            propagate.start = true
+        }
+        if (output.magicVariables) {
+            for (let variable in output.magicVariables) {
+                user.setMagicVariable(variable, output.magicVariables[variable])
             }
-            if (intents) {
-                input.intents = intents
-            }
-            this._interpreter.exec(input, userId, output)
+        }
+        user.setMagicVariable('userId', userId)
+
+        let p = Promise.resolve()
+        p = p.then(() => this.propagateExec(input, userId, output, propagate))
+        if (input.type !== 'event') {
+            p = p.then(() => this.execNlp(input, userId))
+        }
+        else {
+            p = p.then(() => input)
+        }
+        return p.then(input => {
+            this._interpreter.exec(user, input, output, propagate)
         }).catch((err) => {
             console.log(err)
         })
     }
 
-    propagateExec(input, userId, output) {
+    propagateExec(input, userId, output, propagate) {
         const promises = []
+        let options = _.clone(output)
+        delete options.finish
+        delete options.waintingInput
+        delete options.finishFn
+        propagate.parent = this
         this._skills.forEach((skill) => {
-            promises.push(skill.exec(input, userId, output))
+            promises.push(skill.exec(input, userId, options, propagate))
         })
         return Promise.all(promises)
+    }
+
+    execNlp(input, userId) {
+        const promises = []
+        input.intents = {}
+        for (let name in this._nlp) {
+            let nlp = this._nlp[name]
+            promises.push(nlp.exec(input.text, userId).then((intents) => {
+                input.intents = _.merge(input.intents, intents)
+            }))
+        }
+        return Promise.all(promises).then(() => input)
     }
 
     event(name, ...more) {
@@ -145,7 +179,7 @@ class Converse {
             mockName += '.' + deep
         }
 
-        if (!this._functions[name]) throw "function not exists"
+        if (!this._functions[name]) throw `${deep.join('.') + '.' + name}() not exists`
 
         let { $call, $mock, $params } = this._functions[name]
         let ret
@@ -199,10 +233,10 @@ class Converse {
 
     nlp(name, intents) {
         if (!this._nlp[name]) {
-            this.nlp[name] = new Nlp(name, this)
+            this._nlp[name] = new Nlp(name, this)
         }
-        if (intents) this.nlp[name].add(intents)
-        return this.nlp[name]
+        if (intents) this._nlp[name].add(intents)
+        return this._nlp[name]
     }
 
     useNlp(name) {
@@ -211,7 +245,7 @@ class Converse {
     }
 
     getCurrentNlp() {
-        return this.nlp[this.currentNlp]
+        return this._nlp[this.currentNlp]
     }
 
     loadLanguage() {

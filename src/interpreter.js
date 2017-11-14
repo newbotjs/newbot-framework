@@ -9,7 +9,7 @@ const ExecutionError = require('./error')
 
 class Execution {
 
-    constructor(user, input, options, start, interpreter) {
+    constructor(user, input, options, propagate, interpreter) {
         this.user = user
         this.input = '' + input.text
         this.intents = input.intents
@@ -22,7 +22,8 @@ class Execution {
         }
         this.output = options.output
         this.session = options.session
-        this.start = start
+        this.start = propagate.start
+        this.parent = propagate.parent
         this.options = options
         this.interpreter = interpreter
         this.decorators = interpreter.decorators
@@ -494,6 +495,13 @@ class Execution {
             .execFunction(ins.name, this.execParams(ins.params, level, done), done, this.user, more)
     }
 
+    hasApiFn(name) {
+        return this
+            .interpreter
+            .converse
+            ._functions[name]
+    }
+
 }
 
 class Interpreter {
@@ -543,26 +551,8 @@ class Interpreter {
         }
         return id + '-' + i
     }
-    exec(input, userId, options) {
-        let user = this._users.get(userId)
-        let start = false
-        if (_.isFunction(options)) {
-            options = {
-                output: options
-            }
-        }
-        if (!user) {
-            user = new User(userId)
-            this._users.set(userId, user)
-            start = true
-        }
-        if (options.magicVariables) {
-            for (let variable in options.magicVariables) {
-                user.setMagicVariable(variable, options.magicVariables[variable])
-            }
-        }
-        user.setMagicVariable('userId', userId)
-        const exec = new Execution(user, input, options, start, this)
+    exec(user, input, options, propagate) {
+        const exec = new Execution(user, input, options, propagate, this)
     }
 
 }

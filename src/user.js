@@ -3,6 +3,7 @@ const _ = require('lodash')
 class User {
     constructor(id) {
         this.address = {}
+        this._infoAddress = {}
         this.varFn = {}
         this.magicVar = {}
         this.variables = {}

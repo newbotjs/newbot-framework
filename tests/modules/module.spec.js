@@ -9,7 +9,7 @@ describe('Module Test', () => {
         converse.code(`
             @Event('start')
             start() {
-                > Hello
+                child.hello()
             }
         `)
         converse.skill('child')
@@ -18,6 +18,9 @@ describe('Module Test', () => {
 
     it('', () => {
         user
+            .start(testing => {
+                console.log(testing.output())
+            })
             .prompt('hello', testing => {
                 console.log(testing.output())
             })

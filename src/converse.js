@@ -2,6 +2,7 @@ const fs = require('fs')
 const _ = require('lodash')
 const path = require('path')
 const Languages = require('languages-js')
+const stack = require('callsite')
 
 const User = require('./user')
 const Transpiler = require('./transpiler/lexer')
@@ -285,8 +286,8 @@ class Converse {
         this._hooks = hooks
     }
 
-    skill(skillName) {
-        const root = path.dirname(module.parent.parent.id)
+    async skill(skillName) {
+        const root = path.dirname(stack()[1].getFileName())
         const skill = require(`${root}/converse_skills/${skillName}`)
         skill._users = this.users
         skill.namespace = (this.namespace ? this.namespace + '-' : '') + skillName

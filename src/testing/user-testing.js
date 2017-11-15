@@ -124,22 +124,33 @@ class UserTesting {
     _converse(input, done) {
         this._output = []
         this.currentLevel = ''
-        this.converse.exec(input, this.id, {
-            output: (str, outputDone) => {
-                this._output.push(str)
-                outputDone()
-            },
-            waintingInput: (params, level) => {
-                this.currentLevel = level
-                done()
-            },
-            finish() {
-                done()
-            },
-            finishFn: (name) => {
-                this.execSpy(name)
-            }
-        })
+
+        const exec = (input, options = {}) => {
+            options = _.merge({
+                output: (str, outputDone) => {
+                    this._output.push(str)
+                    outputDone()
+                },
+                waintingInput: (params, level) => {
+                    this.currentLevel = level
+                    done()
+                },
+                finish() {
+                    done()
+                },
+                finishFn: (name) => {
+                    this.execSpy(name)
+                }
+            }, options)
+            this.converse.exec(input, this.id, options)
+        }
+
+        if (this.converse._testingWrapper) {
+            this.converse._testingWrapper(input, exec)
+        }
+        else {
+            exec(input)
+        } 
     }
 
 }

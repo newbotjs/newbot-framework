@@ -22,6 +22,10 @@ class ConverseTesting extends Converse {
         this._mockNlp[name] = callback
     }
 
+    testingWrapper(callback)  {
+        this._testingWrapper = callback
+    }
+
 }
 
 module.exports = ConverseTesting

@@ -1,5 +1,6 @@
 const fs = require('fs')
 const _ = require('lodash')
+const path = require('path')
 const Languages = require('languages-js')
 
 const User = require('./user')
@@ -17,7 +18,7 @@ class Converse {
         this._format = {}
         this._dbHook = {}
         this._hooks = {}
-        this.script = []
+        this.script = ''
         this._obj = []
         this._skills = new Map()
         this._users = new Map()
@@ -99,7 +100,9 @@ class Converse {
         delete options.finish
         delete options.finishFn
         this._skills.forEach((skill) => {
-            propagate.parent = this
+            if (skill._shareFormat) {
+                this._format = _.merge(skill._format, this._format)
+            }
             promises.push(skill.exec(input, userId, options, propagate))
         })
         return Promise.all(promises)
@@ -283,11 +286,16 @@ class Converse {
     }
 
     skill(skillName) {
-        const root = module.parent.parent.id
-        const skill = require(`/home/samuel/www/newbot.io/conversescript/tests/modules/converse_skills/${skillName}`)
+        const root = path.dirname(module.parent.parent.id)
+        const skill = require(`${root}/converse_skills/${skillName}`)
         skill._users = this.users
         skill.namespace = (this.namespace ? this.namespace + '-' : '') + skillName
+        skill.parent = this
         this._skills.set(skillName, skill)
+    }
+
+    shareFormats() {
+        this._shareFormat = true
     }
 
 }

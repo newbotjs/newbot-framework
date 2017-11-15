@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --timeout 0 tests/*.spec.js",
+    "test": "mocha --timeout 0 tests/*.spec.js tests/modules/*.spec.js",
     "postinstall": "cd addons/botframework && npm install"
   },
   "author": "",

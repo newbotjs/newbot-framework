@@ -3,7 +3,9 @@ const _ = require('lodash')
 class User {
     constructor(id) {
         this.address = {}
-        this._infoAddress = {}
+        this._infoAddress = {
+            lock: {}
+        }
         this.varFn = {}
         this.magicVar = {}
         this.variables = {}
@@ -51,6 +53,20 @@ class User {
     garbage(level, namespace) {
         this._createNamespace(namespace)
         delete this.varFn[namespace][level]
+    }
+
+    lockAddressStack(namespace, fnName) {
+        this._infoAddress.lock[namespace] = fnName
+    }
+
+    unlockAddressStack(namespace, fnName) {
+        if (this._infoAddress.lock[namespace] === fnName) {
+            delete this._infoAddress.lock[namespace]
+        }
+    }
+
+    addressStackIslocked(namespace) {
+        return this._infoAddress.lock[namespace]
     }
 
     getVariables(namespace) {
@@ -118,7 +134,8 @@ class User {
             _current: {
                 _address: this.address,
                 _var: this.varFn,
-                _magicVar: this.magicVar
+                _magicVar: this.magicVar,
+                _infoAddress: this._infoAddress
             },
             _session: this.session,
             data: this.variables,
@@ -128,6 +145,7 @@ class User {
 
     fromJson(json) {
         this.address = json._current._address || []
+        this._infoAddress = json._current._infoAddress || {}
         this.varFn = json._current._var || {}
         this.magicVar = json._current._magicVar || {}
         this.session = json._session || {}

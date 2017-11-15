@@ -28,6 +28,7 @@ class Execution {
         this.parent = propagate.parent
         this.options = options
         this.interpreter = interpreter
+        this.converse = this.interpreter.converse
         this.decorators = interpreter.decorators
         this.hooks = interpreter.converse._hooks
         this.obj = interpreter._obj
@@ -97,6 +98,10 @@ class Execution {
         const decorator = {
             start: this.decorators.get('Event', 'start'),
             nothing: this.decorators.get('Event', 'nothing')
+        }
+
+        if (this.user.addressStackIslocked(this.namespace)) {
+            return
         }
 
         if (this.triggerAction()) return
@@ -173,6 +178,11 @@ class Execution {
         if (this.options.finish) this.options.finish.call(this)
     }
 
+    unlockParent(level) {
+        if (!this.parent) return
+        this.user.unlockAddressStack(this.parent.namespace, level)
+    }
+
     instructionsRoot(finish) {
         this.instructions(this.obj, 0, 'root', finish)
     }
@@ -183,6 +193,7 @@ class Execution {
         const next = () => this.instructions(instructions, pointer + 1, level, finish, options)
         if ((!ins) || (ins && ins.return)) {
             if (!isBlock) {
+                this.unlockParent(level)
                 if (this.options.finishFn) this.options.finishFn(level)
             }
             if (finish) {
@@ -227,34 +238,55 @@ class Execution {
             if (variable) {
                 ins.name = variable
             }
-            if (this.interpreter.fn[ins.name]) {
-                const params = ins.params
-                const insFn = this.interpreter.fn[ins.name]
-                const paramsFn = insFn.params
-    
-                this.user.addAddress(ins.id, this.namespace)
-    
-                let paramsPromises = []
-                if (params) {
-                    for (let i = 0; i < params.length; i++) {
-                        paramsPromises.push(new Promise(async (resolve) => {
-                            await this.execVariable({
-                                variable: paramsFn[i],
-                                value: _.isUndefined(params[i]) ? null : await this.getValue(params[i], level)
-                            }, ins.name, resolve)
-                        }))
+            const execFn = (context, ins) => {
+                if (context.interpreter.fn[ins.name]) {
+                    const params = ins.params
+                    const insFn = context.interpreter.fn[ins.name]
+                    const paramsFn = insFn.params
+
+                    this.user.addAddress(ins.id, this.namespace)
+
+                    let paramsPromises = []
+                    if (params) {
+                        for (let i = 0; i < params.length; i++) {
+                            paramsPromises.push(new Promise(async (resolve) => {
+                                await context.execVariable({
+                                    variable: paramsFn[i],
+                                    value: _.isUndefined(params[i]) ? null : await this.getValue(params[i], level)
+                                }, ins.name, resolve)
+                            }))
+                        }
                     }
+                    Promise.all(paramsPromises).then(() => {
+                        context.execFn(insFn, 0, () => {
+                            this.user.popAddress(this.namespace)
+                            next()
+                        })
+                    })
+                    return true
                 }
-                Promise.all(paramsPromises).then(() => {
-                    this.execFn(insFn, 0, next)
-                })
+                else if (context.hasApiFn(ins.name)) {
+                    let ret = context.execApiFn(ins, level, next, { deep, data: this.options.data })
+                    if (!next) {
+                        resolve(ret)
+                    }
+                    return true
+                }
+                return false
             }
-            else {
-                let ret = this.execApiFn(ins, level, next, { deep, data: this.options.data })
-                if (!next) {
-                    resolve(ret)
+
+            if (!execFn(this, ins)) {
+                const skill = this.converse.skills().get(ins.name)
+                if (skill) {
+                    ins.name = deep[0]
+                    this.user.lockAddressStack(this.namespace, ins.name)
+                    execFn(skill._interpreter.execution, ins)
+                }
+                else {
+                    this.error.throw(ins, 'funtion.not.defined')
                 }
             }
+
         })
     }
 
@@ -411,7 +443,7 @@ class Execution {
                 }, (err, result) => {
                     resolve(result)
                 })
-            })  
+            })
             expr = expr.replace(/'/g, '"')
             resolve(math.eval(expr))
         })
@@ -499,7 +531,7 @@ class Execution {
 
     execParams(params, level, done) {
         return new Promise((resolve, reject) => {
-            async.map(params, async val =>  {
+            async.map(params, async val => {
                 return await this.getValue(val, level, done)
             }, (err, result) => {
                 if (err) return reject(err)
@@ -532,9 +564,8 @@ class Execution {
 
     hasApiFn(name) {
         return this
-            .interpreter
             .converse
-            ._functions[name]
+            ._functions[name] || ['Prompt', 'Input'].indexOf(name) != -1
     }
 
 }
@@ -587,7 +618,7 @@ class Interpreter {
         return id + '-' + i
     }
     exec(user, input, options, propagate) {
-        const exec = new Execution(user, input, options, propagate, this)
+       this.execution = new Execution(user, input, options, propagate, this)
     }
 
 }

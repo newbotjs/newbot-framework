@@ -9,23 +9,25 @@ describe('Module Test', () => {
         converse.code(`
             @Event('start')
             start() {
-                child.hello()
+                a = 1
+                child.lazy(a)
+                > Ok
             }
         `)
         converse.skill('child')
         user = converse.createUser()
     })
 
-    it('', () => {
+    it('module test', () => {
         user
             .start(testing => {
-                console.log(testing.output())
+               assert.deepEqual(testing.output(), ['Lazy 1'])
             })
-            .prompt('hello', testing => {
-                console.log(testing.output())
+            .prompt('test', testing => {
+                assert.deepEqual(testing.output(), ['Lazy 2', 'Lazy 3'])
             })
-            .prompt('hey', testing => {
-                console.log(testing.output())
+            .prompt('test2', testing => {
+                assert.deepEqual(testing.output(), ['Lazy 4', 'Ok'])
             })
             .end()
     })

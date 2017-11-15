@@ -97,13 +97,16 @@ class Converse {
         const promises = []
         let options = _.clone(output)
         delete options.finish
-        delete options.waintingInput
         delete options.finishFn
-        propagate.parent = this
         this._skills.forEach((skill) => {
+            propagate.parent = this
             promises.push(skill.exec(input, userId, options, propagate))
         })
         return Promise.all(promises)
+    }
+
+    skills() {
+        return this._skills
     }
 
     execNlp(input, userId) {

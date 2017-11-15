@@ -8,6 +8,19 @@ converse.code(`
         Prompt()
         > Test
     }
+
+    foo() {
+        > Lazy 3
+    }
+
+    lazy(b) {
+        > Lazy {b}
+        Prompt()
+        > Lazy 2
+        foo()
+        Prompt()
+        > Lazy 4
+    }
 `)
 
 converse.nlp('regexp', {

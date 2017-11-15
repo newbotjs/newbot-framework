@@ -2,11 +2,12 @@
 start() {
     > test
     foo('hello')
-    
+    Prompt()
     a = 1
     b = 2
     //val = math(a, b)
     > 3
+    > end
 }
 
 

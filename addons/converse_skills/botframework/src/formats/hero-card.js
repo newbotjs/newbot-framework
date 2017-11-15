@@ -1,4 +1,5 @@
 const builder = require('botbuilder')
+const { isFacebook } = require('../utils')
 
 function heroCard(session, card) {
     if (isFacebook(session)) {
@@ -19,7 +20,7 @@ function heroCard(session, card) {
                         return {
                             type: "web_url",
                             url: b.url,
-                            title: 'Voir'
+                            title: b.title
                         }
                     case 'share':
                         return {
@@ -41,7 +42,7 @@ function heroCard(session, card) {
         return element
     }
     const heroCard = new builder.HeroCard(session);
-    ['title', 'subtitle', 'text', 'image'].forEach(p => {
+    ['title', 'subtitle', 'text', 'image', 'buttons'].forEach(p => {
         if (card[p] && p === 'buttons') {
             card[p] = card[p].map(b => {
                 if (!b.url) {

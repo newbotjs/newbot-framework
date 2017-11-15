@@ -1,4 +1,5 @@
 const builder = require('botbuilder')
+const _ = require('lodash')
 
 module.exports = (converse) => {
     converse.format('image', (text, [contentUrl, contentType, name], { session }) => {

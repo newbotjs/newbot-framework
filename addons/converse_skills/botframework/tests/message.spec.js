@@ -7,16 +7,18 @@ describe('Module Test', () => {
 
     beforeEach(() => {
         converse = BotFrameworkTesting()
-        converse.code(`@Event('start')
-        start() {
-            @Format('quickReplies', ['test'])
-            > hello
-        }`)
         entry(converse)
         user = converse.createUser()
     })
 
-    it('module test', () => {
+    it('quick replies test', () => {
+        converse.code(`
+            @Event('start')
+            start() {
+                @Format('quickReplies', ['test'])
+                > hello
+            }
+        `)
         user
             .start(testing => {
                 const { data } = testing.output(0)
@@ -29,4 +31,113 @@ describe('Module Test', () => {
             })
             .end()
     })
+
+    it('image test', () => {
+        converse.code(`
+            @Event('start')
+            start() {
+                @Format('image', 'test.png')
+                > hello
+            }
+        `)
+        user
+            .start(testing => {
+                const { data } = testing.output(0)
+                assert.deepEqual(data.attachments, [{
+                    contentUrl: 'test.png',
+                    contentType: 'image/png',
+                    name: 'test.png'
+                }])
+            })
+            .end()
+    })
+
+    it('carousel test', () => {
+        converse.code(`
+            @Event('start')
+            start() {
+                @Format('carousel', [
+                    {
+                        title: 'Title',
+                        subtitle: 'Subtitle'
+                    }
+                ])
+                > hello
+            }
+        `)
+        user
+            .start(testing => {
+                const { data } = testing.output(0)
+                assert.equal(data.attachmentLayout, 'carousel')
+                assert.deepEqual(data.attachments, [
+                    {
+                        "contentType": "application/vnd.microsoft.card.hero",
+                        "content": {
+                            "title": "Title",
+                            "subtitle": "Subtitle"
+                        }
+                    }
+                ])
+            })
+            .end()
+    })
+
+    it('gif test', () => {
+        converse.code(`
+            @Event('start')
+            start() {
+                @Format('gif', 'test.gif')
+                > hello
+            }
+        `)
+        user
+            .start(testing => {
+                const { data } = testing.output(0)
+                assert.deepEqual(data.attachments, [{
+                    "contentType": "application/vnd.microsoft.card.animation",
+                    "content": {
+                        "text": "hello",
+                        "media": [
+                            {
+                                "url": "test.gif"
+                            }
+                        ]
+                    }
+                }])
+            })
+            .end()
+    })
+
+    it('buttons test', () => {
+        converse.code(`
+            @Event('start')
+            start() {
+                @Format('buttons', [{
+                    url: 'Url',
+                    title: 'Title'
+                }])
+                > hello
+            }
+        `)
+        user
+            .start(testing => {
+                const { data } = testing.output(0)
+                assert.deepEqual(data.attachments, [
+                    {
+                        "contentType": "application/vnd.microsoft.card.hero",
+                        "content": {
+                            "buttons": [
+                                {
+                                    "type": "openUrl",
+                                    "value": "Url",
+                                    "title": "Title"
+                                }
+                            ]
+                        }
+                    }
+                ])
+            })
+            .end()
+    })
+
 })

@@ -1,4 +1,5 @@
 const builder = require('botbuilder')
+const _ = require('lodash')
 const { isFacebook } = require('../utils')
 
 function heroCard(session, card) {

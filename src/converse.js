@@ -26,6 +26,7 @@ class Converse {
         this.namespace = 'default'
         this._functions = Functions
         this.lang = Languages.instance()
+        this.parentPath =  this._findParentPath()
         this.openSkills(done)
     }
 
@@ -287,10 +288,21 @@ class Converse {
         this._hooks = hooks
     }
 
+    _findParentPath() {
+        const _stack = stack()
+        const current = __dirname
+        for (let site of _stack) {
+            let filename = site.getFileName()
+            let _path = path.dirname(filename)
+            if (_path !== current && !/testing$/.test(_path)) {
+                return _path
+            }
+        }
+    }
+
     async openSkills(done) {
-        const root = path.dirname(stack()[3].getFileName())
         const config = await new Promise((resolve, reject) => {
-            fs.readFile(`${root}/package.json`, { encoding: 'utf-8' }, (err, data) => {
+            fs.readFile(`${this.parentPath}/package.json`, { encoding: 'utf-8' }, (err, data) => {
                 if (err) {
                     if (err.code == 'ENOENT') return resolve()
                     return reject(err)
@@ -300,14 +312,25 @@ class Converse {
             })
         })
         if (config && config.converse && config.converse.dependencies) {
-            this.setSkills(config.converse.dependencies, root)
-            done()
+            this.setSkills(config.converse.dependencies)
+            if (done) done()
         }
     }
 
-    skill(skillName, root) {
-        root = root || path.dirname(stack()[1].getFileName())
-        const skill = require(`${root}/converse_skills/${skillName}`)
+    async skill(skillName, skillPath = skillName) {
+        let _path = skillPath.skill || skillPath
+        let dir = _path
+        if (!/\//.test(_path)) {
+            dir = this.config.pathSkills || 'converse_skills'
+            dir += `/${_path}`
+        }
+        let skill = require(`${this.parentPath}/${dir}`)
+        if (skillPath.skill)  {
+            skill = skill(skillPath.params)
+            if (skill.then) {
+                skill = await skill
+            }
+        }
         skill._users = this.users
         skill.namespace = (this.namespace ? this.namespace + '-' : '') + skillName
         skill.parent = this
@@ -315,9 +338,9 @@ class Converse {
         return this
     }
 
-    setSkills(obj, root) {
+    setSkills(obj) {
         for (let name in obj) {
-            this.skill(obj[name], root)
+            this.skill(name, obj[name])
         }
         return this
     }

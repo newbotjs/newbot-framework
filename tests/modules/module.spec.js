@@ -4,8 +4,8 @@ const { ConverseTesting } = require('../../index')
 describe('Module Test', () => {
     let converse, user
 
-    before(() => {
-        converse = new ConverseTesting()
+    before((done) => {
+        converse = new ConverseTesting(done)
         converse.code(`
             @Event('start')
             start() {
@@ -14,7 +14,6 @@ describe('Module Test', () => {
                 > Ok
             }
         `)
-        converse.skill('child')
         user = converse.createUser()
     })
 

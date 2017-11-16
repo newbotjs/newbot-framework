@@ -24,6 +24,9 @@ Powerful Scripting for Automated Conversations (Chatbot)
 * Possible to call Javascript functions
 * Possible to put ConverScript on any framework (BotFramework, Botkit, etc)
 * Put the @Action decorator on a function. Triggers a function if an action is performed
+* Import / Export modules
+* BotFramework integration
+* Syntax color on Visual Studio Code (partial)
 
 # Todo 
 
@@ -31,10 +34,7 @@ Powerful Scripting for Automated Conversations (Chatbot)
 * Trigger events or intention but according to conditions
 * Function Returns a value
 * API to manage the conversation flow (cancel, go back, go forward, etc.)
-* Import / Export modules
 * Run an offline ConverseScript file
-* Syntax color on Visual Studio Code
-* BotFramework integration
 
 # ConverseScript scenario example 
 
@@ -44,93 +44,3 @@ start() {
     > Hello !
 }
 ```
-
-# Experimental syntax
-
-```
-$lang = 'en'
-ask(langs) {
-    
-    @Format('quickReplies', langs)
-    > Quelle est votre langue ?
-    promptEmail()
-}
-
-@Intent('test') {
-    
-}
-test() {
-
-}
-
-
-promptEmail() {
-
-    Prompt('email') {
-        (unknow :intent.email) {
-            > Je ne connais pas votre email
-        }
-        (:intent.email.invalid) > Mettez une adresse email valide
-        (:intent.email.trash) {
-            > Email jetable ?
-            Api.get()
-        }
-    }
-    
-    > Merci !
-}
-
-@Intent('change language')
-changeLanguage() {
-    > Ok, je change votre langue
-    ask()
-}
-```
-
-/*
-    converse_modules
-        language
-            index.js
-            index.converse
-            index.spec.js
-            package.json
-    skills
-        foo
-            foo.js
-            foo.converse
-            foo.spec.js
-            package.json
-            languages
-                fr_FR.json
-                en_EN.json
-
-*/
-
-In Foo :
-
-module.exports = () => {
-    const converse = new Converse()
-    converse.file('foo.converse')
-    converse.skills({
-        Language: 'language'
-    })
-    return converse
-}
-
-converse.modules({
-    Language: 'language'
-})
-
-In main script
-
-converse.modules({
-    Foo: '../skills/foo'
-})
-
-```
-start() {
-    Language.ask(['français', 'anglais'])
-}
-```
-
-If this is the first time the user interacts then the chatbot sends "Hello"

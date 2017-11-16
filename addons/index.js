@@ -12,7 +12,6 @@ describe('Module Test', () => {
             @Format('quickReplies', ['test'])
             > hello
         }`)
-        converse.skill('botframework')
         user = converse.createUser()
     })
 

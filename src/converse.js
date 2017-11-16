@@ -13,7 +13,7 @@ const Nlp = require('./nlp')
 
 class Converse {
 
-    constructor() {
+    constructor(done) {
         this._nlp = {}
         this.config = {}
         this._format = {}
@@ -26,6 +26,7 @@ class Converse {
         this.namespace = 'default'
         this._functions = Functions
         this.lang = Languages.instance()
+        this.openSkills(done)
     }
 
     get users() {
@@ -286,13 +287,39 @@ class Converse {
         this._hooks = hooks
     }
 
-    async skill(skillName) {
-        const root = path.dirname(stack()[1].getFileName())
+    async openSkills(done) {
+        const root = path.dirname(stack()[3].getFileName())
+        const config = await new Promise((resolve, reject) => {
+            fs.readFile(`${root}/package.json`, { encoding: 'utf-8' }, (err, data) => {
+                if (err) {
+                    if (err.code == 'ENOENT') return resolve()
+                    return reject(err)
+
+                }
+                resolve(JSON.parse(data))
+            })
+        })
+        if (config && config.converse && config.converse.dependencies) {
+            this.setSkills(config.converse.dependencies, root)
+            done()
+        }
+    }
+
+    skill(skillName, root) {
+        root = root || path.dirname(stack()[1].getFileName())
         const skill = require(`${root}/converse_skills/${skillName}`)
         skill._users = this.users
         skill.namespace = (this.namespace ? this.namespace + '-' : '') + skillName
         skill.parent = this
         this._skills.set(skillName, skill)
+        return this
+    }
+
+    setSkills(obj, root) {
+        for (let name in obj) {
+            this.skill(obj[name], root)
+        }
+        return this
     }
 
     shareFormats() {

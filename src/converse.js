@@ -26,7 +26,7 @@ class Converse {
         this.namespace = 'default'
         this._functions = Functions
         this.lang = Languages.instance()
-        this.parentPath =  this._findParentPath()
+        this.parentPath = this._findParentPath()
         this.openSkills(done)
     }
 
@@ -83,7 +83,8 @@ class Converse {
         user.setMagicVariable('userId', userId)
 
         let p = Promise.resolve()
-        p = p.then(() => this.propagateExec(input, userId, output, propagate))
+            .then(() => this.propagateExec(input, userId, output, propagate))
+            .then(noExec => propagate.childrenNotExec = !!noExec)
         if (input.type !== 'event') {
             p = p.then(() => this.execNlp(input, userId))
         }
@@ -91,7 +92,7 @@ class Converse {
             p = p.then(() => input)
         }
         return p.then(input => {
-            this._interpreter.exec(user, input, output, propagate)
+            return this._interpreter.exec(user, input, output, propagate)
         }).catch((err) => {
             console.log(err)
         })
@@ -100,15 +101,18 @@ class Converse {
     propagateExec(input, userId, output, propagate) {
         const promises = []
         let options = _.clone(output)
+        let noExec = true
         delete options.finish
         delete options.finishFn
         this._skills.forEach((skill) => {
             if (skill._shareFormat) {
                 this._format = _.merge(skill._format, this._format)
             }
-            promises.push(skill.exec(input, userId, options, propagate))
+            promises.push(skill.exec(input, userId, options, propagate).then((ret = {}) => {
+                noExec &= ret.noExec
+            }))
         })
-        return Promise.all(promises)
+        return Promise.all(promises).then(() => noExec)
     }
 
     skills() {
@@ -325,7 +329,7 @@ class Converse {
             dir += `/${_path}`
         }
         let skill = require(`${this.parentPath}/${dir}`)
-        if (skillPath.skill)  {
+        if (skillPath.skill) {
             skill = skill(skillPath.params)
             if (skill.then) {
                 skill = await skill

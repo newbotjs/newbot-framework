@@ -12,6 +12,7 @@ describe('Module Test', () => {
                 a = 1
                 child.lazy(a)
                 > Ok
+                > { jsFunction() }
             }
         `)
         user = converse.createUser()
@@ -26,7 +27,7 @@ describe('Module Test', () => {
                 assert.deepEqual(testing.output(), ['Lazy 2', 'Lazy 3'])
             })
             .prompt('test2', testing => {
-                assert.deepEqual(testing.output(), ['Lazy 4', 'Ok'])
+                assert.deepEqual(testing.output(), ['Lazy 4', 'Ok', 'js'])
             })
             .end()
     })

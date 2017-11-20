@@ -24,16 +24,18 @@ class Execution {
         }
         this.output = options.output
         this.session = options.session
+        this.propagate = propagate
         this.start = propagate.start
-        this.parent = propagate.parent
         this.options = options
         this.interpreter = interpreter
         this.converse = this.interpreter.converse
+        this.parent = this.converse.parent
         this.decorators = interpreter.decorators
         this.hooks = interpreter.converse._hooks
         this.obj = interpreter._obj
         this.error = new ExecutionError(interpreter.converse.script)
         this.namespace = interpreter.namespace
+        this._finishScript = this.options._finishScript
         this.instructionsRoot(() => {
             if (this.event) {
                 this.triggerEvent()
@@ -101,10 +103,12 @@ class Execution {
         }
 
         if (this.user.addressStackIslocked(this.namespace)) {
-            return
+            return this.stopScript()
         }
 
-        if (this.triggerAction()) return
+        if (this.triggerAction()) {
+            return this.stopScript()
+        }
 
         if (address) {
             let { index, level, deep } = address
@@ -155,27 +159,34 @@ class Execution {
         }
 
         function execFinish() {
-            if (deepFn == 0 && decorator.nothing.length) {
-                self.decorators.exec(decorator.nothing, self)
+            if (deepFn === 0) {
+                self._noExec = true
+                if (self.propagate.childrenNotExec && decorator.nothing.length) {
+                    self.decorators.exec(decorator.nothing, self)
+                    return
+                }
             }
-            else {
-                self.end()
-            }
+            self.end()
         }
 
         if (!exec) execFinish()
 
     }
 
+    stopScript() {
+        this._finishScript()
+    }
+
     end() {
         this.user.clearAddress(this.namespace)
-        if (this.hooks.finished) {
-            this.hooks.finished(this.input, {
-                user: this.user,
-                data: this.options.data
-            })
-        }
+        this._triggerHook('finished', {
+            user: this.user,
+            data: this.options.data
+        })
         if (this.options.finish) this.options.finish.call(this)
+        this._finishScript({
+            noExec: this._noExec
+        })
     }
 
     unlockParent(level) {
@@ -508,7 +519,7 @@ class Execution {
                 }
             }
             if (this.hooks.sending) {
-                this.hooks.sending(this.input, outputValue, {
+                this._triggerHook('sending', outputValue, {
                     user: this.user,
                     data: this.options.data
                 }, (err) => {
@@ -545,15 +556,15 @@ class Execution {
             case 'Prompt':
             case 'Input':
                 this.user.addAddress(ins.id, this.namespace)
-                if (this.hooks.prompt) {
-                    this.hooks.prompt(this.input, ins.params, {
-                        user: this.user,
-                        data: this.options.data,
-                        level
-                    })
-                }
-                if (this.options.waintingInput)
+                this._triggerHook('prompt', ins.params, {
+                    user: this.user,
+                    data: this.options.data,
+                    level
+                })
+                if (this.options.waintingInput) {
                     this.options.waintingInput.call(this, ins.params, level)
+                }
+                this._finishScript()
                 return
         }
         return this
@@ -566,6 +577,15 @@ class Execution {
         return this
             .converse
             ._functions[name] || ['Prompt', 'Input'].indexOf(name) != -1
+    }
+
+    _triggerHook(name, params, data, cb) {
+        if (this.hooks[name]) {
+            this.hooks[name](this.input, params, data, cb)
+        }
+        if (this.parent && this.parent._hooks[name]) {
+            this.parent._hooks[name](this.input, params, data, cb)
+        }
     }
 
 }
@@ -618,7 +638,11 @@ class Interpreter {
         return id + '-' + i
     }
     exec(user, input, options, propagate) {
-       this.execution = new Execution(user, input, options, propagate, this)
+        return new Promise((resolve, reject) => {
+            this.execution = new Execution(user, input, _.merge({
+                _finishScript: resolve
+            }, options), propagate, this)
+        })
     }
 
 }

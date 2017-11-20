@@ -29,4 +29,10 @@ converse.nlp('regexp', {
     }
 })
 
+converse.functions({
+    jsFunction() {
+        return 'js'
+    }
+})
+
 module.exports = converse

@@ -12,7 +12,7 @@ describe('Module Test', () => {
                 a = 1
                 child.lazy(a)
                 > Ok
-                > { jsFunction() }
+                > { child.jsFunction() }
             }
         `)
         user = converse.createUser()

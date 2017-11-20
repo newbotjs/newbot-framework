@@ -108,6 +108,7 @@ class Converse {
             if (skill._shareFormat) {
                 this._format = _.merge(skill._format, this._format)
             }
+            skill._users = this.users
             promises.push(skill.exec(input, userId, options, propagate).then((ret = {}) => {
                 noExec &= ret.noExec
             }))
@@ -203,7 +204,7 @@ class Converse {
             $call = this._functions[name]
         }
 
-        if (deep) {
+        if (deep && deep.length > 0) {
             $call = _.get($call, deep)
         }
 
@@ -335,7 +336,6 @@ class Converse {
                 skill = await skill
             }
         }
-        skill._users = this.users
         skill.namespace = (this.namespace ? this.namespace + '-' : '') + skillName
         skill.parent = this
         this._skills.set(skillName, skill)

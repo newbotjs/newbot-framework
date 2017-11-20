@@ -249,11 +249,16 @@ class Execution {
             if (variable) {
                 ins.name = variable
             }
-            const execFn = (context, ins) => {
+            ins.deep = deep
+            const execFn = (context, ins, isChild) => {
                 if (context.interpreter.fn[ins.name]) {
                     const params = ins.params
                     const insFn = context.interpreter.fn[ins.name]
                     const paramsFn = insFn.params
+
+                    if (isChild) {
+                        this.user.lockAddressStack(this.namespace, ins.name)
+                    }
 
                     this.user.addAddress(ins.id, this.namespace)
 
@@ -277,7 +282,7 @@ class Execution {
                     return true
                 }
                 else if (context.hasApiFn(ins.name)) {
-                    let ret = context.execApiFn(ins, level, next, { deep, data: this.options.data })
+                    let ret = this.execApiFn(ins, level, next, { deep: ins.deep, data: this.options.data, context })
                     if (!next) {
                         resolve(ret)
                     }
@@ -290,8 +295,9 @@ class Execution {
                 const skill = this.converse.skills().get(ins.name)
                 if (skill) {
                     ins.name = deep[0]
-                    this.user.lockAddressStack(this.namespace, ins.name)
-                    execFn(skill._interpreter.execution, ins)
+                    deep.splice(0, 1)
+                    ins.deep = deep
+                    execFn(skill._interpreter.execution, ins, true)
                 }
                 else {
                     this.error.throw(ins, 'funtion.not.defined')
@@ -567,7 +573,7 @@ class Execution {
                 this._finishScript()
                 return
         }
-        return this
+        return (more.context || this)
             .interpreter
             .converse
             .execFunction(ins.name, await this.execParams(ins.params, level, done), done, this.user, more)

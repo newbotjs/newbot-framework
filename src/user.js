@@ -145,7 +145,7 @@ class User {
     }
 
     fromJson(json) {
-        this.address = json._current._address || []
+        this.address = json._current._address || {}
         this._infoAddress = json._current._infoAddress || { lock: {} }
         this.varFn = json._current._var || {}
         this.magicVar = json._current._magicVar || {}

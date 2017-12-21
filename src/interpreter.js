@@ -91,10 +91,11 @@ class Execution {
         return ret
     }
 
-    go(deepFn = 0) {
+    async go(deepFn = 0) {
         const self = this
         const address = this.interpreter.index[this.user.getAddress(this.namespace)]
         let exec = false
+        let execIntent = false
 
         // Get decorators
         const decorator = {
@@ -110,7 +111,12 @@ class Execution {
             return this.stopScript()
         }
 
-        if (address) {
+        if (this.decorators.get('Intent').length) {
+            execIntent = await this.decorators.execMethod('Intent', 'run', this)
+            if (execIntent) exec = true
+        }
+
+        if (!execIntent && address) {
             let { index, level, deep } = address
             let fn = this.interpreter.fn[level]
 
@@ -149,15 +155,7 @@ class Execution {
             this.decorators.exec(decorator.start, this)
             exec = true
         }
-        else if (this.decorators.get('Intent').length) {
-            this.decorators.execMethod('Intent', 'run', this).then(bool => {
-                if (!bool) {
-                    execFinish()
-                }
-            })
-            exec = true
-        }
-
+        
         function execFinish() {
             if (deepFn === 0) {
                 self._noExec = true

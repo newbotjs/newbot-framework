@@ -53,4 +53,48 @@ describe('Params Test', () => {
             })
             .end()
     })
+
+    it('params optional', () => {
+        code(`
+             @Event('start')
+             start() {
+                 > Hello
+                 Prompt()
+                 fn()
+             }
+             fn(a) {
+                 > {a}
+             }
+         `)
+         user
+             .start(testing => {
+                 assert.equal(testing.output(0), 'Hello')
+             })
+             .prompt('Foo', testing => {
+                 assert.equal(testing.output(0), '')
+             })
+             .end()
+     })
+
+     it('params optional 2', () => {
+        code(`
+             @Event('start')
+             start() {
+                 > Hello
+                 Prompt()
+                 fn('a', 'b')
+             }
+             fn(a) {
+                 > {a}
+             }
+         `)
+         user
+             .start(testing => {
+                 assert.equal(testing.output(0), 'Hello')
+             })
+             .prompt('Foo', testing => {
+                 assert.equal(testing.output(0), 'a')
+             })
+             .end()
+     })
 })

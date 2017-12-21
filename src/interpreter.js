@@ -263,8 +263,8 @@ class Execution {
                     this.user.addAddress(ins.id, this.namespace)
 
                     let paramsPromises = []
-                    if (params) {
-                        for (let i = 0; i < params.length; i++) {
+                    if (paramsFn) {
+                        for (let i = 0; i < paramsFn.length; i++) {
                             paramsPromises.push(new Promise(async (resolve) => {
                                 await context.execVariable({
                                     variable: paramsFn[i],

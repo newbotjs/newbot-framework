@@ -375,6 +375,15 @@ class Execution {
             if (value === null) {
                 return resolve(value)
             }
+            if (_.isArray(obj)) {
+                async.map(obj, async val => {
+                    return await this.getValue(val, level)
+                }, (err, value) => {
+                    if (err) return reject(err)
+                    resolve(value)
+                })
+                return
+            }
             if (obj.expression) {
                 value = await this.execExpression(obj.expression, obj.variables, level)
             }

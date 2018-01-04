@@ -55,6 +55,7 @@ class Converse {
         }
         this._transpiler = new Transpiler(this.script)
         this._obj = this._transpiler.run()
+        //console.log(JSON.stringify(this._obj, null, 2))
         this._interpreter = new Interpreter(this._obj, this.users, this)
         return this
     }
@@ -187,7 +188,7 @@ class Converse {
         return this
     }
 
-    execFunction(name, params, done, user, { deep, data }) {
+    execFunction(name, params, done, user, { deep, data, execution, level, ins }) {
         let mockName = name
         if (deep) {
             mockName += '.' + deep
@@ -217,6 +218,12 @@ class Converse {
                         return user
                     case 'data':
                         return data
+                    case 'execution':
+                        return execution
+                    case 'level':
+                        return level
+                    case 'ins':
+                        return ins
                 }
                 return p
             })

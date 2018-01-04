@@ -13,6 +13,7 @@ class Execution {
 
     constructor(user, input, options, propagate, interpreter) {
         this.user = user
+        this._input = input
         this.input = '' + input.text
         this.intents = input.intents
         if (input.type === 'event') {
@@ -93,6 +94,7 @@ class Execution {
 
     async go(deepFn = 0) {
         const self = this
+        console.log(this.user.getAddress(this.namespace))
         const address = this.interpreter.index[this.user.getAddress(this.namespace)]
         let exec = false
         let execIntent = false
@@ -213,6 +215,9 @@ class Execution {
             }
             return
         }
+
+        ins._pointer = pointer
+        ins._instructions = instructions
 
         if (ins.group) {
             let groupIns = ins.group[_.random(0, ins.group.length - 1)]
@@ -590,6 +595,9 @@ class Execution {
                 this._finishScript()
                 return
         }
+        more.execution = this
+        more.level = level
+        more.ins = ins
         return (more.context || this)
             .interpreter
             .converse

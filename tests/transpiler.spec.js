@@ -803,4 +803,17 @@ describe('Test Transpiler', () => {
         expect(obj.instructions[0].group).to.have.lengthOf(2)
     })
 
+    it('value in string', () => {
+        const [obj] = t(`
+            foo() {
+                Eval.json(\`
+                    [
+                        { "output": "Two" }
+                    ]
+                \`)
+            }
+        `)
+        expect(obj.instructions[0]).to.have.property('params')
+    })
+
 })

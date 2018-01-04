@@ -4,5 +4,6 @@ const Array = require('./array')
 const String = require('./string')
 const Lang = require('./lang')
 const Utils = require('./utils')
+const Eval = require('./eval')
 
-module.exports = { Request, Users, Array, String, Lang, Utils }
+module.exports = { Request, Users, Array, String, Lang, Utils, Eval }

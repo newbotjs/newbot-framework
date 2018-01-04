@@ -153,7 +153,7 @@ RightAssign
     }
 
 Value =  
-    ExecuteFunction / Null / Array / obj:Object { 
+    StringBackQuote / String / ExecuteFunction / Null / Array / obj:Object { 
         // Clean __deepIndex
         const index = obj[DEEP_NAME]
         if (!index) return obj
@@ -162,7 +162,7 @@ Value =
             delete subobj[DEEP_NAME]
         }
         return obj
-    } / String / Expression
+    } / Expression
 
 // For Loop
 
@@ -419,6 +419,11 @@ String 'string'
       return stringParser(text)
   }
 
+StringBackQuote 'string not parsed'
+  = BackQuote t: NotBackQuote* BackQuote { 
+      return t.join('')
+  }
+
 Boolean = bool:('true' / 'false') { 
     return bool == 'true' ? true : false
 }
@@ -448,7 +453,11 @@ CharText
 NotQuote
   = !Quote char:(VariableString / .) { return char }
 
-Quote = ['"]
+Quote = [']
+
+BackQuote = '`'
+
+NotBackQuote = !BackQuote char:. { return char }
 
 Dot = '.'
 

@@ -39,7 +39,7 @@ describe('Translate Test', () => {
         converse.configure({
             languages: {
                 path: __dirname + '/../languages',
-                packages: ['fr_FR']
+                packages: ['fr_FR', 'en_EN']
             }
         }).loadLanguage()
     

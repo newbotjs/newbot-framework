@@ -8,7 +8,9 @@ const Lang = {
     $params: ['user'],
 
     set(lang, user) {
-        user.setLang(lang)
+        if (lang) {
+            user.setLang(lang)
+        }
     },
 
     name(user) {

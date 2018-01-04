@@ -47,10 +47,10 @@ function heroCard(session, card) {
         if (card[p] && p === 'buttons') {
             card[p] = card[p].map(b => {
                 if (!b.url) {
-                    return null
+                    return builder.CardAction.imBack(session, b.msg || b.title, b.title)
                 }
                 return builder.CardAction.openUrl(session, b.url, b.title)
-            }).filter(b => b)
+            })
             heroCard.buttons(card[p])
         }
         if (card[p] && p === 'image') {

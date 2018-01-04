@@ -155,7 +155,7 @@ class Execution {
             this.decorators.exec(decorator.start, this)
             exec = true
         }
-        
+
         function execFinish() {
             if (deepFn === 0) {
                 self._noExec = true
@@ -396,8 +396,11 @@ class Execution {
                         name: obj.variable
                     })
                     */
-                    value = this.getVariable(obj, level)
-                    if (_.isUndefined(value)) {
+                    value = await this.getVariable(obj, level)
+                    if (_.isString(value) && value[0] === '#') {
+                        value = await this.translate(value.substr(1), level)
+                    }
+                    else if (_.isUndefined(value)) {
                         this.error.throw(obj, 'variable.not.defined')
                     }
                 }
@@ -487,6 +490,19 @@ class Execution {
         })
     }
 
+    async translate(str, level, params = []) {
+        const { converse } = this.interpreter
+        const lang = this.user.getLang() || converse.lang.current
+        const hasTranslate =
+            converse.lang.data[lang] &&
+            converse.lang.get(str, null, lang)
+        if (hasTranslate) {
+            params = await this.execParams(params, level)
+            str = str.t(lang, ...params)
+        }
+        return str
+    }
+
     execOutput(ins, level, done) {
         return new Promise(async (resolve, reject) => {
             const { converse } = this.interpreter
@@ -499,16 +515,7 @@ class Execution {
                 outputValue = await this.getValue(ins.output, level)
             }
 
-            const lang = this.user.getLang() || converse.lang.current
-            const hasTranslate =
-                converse.lang.data[lang] &&
-                converse.lang.get(outputValue, null, lang)
-
-            if (hasTranslate) {
-                let params = ins.params || []
-                params = await this.execParams(params, level)
-                outputValue = outputValue.t(lang, ...params)
-            }
+            outputValue = await this.translate(outputValue, level, ins.params)
 
             if (ins.decorators) {
                 for (let d of ins.decorators) {

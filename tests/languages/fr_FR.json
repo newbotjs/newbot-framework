@@ -1,6 +1,8 @@
 [
     {
-        "hello": "salut"
+        "hello": "salut",
+        "discover": "découvrir",
+        "view": "Voir"
     },
     {
         "plurial": {

@@ -8,6 +8,7 @@ module.exports = function (user, assert, converse) {
 
     converse.nlp('api.ai', {
         departure(string, structured) {
+            if (string == '/start') return false
             const { action, parameters } = structured.result
             if (action != 'input.departure') return false
             return parameters
@@ -28,11 +29,9 @@ module.exports = function (user, assert, converse) {
         }
     })
 
-    converse.useNlp('api.ai')
-
     return user
         .start()
-        .input('je pars a Paris')
+        .prompt('je pars a Paris')
         .spy('search', function () {
             assert.deepEqual(this.output(), [
                 'Your departure : Paris',

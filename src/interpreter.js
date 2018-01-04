@@ -397,10 +397,8 @@ class Execution {
                     })
                     */
                     value = await this.getVariable(obj, level)
-                    if (_.isString(value) && value[0] === '#') {
-                        value = await this.translate(value.substr(1), level)
-                    }
-                    else if (_.isUndefined(value)) {
+                    
+                    if (_.isUndefined(value)) {
                         this.error.throw(obj, 'variable.not.defined')
                     }
                 }
@@ -423,6 +421,11 @@ class Execution {
                     _.set(value, address, valueObj)
                 }
             }
+
+            if (_.isString(value) && value[0] === '#') {
+                value = await this.translate(value.substr(1), level)
+            }
+
             resolve(value)
         })
     }
@@ -498,7 +501,7 @@ class Execution {
             converse.lang.get(str, null, lang)
         if (hasTranslate) {
             params = await this.execParams(params, level)
-            str = str.t(lang, ...params)
+            str = converse.lang.translate(str, ...[lang, ...params])
         }
         return str
     }

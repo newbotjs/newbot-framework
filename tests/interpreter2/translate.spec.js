@@ -24,6 +24,15 @@ describe('Translate Test', () => {
 
                 array = ['#view']
                 > { array[0] }
+
+                @Format('carousel', [
+                    {
+                       buttons: [
+                           { title: '#go' } 
+                       ] 
+                   }
+               ])
+               > Ok
             }
         `)
 
@@ -33,12 +42,17 @@ describe('Translate Test', () => {
                 packages: ['fr_FR']
             }
         }).loadLanguage()
+    
+        converse.format('carousel', (str, [cards]) => {
+            return cards[0].buttons[0].title
+        })
 
         user
             .start(testing => {
                 assert.equal(testing.output(0), 'Découvrir')
                 assert.equal(testing.output(1), 'Salut')
                 assert.equal(testing.output(2), 'Voir')
+                assert.equal(testing.output(3), 'Aller')
             })
             .end()
     })

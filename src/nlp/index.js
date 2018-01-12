@@ -11,6 +11,10 @@ class Nlp {
     }
 
     add(intents) {
+        if (_.isFunction(intents)) {
+            this.intents = intents
+            return
+        }
         this.intents = _.merge(this.intents, intents)
     }
 
@@ -18,24 +22,36 @@ class Nlp {
         return new Promise((resolve, reject) => {
             if (this.converse._mockNlp && this.converse._mockNlp[this.name]) {
                 const ret = this.converse._mockNlp[this.name](input, userId)
-                resolve(ret)
+                resolve({ structured: ret })
+                return
+            }
+            if (_.isFunction(this.intents)) {
+                this.intents(input, userId, this.converse).then((intents) => {
+                    resolve({ intents })
+                })
                 return
             }
             switch (this.name) {
                 case 'wit.ai':
-                    Wit(this.converse.config, input, this).then(resolve)
+                    Wit(this.converse.config, input, this).then((ret) => {
+                        resolve({ structured: ret })
+                    })
                     break;
                 case 'api.ai':
-                    ApiAi(this.converse.config, input, userId, this).then(resolve)
+                    ApiAi(this.converse.config, input, userId, this).then((ret) => {
+                        resolve({ structured: ret })
+                    })
                     break;
                 default:
                     resolve()
                     break;
             }
-        }).then((structured) => {
+        })
+        .then(({ structured, intents } = {}) => {
+            intents = intents || this.intents
             let filterIntents = {}
-            for (let key in this.intents) {
-                let intent = this.intents[key]
+            for (let key in intents) {
+                let intent = intents[key]
                 let ret = intent(input, structured)
                 if (ret) {
                     filterIntents[key] = ret

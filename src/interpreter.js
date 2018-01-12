@@ -303,7 +303,7 @@ class Execution {
                     execFn(skill._interpreter.execution, ins, true)
                 }
                 else {
-                    this.error.throw(ins, 'funtion.not.defined')
+                    this.error.throw(ins, 'function.not.defined')
                 }
             }
 

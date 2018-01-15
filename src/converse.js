@@ -152,6 +152,7 @@ class Converse {
 
     event(name, ...more) {
         let output, users, data
+        let p = Promise.resolve()
         switch (more.length) {
             case 2:
                 if (_.isArray(more[0])) {
@@ -175,15 +176,18 @@ class Converse {
             users = [users]
         }
         users.forEach((user) => {
-            if (user.id) {
-                user = user.id
-            }
-            this.exec({
-                type: 'event',
-                name,
-                data
-            }, user, output)
+            p = p.then(() => {
+                if (user.id) {
+                    user = user.id
+                }
+                return this.exec({
+                    type: 'event',
+                    name,
+                    data
+                }, user, output)
+            })
         })
+        return p
     }
 
     saveSession(session, userId) {

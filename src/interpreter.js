@@ -67,6 +67,10 @@ class Execution {
             }
             this.decorators.exec(decorators, this)
         }
+        else {
+            this._noExec = true
+            this.end()
+        }
     }
 
     triggerAction() {

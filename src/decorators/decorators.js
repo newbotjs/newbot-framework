@@ -22,6 +22,7 @@ class Decorators {
     get(decoratorName, params) {
         let decorators = this.decorators[decoratorName]
         let decoratorsFound = []
+
         if (decorators.length === 0) return []
         if (!_.isArray(params)) {
             params = [params]

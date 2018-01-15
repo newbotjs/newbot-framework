@@ -4,7 +4,7 @@ const { ConverseTesting } = require('../../index')
 describe('Module Test', () => {
     let converse, user
 
-    before((done) => {
+    beforeEach((done) => {
         converse = new ConverseTesting(done)
         converse.code(`
             @Event('start')
@@ -14,12 +14,17 @@ describe('Module Test', () => {
                 > Ok
                 > { child.jsFunction() }
             }
+
+            @Event('on', 'parent')
+            event() {
+                > event works
+            }
         `)
         user = converse.createUser()
     })
 
     it('module test', () => {
-        user
+        return user
             .start(testing => {
                assert.deepEqual(testing.output(), ['Lazy 1'])
             })
@@ -31,4 +36,13 @@ describe('Module Test', () => {
             })
             .end()
     })
+
+    it('module event', () => {
+        return user
+            .event('parent', testing => {
+               assert.equal(testing.output(0), ['event works'])
+            })
+            .end()
+    })
+   
 })

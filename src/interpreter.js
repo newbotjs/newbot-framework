@@ -2,7 +2,8 @@ const _ = require('lodash')
 const colors = require('colors')
 const User = require('./user')
 const md5 = require('md5')
-const math = require('mathjs')
+const evaluate = require('static-eval')
+const { parse } = require('esprima')
 const async = require('async')
 const asyncReplace = require('async-replace')
 
@@ -94,7 +95,6 @@ class Execution {
 
     async go(deepFn = 0) {
         const self = this
-        console.log(this.user.getAddress(this.namespace))
         const address = this.interpreter.index[this.user.getAddress(this.namespace)]
         let exec = false
         let execIntent = false
@@ -402,7 +402,7 @@ class Execution {
                     })
                     */
                     value = await this.getVariable(obj, level)
-                    
+
                     if (_.isUndefined(value)) {
                         this.error.throw(obj, 'variable.not.defined')
                     }
@@ -471,7 +471,7 @@ class Execution {
             expr = await new Promise((resolve, reject) => {
                 asyncReplace(expr, /\{([0-9]+)\}/g, async (match, index, offset, string, done) => {
                     let val = await this.getValue(variables[index], level)
-                    if (!/[0-9]+(\.[0-9]+)?/.test(val) && !_.isBoolean(val) && val !== null) {
+                    if (!/^[0-9]+(\.[0-9]+)?$/.test(val) && !_.isBoolean(val) && val !== null) {
                         val = `"${val}"`
                     }
                     done(null, val)
@@ -480,7 +480,11 @@ class Execution {
                 })
             })
             expr = expr.replace(/'/g, '"')
-            resolve(math.eval(expr))
+            expr = expr.replace(/not/g, '!')
+            expr = expr.replace(/and/g, '&&')
+            expr = expr.replace(/or/g, '||')
+            const ast = parse(expr).body[0].expression
+            resolve(evaluate(ast))
         })
     }
 

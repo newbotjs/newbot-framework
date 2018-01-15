@@ -124,13 +124,30 @@ class Converse {
     execNlp(input, userId) {
         const promises = []
         input.intents = {}
-        for (let name in this._nlp) {
-            let nlp = this._nlp[name]
-            promises.push(nlp.exec(input.text, userId).then((intents) => {
-                input.intents = _.merge(input.intents, intents)
-            }))
+        let p = Promise.resolve()
+        let nlpArray = Object.keys(this._nlp).map(name => {
+            return this._nlp[name]
+        })
+        nlpArray = nlpArray.sort((a, b) => {
+            return b.priority - a.priority
+        })
+        for (let nlp of nlpArray) {
+            p = p.then((state) => {
+                if (state == 'break') return
+                return nlp.exec(input.text, userId)
+            }).then((intents) => {
+                if (!intents) return
+                const nbIntents = Object.keys(intents).length
+                if (nlp.priority && nbIntents > 0) {
+                    input.intents = intents 
+                    return 'break'
+                }
+                else {
+                    input.intents = _.merge(input.intents, intents)
+                }
+            })
         }
-        return Promise.all(promises).then(() => input)
+        return p.then(() => input)
     }
 
     event(name, ...more) {
@@ -257,9 +274,9 @@ class Converse {
         done(ret)
     }
 
-    nlp(name, intents) {
+    nlp(name, intents, options) {
         if (!this._nlp[name]) {
-            this._nlp[name] = new Nlp(name, this)
+            this._nlp[name] = new Nlp(name, this, options)
         }
         if (intents) this._nlp[name].add(intents)
         return this._nlp[name]

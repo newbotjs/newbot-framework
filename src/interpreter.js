@@ -537,7 +537,7 @@ class Execution {
                         let name = params[0]
                         if (converse._format[name]) {
                             params.splice(0, 1)
-                            outputValue = converse._format[name](outputValue, params, this.options.data)
+                            outputValue = converse._format[name](outputValue, params, this.options.data, this.user)
                         }
                     }
                 }

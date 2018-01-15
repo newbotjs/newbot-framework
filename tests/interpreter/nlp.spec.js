@@ -4,9 +4,13 @@ module.exports = function (user, assert, converse) {
         'input.departure'(str) {
             return /cherche/.test(str) ? { search: true } : null
         }
-    })
+    }, { priority: 1 })
 
-    converse.useNlp('regexp')
+    converse.nlp('other-regexp', {
+        hey(str) {
+            return /hey/.test(str)
+        }
+    }, { priority: 0 })
 
     return user
         .start()

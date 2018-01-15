@@ -4,9 +4,11 @@ const ApiAi = require('./api.ai')
 
 class Nlp {
 
-    constructor(name, converse) {
+    constructor(name, converse, options = {}) {
         this.name = name
         this.converse = converse
+        this.options = options
+        this.priority = this.options.priority
         this.intents = {}
     }
 

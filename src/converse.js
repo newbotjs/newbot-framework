@@ -81,9 +81,15 @@ class Converse {
                 user.setMagicVariable(variable, output.magicVariables[variable])
             }
         }
+
         user.setMagicVariable('userId', userId)
 
         let p = Promise.resolve()
+            .then(() => {
+                if (output.preUser) {
+                    return output.preUser(user)
+                }
+            })
             .then(() => this.propagateExec(input, userId, output, propagate))
             .then(noExec => propagate.childrenNotExec = !!noExec)
         if (input.type !== 'event') {

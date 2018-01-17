@@ -2,10 +2,10 @@ const builder = require('botbuilder')
 const { isFacebook } = require('../utils')
 const { heroCard } = require('./hero-card')
 
-function buttons(session, text, buttons) {
+function buttons(session, text, buttons, user) {
     const card = heroCard(session, {
         buttons
-    })
+    }, user)
     if (isFacebook(session)) {
         return new builder.Message(session)
             .sourceEvent({
@@ -29,8 +29,8 @@ function buttons(session, text, buttons) {
 module.exports = {
     buttons,
     format(converse) {
-        converse.format('buttons', (text, [_buttons], { session }) => {
-            return buttons(session, text, _buttons)
+        converse.format('buttons', (text, [_buttons], { session }, user) => {
+            return buttons(session, text, _buttons, user)
         })        
     }
 }

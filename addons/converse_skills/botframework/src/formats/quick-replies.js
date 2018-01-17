@@ -1,11 +1,11 @@
 const builder = require('botbuilder')
-const { isFacebook } = require('../utils')
+const Utils = require('../utils')
 const _ = require('lodash')
 const querystring = require('querystring')
 
 module.exports = (converse) => {
     converse.format('quickReplies', (text, [actions], { session }) => {
-        if (isFacebook(session)) {
+        if (Utils.isFacebook(session)) {
             actions = actions.map(action => {
                 if (_.isString(action)) {
                     return {

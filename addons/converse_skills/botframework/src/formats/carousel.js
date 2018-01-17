@@ -1,17 +1,17 @@
 const builder = require('botbuilder')
-const { isFacebook } = require('../utils')
+const Utils = require('../utils')
 const { heroCard } = require('./hero-card')
 const _ = require('lodash')
 
 module.exports = (converse) => {
-    converse.format('carousel', (text, [cards], { session }) => {
+    converse.format('carousel', (text, [cards], { session }, user) => {
         if (!_.isArray(cards)) {
             return text
         }
         cards = cards.map(card => {
-            return heroCard(session, card)
+            return heroCard(session, card, user)
         }).slice(0, 10)
-        if (isFacebook(session)) {
+        if (Utils.isFacebook(session)) {
             return new builder.Message(session)
                 .sourceEvent({
                     facebook: {

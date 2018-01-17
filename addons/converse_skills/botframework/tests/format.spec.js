@@ -19,7 +19,7 @@ describe('Module Test', () => {
                 > hello
             }
         `)
-        user
+        return user
             .start(testing => {
                 const { data } = testing.output(0)
                 assert.equal(data.text, 'hello')
@@ -40,7 +40,7 @@ describe('Module Test', () => {
                 > hello
             }
         `)
-        user
+        return user
             .start(testing => {
                 const { data } = testing.output(0)
                 assert.deepEqual(data.attachments, [{
@@ -65,7 +65,7 @@ describe('Module Test', () => {
                 > hello
             }
         `)
-        user
+        return user
             .start(testing => {
                 const { data } = testing.output(0)
                 assert.equal(data.attachmentLayout, 'carousel')
@@ -90,7 +90,7 @@ describe('Module Test', () => {
                 > hello
             }
         `)
-        user
+        return user
             .start(testing => {
                 const { data } = testing.output(0)
                 assert.deepEqual(data.attachments, [{
@@ -119,7 +119,7 @@ describe('Module Test', () => {
                 > hello
             }
         `)
-        user
+        return user
             .start(testing => {
                 const { data } = testing.output(0)
                 assert.deepEqual(data.attachments, [

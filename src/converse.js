@@ -275,7 +275,10 @@ class Converse {
         }
         if (ret && ret.then) {
             return ret
-                .then(done)
+                .then(() => {
+                    user.setMagicVariable('error', null)
+                    done()
+                })
                 .catch(err => {
                     user.setMagicVariable('error', err)
                     done()

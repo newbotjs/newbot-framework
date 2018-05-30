@@ -38,6 +38,7 @@ class Execution {
         this.error = new ExecutionError(interpreter.converse.script)
         this.namespace = interpreter.namespace
         this._finishScript = this.options._finishScript
+        this.user.setMagicVariable('text', this.input)
         this.instructionsRoot(() => {
             if (this.event) {
                 this.triggerEvent()
@@ -106,6 +107,7 @@ class Execution {
         // Get decorators
         const decorator = {
             start: this.decorators.get('Event', 'start'),
+            startAndIntent: this.decorators.get('Event', 'startAndIntent'),
             nothing: this.decorators.get('Event', 'nothing')
         }
 
@@ -126,7 +128,6 @@ class Execution {
             let { index, level, deep } = address
             let fn = this.interpreter.fn[level]
 
-            this.user.setMagicVariable('text', this.input)
             this.user.popAddress(this.namespace)
 
             const fnBlock = (index) => {
@@ -157,8 +158,12 @@ class Execution {
             }
             exec = true
         }
-        else if (this.start && decorator.start.length) {
+        else if (!execIntent && this.start && decorator.start.length) {
             this.decorators.exec(decorator.start, this)
+            exec = true
+        }
+        else if (execIntent && this.start && decorator.startAndIntent.length) {
+            this.decorators.exec(decorator.startAndIntent, this)
             exec = true
         }
 
@@ -183,10 +188,12 @@ class Execution {
 
     end() {
         this.user.clearAddress(this.namespace)
-        this._triggerHook('finished', {
-            user: this.user,
-            data: this.options.data
-        })
+        if (!this.parent) {
+            this._triggerHook('finished', {
+                user: this.user,
+                data: this.options.data
+            })
+        }
         if (this.options.finish) this.options.finish.call(this)
         this._finishScript({
             noExec: this._noExec
@@ -252,11 +259,13 @@ class Execution {
 
     findFunctionAndExec(ins, level, next) {
         return new Promise(async (resolve, reject) => {
-            const { variable, type, deep } = ins.name
-            if (variable) {
-                ins.name = variable
+            if (!_.isString(ins.name)) {
+                const { variable, type, deep } = ins.name
+                if (variable) {
+                    ins.name = variable
+                }
+                ins.deep = deep
             }
-            ins.deep = deep
             const execFn = (context, ins, isChild) => {
                 if (context.interpreter.fn[ins.name]) {
                     const params = ins.params
@@ -301,9 +310,8 @@ class Execution {
             if (!execFn(this, ins)) {
                 const skill = this.converse.skills().get(ins.name)
                 if (skill) {
-                    ins.name = deep[0]
-                    deep.splice(0, 1)
-                    ins.deep = deep
+                    ins.name = ins.deep[0]
+                    ins.deep.splice(0, 1)
                     execFn(skill._interpreter.execution, ins, true)
                 }
                 else {
@@ -407,9 +415,9 @@ class Execution {
                     */
                     value = await this.getVariable(obj, level)
 
-                    if (_.isUndefined(value)) {
+                    /*if (_.isUndefined(value)) {
                         this.error.throw(obj, 'variable.not.defined')
-                    }
+                    }*/
                 }
             }
             else if (obj.text && !obj.__deepIndex) {
@@ -546,26 +554,23 @@ class Execution {
                     }
                 }
             }
-            const send = () => {
-                const ret = this.output(outputValue, done, {
+            const send = (outputChanged) => {
+                const output = outputChanged || outputValue
+                const ret = this.output(output, done, {
                     user: this.user
                 })
                 if (!_.isUndefined(ret)) {
                     done()
                 }
             }
-            if (this.hooks.sending) {
-                this._triggerHook('sending', outputValue, {
-                    user: this.user,
-                    data: this.options.data
-                }, (err) => {
-                    if (err) throw err
-                    send()
-                })
-            }
-            else {
-                send()
-            }
+            const triggerFound = this._triggerHook('sending', outputValue, {
+                user: this.user,
+                data: this.options.data
+            }, (err, outputChanged) => {
+                if (err) throw err
+                send(outputChanged)
+            })
+            if (!triggerFound) send()
         })
     }
 
@@ -619,12 +624,16 @@ class Execution {
     }
 
     _triggerHook(name, params, data, cb) {
+        let triggerFound = false
         if (this.hooks[name]) {
+            triggerFound = true
             this.hooks[name](this.input, params, data, cb)
         }
         if (this.parent && this.parent._hooks[name]) {
+            triggerFound = true
             this.parent._hooks[name](this.input, params, data, cb)
         }
+        return triggerFound
     }
 
 }

@@ -3,42 +3,69 @@ const Utils = require('../utils')
 const _ = require('lodash')
 const querystring = require('querystring')
 
-module.exports = (converse) => {
-    converse.format('quickReplies', (text, [actions], { session }) => {
-        if (Utils.isFacebook(session)) {
-            actions = actions.map(action => {
-                if (_.isString(action)) {
-                    return {
-                        content_type: 'text',
-                        title: action,
-                        payload: action
-                    }
-                }
-                if (!action.type) action.type = 'text'
-                if (action.action) {
-                    action.payload = `action?${querystring.stringify(action.action)}`
-                }
-                return {
-                    content_type: action.type,
-                    title: action.text,
-                    payload: action.payload,
-                    image_url: action.image
-                }
-            })
-            return new builder.Message(session)
-                .sourceEvent({
-                    facebook: {
-                        text,
-                        quick_replies: actions
-                    }
-                })
-        }
+function quickReplies(session, actions) {
+
+    if (!actions) return
+    
+    if (Utils.isWebSite(session)) {
+        return actions
+    }
+
+    if (Utils.isFacebook(session)) {
         actions = actions.map(action => {
-            return builder.CardAction.imBack(session, action, action)
+            if (_.isString(action)) {
+                return {
+                    content_type: 'text',
+                    title: action,
+                    payload: action
+                }
+            }
+            if (!action.type) action.type = 'text'
+            if (action.action) {
+                action.payload = `action?${querystring.stringify(action.action)}`
+            }
+            return {
+                content_type: action.type,
+                title: action.text,
+                payload: action.payload,
+                image_url: action.image
+            }
         })
-        return new builder.Message(session)
-            .text(text)
-            .suggestedActions(builder.SuggestedActions.create(session, actions))
+       return actions
+    }
+
+    actions = actions.map(action => {
+        return builder.CardAction.imBack(session, action, action)
     })
-    return converse
+
+    return actions
+}
+
+module.exports = {
+    quickReplies,
+    format(converse) {
+        converse.format('quickReplies', (text, [actions], { session }) => {
+
+            actions = quickReplies(session, actions)
+
+            if (Utils.isWebSite(session)) {
+                return { text, actions }
+            }
+
+            if (Utils.isFacebook(session)) {
+                return new builder.Message(session)
+                    .sourceEvent({
+                        facebook: {
+                            text,
+                            quick_replies: actions
+                        }
+                    })
+            }
+
+            return new builder.Message(session)
+                .text(text)
+                .suggestedActions(builder.SuggestedActions.create(session, actions))
+        })
+        return converse
+    }
 }

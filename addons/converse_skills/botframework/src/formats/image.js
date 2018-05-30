@@ -13,6 +13,12 @@ module.exports = (converse) => {
                 contentType = 'image/' + ext
             }
         }
+        if (session.source === 'website') {
+            return {
+                text,
+                image: contentUrl
+            }
+        }
         return new builder.Message(session)
             .text(text)
             .addAttachment({

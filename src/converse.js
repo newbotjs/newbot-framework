@@ -87,7 +87,7 @@ class Converse {
         let p = Promise.resolve()
             .then(() => {
                 if (output.preUser) {
-                    return output.preUser(user)
+                    return output.preUser(user, this)
                 }
             })
             .then(() => this.propagateExec(input, userId, output, propagate))
@@ -235,7 +235,7 @@ class Converse {
         if (deep && deep.length > 0) {
             $call = _.get($call, deep)
         }
-
+        
         if ($params) {
             $params = $params.map(p => {
                 switch (p) {

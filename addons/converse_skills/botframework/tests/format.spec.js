@@ -82,6 +82,41 @@ describe('Module Test', () => {
             .end()
     })
 
+    it('carousel test with qui replies', () => {
+        converse.code(`
+            @Event('start')
+            start() {
+                @Format('carousel', [
+                    {
+                        title: 'Title',
+                        subtitle: 'Subtitle'
+                    }
+                ], ['go'])
+                > hello
+            }
+        `)
+        return user
+            .start(testing => {
+                const { data } = testing.output(0)
+                assert.equal(data.attachmentLayout, 'carousel')
+                assert.deepEqual(data.attachments, [
+                    {
+                        "contentType": "application/vnd.microsoft.card.hero",
+                        "content": {
+                            "title": "Title",
+                            "subtitle": "Subtitle"
+                        }
+                    }
+                ])
+                assert.deepEqual(data.suggestedActions.actions, [{
+                    type: 'imBack',
+                    value: 'go',
+                    title: 'go'
+                }])
+            })
+            .end()
+    })
+
     it('gif test', () => {
         converse.code(`
             @Event('start')

@@ -1,11 +1,27 @@
+const LANGS_ID = ['fr_FR', 'en_EN']
+
 class Utils {
     isFacebook(session) {
         return session.message.source === 'facebook'
     }
+    isWebSite(session) {
+        return session.message.source === 'website'
+    }
     getByLang(prop, user) {
         const lang = user.getLang()
-        if (prop && lang && prop[lang]) {
-            return prop[lang]
+        if (prop && lang) {
+            if (prop[lang]) {
+                return prop[lang]
+            }
+            else if (prop[this.defaultLanguage]) {
+                return prop[this.defaultLanguage]
+            }
+            else {
+                const [lang] = Object.keys(prop)
+                if (LANGS_ID.indexOf(lang) != -1) {
+                    return prop[lang]
+                }
+            }
         }
         return prop
     }

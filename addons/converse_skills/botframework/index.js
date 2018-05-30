@@ -1,9 +1,13 @@
 const { Converse } = require('../../../index')
+const Utils = require('./src/utils')
 const entry = require('./src/entry')
 
-const converse = new Converse()
-converse.shareFormats()
+module.exports = (langDefault) => {
+    const converse = new Converse()
+    converse.shareFormats()
 
-entry(converse)
-
-module.exports = converse
+    Utils.defaultLanguage = langDefault
+    
+    entry(converse, langDefault)
+    return converse
+}

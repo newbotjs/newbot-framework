@@ -54,7 +54,8 @@ class Nlp {
             let filterIntents = {}
             for (let key in intents) {
                 let intent = intents[key]
-                let ret = intent(input, structured)
+                let user = this.converse._users.get(userId)
+                let ret = intent(input, structured, user)
                 if (ret) {
                     filterIntents[key] = ret
                     if (this.name == 'api.ai') {

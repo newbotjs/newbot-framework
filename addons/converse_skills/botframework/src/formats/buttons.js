@@ -1,11 +1,17 @@
 const builder = require('botbuilder')
-const { isFacebook } = require('../utils')
+const { isFacebook, isWebSite } = require('../utils')
 const { heroCard } = require('./hero-card')
 
 function buttons(session, text, buttons, user) {
     const card = heroCard(session, {
         buttons
     }, user)
+    if (isWebSite(session)) {
+        return {
+            text,
+            buttons
+        }
+    }
     if (isFacebook(session)) {
         return new builder.Message(session)
             .sourceEvent({

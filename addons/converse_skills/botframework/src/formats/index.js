@@ -1,4 +1,4 @@
-const quickReplies = require('./quick-replies')
+const { format: quickReplies } = require('./quick-replies')
 const carousel = require('./carousel')
 const gif = require('./gif')
 const image = require('./image')

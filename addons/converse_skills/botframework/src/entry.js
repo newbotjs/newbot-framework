@@ -1,4 +1,5 @@
 const formats  = require('./formats')
+const { isWebSite } = require('./utils')
 
 module.exports = (converse) => {
     for (let key in formats) {
@@ -9,7 +10,9 @@ module.exports = (converse) => {
         Typing: {
             $params: ['data'],
             $call({ session }) {
-                session.sendTyping()
+                if (!isWebSite(session)) {
+                    session.sendTyping()
+                }  
             }
         }
     })

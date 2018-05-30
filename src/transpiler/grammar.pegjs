@@ -1,6 +1,13 @@
 {
-    const _ = require('lodash')
+    var _
 
+    if (typeof window == 'undefined') {
+        _ = require('lodash')
+    }
+    else {
+        _ = window._
+    }
+    
     const DEEP_NAME = '__deepIndex'
 
     function increment(variable, sign, expression, variables=[]) {

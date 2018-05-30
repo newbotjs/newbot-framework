@@ -1,4 +1,4 @@
-const fs = require('fs')
+const fs = require('./utils/fs')
 const _ = require('lodash')
 const path = require('path')
 const Languages = require('languages-js')
@@ -7,7 +7,6 @@ const stack = require('callsite')
 const User = require('./user')
 const Transpiler = require('./transpiler/lexer')
 const Interpreter = require('./interpreter')
-const { MongoClient } = require('mongodb')
 const Functions = require('./api')
 const Nlp = require('./nlp')
 
@@ -49,59 +48,61 @@ class Converse {
         return this
     }
 
-    open() {
+    async open() {
         if (this._file) {
-            this.code(fs.readFileSync(this._file, 'utf-8'))
+            this.code(await fs.readFile(this._file, 'utf-8'))
         }
         this._transpiler = new Transpiler(this.script)
         this._obj = this._transpiler.run()
-        //console.log(JSON.stringify(this._obj, null, 2))
         this._interpreter = new Interpreter(this._obj, this.users, this)
         return this
     }
 
     exec(input, userId, output, propagate = {}) {
-        this.open()
+        return new Promise(async (resolve, reject) => {
+            await this.open()
 
-        if (!_.isObjectLike(input)) {
-            input = { text: input }
-        }
-
-        let user = this._users.get(userId)
-        if (_.isFunction(output)) {
-            output = { output }
-        }
-        if (!user) {
-            user = new User(userId)
-            this._users.set(userId, user)
-            propagate.start = true
-        }
-        if (output.magicVariables) {
-            for (let variable in output.magicVariables) {
-                user.setMagicVariable(variable, output.magicVariables[variable])
+            if (!_.isObjectLike(input)) {
+                input = { text: input }
             }
-        }
-
-        user.setMagicVariable('userId', userId)
-
-        let p = Promise.resolve()
-            .then(() => {
-                if (output.preUser) {
-                    return output.preUser(user, this)
+    
+            let user = this._users.get(userId)
+            if (_.isFunction(output)) {
+                output = { output }
+            }
+            if (!user) {
+                user = new User(userId)
+                this._users.set(userId, user)
+                propagate.start = true
+            }
+            if (output.magicVariables) {
+                for (let variable in output.magicVariables) {
+                    user.setMagicVariable(variable, output.magicVariables[variable])
                 }
+            }
+    
+            user.setMagicVariable('userId', userId)
+    
+            let p = Promise.resolve()
+                .then(() => {
+                    if (output.preUser) {
+                        return output.preUser(user, this)
+                    }
+                })
+                .then(() => this.propagateExec(input, userId, output, propagate))
+                .then(noExec => propagate.childrenNotExec = !!noExec)
+            if (input.type !== 'event') {
+                p = p.then(() => this.execNlp(input, userId))
+            }
+            else {
+                p = p.then(() => input)
+            }
+            p.then(input => {
+                resolve(this._interpreter.exec(user, input, output, propagate))
+            }).catch((err) => {
+                console.log(err)
+                reject(err)
             })
-            .then(() => this.propagateExec(input, userId, output, propagate))
-            .then(noExec => propagate.childrenNotExec = !!noExec)
-        if (input.type !== 'event') {
-            p = p.then(() => this.execNlp(input, userId))
-        }
-        else {
-            p = p.then(() => input)
-        }
-        return p.then(input => {
-            return this._interpreter.exec(user, input, output, propagate)
-        }).catch((err) => {
-            console.log(err)
         })
     }
 
@@ -348,15 +349,17 @@ class Converse {
     }
 
     async openSkills(done) {
-        const config = await new Promise((resolve, reject) => {
-            fs.readFile(`${this.parentPath}/package.json`, { encoding: 'utf-8' }, (err, data) => {
+        const config = await new Promise(async (resolve, reject) => {
+            try {
+                const data = await fs.readFile(`${this.parentPath}/package.json`, { encoding: 'utf-8' })
+                resolve(JSON.parse(data))
+            }
+            catch (err) {
                 if (err) {
                     if (err.code == 'ENOENT') return resolve()
                     return reject(err)
-
                 }
-                resolve(JSON.parse(data))
-            })
+            }
         })
         if (config && config.converse && config.converse.dependencies) {
             this.setSkills(config.converse.dependencies)

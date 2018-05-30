@@ -1,8 +1,11 @@
 const peg = require('pegjs')
 const fs = require('fs')
-const grammar = fs.readFileSync(`${__dirname}/grammar.pegjs`,'utf-8')
+const _ = require('lodash')
 
-parser = peg.generate(grammar)
+if (typeof window != 'undefined') window._ = _
+
+const grammar = fs.readFileSync(`${__dirname}/grammar.pegjs`,'utf-8')
+const parser = peg.generate(grammar)
 
 class Transpiler {
     constructor(script) {

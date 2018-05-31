@@ -132,7 +132,7 @@ module.exports = function (TO_STRING) {
   };
 };
 
-},{"./_to-integer":164,"./_defined":165}],107:[function(require,module,exports) {
+},{"./_to-integer":164,"./_defined":165}],102:[function(require,module,exports) {
 module.exports = true;
 
 },{}],98:[function(require,module,exports) {
@@ -144,17 +144,17 @@ var global = module.exports = typeof window != 'undefined' && window.Math == Mat
   : Function('return this')();
 if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
 
-},{}],75:[function(require,module,exports) {
+},{}],76:[function(require,module,exports) {
 var core = module.exports = { version: '2.5.7' };
 if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
-},{}],111:[function(require,module,exports) {
+},{}],107:[function(require,module,exports) {
 module.exports = function (it) {
   if (typeof it != 'function') throw TypeError(it + ' is not a function!');
   return it;
 };
 
-},{}],108:[function(require,module,exports) {
+},{}],103:[function(require,module,exports) {
 // optional / simple context binding
 var aFunction = require('./_a-function');
 module.exports = function (fn, that, length) {
@@ -176,19 +176,19 @@ module.exports = function (fn, that, length) {
   };
 };
 
-},{"./_a-function":111}],110:[function(require,module,exports) {
+},{"./_a-function":107}],106:[function(require,module,exports) {
 module.exports = function (it) {
   return typeof it === 'object' ? it !== null : typeof it === 'function';
 };
 
-},{}],176:[function(require,module,exports) {
+},{}],177:[function(require,module,exports) {
 var isObject = require('./_is-object');
 module.exports = function (it) {
   if (!isObject(it)) throw TypeError(it + ' is not an object!');
   return it;
 };
 
-},{"./_is-object":110}],183:[function(require,module,exports) {
+},{"./_is-object":106}],183:[function(require,module,exports) {
 module.exports = function (exec) {
   try {
     return !!exec();
@@ -212,7 +212,7 @@ module.exports = function (it) {
   return is ? document.createElement(it) : {};
 };
 
-},{"./_is-object":110,"./_global":98}],184:[function(require,module,exports) {
+},{"./_is-object":106,"./_global":98}],184:[function(require,module,exports) {
 module.exports = !require('./_descriptors') && !require('./_fails')(function () {
   return Object.defineProperty(require('./_dom-create')('div'), 'a', { get: function () { return 7; } }).a != 7;
 });
@@ -231,7 +231,7 @@ module.exports = function (it, S) {
   throw TypeError("Can't convert object to primitive value");
 };
 
-},{"./_is-object":110}],137:[function(require,module,exports) {
+},{"./_is-object":106}],137:[function(require,module,exports) {
 var anObject = require('./_an-object');
 var IE8_DOM_DEFINE = require('./_ie8-dom-define');
 var toPrimitive = require('./_to-primitive');
@@ -249,7 +249,7 @@ exports.f = require('./_descriptors') ? Object.defineProperty : function defineP
   return O;
 };
 
-},{"./_an-object":176,"./_ie8-dom-define":184,"./_to-primitive":185,"./_descriptors":136}],172:[function(require,module,exports) {
+},{"./_an-object":177,"./_ie8-dom-define":184,"./_to-primitive":185,"./_descriptors":136}],172:[function(require,module,exports) {
 module.exports = function (bitmap, value) {
   return {
     enumerable: !(bitmap & 1),
@@ -269,13 +269,13 @@ module.exports = require('./_descriptors') ? function (object, key, value) {
   return object;
 };
 
-},{"./_object-dp":137,"./_property-desc":172,"./_descriptors":136}],175:[function(require,module,exports) {
+},{"./_object-dp":137,"./_property-desc":172,"./_descriptors":136}],176:[function(require,module,exports) {
 var hasOwnProperty = {}.hasOwnProperty;
 module.exports = function (it, key) {
   return hasOwnProperty.call(it, key);
 };
 
-},{}],102:[function(require,module,exports) {
+},{}],105:[function(require,module,exports) {
 
 var global = require('./_global');
 var core = require('./_core');
@@ -340,20 +340,20 @@ $export.U = 64;  // safe
 $export.R = 128; // real proto method for `library`
 module.exports = $export;
 
-},{"./_global":98,"./_core":75,"./_ctx":108,"./_hide":99,"./_has":175}],166:[function(require,module,exports) {
+},{"./_global":98,"./_core":76,"./_ctx":103,"./_hide":99,"./_has":176}],166:[function(require,module,exports) {
 module.exports = require('./_hide');
 
 },{"./_hide":99}],100:[function(require,module,exports) {
 module.exports = {};
 
-},{}],177:[function(require,module,exports) {
+},{}],175:[function(require,module,exports) {
 var toString = {}.toString;
 
 module.exports = function (it) {
   return toString.call(it).slice(8, -1);
 };
 
-},{}],241:[function(require,module,exports) {
+},{}],242:[function(require,module,exports) {
 // fallback for non-array-like ES3 and non-enumerable old V8 strings
 var cof = require('./_cof');
 // eslint-disable-next-line no-prototype-builtins
@@ -361,7 +361,7 @@ module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
   return cof(it) == 'String' ? it.split('') : Object(it);
 };
 
-},{"./_cof":177}],171:[function(require,module,exports) {
+},{"./_cof":175}],171:[function(require,module,exports) {
 // to indexed object, toObject with fallback for non-array-like ES3 strings
 var IObject = require('./_iobject');
 var defined = require('./_defined');
@@ -369,7 +369,7 @@ module.exports = function (it) {
   return IObject(defined(it));
 };
 
-},{"./_iobject":241,"./_defined":165}],133:[function(require,module,exports) {
+},{"./_iobject":242,"./_defined":165}],133:[function(require,module,exports) {
 // 7.1.15 ToLength
 var toInteger = require('./_to-integer');
 var min = Math.min;
@@ -386,7 +386,7 @@ module.exports = function (index, length) {
   return index < 0 ? max(index + length, 0) : min(index, length);
 };
 
-},{"./_to-integer":164}],397:[function(require,module,exports) {
+},{"./_to-integer":164}],387:[function(require,module,exports) {
 // false -> Array#indexOf
 // true  -> Array#includes
 var toIObject = require('./_to-iobject');
@@ -426,21 +426,21 @@ var store = global[SHARED] || (global[SHARED] = {});
   copyright: '© 2018 Denis Pushkarev (zloirock.ru)'
 });
 
-},{"./_core":75,"./_global":98,"./_library":107}],174:[function(require,module,exports) {
+},{"./_core":76,"./_global":98,"./_library":102}],174:[function(require,module,exports) {
 var id = 0;
 var px = Math.random();
 module.exports = function (key) {
   return 'Symbol('.concat(key === undefined ? '' : key, ')_', (++id + px).toString(36));
 };
 
-},{}],240:[function(require,module,exports) {
+},{}],241:[function(require,module,exports) {
 var shared = require('./_shared')('keys');
 var uid = require('./_uid');
 module.exports = function (key) {
   return shared[key] || (shared[key] = uid(key));
 };
 
-},{"./_shared":173,"./_uid":174}],344:[function(require,module,exports) {
+},{"./_shared":173,"./_uid":174}],339:[function(require,module,exports) {
 var has = require('./_has');
 var toIObject = require('./_to-iobject');
 var arrayIndexOf = require('./_array-includes')(false);
@@ -459,7 +459,7 @@ module.exports = function (object, names) {
   return result;
 };
 
-},{"./_has":175,"./_to-iobject":171,"./_array-includes":397,"./_shared-key":240}],313:[function(require,module,exports) {
+},{"./_has":176,"./_to-iobject":171,"./_array-includes":387,"./_shared-key":241}],313:[function(require,module,exports) {
 // IE 8- don't enum bug keys
 module.exports = (
   'constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf'
@@ -474,7 +474,7 @@ module.exports = Object.keys || function keys(O) {
   return $keys(O, enumBugKeys);
 };
 
-},{"./_object-keys-internal":344,"./_enum-bug-keys":313}],312:[function(require,module,exports) {
+},{"./_object-keys-internal":339,"./_enum-bug-keys":313}],312:[function(require,module,exports) {
 var dP = require('./_object-dp');
 var anObject = require('./_an-object');
 var getKeys = require('./_object-keys');
@@ -489,11 +489,11 @@ module.exports = require('./_descriptors') ? Object.defineProperties : function 
   return O;
 };
 
-},{"./_object-dp":137,"./_an-object":176,"./_object-keys":275,"./_descriptors":136}],179:[function(require,module,exports) {
+},{"./_object-dp":137,"./_an-object":177,"./_object-keys":275,"./_descriptors":136}],179:[function(require,module,exports) {
 var document = require('./_global').document;
 module.exports = document && document.documentElement;
 
-},{"./_global":98}],242:[function(require,module,exports) {
+},{"./_global":98}],240:[function(require,module,exports) {
 // 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
 var anObject = require('./_an-object');
 var dPs = require('./_object-dps');
@@ -536,7 +536,7 @@ module.exports = Object.create || function create(O, Properties) {
   return Properties === undefined ? result : dPs(result, Properties);
 };
 
-},{"./_an-object":176,"./_object-dps":312,"./_enum-bug-keys":313,"./_shared-key":240,"./_dom-create":180,"./_html":179}],101:[function(require,module,exports) {
+},{"./_an-object":177,"./_object-dps":312,"./_enum-bug-keys":313,"./_shared-key":241,"./_dom-create":180,"./_html":179}],101:[function(require,module,exports) {
 var store = require('./_shared')('wks');
 var uid = require('./_uid');
 var Symbol = require('./_global').Symbol;
@@ -558,7 +558,7 @@ module.exports = function (it, tag, stat) {
   if (it && !has(it = stat ? it : it.prototype, TAG)) def(it, TAG, { configurable: true, value: tag });
 };
 
-},{"./_object-dp":137,"./_has":175,"./_wks":101}],167:[function(require,module,exports) {
+},{"./_object-dp":137,"./_has":176,"./_wks":101}],167:[function(require,module,exports) {
 'use strict';
 var create = require('./_object-create');
 var descriptor = require('./_property-desc');
@@ -573,7 +573,7 @@ module.exports = function (Constructor, NAME, next) {
   setToStringTag(Constructor, NAME + ' Iterator');
 };
 
-},{"./_object-create":242,"./_property-desc":172,"./_set-to-string-tag":118,"./_hide":99,"./_wks":101}],130:[function(require,module,exports) {
+},{"./_object-create":240,"./_property-desc":172,"./_set-to-string-tag":118,"./_hide":99,"./_wks":101}],130:[function(require,module,exports) {
 // 7.1.13 ToObject(argument)
 var defined = require('./_defined');
 module.exports = function (it) {
@@ -595,7 +595,7 @@ module.exports = Object.getPrototypeOf || function (O) {
   } return O instanceof Object ? ObjectProto : null;
 };
 
-},{"./_has":175,"./_to-object":130,"./_shared-key":240}],96:[function(require,module,exports) {
+},{"./_has":176,"./_to-object":130,"./_shared-key":241}],96:[function(require,module,exports) {
 'use strict';
 var LIBRARY = require('./_library');
 var $export = require('./_export');
@@ -666,7 +666,7 @@ module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCE
   return methods;
 };
 
-},{"./_library":107,"./_export":102,"./_redefine":166,"./_hide":99,"./_iterators":100,"./_iter-create":167,"./_set-to-string-tag":118,"./_object-gpo":168,"./_wks":101}],71:[function(require,module,exports) {
+},{"./_library":102,"./_export":105,"./_redefine":166,"./_hide":99,"./_iterators":100,"./_iter-create":167,"./_set-to-string-tag":118,"./_object-gpo":168,"./_wks":101}],71:[function(require,module,exports) {
 'use strict';
 var $at = require('./_string-at')(true);
 
@@ -699,7 +699,7 @@ module.exports = function (iterator, fn, value, entries) {
   }
 };
 
-},{"./_an-object":176}],132:[function(require,module,exports) {
+},{"./_an-object":177}],132:[function(require,module,exports) {
 // check on default Array iterator
 var Iterators = require('./_iterators');
 var ITERATOR = require('./_wks')('iterator');
@@ -719,7 +719,7 @@ module.exports = function (object, index, value) {
   else object[index] = value;
 };
 
-},{"./_object-dp":137,"./_property-desc":172}],109:[function(require,module,exports) {
+},{"./_object-dp":137,"./_property-desc":172}],104:[function(require,module,exports) {
 // getting tag from 19.1.3.6 Object.prototype.toString()
 var cof = require('./_cof');
 var TAG = require('./_wks')('toStringTag');
@@ -744,7 +744,7 @@ module.exports = function (it) {
     : (B = cof(O)) == 'Object' && typeof O.callee == 'function' ? 'Arguments' : B;
 };
 
-},{"./_cof":177,"./_wks":101}],135:[function(require,module,exports) {
+},{"./_cof":175,"./_wks":101}],135:[function(require,module,exports) {
 var classof = require('./_classof');
 var ITERATOR = require('./_wks')('iterator');
 var Iterators = require('./_iterators');
@@ -754,7 +754,7 @@ module.exports = require('./_core').getIteratorMethod = function (it) {
     || Iterators[classof(it)];
 };
 
-},{"./_classof":109,"./_wks":101,"./_iterators":100,"./_core":75}],120:[function(require,module,exports) {
+},{"./_classof":104,"./_wks":101,"./_iterators":100,"./_core":76}],120:[function(require,module,exports) {
 var ITERATOR = require('./_wks')('iterator');
 var SAFE_CLOSING = false;
 
@@ -817,12 +817,12 @@ $export($export.S + $export.F * !require('./_iter-detect')(function (iter) { Arr
   }
 });
 
-},{"./_ctx":108,"./_export":102,"./_to-object":130,"./_iter-call":131,"./_is-array-iter":132,"./_to-length":133,"./_create-property":134,"./core.get-iterator-method":135,"./_iter-detect":120}],47:[function(require,module,exports) {
+},{"./_ctx":103,"./_export":105,"./_to-object":130,"./_iter-call":131,"./_is-array-iter":132,"./_to-length":133,"./_create-property":134,"./core.get-iterator-method":135,"./_iter-detect":120}],47:[function(require,module,exports) {
 require('../../modules/es6.string.iterator');
 require('../../modules/es6.array.from');
 module.exports = require('../../modules/_core').Array.from;
 
-},{"../../modules/es6.string.iterator":71,"../../modules/es6.array.from":79,"../../modules/_core":75}],26:[function(require,module,exports) {
+},{"../../modules/es6.string.iterator":71,"../../modules/es6.array.from":79,"../../modules/_core":76}],26:[function(require,module,exports) {
 module.exports = { "default": require("core-js/library/fn/array/from"), __esModule: true };
 },{"core-js/library/fn/array/from":47}],10:[function(require,module,exports) {
 "use strict";
@@ -1684,14 +1684,14 @@ for (var i = 0; i < DOMIterables.length; i++) {
   Iterators[NAME] = Iterators.Array;
 }
 
-},{"./es6.array.iterator":97,"./_global":98,"./_hide":99,"./_iterators":100,"./_wks":101}],112:[function(require,module,exports) {
+},{"./es6.array.iterator":97,"./_global":98,"./_hide":99,"./_iterators":100,"./_wks":101}],108:[function(require,module,exports) {
 module.exports = function (it, Constructor, name, forbiddenField) {
   if (!(it instanceof Constructor) || (forbiddenField !== undefined && forbiddenField in it)) {
     throw TypeError(name + ': incorrect invocation!');
   } return it;
 };
 
-},{}],113:[function(require,module,exports) {
+},{}],109:[function(require,module,exports) {
 var ctx = require('./_ctx');
 var call = require('./_iter-call');
 var isArrayIter = require('./_is-array-iter');
@@ -1718,7 +1718,7 @@ var exports = module.exports = function (iterable, entries, fn, that, ITERATOR) 
 exports.BREAK = BREAK;
 exports.RETURN = RETURN;
 
-},{"./_ctx":108,"./_iter-call":131,"./_is-array-iter":132,"./_an-object":176,"./_to-length":133,"./core.get-iterator-method":135}],103:[function(require,module,exports) {
+},{"./_ctx":103,"./_iter-call":131,"./_is-array-iter":132,"./_an-object":177,"./_to-length":133,"./core.get-iterator-method":135}],110:[function(require,module,exports) {
 // 7.3.20 SpeciesConstructor(O, defaultConstructor)
 var anObject = require('./_an-object');
 var aFunction = require('./_a-function');
@@ -1729,7 +1729,7 @@ module.exports = function (O, D) {
   return C === undefined || (S = anObject(C)[SPECIES]) == undefined ? D : aFunction(S);
 };
 
-},{"./_an-object":176,"./_a-function":111,"./_wks":101}],178:[function(require,module,exports) {
+},{"./_an-object":177,"./_a-function":107,"./_wks":101}],178:[function(require,module,exports) {
 // fast apply, http://jsperf.lnkit.com/fast-apply/5
 module.exports = function (fn, args, that) {
   var un = that === undefined;
@@ -1747,7 +1747,7 @@ module.exports = function (fn, args, that) {
   } return fn.apply(that, args);
 };
 
-},{}],114:[function(require,module,exports) {
+},{}],111:[function(require,module,exports) {
 
 
 var ctx = require('./_ctx');
@@ -1835,7 +1835,7 @@ module.exports = {
   clear: clearTask
 };
 
-},{"./_ctx":108,"./_invoke":178,"./_html":179,"./_dom-create":180,"./_global":98,"./_cof":177}],115:[function(require,module,exports) {
+},{"./_ctx":103,"./_invoke":178,"./_html":179,"./_dom-create":180,"./_global":98,"./_cof":175}],112:[function(require,module,exports) {
 
 
 var global = require('./_global');
@@ -1908,7 +1908,7 @@ module.exports = function () {
   };
 };
 
-},{"./_global":98,"./_task":114,"./_cof":177}],105:[function(require,module,exports) {
+},{"./_global":98,"./_task":111,"./_cof":175}],113:[function(require,module,exports) {
 'use strict';
 // 25.4.1.5 NewPromiseCapability(C)
 var aFunction = require('./_a-function');
@@ -1928,7 +1928,7 @@ module.exports.f = function (C) {
   return new PromiseCapability(C);
 };
 
-},{"./_a-function":111}],106:[function(require,module,exports) {
+},{"./_a-function":107}],114:[function(require,module,exports) {
 module.exports = function (exec) {
   try {
     return { e: false, v: exec() };
@@ -1937,14 +1937,14 @@ module.exports = function (exec) {
   }
 };
 
-},{}],116:[function(require,module,exports) {
+},{}],115:[function(require,module,exports) {
 
 var global = require('./_global');
 var navigator = global.navigator;
 
 module.exports = navigator && navigator.userAgent || '';
 
-},{"./_global":98}],104:[function(require,module,exports) {
+},{"./_global":98}],116:[function(require,module,exports) {
 var anObject = require('./_an-object');
 var isObject = require('./_is-object');
 var newPromiseCapability = require('./_new-promise-capability');
@@ -1958,7 +1958,7 @@ module.exports = function (C, x) {
   return promiseCapability.promise;
 };
 
-},{"./_an-object":176,"./_is-object":110,"./_new-promise-capability":105}],117:[function(require,module,exports) {
+},{"./_an-object":177,"./_is-object":106,"./_new-promise-capability":113}],117:[function(require,module,exports) {
 var hide = require('./_hide');
 module.exports = function (target, src, safe) {
   for (var key in src) {
@@ -1984,7 +1984,7 @@ module.exports = function (KEY) {
   });
 };
 
-},{"./_global":98,"./_core":75,"./_object-dp":137,"./_descriptors":136,"./_wks":101}],76:[function(require,module,exports) {
+},{"./_global":98,"./_core":76,"./_object-dp":137,"./_descriptors":136,"./_wks":101}],73:[function(require,module,exports) {
 
 
 'use strict';
@@ -2274,7 +2274,7 @@ $export($export.S + $export.F * !(USE_NATIVE && require('./_iter-detect')(functi
   }
 });
 
-},{"./_library":107,"./_global":98,"./_ctx":108,"./_classof":109,"./_export":102,"./_is-object":110,"./_a-function":111,"./_an-instance":112,"./_for-of":113,"./_species-constructor":103,"./_task":114,"./_microtask":115,"./_new-promise-capability":105,"./_perform":106,"./_user-agent":116,"./_promise-resolve":104,"./_wks":101,"./_redefine-all":117,"./_set-to-string-tag":118,"./_set-species":119,"./_core":75,"./_iter-detect":120}],73:[function(require,module,exports) {
+},{"./_library":102,"./_global":98,"./_ctx":103,"./_classof":104,"./_export":105,"./_is-object":106,"./_a-function":107,"./_an-instance":108,"./_for-of":109,"./_species-constructor":110,"./_task":111,"./_microtask":112,"./_new-promise-capability":113,"./_perform":114,"./_user-agent":115,"./_promise-resolve":116,"./_wks":101,"./_redefine-all":117,"./_set-to-string-tag":118,"./_set-species":119,"./_core":76,"./_iter-detect":120}],74:[function(require,module,exports) {
 
 // https://github.com/tc39/proposal-promise-finally
 'use strict';
@@ -2297,7 +2297,7 @@ $export($export.P + $export.R, 'Promise', { 'finally': function (onFinally) {
   );
 } });
 
-},{"./_export":102,"./_core":75,"./_global":98,"./_species-constructor":103,"./_promise-resolve":104}],74:[function(require,module,exports) {
+},{"./_export":105,"./_core":76,"./_global":98,"./_species-constructor":110,"./_promise-resolve":116}],75:[function(require,module,exports) {
 'use strict';
 // https://github.com/tc39/proposal-promise-try
 var $export = require('./_export');
@@ -2311,7 +2311,7 @@ $export($export.S, 'Promise', { 'try': function (callbackfn) {
   return promiseCapability.promise;
 } });
 
-},{"./_export":102,"./_new-promise-capability":105,"./_perform":106}],46:[function(require,module,exports) {
+},{"./_export":105,"./_new-promise-capability":113,"./_perform":114}],46:[function(require,module,exports) {
 require('../modules/es6.object.to-string');
 require('../modules/es6.string.iterator');
 require('../modules/web.dom.iterable');
@@ -2320,7 +2320,7 @@ require('../modules/es7.promise.finally');
 require('../modules/es7.promise.try');
 module.exports = require('../modules/_core').Promise;
 
-},{"../modules/es6.object.to-string":70,"../modules/es6.string.iterator":71,"../modules/web.dom.iterable":72,"../modules/es6.promise":76,"../modules/es7.promise.finally":73,"../modules/es7.promise.try":74,"../modules/_core":75}],23:[function(require,module,exports) {
+},{"../modules/es6.object.to-string":70,"../modules/es6.string.iterator":71,"../modules/web.dom.iterable":72,"../modules/es6.promise":73,"../modules/es7.promise.finally":74,"../modules/es7.promise.try":75,"../modules/_core":76}],23:[function(require,module,exports) {
 module.exports = { "default": require("core-js/library/fn/promise"), __esModule: true };
 },{"core-js/library/fn/promise":46}],11:[function(require,module,exports) {
 "use strict";
@@ -2376,14 +2376,14 @@ var $export = require('./_export');
 // 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
 $export($export.S + $export.F * !require('./_descriptors'), 'Object', { defineProperty: require('./_object-dp').f });
 
-},{"./_export":102,"./_descriptors":136,"./_object-dp":137}],48:[function(require,module,exports) {
+},{"./_export":105,"./_descriptors":136,"./_object-dp":137}],48:[function(require,module,exports) {
 require('../../modules/es6.object.define-property');
 var $Object = require('../../modules/_core').Object;
 module.exports = function defineProperty(it, key, desc) {
   return $Object.defineProperty(it, key, desc);
 };
 
-},{"../../modules/es6.object.define-property":80,"../../modules/_core":75}],27:[function(require,module,exports) {
+},{"../../modules/es6.object.define-property":80,"../../modules/_core":76}],27:[function(require,module,exports) {
 module.exports = { "default": require("core-js/library/fn/object/define-property"), __esModule: true };
 },{"core-js/library/fn/object/define-property":48}],13:[function(require,module,exports) {
 "use strict";
@@ -2440,7 +2440,20 @@ var FileSystem = function () {
         key: 'readFile',
         value: function readFile(file, encode) {
             if (isBrowser) {
-                return require(file);
+                return new Promise(function (resolve, reject) {
+                    var xmlhttp = new XMLHttpRequest();
+                    xmlhttp.onreadystatechange = function () {
+                        if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+                            if (xmlhttp.status == 200) {
+                                resolve(xmlhttp.responseText);
+                            } else {
+                                reject(xmlhttp);
+                            }
+                        }
+                    };
+                    xmlhttp.open("GET", file, true);
+                    xmlhttp.send();
+                });
             }
             return new Promise(function (resolve, reject) {
                 fs.readFile(file, encode, function (err, data) {
@@ -22932,7 +22945,7 @@ var objects = {
 };
 
 module.exports = objects;
-},{}],59:[function(require,module,exports) {
+},{}],55:[function(require,module,exports) {
 "use strict";
 
 /* Class utilities */
@@ -22967,7 +22980,7 @@ function GrammarError(message, location) {
 classes.subclass(GrammarError, Error);
 
 module.exports = GrammarError;
-},{"./utils/classes":59}],38:[function(require,module,exports) {
+},{"./utils/classes":55}],38:[function(require,module,exports) {
 /* eslint-env node, amd */
 /* eslint no-unused-vars: 0 */
 
@@ -28438,7 +28451,7 @@ var asts = {
 };
 
 module.exports = asts;
-},{"../utils/arrays":42,"./visitor":182}],187:[function(require,module,exports) {
+},{"../utils/arrays":42,"./visitor":182}],186:[function(require,module,exports) {
 "use strict";
 
 var GrammarError = require("../../grammar-error"),
@@ -28459,7 +28472,7 @@ function reportUndefinedRules(ast) {
 }
 
 module.exports = reportUndefinedRules;
-},{"../../grammar-error":37,"../asts":246,"../visitor":182}],188:[function(require,module,exports) {
+},{"../../grammar-error":37,"../asts":246,"../visitor":182}],187:[function(require,module,exports) {
 "use strict";
 
 var GrammarError = require("../../grammar-error"),
@@ -28483,7 +28496,7 @@ function reportDuplicateRules(ast) {
 }
 
 module.exports = reportDuplicateRules;
-},{"../../grammar-error":37,"../visitor":182}],189:[function(require,module,exports) {
+},{"../../grammar-error":37,"../visitor":182}],188:[function(require,module,exports) {
 "use strict";
 
 var GrammarError = require("../../grammar-error"),
@@ -28533,7 +28546,7 @@ function reportDuplicateLabels(ast) {
 }
 
 module.exports = reportDuplicateLabels;
-},{"../../grammar-error":37,"../../utils/arrays":42,"../../utils/objects":43,"../visitor":182}],190:[function(require,module,exports) {
+},{"../../grammar-error":37,"../../utils/arrays":42,"../../utils/objects":43,"../visitor":182}],189:[function(require,module,exports) {
 "use strict";
 
 var arrays = require("../../utils/arrays"),
@@ -28586,7 +28599,7 @@ function reportInfiniteRecursion(ast) {
 }
 
 module.exports = reportInfiniteRecursion;
-},{"../../utils/arrays":42,"../../grammar-error":37,"../asts":246,"../visitor":182}],191:[function(require,module,exports) {
+},{"../../utils/arrays":42,"../../grammar-error":37,"../asts":246,"../visitor":182}],190:[function(require,module,exports) {
 "use strict";
 
 var GrammarError = require("../../grammar-error"),
@@ -28616,7 +28629,7 @@ function reportInfiniteRepetition(ast) {
 }
 
 module.exports = reportInfiniteRepetition;
-},{"../../grammar-error":37,"../asts":246,"../visitor":182}],192:[function(require,module,exports) {
+},{"../../grammar-error":37,"../asts":246,"../visitor":182}],191:[function(require,module,exports) {
 "use strict";
 
 var arrays = require("../../utils/arrays"),
@@ -28786,7 +28799,7 @@ var js = {
 };
 
 module.exports = js;
-},{}],194:[function(require,module,exports) {
+},{}],192:[function(require,module,exports) {
 "use strict";
 
 var arrays = require("../../utils/arrays"),
@@ -29992,7 +30005,7 @@ var compiler = {
 };
 
 module.exports = compiler;
-},{"../utils/arrays":42,"../utils/objects":43,"./visitor":182,"./passes/report-undefined-rules":187,"./passes/report-duplicate-rules":188,"./passes/report-duplicate-labels":189,"./passes/report-infinite-recursion":190,"./passes/report-infinite-repetition":191,"./passes/remove-proxy-rules":192,"./passes/generate-bytecode":194,"./passes/generate-js":193}],28:[function(require,module,exports) {
+},{"../utils/arrays":42,"../utils/objects":43,"./visitor":182,"./passes/report-undefined-rules":186,"./passes/report-duplicate-rules":187,"./passes/report-duplicate-labels":188,"./passes/report-infinite-recursion":189,"./passes/report-infinite-repetition":190,"./passes/remove-proxy-rules":191,"./passes/generate-bytecode":192,"./passes/generate-js":193}],28:[function(require,module,exports) {
 "use strict";
 
 var arrays = require("./utils/arrays"),
@@ -30069,7 +30082,7 @@ var _ = require('lodash');
 
 if (typeof window != 'undefined') window._ = _;
 
-var grammar = '{\n    var _\n\n    if (typeof window == \'undefined\') {\n        _ = require(\'lodash\')\n    }\n    else {\n        _ = window._\n    }\n    \n    const DEEP_NAME = \'__deepIndex\'\n\n    function increment(variable, sign, expression, variables=[]) {\n        let _var\n       \n        if (variable.variable){\n            _var = variable\n        }\n        else {\n            _var = { variable }\n        }\n\n        const value = {\n            variables: [_var, ...variables],\n            expression: `{0}${sign.charAt(0)}${expression}`\n        }\n\n        if (variable.variable) {\n            _var = {}\n            for (let key in variable) {\n                if (key == \'type\') {\n                    _var[key] = \'assignObject\'\n                    continue\n                }\n                _var[key] = variable[key]\n            }\n        }\n\n        return _.merge(_var, { value })\n    }\n\n    function stringParser(text) {\n        let variables = []\n        let index = -1\n        text = text\n            .map(letter => {\n                if (_.isString(letter)) return letter\n                variables.push(letter)\n                index++\n                return \'{\' + index + \'}\'\n            })\n            .join(\'\')\n        if (variables.length == 0) {\n            return text\n        }\n        return {\n            text,\n            variables\n        }\n    }\n\n}\n\n    \nStart\n    = InstructionList\n\nInstructionList\n    = _ list:Instruction* _ {\n        return list.filter(it => it)\n    }\n\nInstruction\n    = _ decorators:DecoratorList? _ ins:(Comment / Condition / Increment / Assign / AssignObject / Function / ExecuteFunction) Nl* _ {\n        const { start } = location()\n        if (ins) {\n            ins._file = start\n            if (decorators) {\n                ins.decorators = decorators\n            }\n        }\n        return ins\n    }\n\n// Assign Variable\n\nDeepArray\n    = index:(_ \'[\' _ Value _ \']\')+ {\n        let deep = []\n        for (let val of index) {\n            deep.push(val[3])\n        }\n        return deep\n    }\n\nGetObject\n    = variable:Variable _ deep:(DeepObject / DeepArray)+ {\n         deep = _.flatten(deep)\n         return { variable, deep, type: \'object\' }\n    }\n\nDeepObject\n    = deep:(\'.\' _ Variable S DeepArray?)+ {\n        let array = []\n        for (let d of deep) {\n            array.push(d[2])\n            if (d[4]) {\n                array = array.concat(d[4])\n            }\n        }\n        return array\n    }\n\nIncrementVariable\n    = variable:(GetObject / Variable) {\n        return variable\n    }\n\nIncrement\n    = variable:IncrementVariable _ sign:(\'++\' / \'--\') {\n         return increment(variable, sign, 1)\n    }\n    / IncrementExpression\n\nIncrementExpression\n    = variable:IncrementVariable _ sign:(\'+=\' / \'-=\') _ expr:Expression {\n        let { variables, expression } = expr\n        if (!variables) variables = []\n        if (expression) {\n            expression = expression.replace(/\\{([0-9]+)\\}/g, (match, index) => {\n                return `{${+index+1}}`\n            })\n        }\n        else if (expr.variable) {\n            expression = \'{1}\'\n            variables.push(expr)\n        }\n        else {\n            expression = expr\n        }\n        return increment(variable, sign, expression, variables)\n    }\n\nAssign\n    = variable:Variable _ value:RightAssign {\n        return { variable, value }\n    }\n\nAssignObject\n    = object:GetObject _ value:RightAssign {\n        object.type = \'assignObject\'\n        object.value = value\n        return object\n    }\n\n\nRightAssign \n    = \'=\' _ value:(Value) {\n        return value\n    }\n\nValue =  \n    StringBackQuote / String / ExecuteFunction / Null / Array / obj:Object { \n        // Clean __deepIndex\n        const index = obj[DEEP_NAME]\n        if (!index) return obj\n        for (let address of index) {\n            let subobj = _.get(obj, address.replace(/\\.[^.]+$/, \'\'))\n            delete subobj[DEEP_NAME]\n        }\n        return obj\n    } / Expression\n\n// For Loop\n\nForLoop\n    = \'for\' _ \'(\' _ assign:Assign _ \';\' _ condition:Expression _ \';\' _ increment:Increment _ \')\' _ instructions:ConditionInstruction {\n   \n    } \n\n// Condition\n\nCondition \n    = keyword:(\'while\' / \'if\'?) _ \'(\' _ special:SpecialKeyword? _ condition:Expression _ \')\' _ instructions:ConditionInstruction {\n        let obj = { condition, instructions }\n        if (keyword == \'while\') {\n            obj.loop = true\n        }\n        if (special) {\n            obj.keyword = special\n        }\n        return obj\n    }\n\nConditionInstruction\n    = \'{\' _  instructions:InstructionFunction* _ \'}\' {\n        return instructions\n    }\n     / instruction:InstructionFunction {\n        return [instruction]\n    }\n\nConditionSign \n    = keyword:(\'and\' / \'&&\' / \'or\' / \'||\' / \'xor\' / ([><=!] \'=\') / \'<\' / \'>\') {\n        if (keyword == \'&&\') keyword = \'and\'\n        if (keyword == \'||\') keyword = \'or\'\n        if (_.isArray(keyword)) keyword = keyword.join(\'\')\n        return \' \' + keyword + \' \'\n    }\n\nSpecialKeyword\n    = \'unknown\'\n\nNot\n    = keyword:(\'!\' / \'not\') {\n        if (keyword == \'!\') keyword = \'not\'\n        return keyword + \' \'\n    }\n\n// Expression\n\nExpression "expression"\n  =  head:(Not? _ Factor) tail:( [ ]* (ConditionSign / \'+\' / \'-\' / \'**\' / \'*\' / \'/\' / \'%\' ) _ Factor)* {\n\n        const not = head[0]\n        const isExpr = tail.length > 0 || not\n\n        head = head[2]\n\n        let result = head\n        let variables = []\n        let ret = {}\n        let j=0\n\n        const isVariable = obj => obj.variable || obj.type === \'executeFn\'\n\n        if (isExpr && isVariable(head)) {\n            variables.push(head)\n            result = \'{\' + j + \'}\'\n            j++\n        }\n\n        for (let i = 0; i < tail.length; i++) {\n            let val = tail[i][3]\n            if (isVariable(val)) {\n                variables.push(val)\n                result += tail[i][1] +  \'{\' + j + \'}\'\n                j++\n                continue\n            }\n            result += tail[i][1] + val\n        }\n\n        if (not) {\n            result = not + result\n        }\n\n        if (!isExpr) {\n            if (!_.isNaN(+head) && !_.isBoolean(head)) {\n                head = +head\n            }\n            return head\n        }\n\n        if (variables.length > 0) {\n            ret.variables = variables\n        }\n        ret.expression = result\n\n        return ret\n    }\n\nFactor\n  = "(" _ expr:Expression _ ")" { \n       if (expr.expression) {\n           expr = expr.expression\n       }\n       return \'(\' + expr + \')\'\n    }\n  / Integer / ExecuteFunction / StringInExpression / Boolean\n  / GetObject / VariableName\n\n// Group\n\nGroup\n    = \'---\' _ group:Text+ _ \'---\' {\n        return { group }\n    }\n\n// Text\n\nText \n    = \'>\' _ text:(CharText)* _ params:Array? {\n        text = stringParser(text)\n        if (_.isString(text)) {\n            text = _.trim(text)\n        }\n        return { output: text, params }\n    }\n\nVariable "variable" = name:([\\$:]? [a-zA-Z_0-9]+) { \n        return text() \n    }\n\nVariableName\n    = Variable {\n        return { variable : text() }\n    } \n\n// Execute Fonction\n\nExecuteFunction\n    = name:(GetObject / Variable) "\\n"* \'(\' _ params:Params* _ \')\' {\n        return { type: \'executeFn\', name, params }\n    }\n\nParams\n    = val:Value _ \',\'? _ {\n        return val\n    }\n\n// Decorator\n\nDecoratorList\n    = decorators:Decorator* {\n        return decorators\n    }\n    \n\nDecorator \'decorator\' \n    = \'@\' name:DecoratorName _ \'(\' _ params:Params* _ \')\' _ instructions:(\'{\' _ DecoratorInstruction* _ \'}\')? Nl* {\n        let obj = { name, params }\n        if (instructions) obj.instructions = instructions[2]\n        return obj\n    }\n\nDecoratorName = [A-Z][a-z]+ {\n    return text()\n}\n\n\nDecoratorInstruction\n    = _ ins:(InstructionFunction) _ Nl* {\n        return ins\n    }\n\n// Types\n\nFunction \'function\'\n    = name:Variable _ \'(\' _ params:FunctionParameters? _ \')\' _ \'{\' _  instructions:InstructionFunction* _ \'}\' {\n        instructions = instructions.filter(it => it)\n        return { name, params, type: \'function\', instructions }\n    }\n\nFunctionParameters \'function parameters\'\n    = params:(_ Variable _ \',\'?)+ {\n        return params.map(p => p[1])\n    }\n\nFunctionReturn \'function return\'\n    = \'return\' _ functionReturn:Value {\n        return { \'return\': functionReturn }\n    }\n\nInstructionFunction\n    = _ ins:(Instruction / InstructionText / FunctionReturn) Nl* _ {\n        return ins\n    }\n\nInstructionText\n    = _ decorators:DecoratorList? _ output:(Text / Group) {\n        if (decorators) {\n            output.decorators = decorators\n        }\n        return output\n    }\n\nObject \'object\'\n    = \'{\' _ keys:( _ Variable _ \':\' _ Value _ \',\'?)* _ \'}\' { \n        const realObject = {}\n        for (let object of keys) {\n            let key = object[1]\n            let val = object[5]\n            realObject[key] = val\n            if (!realObject[DEEP_NAME]) realObject[DEEP_NAME] = []\n            if (val[DEEP_NAME] && val[DEEP_NAME].length !== 0) {\n                realObject[DEEP_NAME] = [...realObject[DEEP_NAME], ...val[DEEP_NAME].map(d => key + \'.\' + d)]\n            }\n            else {\n                realObject[DEEP_NAME].push(key)\n            }\n        }\n        return realObject\n    }\n\nArray \'array\'\n    = \'[\' _ array:(_ Value _ \',\'?)* _ \']\' { \n        const realArray = []\n        for (let val of array) {\n            realArray.push(val[1])\n        }\n        return realArray\n    }\n\nInteger \'integer\'\n    = [-+]? _ [0-9]+ S ( Dot [0-9]+)? { \n        return +text() \n    }\n\nVariableString\n    = \'{\' _ value:Value _ \'}\' {\n        return { value }\n    }\n\nStringInExpression \'string in expression\'\n    = str: String {\n        const withQuote = text => `"${text}"`\n        if (str.variables) {\n            return withQuote(str.text)\n        }\n        return withQuote(str)\n    }\n\nString \'string\'\n  = Quote text: NotQuote* Quote { \n      return stringParser(text)\n  }\n\nStringBackQuote \'string not parsed\'\n  = BackQuote t: NotBackQuote* BackQuote { \n      return t.join(\'\')\n  }\n\nBoolean = bool:(\'true\' / \'false\') { \n    return bool == \'true\' ? true : false\n}\n\nNull = \'null\' {\n    return null\n}\n\n// Comment\n\nComment\n    = MultiComment / SingleComment\n\nMultiComment\n    = \'/*\' (!\'*/\' .)* \'*/\'  {\n        return \n    }\n\nSingleComment = \'//\' [^\\n]* {\n        return \n    }\n\n// Characters\n\nCharText\n  = char:(VariableString / [^\\n\\[]) { return char }\nNotQuote\n  = !Quote char:(VariableString / .) { return char }\n\nQuote = [\']\n\nBackQuote = \'`\'\n\nNotBackQuote = !BackQuote char:. { return char }\n\nDot = \'.\'\n\nNl = "\\n"\n\nS = [ \\t]*\n\n_ \'whitespace\' = [ \\t\\n\\r]*\n';
+var grammar = '{\n    var _\n\n    if (typeof window == \'undefined\') {\n        _ = require(\'lodash\')\n    }\n    else {\n        _ = window._\n    }\n    \n    const DEEP_NAME = \'__deepIndex\'\n\n    function increment(variable, sign, expression, variables=[]) {\n        let _var\n       \n        if (variable.variable){\n            _var = variable\n        }\n        else {\n            _var = { variable }\n        }\n\n        const value = {\n            variables: [_var, ...variables],\n            expression: `{0}${sign.charAt(0)}${expression}`\n        }\n\n        if (variable.variable) {\n            _var = {}\n            for (let key in variable) {\n                if (key == \'type\') {\n                    _var[key] = \'assignObject\'\n                    continue\n                }\n                _var[key] = variable[key]\n            }\n        }\n\n        return _.merge(_var, { value })\n    }\n\n    function stringParser(text) {\n        let variables = []\n        let index = -1\n        text = text\n            .map(letter => {\n                if (_.isString(letter)) return letter\n                variables.push(letter)\n                index++\n                return \'{\' + index + \'}\'\n            })\n            .join(\'\')\n        if (variables.length == 0) {\n            return text\n        }\n        return {\n            text,\n            variables\n        }\n    }\n\n}\n\n    \nStart\n    = InstructionList\n\nInstructionList\n    = _ list:Instruction* _ {\n        return list.filter(it => it)\n    }\n\nInstruction\n    = _ decorators:DecoratorList? _ ins:(Comment / Condition / Increment / Assign / AssignObject / Function / ExecuteFunction) Nl* _ {\n        const { start } = location()\n        if (ins) {\n            ins._file = start\n            if (decorators) {\n                ins.decorators = decorators\n            }\n        }\n        return ins\n    }\n\n// Assign Variable\n\nDeepArray\n    = index:(_ \'[\' _ Value _ \']\')+ {\n        let deep = []\n        for (let val of index) {\n            deep.push(val[3])\n        }\n        return deep\n    }\n\nGetObject\n    = variable:Variable _ deep:(DeepObject / DeepArray)+ {\n         deep = _.flatten(deep)\n         return { variable, deep, type: \'object\' }\n    }\n\nDeepObject\n    = deep:(\'.\' _ Variable S DeepArray?)+ {\n        let array = []\n        for (let d of deep) {\n            array.push(d[2])\n            if (d[4]) {\n                array = array.concat(d[4])\n            }\n        }\n        return array\n    }\n\nIncrementVariable\n    = variable:(GetObject / Variable) {\n        return variable\n    }\n\nIncrement\n    = variable:IncrementVariable _ sign:(\'++\' / \'--\') {\n         return increment(variable, sign, 1)\n    }\n    / IncrementExpression\n\nIncrementExpression\n    = variable:IncrementVariable _ sign:(\'+=\' / \'-=\') _ expr:Expression {\n        let { variables, expression } = expr\n        if (!variables) variables = []\n        if (expression) {\n            expression = expression.replace(/\\{([0-9]+)\\}/g, (match, index) => {\n                return `{${+index+1}}`\n            })\n        }\n        else if (expr.variable) {\n            expression = \'{1}\'\n            variables.push(expr)\n        }\n        else {\n            expression = expr\n        }\n        return increment(variable, sign, expression, variables)\n    }\n\nAssign\n    = variable:Variable _ value:RightAssign {\n        return { variable, value }\n    }\n\nAssignObject\n    = object:GetObject _ value:RightAssign {\n        object.type = \'assignObject\'\n        object.value = value\n        return object\n    }\n\n\nRightAssign \n    = \'=\' _ value:(Value) {\n        return value\n    }\n\nValue =  \n    RegExp / StringBackQuote / String / ExecuteFunction / Null / Array / obj:Object { \n        // Clean __deepIndex\n        const index = obj[DEEP_NAME]\n        if (!index) return obj\n        for (let address of index) {\n            let subobj = _.get(obj, address.replace(/\\.[^.]+$/, \'\'))\n            delete subobj[DEEP_NAME]\n        }\n        return obj\n    } / Expression\n\n// For Loop\n\nForLoop\n    = \'for\' _ \'(\' _ assign:Assign _ \';\' _ condition:Expression _ \';\' _ increment:Increment _ \')\' _ instructions:ConditionInstruction {\n   \n    } \n\n// Condition\n\nCondition \n    = keyword:(\'while\' / \'if\'?) _ \'(\' _ special:SpecialKeyword? _ condition:Expression _ \')\' _ instructions:ConditionInstruction {\n        let obj = { condition, instructions }\n        if (keyword == \'while\') {\n            obj.loop = true\n        }\n        if (special) {\n            obj.keyword = special\n        }\n        return obj\n    }\n\nConditionInstruction\n    = \'{\' _  instructions:InstructionFunction* _ \'}\' {\n        return instructions\n    }\n     / instruction:InstructionFunction {\n        return [instruction]\n    }\n\nConditionSign \n    = keyword:(\'and\' / \'&&\' / \'or\' / \'||\' / \'xor\' / ([><=!] \'=\') / \'<\' / \'>\') {\n        if (keyword == \'&&\') keyword = \'and\'\n        if (keyword == \'||\') keyword = \'or\'\n        if (_.isArray(keyword)) keyword = keyword.join(\'\')\n        return \' \' + keyword + \' \'\n    }\n\nSpecialKeyword\n    = \'unknown\'\n\nNot\n    = keyword:(\'!\' / \'not\') {\n        if (keyword == \'!\') keyword = \'not\'\n        return keyword + \' \'\n    }\n\n// Expression\n\nExpression "expression"\n  =  head:(Not? _ Factor) tail:( [ ]* (ConditionSign / \'+\' / \'-\' / \'**\' / \'*\' / \'/\' / \'%\' ) _ Factor)* {\n\n        const not = head[0]\n        const isExpr = tail.length > 0 || not\n\n        head = head[2]\n\n        let result = head\n        let variables = []\n        let ret = {}\n        let j=0\n\n        const isVariable = obj => obj.variable || obj.type === \'executeFn\'\n\n        if (isExpr && isVariable(head)) {\n            variables.push(head)\n            result = \'{\' + j + \'}\'\n            j++\n        }\n\n        for (let i = 0; i < tail.length; i++) {\n            let val = tail[i][3]\n            if (isVariable(val)) {\n                variables.push(val)\n                result += tail[i][1] +  \'{\' + j + \'}\'\n                j++\n                continue\n            }\n            result += tail[i][1] + val\n        }\n\n        if (not) {\n            result = not + result\n        }\n\n        if (!isExpr) {\n            if (!_.isNaN(+head) && !_.isBoolean(head)) {\n                head = +head\n            }\n            return head\n        }\n\n        if (variables.length > 0) {\n            ret.variables = variables\n        }\n        ret.expression = result\n\n        return ret\n    }\n\nFactor\n  = "(" _ expr:Expression _ ")" { \n       if (expr.expression) {\n           expr = expr.expression\n       }\n       return \'(\' + expr + \')\'\n    }\n  / Integer / ExecuteFunction / StringInExpression / Boolean\n  / GetObject / VariableName\n\n// Group\n\nGroup\n    = \'---\' _ group:Text+ _ \'---\' {\n        return { group }\n    }\n\n// Text\n\nText \n    = \'>\' _ text:(CharText)* _ params:Array? {\n        text = stringParser(text)\n        if (_.isString(text)) {\n            text = _.trim(text)\n        }\n        return { output: text, params }\n    }\n\nVariable "variable" = name:([\\$:]? [a-zA-Z_0-9]+) { \n        return text() \n    }\n\nVariableName\n    = Variable {\n        return { variable : text() }\n    } \n\n// Execute Fonction\n\nExecuteFunction\n    = name:(GetObject / Variable) "\\n"* \'(\' _ params:Params* _ \')\' {\n        return { type: \'executeFn\', name, params }\n    }\n\nParams\n    = val:Value _ \',\'? _ {\n        return val\n    }\n\n// Decorator\n\nDecoratorList\n    = decorators:Decorator* {\n        return decorators\n    }\n    \n\nDecorator \'decorator\' \n    = \'@\' name:DecoratorName _ \'(\' _ params:Params* _ \')\' _ instructions:(\'{\' _ DecoratorInstruction* _ \'}\')? Nl* {\n        let obj = { name, params }\n        if (instructions) obj.instructions = instructions[2]\n        return obj\n    }\n\nDecoratorName = [A-Z][a-z]+ {\n    return text()\n}\n\n\nDecoratorInstruction\n    = _ ins:(InstructionFunction) _ Nl* {\n        return ins\n    }\n\n// Types\n\nFunction \'function\'\n    = name:Variable _ \'(\' _ params:FunctionParameters? _ \')\' _ \'{\' _  instructions:InstructionFunction* _ \'}\' {\n        instructions = instructions.filter(it => it)\n        return { name, params, type: \'function\', instructions }\n    }\n\nFunctionParameters \'function parameters\'\n    = params:(_ Variable _ \',\'?)+ {\n        return params.map(p => p[1])\n    }\n\nFunctionReturn \'function return\'\n    = \'return\' _ functionReturn:Value {\n        return { \'return\': functionReturn }\n    }\n\nInstructionFunction\n    = _ ins:(Instruction / InstructionText / FunctionReturn) Nl* _ {\n        return ins\n    }\n\nInstructionText\n    = _ decorators:DecoratorList? _ output:(Text / Group) {\n        if (decorators) {\n            output.decorators = decorators\n        }\n        return output\n    }\n\nObject \'object\'\n    = \'{\' _ keys:( _ Variable _ \':\' _ Value _ \',\'?)* _ \'}\' { \n        const realObject = {}\n        for (let object of keys) {\n            let key = object[1]\n            let val = object[5]\n            realObject[key] = val\n            if (!realObject[DEEP_NAME]) realObject[DEEP_NAME] = []\n            if (val[DEEP_NAME] && val[DEEP_NAME].length !== 0) {\n                realObject[DEEP_NAME] = [...realObject[DEEP_NAME], ...val[DEEP_NAME].map(d => key + \'.\' + d)]\n            }\n            else {\n                realObject[DEEP_NAME].push(key)\n            }\n        }\n        return realObject\n    }\n\nArray \'array\'\n    = \'[\' _ array:(_ Value _ \',\'?)* _ \']\' { \n        const realArray = []\n        for (let val of array) {\n            realArray.push(val[1])\n        }\n        return realArray\n    }\n\nInteger \'integer\'\n    = [-+]? _ [0-9]+ S ( Dot [0-9]+)? { \n        return +text() \n    }\n\nVariableString\n    = \'{\' _ value:Value _ \'}\' {\n        return { value }\n    }\n\nStringInExpression \'string in expression\'\n    = str: String {\n        const withQuote = text => `"${text}"`\n        if (str.variables) {\n            return withQuote(str.text)\n        }\n        return withQuote(str)\n    }\n\nString \'string\'\n  = Quote text: NotQuote* Quote { \n      return stringParser(text)\n  }\n\nStringBackQuote \'string not parsed\'\n  = BackQuote t: NotBackQuote* BackQuote { \n      return t.join(\'\')\n  }\n\nRegExp \'Regular Expression\'\n    = Slash _  regexp: NotSlash* _ Slash flags:[gimuy]* {\n        return { regexp: regexp.join(\'\'), flags }\n    }\n\nBoolean = bool:(\'true\' / \'false\') { \n    return bool == \'true\' ? true : false\n}\n\nNull = \'null\' {\n    return null\n}\n\n// Comment\n\nComment\n    = MultiComment / SingleComment\n\nMultiComment\n    = \'/*\' (!\'*/\' .)* \'*/\'  {\n        return \n    }\n\nSingleComment = \'//\' [^\\n]* {\n        return \n    }\n\n// Characters\n\nCharText\n  = char:(VariableString / [^\\n\\[]) { return char }\nNotQuote\n  = !Quote char:(VariableString / .) { return char }\n\nQuote = [\']\n\nSlash = [/]\nNotSlash = !Slash char:(.) { return char }\n\nBackQuote = \'`\'\n\nNotBackQuote = !BackQuote char:. { return char }\n\nDot = \'.\'\n\nNl = "\\n"\n\nS = [ \\t]*\n\n_ \'whitespace\' = [ \\t\\n\\r]*\n';
 var parser = peg.generate(grammar);
 
 var Transpiler = function () {
@@ -30120,7 +30133,7 @@ module.exports = require('../../modules/_wks-ext').f('iterator');
 
 },{"../../modules/es6.string.iterator":71,"../../modules/web.dom.iterable":72,"../../modules/_wks-ext":85}],30:[function(require,module,exports) {
 module.exports = { "default": require("core-js/library/fn/symbol/iterator"), __esModule: true };
-},{"core-js/library/fn/symbol/iterator":54}],270:[function(require,module,exports) {
+},{"core-js/library/fn/symbol/iterator":54}],269:[function(require,module,exports) {
 var META = require('./_uid')('meta');
 var isObject = require('./_is-object');
 var has = require('./_has');
@@ -30175,7 +30188,7 @@ var meta = module.exports = {
   onFreeze: onFreeze
 };
 
-},{"./_uid":174,"./_is-object":110,"./_has":175,"./_object-dp":137,"./_fails":183}],269:[function(require,module,exports) {
+},{"./_uid":174,"./_is-object":106,"./_has":176,"./_object-dp":137,"./_fails":183}],270:[function(require,module,exports) {
 
 var global = require('./_global');
 var core = require('./_core');
@@ -30187,7 +30200,7 @@ module.exports = function (name) {
   if (name.charAt(0) != '_' && !(name in $Symbol)) defineProperty($Symbol, name, { value: wksExt.f(name) });
 };
 
-},{"./_global":98,"./_core":75,"./_library":107,"./_wks-ext":85,"./_object-dp":137}],278:[function(require,module,exports) {
+},{"./_global":98,"./_core":76,"./_library":102,"./_wks-ext":85,"./_object-dp":137}],278:[function(require,module,exports) {
 exports.f = Object.getOwnPropertySymbols;
 
 },{}],277:[function(require,module,exports) {
@@ -30217,7 +30230,7 @@ module.exports = Array.isArray || function isArray(arg) {
   return cof(arg) == 'Array';
 };
 
-},{"./_cof":177}],276:[function(require,module,exports) {
+},{"./_cof":175}],276:[function(require,module,exports) {
 // 19.1.2.7 / 15.2.3.4 Object.getOwnPropertyNames(O)
 var $keys = require('./_object-keys-internal');
 var hiddenKeys = require('./_enum-bug-keys').concat('length', 'prototype');
@@ -30226,7 +30239,7 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
   return $keys(O, hiddenKeys);
 };
 
-},{"./_object-keys-internal":344,"./_enum-bug-keys":313}],273:[function(require,module,exports) {
+},{"./_object-keys-internal":339,"./_enum-bug-keys":313}],273:[function(require,module,exports) {
 // fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
 var toIObject = require('./_to-iobject');
 var gOPN = require('./_object-gopn').f;
@@ -30265,7 +30278,7 @@ exports.f = require('./_descriptors') ? gOPD : function getOwnPropertyDescriptor
   if (has(O, P)) return createDesc(!pIE.f.call(O, P), O[P]);
 };
 
-},{"./_object-pie":277,"./_property-desc":172,"./_to-iobject":171,"./_to-primitive":185,"./_has":175,"./_ie8-dom-define":184,"./_descriptors":136}],217:[function(require,module,exports) {
+},{"./_object-pie":277,"./_property-desc":172,"./_to-iobject":171,"./_to-primitive":185,"./_has":176,"./_ie8-dom-define":184,"./_descriptors":136}],209:[function(require,module,exports) {
 
 'use strict';
 // ECMAScript 6 symbols shim
@@ -30502,20 +30515,20 @@ setToStringTag(Math, 'Math', true);
 // 24.3.3 JSON[@@toStringTag]
 setToStringTag(global.JSON, 'JSON', true);
 
-},{"./_global":98,"./_has":175,"./_descriptors":136,"./_export":102,"./_redefine":166,"./_meta":270,"./_fails":183,"./_shared":173,"./_set-to-string-tag":118,"./_uid":174,"./_wks":101,"./_wks-ext":85,"./_wks-define":269,"./_enum-keys":271,"./_is-array":272,"./_an-object":176,"./_is-object":110,"./_to-iobject":171,"./_to-primitive":185,"./_property-desc":172,"./_object-create":242,"./_object-gopn-ext":273,"./_object-gopd":274,"./_object-dp":137,"./_object-keys":275,"./_object-gopn":276,"./_object-pie":277,"./_object-gops":278,"./_library":107,"./_hide":99}],218:[function(require,module,exports) {
+},{"./_global":98,"./_has":176,"./_descriptors":136,"./_export":105,"./_redefine":166,"./_meta":269,"./_fails":183,"./_shared":173,"./_set-to-string-tag":118,"./_uid":174,"./_wks":101,"./_wks-ext":85,"./_wks-define":270,"./_enum-keys":271,"./_is-array":272,"./_an-object":177,"./_is-object":106,"./_to-iobject":171,"./_to-primitive":185,"./_property-desc":172,"./_object-create":240,"./_object-gopn-ext":273,"./_object-gopd":274,"./_object-dp":137,"./_object-keys":275,"./_object-gopn":276,"./_object-pie":277,"./_object-gops":278,"./_library":102,"./_hide":99}],210:[function(require,module,exports) {
 require('./_wks-define')('asyncIterator');
 
-},{"./_wks-define":269}],219:[function(require,module,exports) {
+},{"./_wks-define":270}],211:[function(require,module,exports) {
 require('./_wks-define')('observable');
 
-},{"./_wks-define":269}],146:[function(require,module,exports) {
+},{"./_wks-define":270}],146:[function(require,module,exports) {
 require('../../modules/es6.symbol');
 require('../../modules/es6.object.to-string');
 require('../../modules/es7.symbol.async-iterator');
 require('../../modules/es7.symbol.observable');
 module.exports = require('../../modules/_core').Symbol;
 
-},{"../../modules/es6.symbol":217,"../../modules/es6.object.to-string":70,"../../modules/es7.symbol.async-iterator":218,"../../modules/es7.symbol.observable":219,"../../modules/_core":75}],29:[function(require,module,exports) {
+},{"../../modules/es6.symbol":209,"../../modules/es6.object.to-string":70,"../../modules/es7.symbol.async-iterator":210,"../../modules/es7.symbol.observable":211,"../../modules/_core":76}],29:[function(require,module,exports) {
 module.exports = { "default": require("core-js/library/fn/symbol"), __esModule: true };
 },{"core-js/library/fn/symbol":146}],15:[function(require,module,exports) {
 "use strict";
@@ -30617,7 +30630,7 @@ Object.keys(codes).forEach(function (key) {
   style.open = '\u001b[' + val[0] + 'm';
   style.close = '\u001b[' + val[1] + 'm';
 });
-},{}],155:[function(require,module,exports) {
+},{}],149:[function(require,module,exports) {
 var process = require("process");
 /*
 The MIT License (MIT)
@@ -30677,7 +30690,7 @@ module.exports = function () {
 
   return false;
 }();
-},{"process":17}],156:[function(require,module,exports) {
+},{"process":17}],150:[function(require,module,exports) {
 module['exports'] = function runTheTrap(text, options) {
   var result = "";
   text = text || "Run the trap, drop the bass";
@@ -30722,7 +30735,7 @@ module['exports'] = function runTheTrap(text, options) {
   });
   return result;
 };
-},{}],157:[function(require,module,exports) {
+},{}],151:[function(require,module,exports) {
 // please no
 module['exports'] = function zalgo(text, options) {
   text = text || "   he is here   ";
@@ -30796,7 +30809,7 @@ module['exports'] = function zalgo(text, options) {
   // don't summon him
   return heComes(text, options);
 };
-},{}],158:[function(require,module,exports) {
+},{}],152:[function(require,module,exports) {
 var colors = require('../colors');
 
 module['exports'] = function () {
@@ -30812,13 +30825,13 @@ module['exports'] = function () {
     }
   };
 }();
-},{"../colors":93}],159:[function(require,module,exports) {
+},{"../colors":93}],153:[function(require,module,exports) {
 var colors = require('../colors');
 
 module['exports'] = function (letter, i, exploded) {
   return i % 2 === 0 ? letter : colors.inverse(letter);
 };
-},{"../colors":93}],160:[function(require,module,exports) {
+},{"../colors":93}],154:[function(require,module,exports) {
 var colors = require('../colors');
 
 module['exports'] = function () {
@@ -30831,7 +30844,7 @@ module['exports'] = function () {
     }
   };
 }();
-},{"../colors":93}],161:[function(require,module,exports) {
+},{"../colors":93}],155:[function(require,module,exports) {
 var colors = require('../colors');
 
 module['exports'] = function () {
@@ -31028,7 +31041,7 @@ for (var map in colors.maps) {
 }
 
 defineProps(colors, init());
-},{"./styles":147,"./system/supports-colors":155,"./custom/trap":156,"./custom/zalgo":157,"./maps/america":158,"./maps/zebra":159,"./maps/rainbow":160,"./maps/random":161}],94:[function(require,module,exports) {
+},{"./styles":147,"./system/supports-colors":149,"./custom/trap":150,"./custom/zalgo":151,"./maps/america":152,"./maps/zebra":153,"./maps/rainbow":154,"./maps/random":155}],94:[function(require,module,exports) {
 var colors = require('./colors');
 
 module['exports'] = function () {
@@ -31148,7 +31161,7 @@ module['exports'] = colors;
 //
 //
 require('./extendStringPrototype')();
-},{"./colors":93,"./extendStringPrototype":94}],34:[function(require,module,exports) {
+},{"./colors":93,"./extendStringPrototype":94}],32:[function(require,module,exports) {
 (function() {
   var base64map
       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/',
@@ -31246,7 +31259,7 @@ require('./extendStringPrototype')();
   module.exports = crypt;
 })();
 
-},{}],32:[function(require,module,exports) {
+},{}],33:[function(require,module,exports) {
 var charenc = {
   // UTF-8 encoding
   utf8: {
@@ -31281,7 +31294,7 @@ var charenc = {
 
 module.exports = charenc;
 
-},{}],33:[function(require,module,exports) {
+},{}],34:[function(require,module,exports) {
 /*!
  * Determine if an object is a Buffer
  *
@@ -31466,7 +31479,7 @@ function isSlowBuffer (obj) {
 
 })();
 
-},{"crypt":34,"charenc":32,"is-buffer":33}],84:[function(require,module,exports) {
+},{"crypt":32,"charenc":33,"is-buffer":34}],84:[function(require,module,exports) {
 module.exports = {
   "_from": "estraverse@^4.2.0",
   "_id": "estraverse@4.2.0",
@@ -31536,7 +31549,7 @@ module.exports = {
   "version": "4.2.0"
 }
 ;
-},{}],55:[function(require,module,exports) {
+},{}],57:[function(require,module,exports) {
 /*
   Copyright (C) 2012-2013 Yusuke Suzuki <utatane.tea@gmail.com>
   Copyright (C) 2012 Ariya Hidayat <ariya.hidayat@gmail.com>
@@ -32813,7 +32826,7 @@ module.exports = {
     };
 })();
 /* vim: set sw=4 ts=4 et tw=80 : */
-},{"./code":90}],56:[function(require,module,exports) {
+},{"./code":90}],58:[function(require,module,exports) {
 /*
   Copyright (C) 2013 Yusuke Suzuki <utatane.tea@gmail.com>
 
@@ -32846,7 +32859,7 @@ module.exports = {
   exports.keyword = require('./keyword');
 })();
 /* vim: set sw=4 ts=4 et tw=80 : */
-},{"./ast":89,"./code":90,"./keyword":91}],186:[function(require,module,exports) {
+},{"./ast":89,"./code":90,"./keyword":91}],194:[function(require,module,exports) {
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -33051,7 +33064,7 @@ exports.decode = function base64VLQ_decode(aStr, aIndex, aOutParam) {
   aOutParam.value = fromVLQSigned(result);
   aOutParam.rest = aIndex;
 };
-},{"./base64":186}],139:[function(require,module,exports) {
+},{"./base64":194}],139:[function(require,module,exports) {
 /* -*- Mode: js; js-indent-level: 2; -*- */
 /*
  * Copyright 2011 Mozilla Foundation and contributors
@@ -35670,7 +35683,7 @@ SourceNode.prototype.toStringWithSourceMap = function SourceNode_toStringWithSou
 };
 
 exports.SourceNode = SourceNode;
-},{"./source-map-generator":86,"./util":139}],57:[function(require,module,exports) {
+},{"./source-map-generator":86,"./util":139}],59:[function(require,module,exports) {
 /*
  * Copyright 2009-2011 Mozilla Foundation and contributors
  * Licensed under the New BSD license. See LICENSE.txt or:
@@ -38258,7 +38271,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     exports.FORMAT_DEFAULTS = FORMAT_DEFAULTS;
 })();
 /* vim: set sw=4 ts=4 et tw=80 : */
-},{"estraverse":55,"esutils":56,"source-map":57,"./package.json":53}],19:[function(require,module,exports) {
+},{"estraverse":57,"esutils":58,"source-map":59,"./package.json":53}],19:[function(require,module,exports) {
 var unparse = require('escodegen').generate;
 
 module.exports = function (ast, vars) {
@@ -44598,5608 +44611,83 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	);
 });
 ;
-},{}],21:[function(require,module,exports) {
-var define;
-var global = arguments[3];
-var process = require("process");
-var Buffer = require("buffer").Buffer;
-(function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-  typeof define === 'function' && define.amd ? define(['exports'], factory) :
-  (factory((global.async = global.async || {})));
-}(this, (function (exports) { 'use strict';
+},{}],596:[function(require,module,exports) {
+"use strict";
 
-function slice(arrayLike, start) {
-    start = start|0;
-    var newLen = Math.max(arrayLike.length - start, 0);
-    var newArr = Array(newLen);
-    for(var idx = 0; idx < newLen; idx++)  {
-        newArr[idx] = arrayLike[start + idx];
-    }
-    return newArr;
-}
+var _regenerator = require("babel-runtime/regenerator");
 
-/**
- * Creates a continuation function with some arguments already applied.
- *
- * Useful as a shorthand when combined with other control flow functions. Any
- * arguments passed to the returned function are added to the arguments
- * originally passed to apply.
- *
- * @name apply
- * @static
- * @memberOf module:Utils
- * @method
- * @category Util
- * @param {Function} fn - The function you want to eventually apply all
- * arguments to. Invokes with (arguments...).
- * @param {...*} arguments... - Any number of arguments to automatically apply
- * when the continuation is called.
- * @returns {Function} the partially-applied function
- * @example
- *
- * // using apply
- * async.parallel([
- *     async.apply(fs.writeFile, 'testfile1', 'test1'),
- *     async.apply(fs.writeFile, 'testfile2', 'test2')
- * ]);
- *
- *
- * // the same process without using apply
- * async.parallel([
- *     function(callback) {
- *         fs.writeFile('testfile1', 'test1', callback);
- *     },
- *     function(callback) {
- *         fs.writeFile('testfile2', 'test2', callback);
- *     }
- * ]);
- *
- * // It's possible to pass any number of additional arguments when calling the
- * // continuation:
- *
- * node> var fn = async.apply(sys.puts, 'one');
- * node> fn('two', 'three');
- * one
- * two
- * three
- */
-var apply = function(fn/*, ...args*/) {
-    var args = slice(arguments, 1);
-    return function(/*callArgs*/) {
-        var callArgs = slice(arguments);
-        return fn.apply(null, args.concat(callArgs));
-    };
-};
+var _regenerator2 = _interopRequireDefault(_regenerator);
 
-var initialParams = function (fn) {
-    return function (/*...args, callback*/) {
-        var args = slice(arguments);
-        var callback = args.pop();
-        fn.call(this, args, callback);
-    };
-};
+var _asyncToGenerator2 = require("babel-runtime/helpers/asyncToGenerator");
 
-/**
- * Checks if `value` is the
- * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
- * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is an object, else `false`.
- * @example
- *
- * _.isObject({});
- * // => true
- *
- * _.isObject([1, 2, 3]);
- * // => true
- *
- * _.isObject(_.noop);
- * // => true
- *
- * _.isObject(null);
- * // => false
- */
-function isObject(value) {
-  var type = typeof value;
-  return value != null && (type == 'object' || type == 'function');
-}
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
-var hasSetImmediate = typeof setImmediate === 'function' && setImmediate;
-var hasNextTick = typeof process === 'object' && typeof process.nextTick === 'function';
+var _classCallCheck2 = require("babel-runtime/helpers/classCallCheck");
 
-function fallback(fn) {
-    setTimeout(fn, 0);
-}
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
-function wrap(defer) {
-    return function (fn/*, ...args*/) {
-        var args = slice(arguments, 1);
-        defer(function () {
-            fn.apply(null, args);
-        });
-    };
-}
+var _createClass2 = require("babel-runtime/helpers/createClass");
 
-var _defer;
+var _createClass3 = _interopRequireDefault(_createClass2);
 
-if (hasSetImmediate) {
-    _defer = setImmediate;
-} else if (hasNextTick) {
-    _defer = process.nextTick;
-} else {
-    _defer = fallback;
-}
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var setImmediate$1 = wrap(_defer);
-
-/**
- * Take a sync function and make it async, passing its return value to a
- * callback. This is useful for plugging sync functions into a waterfall,
- * series, or other async functions. Any arguments passed to the generated
- * function will be passed to the wrapped function (except for the final
- * callback argument). Errors thrown will be passed to the callback.
- *
- * If the function passed to `asyncify` returns a Promise, that promises's
- * resolved/rejected state will be used to call the callback, rather than simply
- * the synchronous return value.
- *
- * This also means you can asyncify ES2017 `async` functions.
- *
- * @name asyncify
- * @static
- * @memberOf module:Utils
- * @method
- * @alias wrapSync
- * @category Util
- * @param {Function} func - The synchronous function, or Promise-returning
- * function to convert to an {@link AsyncFunction}.
- * @returns {AsyncFunction} An asynchronous wrapper of the `func`. To be
- * invoked with `(args..., callback)`.
- * @example
- *
- * // passing a regular synchronous function
- * async.waterfall([
- *     async.apply(fs.readFile, filename, "utf8"),
- *     async.asyncify(JSON.parse),
- *     function (data, next) {
- *         // data is the result of parsing the text.
- *         // If there was a parsing error, it would have been caught.
- *     }
- * ], callback);
- *
- * // passing a function returning a promise
- * async.waterfall([
- *     async.apply(fs.readFile, filename, "utf8"),
- *     async.asyncify(function (contents) {
- *         return db.model.create(contents);
- *     }),
- *     function (model, next) {
- *         // `model` is the instantiated model object.
- *         // If there was an error, this function would be skipped.
- *     }
- * ], callback);
- *
- * // es2017 example, though `asyncify` is not needed if your JS environment
- * // supports async functions out of the box
- * var q = async.queue(async.asyncify(async function(file) {
- *     var intermediateStep = await processFile(file);
- *     return await somePromise(intermediateStep)
- * }));
- *
- * q.push(files);
- */
-function asyncify(func) {
-    return initialParams(function (args, callback) {
-        var result;
-        try {
-            result = func.apply(this, args);
-        } catch (e) {
-            return callback(e);
-        }
-        // if result is Promise object
-        if (isObject(result) && typeof result.then === 'function') {
-            result.then(function(value) {
-                invokeCallback(callback, null, value);
-            }, function(err) {
-                invokeCallback(callback, err.message ? err : new Error(err));
-            });
-        } else {
-            callback(null, result);
-        }
-    });
-}
-
-function invokeCallback(callback, error, value) {
-    try {
-        callback(error, value);
-    } catch (e) {
-        setImmediate$1(rethrow, e);
-    }
-}
-
-function rethrow(error) {
-    throw error;
-}
-
-var supportsSymbol = typeof Symbol === 'function';
-
-function isAsync(fn) {
-    return supportsSymbol && fn[Symbol.toStringTag] === 'AsyncFunction';
-}
-
-function wrapAsync(asyncFn) {
-    return isAsync(asyncFn) ? asyncify(asyncFn) : asyncFn;
-}
-
-function applyEach$1(eachfn) {
-    return function(fns/*, ...args*/) {
-        var args = slice(arguments, 1);
-        var go = initialParams(function(args, callback) {
-            var that = this;
-            return eachfn(fns, function (fn, cb) {
-                wrapAsync(fn).apply(that, args.concat(cb));
-            }, callback);
-        });
-        if (args.length) {
-            return go.apply(this, args);
-        }
-        else {
-            return go;
-        }
-    };
-}
-
-/** Detect free variable `global` from Node.js. */
-var freeGlobal = typeof global == 'object' && global && global.Object === Object && global;
-
-/** Detect free variable `self`. */
-var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
-
-/** Used as a reference to the global object. */
-var root = freeGlobal || freeSelf || Function('return this')();
-
-/** Built-in value references. */
-var Symbol$1 = root.Symbol;
-
-/** Used for built-in method references. */
-var objectProto = Object.prototype;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty = objectProto.hasOwnProperty;
-
-/**
- * Used to resolve the
- * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
- * of values.
- */
-var nativeObjectToString = objectProto.toString;
-
-/** Built-in value references. */
-var symToStringTag$1 = Symbol$1 ? Symbol$1.toStringTag : undefined;
-
-/**
- * A specialized version of `baseGetTag` which ignores `Symbol.toStringTag` values.
- *
- * @private
- * @param {*} value The value to query.
- * @returns {string} Returns the raw `toStringTag`.
- */
-function getRawTag(value) {
-  var isOwn = hasOwnProperty.call(value, symToStringTag$1),
-      tag = value[symToStringTag$1];
-
-  try {
-    value[symToStringTag$1] = undefined;
-    var unmasked = true;
-  } catch (e) {}
-
-  var result = nativeObjectToString.call(value);
-  if (unmasked) {
-    if (isOwn) {
-      value[symToStringTag$1] = tag;
-    } else {
-      delete value[symToStringTag$1];
-    }
-  }
-  return result;
-}
-
-/** Used for built-in method references. */
-var objectProto$1 = Object.prototype;
-
-/**
- * Used to resolve the
- * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
- * of values.
- */
-var nativeObjectToString$1 = objectProto$1.toString;
-
-/**
- * Converts `value` to a string using `Object.prototype.toString`.
- *
- * @private
- * @param {*} value The value to convert.
- * @returns {string} Returns the converted string.
- */
-function objectToString(value) {
-  return nativeObjectToString$1.call(value);
-}
-
-/** `Object#toString` result references. */
-var nullTag = '[object Null]';
-var undefinedTag = '[object Undefined]';
-
-/** Built-in value references. */
-var symToStringTag = Symbol$1 ? Symbol$1.toStringTag : undefined;
-
-/**
- * The base implementation of `getTag` without fallbacks for buggy environments.
- *
- * @private
- * @param {*} value The value to query.
- * @returns {string} Returns the `toStringTag`.
- */
-function baseGetTag(value) {
-  if (value == null) {
-    return value === undefined ? undefinedTag : nullTag;
-  }
-  return (symToStringTag && symToStringTag in Object(value))
-    ? getRawTag(value)
-    : objectToString(value);
-}
-
-/** `Object#toString` result references. */
-var asyncTag = '[object AsyncFunction]';
-var funcTag = '[object Function]';
-var genTag = '[object GeneratorFunction]';
-var proxyTag = '[object Proxy]';
-
-/**
- * Checks if `value` is classified as a `Function` object.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a function, else `false`.
- * @example
- *
- * _.isFunction(_);
- * // => true
- *
- * _.isFunction(/abc/);
- * // => false
- */
-function isFunction(value) {
-  if (!isObject(value)) {
-    return false;
-  }
-  // The use of `Object#toString` avoids issues with the `typeof` operator
-  // in Safari 9 which returns 'object' for typed arrays and other constructors.
-  var tag = baseGetTag(value);
-  return tag == funcTag || tag == genTag || tag == asyncTag || tag == proxyTag;
-}
-
-/** Used as references for various `Number` constants. */
-var MAX_SAFE_INTEGER = 9007199254740991;
-
-/**
- * Checks if `value` is a valid array-like length.
- *
- * **Note:** This method is loosely based on
- * [`ToLength`](http://ecma-international.org/ecma-262/7.0/#sec-tolength).
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
- * @example
- *
- * _.isLength(3);
- * // => true
- *
- * _.isLength(Number.MIN_VALUE);
- * // => false
- *
- * _.isLength(Infinity);
- * // => false
- *
- * _.isLength('3');
- * // => false
- */
-function isLength(value) {
-  return typeof value == 'number' &&
-    value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
-}
-
-/**
- * Checks if `value` is array-like. A value is considered array-like if it's
- * not a function and has a `value.length` that's an integer greater than or
- * equal to `0` and less than or equal to `Number.MAX_SAFE_INTEGER`.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
- * @example
- *
- * _.isArrayLike([1, 2, 3]);
- * // => true
- *
- * _.isArrayLike(document.body.children);
- * // => true
- *
- * _.isArrayLike('abc');
- * // => true
- *
- * _.isArrayLike(_.noop);
- * // => false
- */
-function isArrayLike(value) {
-  return value != null && isLength(value.length) && !isFunction(value);
-}
-
-// A temporary value used to identify if the loop should be broken.
-// See #1064, #1293
-var breakLoop = {};
-
-/**
- * This method returns `undefined`.
- *
- * @static
- * @memberOf _
- * @since 2.3.0
- * @category Util
- * @example
- *
- * _.times(2, _.noop);
- * // => [undefined, undefined]
- */
-function noop() {
-  // No operation performed.
-}
-
-function once(fn) {
-    return function () {
-        if (fn === null) return;
-        var callFn = fn;
-        fn = null;
-        callFn.apply(this, arguments);
-    };
-}
-
-var iteratorSymbol = typeof Symbol === 'function' && Symbol.iterator;
-
-var getIterator = function (coll) {
-    return iteratorSymbol && coll[iteratorSymbol] && coll[iteratorSymbol]();
-};
-
-/**
- * The base implementation of `_.times` without support for iteratee shorthands
- * or max array length checks.
- *
- * @private
- * @param {number} n The number of times to invoke `iteratee`.
- * @param {Function} iteratee The function invoked per iteration.
- * @returns {Array} Returns the array of results.
- */
-function baseTimes(n, iteratee) {
-  var index = -1,
-      result = Array(n);
-
-  while (++index < n) {
-    result[index] = iteratee(index);
-  }
-  return result;
-}
-
-/**
- * Checks if `value` is object-like. A value is object-like if it's not `null`
- * and has a `typeof` result of "object".
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
- * @example
- *
- * _.isObjectLike({});
- * // => true
- *
- * _.isObjectLike([1, 2, 3]);
- * // => true
- *
- * _.isObjectLike(_.noop);
- * // => false
- *
- * _.isObjectLike(null);
- * // => false
- */
-function isObjectLike(value) {
-  return value != null && typeof value == 'object';
-}
-
-/** `Object#toString` result references. */
-var argsTag = '[object Arguments]';
-
-/**
- * The base implementation of `_.isArguments`.
- *
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is an `arguments` object,
- */
-function baseIsArguments(value) {
-  return isObjectLike(value) && baseGetTag(value) == argsTag;
-}
-
-/** Used for built-in method references. */
-var objectProto$3 = Object.prototype;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty$2 = objectProto$3.hasOwnProperty;
-
-/** Built-in value references. */
-var propertyIsEnumerable = objectProto$3.propertyIsEnumerable;
-
-/**
- * Checks if `value` is likely an `arguments` object.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is an `arguments` object,
- *  else `false`.
- * @example
- *
- * _.isArguments(function() { return arguments; }());
- * // => true
- *
- * _.isArguments([1, 2, 3]);
- * // => false
- */
-var isArguments = baseIsArguments(function() { return arguments; }()) ? baseIsArguments : function(value) {
-  return isObjectLike(value) && hasOwnProperty$2.call(value, 'callee') &&
-    !propertyIsEnumerable.call(value, 'callee');
-};
-
-/**
- * Checks if `value` is classified as an `Array` object.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is an array, else `false`.
- * @example
- *
- * _.isArray([1, 2, 3]);
- * // => true
- *
- * _.isArray(document.body.children);
- * // => false
- *
- * _.isArray('abc');
- * // => false
- *
- * _.isArray(_.noop);
- * // => false
- */
-var isArray = Array.isArray;
-
-/**
- * This method returns `false`.
- *
- * @static
- * @memberOf _
- * @since 4.13.0
- * @category Util
- * @returns {boolean} Returns `false`.
- * @example
- *
- * _.times(2, _.stubFalse);
- * // => [false, false]
- */
-function stubFalse() {
-  return false;
-}
-
-/** Detect free variable `exports`. */
-var freeExports = typeof exports == 'object' && exports && !exports.nodeType && exports;
-
-/** Detect free variable `module`. */
-var freeModule = freeExports && typeof module == 'object' && module && !module.nodeType && module;
-
-/** Detect the popular CommonJS extension `module.exports`. */
-var moduleExports = freeModule && freeModule.exports === freeExports;
-
-/** Built-in value references. */
-var Buffer = moduleExports ? root.Buffer : undefined;
-
-/* Built-in method references for those with the same name as other `lodash` methods. */
-var nativeIsBuffer = Buffer ? Buffer.isBuffer : undefined;
-
-/**
- * Checks if `value` is a buffer.
- *
- * @static
- * @memberOf _
- * @since 4.3.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a buffer, else `false`.
- * @example
- *
- * _.isBuffer(new Buffer(2));
- * // => true
- *
- * _.isBuffer(new Uint8Array(2));
- * // => false
- */
-var isBuffer = nativeIsBuffer || stubFalse;
-
-/** Used as references for various `Number` constants. */
-var MAX_SAFE_INTEGER$1 = 9007199254740991;
-
-/** Used to detect unsigned integer values. */
-var reIsUint = /^(?:0|[1-9]\d*)$/;
-
-/**
- * Checks if `value` is a valid array-like index.
- *
- * @private
- * @param {*} value The value to check.
- * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
- * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
- */
-function isIndex(value, length) {
-  length = length == null ? MAX_SAFE_INTEGER$1 : length;
-  return !!length &&
-    (typeof value == 'number' || reIsUint.test(value)) &&
-    (value > -1 && value % 1 == 0 && value < length);
-}
-
-/** `Object#toString` result references. */
-var argsTag$1 = '[object Arguments]';
-var arrayTag = '[object Array]';
-var boolTag = '[object Boolean]';
-var dateTag = '[object Date]';
-var errorTag = '[object Error]';
-var funcTag$1 = '[object Function]';
-var mapTag = '[object Map]';
-var numberTag = '[object Number]';
-var objectTag = '[object Object]';
-var regexpTag = '[object RegExp]';
-var setTag = '[object Set]';
-var stringTag = '[object String]';
-var weakMapTag = '[object WeakMap]';
-
-var arrayBufferTag = '[object ArrayBuffer]';
-var dataViewTag = '[object DataView]';
-var float32Tag = '[object Float32Array]';
-var float64Tag = '[object Float64Array]';
-var int8Tag = '[object Int8Array]';
-var int16Tag = '[object Int16Array]';
-var int32Tag = '[object Int32Array]';
-var uint8Tag = '[object Uint8Array]';
-var uint8ClampedTag = '[object Uint8ClampedArray]';
-var uint16Tag = '[object Uint16Array]';
-var uint32Tag = '[object Uint32Array]';
-
-/** Used to identify `toStringTag` values of typed arrays. */
-var typedArrayTags = {};
-typedArrayTags[float32Tag] = typedArrayTags[float64Tag] =
-typedArrayTags[int8Tag] = typedArrayTags[int16Tag] =
-typedArrayTags[int32Tag] = typedArrayTags[uint8Tag] =
-typedArrayTags[uint8ClampedTag] = typedArrayTags[uint16Tag] =
-typedArrayTags[uint32Tag] = true;
-typedArrayTags[argsTag$1] = typedArrayTags[arrayTag] =
-typedArrayTags[arrayBufferTag] = typedArrayTags[boolTag] =
-typedArrayTags[dataViewTag] = typedArrayTags[dateTag] =
-typedArrayTags[errorTag] = typedArrayTags[funcTag$1] =
-typedArrayTags[mapTag] = typedArrayTags[numberTag] =
-typedArrayTags[objectTag] = typedArrayTags[regexpTag] =
-typedArrayTags[setTag] = typedArrayTags[stringTag] =
-typedArrayTags[weakMapTag] = false;
-
-/**
- * The base implementation of `_.isTypedArray` without Node.js optimizations.
- *
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
- */
-function baseIsTypedArray(value) {
-  return isObjectLike(value) &&
-    isLength(value.length) && !!typedArrayTags[baseGetTag(value)];
-}
-
-/**
- * The base implementation of `_.unary` without support for storing metadata.
- *
- * @private
- * @param {Function} func The function to cap arguments for.
- * @returns {Function} Returns the new capped function.
- */
-function baseUnary(func) {
-  return function(value) {
-    return func(value);
-  };
-}
-
-/** Detect free variable `exports`. */
-var freeExports$1 = typeof exports == 'object' && exports && !exports.nodeType && exports;
-
-/** Detect free variable `module`. */
-var freeModule$1 = freeExports$1 && typeof module == 'object' && module && !module.nodeType && module;
-
-/** Detect the popular CommonJS extension `module.exports`. */
-var moduleExports$1 = freeModule$1 && freeModule$1.exports === freeExports$1;
-
-/** Detect free variable `process` from Node.js. */
-var freeProcess = moduleExports$1 && freeGlobal.process;
-
-/** Used to access faster Node.js helpers. */
-var nodeUtil = (function() {
-  try {
-    return freeProcess && freeProcess.binding && freeProcess.binding('util');
-  } catch (e) {}
-}());
-
-/* Node.js helper references. */
-var nodeIsTypedArray = nodeUtil && nodeUtil.isTypedArray;
-
-/**
- * Checks if `value` is classified as a typed array.
- *
- * @static
- * @memberOf _
- * @since 3.0.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
- * @example
- *
- * _.isTypedArray(new Uint8Array);
- * // => true
- *
- * _.isTypedArray([]);
- * // => false
- */
-var isTypedArray = nodeIsTypedArray ? baseUnary(nodeIsTypedArray) : baseIsTypedArray;
-
-/** Used for built-in method references. */
-var objectProto$2 = Object.prototype;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty$1 = objectProto$2.hasOwnProperty;
-
-/**
- * Creates an array of the enumerable property names of the array-like `value`.
- *
- * @private
- * @param {*} value The value to query.
- * @param {boolean} inherited Specify returning inherited property names.
- * @returns {Array} Returns the array of property names.
- */
-function arrayLikeKeys(value, inherited) {
-  var isArr = isArray(value),
-      isArg = !isArr && isArguments(value),
-      isBuff = !isArr && !isArg && isBuffer(value),
-      isType = !isArr && !isArg && !isBuff && isTypedArray(value),
-      skipIndexes = isArr || isArg || isBuff || isType,
-      result = skipIndexes ? baseTimes(value.length, String) : [],
-      length = result.length;
-
-  for (var key in value) {
-    if ((inherited || hasOwnProperty$1.call(value, key)) &&
-        !(skipIndexes && (
-           // Safari 9 has enumerable `arguments.length` in strict mode.
-           key == 'length' ||
-           // Node.js 0.10 has enumerable non-index properties on buffers.
-           (isBuff && (key == 'offset' || key == 'parent')) ||
-           // PhantomJS 2 has enumerable non-index properties on typed arrays.
-           (isType && (key == 'buffer' || key == 'byteLength' || key == 'byteOffset')) ||
-           // Skip index properties.
-           isIndex(key, length)
-        ))) {
-      result.push(key);
-    }
-  }
-  return result;
-}
-
-/** Used for built-in method references. */
-var objectProto$5 = Object.prototype;
-
-/**
- * Checks if `value` is likely a prototype object.
- *
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a prototype, else `false`.
- */
-function isPrototype(value) {
-  var Ctor = value && value.constructor,
-      proto = (typeof Ctor == 'function' && Ctor.prototype) || objectProto$5;
-
-  return value === proto;
-}
-
-/**
- * Creates a unary function that invokes `func` with its argument transformed.
- *
- * @private
- * @param {Function} func The function to wrap.
- * @param {Function} transform The argument transform.
- * @returns {Function} Returns the new function.
- */
-function overArg(func, transform) {
-  return function(arg) {
-    return func(transform(arg));
-  };
-}
-
-/* Built-in method references for those with the same name as other `lodash` methods. */
-var nativeKeys = overArg(Object.keys, Object);
-
-/** Used for built-in method references. */
-var objectProto$4 = Object.prototype;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty$3 = objectProto$4.hasOwnProperty;
-
-/**
- * The base implementation of `_.keys` which doesn't treat sparse arrays as dense.
- *
- * @private
- * @param {Object} object The object to query.
- * @returns {Array} Returns the array of property names.
- */
-function baseKeys(object) {
-  if (!isPrototype(object)) {
-    return nativeKeys(object);
-  }
-  var result = [];
-  for (var key in Object(object)) {
-    if (hasOwnProperty$3.call(object, key) && key != 'constructor') {
-      result.push(key);
-    }
-  }
-  return result;
-}
-
-/**
- * Creates an array of the own enumerable property names of `object`.
- *
- * **Note:** Non-object values are coerced to objects. See the
- * [ES spec](http://ecma-international.org/ecma-262/7.0/#sec-object.keys)
- * for more details.
- *
- * @static
- * @since 0.1.0
- * @memberOf _
- * @category Object
- * @param {Object} object The object to query.
- * @returns {Array} Returns the array of property names.
- * @example
- *
- * function Foo() {
- *   this.a = 1;
- *   this.b = 2;
- * }
- *
- * Foo.prototype.c = 3;
- *
- * _.keys(new Foo);
- * // => ['a', 'b'] (iteration order is not guaranteed)
- *
- * _.keys('hi');
- * // => ['0', '1']
- */
-function keys(object) {
-  return isArrayLike(object) ? arrayLikeKeys(object) : baseKeys(object);
-}
-
-function createArrayIterator(coll) {
-    var i = -1;
-    var len = coll.length;
-    return function next() {
-        return ++i < len ? {value: coll[i], key: i} : null;
-    }
-}
-
-function createES2015Iterator(iterator) {
-    var i = -1;
-    return function next() {
-        var item = iterator.next();
-        if (item.done)
-            return null;
-        i++;
-        return {value: item.value, key: i};
-    }
-}
-
-function createObjectIterator(obj) {
-    var okeys = keys(obj);
-    var i = -1;
-    var len = okeys.length;
-    return function next() {
-        var key = okeys[++i];
-        return i < len ? {value: obj[key], key: key} : null;
-    };
-}
-
-function iterator(coll) {
-    if (isArrayLike(coll)) {
-        return createArrayIterator(coll);
+var Async = function () {
+    function Async() {
+        (0, _classCallCheck3.default)(this, Async);
     }
 
-    var iterator = getIterator(coll);
-    return iterator ? createES2015Iterator(iterator) : createObjectIterator(coll);
-}
+    (0, _createClass3.default)(Async, [{
+        key: "map",
+        value: function () {
+            var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(array, cb) {
+                var i;
+                return _regenerator2.default.wrap(function _callee$(_context) {
+                    while (1) {
+                        switch (_context.prev = _context.next) {
+                            case 0:
+                                i = 0;
 
-function onlyOnce(fn) {
-    return function() {
-        if (fn === null) throw new Error("Callback was already called.");
-        var callFn = fn;
-        fn = null;
-        callFn.apply(this, arguments);
-    };
-}
+                            case 1:
+                                if (!(i < array.length)) {
+                                    _context.next = 8;
+                                    break;
+                                }
 
-function _eachOfLimit(limit) {
-    return function (obj, iteratee, callback) {
-        callback = once(callback || noop);
-        if (limit <= 0 || !obj) {
-            return callback(null);
-        }
-        var nextElem = iterator(obj);
-        var done = false;
-        var running = 0;
+                                _context.next = 4;
+                                return cb(array[i]);
 
-        function iterateeCallback(err, value) {
-            running -= 1;
-            if (err) {
-                done = true;
-                callback(err);
-            }
-            else if (value === breakLoop || (done && running <= 0)) {
-                done = true;
-                return callback(null);
-            }
-            else {
-                replenish();
-            }
-        }
+                            case 4:
+                                array[i] = _context.sent;
 
-        function replenish () {
-            while (running < limit && !done) {
-                var elem = nextElem();
-                if (elem === null) {
-                    done = true;
-                    if (running <= 0) {
-                        callback(null);
+                            case 5:
+                                i++;
+                                _context.next = 1;
+                                break;
+
+                            case 8:
+                                return _context.abrupt("return", array);
+
+                            case 9:
+                            case "end":
+                                return _context.stop();
+                        }
                     }
-                    return;
-                }
-                running += 1;
-                iteratee(elem.value, elem.key, onlyOnce(iterateeCallback));
-            }
-        }
-
-        replenish();
-    };
-}
-
-/**
- * The same as [`eachOf`]{@link module:Collections.eachOf} but runs a maximum of `limit` async operations at a
- * time.
- *
- * @name eachOfLimit
- * @static
- * @memberOf module:Collections
- * @method
- * @see [async.eachOf]{@link module:Collections.eachOf}
- * @alias forEachOfLimit
- * @category Collection
- * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {number} limit - The maximum number of async operations at a time.
- * @param {AsyncFunction} iteratee - An async function to apply to each
- * item in `coll`. The `key` is the item's key, or index in the case of an
- * array.
- * Invoked with (item, key, callback).
- * @param {Function} [callback] - A callback which is called when all
- * `iteratee` functions have finished, or an error occurs. Invoked with (err).
- */
-function eachOfLimit(coll, limit, iteratee, callback) {
-    _eachOfLimit(limit)(coll, wrapAsync(iteratee), callback);
-}
-
-function doLimit(fn, limit) {
-    return function (iterable, iteratee, callback) {
-        return fn(iterable, limit, iteratee, callback);
-    };
-}
-
-// eachOf implementation optimized for array-likes
-function eachOfArrayLike(coll, iteratee, callback) {
-    callback = once(callback || noop);
-    var index = 0,
-        completed = 0,
-        length = coll.length;
-    if (length === 0) {
-        callback(null);
-    }
-
-    function iteratorCallback(err, value) {
-        if (err) {
-            callback(err);
-        } else if ((++completed === length) || value === breakLoop) {
-            callback(null);
-        }
-    }
-
-    for (; index < length; index++) {
-        iteratee(coll[index], index, onlyOnce(iteratorCallback));
-    }
-}
-
-// a generic version of eachOf which can handle array, object, and iterator cases.
-var eachOfGeneric = doLimit(eachOfLimit, Infinity);
-
-/**
- * Like [`each`]{@link module:Collections.each}, except that it passes the key (or index) as the second argument
- * to the iteratee.
- *
- * @name eachOf
- * @static
- * @memberOf module:Collections
- * @method
- * @alias forEachOf
- * @category Collection
- * @see [async.each]{@link module:Collections.each}
- * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {AsyncFunction} iteratee - A function to apply to each
- * item in `coll`.
- * The `key` is the item's key, or index in the case of an array.
- * Invoked with (item, key, callback).
- * @param {Function} [callback] - A callback which is called when all
- * `iteratee` functions have finished, or an error occurs. Invoked with (err).
- * @example
- *
- * var obj = {dev: "/dev.json", test: "/test.json", prod: "/prod.json"};
- * var configs = {};
- *
- * async.forEachOf(obj, function (value, key, callback) {
- *     fs.readFile(__dirname + value, "utf8", function (err, data) {
- *         if (err) return callback(err);
- *         try {
- *             configs[key] = JSON.parse(data);
- *         } catch (e) {
- *             return callback(e);
- *         }
- *         callback();
- *     });
- * }, function (err) {
- *     if (err) console.error(err.message);
- *     // configs is now a map of JSON data
- *     doSomethingWith(configs);
- * });
- */
-var eachOf = function(coll, iteratee, callback) {
-    var eachOfImplementation = isArrayLike(coll) ? eachOfArrayLike : eachOfGeneric;
-    eachOfImplementation(coll, wrapAsync(iteratee), callback);
-};
-
-function doParallel(fn) {
-    return function (obj, iteratee, callback) {
-        return fn(eachOf, obj, wrapAsync(iteratee), callback);
-    };
-}
-
-function _asyncMap(eachfn, arr, iteratee, callback) {
-    callback = callback || noop;
-    arr = arr || [];
-    var results = [];
-    var counter = 0;
-    var _iteratee = wrapAsync(iteratee);
-
-    eachfn(arr, function (value, _, callback) {
-        var index = counter++;
-        _iteratee(value, function (err, v) {
-            results[index] = v;
-            callback(err);
-        });
-    }, function (err) {
-        callback(err, results);
-    });
-}
-
-/**
- * Produces a new collection of values by mapping each value in `coll` through
- * the `iteratee` function. The `iteratee` is called with an item from `coll`
- * and a callback for when it has finished processing. Each of these callback
- * takes 2 arguments: an `error`, and the transformed item from `coll`. If
- * `iteratee` passes an error to its callback, the main `callback` (for the
- * `map` function) is immediately called with the error.
- *
- * Note, that since this function applies the `iteratee` to each item in
- * parallel, there is no guarantee that the `iteratee` functions will complete
- * in order. However, the results array will be in the same order as the
- * original `coll`.
- *
- * If `map` is passed an Object, the results will be an Array.  The results
- * will roughly be in the order of the original Objects' keys (but this can
- * vary across JavaScript engines).
- *
- * @name map
- * @static
- * @memberOf module:Collections
- * @method
- * @category Collection
- * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {AsyncFunction} iteratee - An async function to apply to each item in
- * `coll`.
- * The iteratee should complete with the transformed item.
- * Invoked with (item, callback).
- * @param {Function} [callback] - A callback which is called when all `iteratee`
- * functions have finished, or an error occurs. Results is an Array of the
- * transformed items from the `coll`. Invoked with (err, results).
- * @example
- *
- * async.map(['file1','file2','file3'], fs.stat, function(err, results) {
- *     // results is now an array of stats for each file
- * });
- */
-var map = doParallel(_asyncMap);
-
-/**
- * Applies the provided arguments to each function in the array, calling
- * `callback` after all functions have completed. If you only provide the first
- * argument, `fns`, then it will return a function which lets you pass in the
- * arguments as if it were a single function call. If more arguments are
- * provided, `callback` is required while `args` is still optional.
- *
- * @name applyEach
- * @static
- * @memberOf module:ControlFlow
- * @method
- * @category Control Flow
- * @param {Array|Iterable|Object} fns - A collection of {@link AsyncFunction}s
- * to all call with the same arguments
- * @param {...*} [args] - any number of separate arguments to pass to the
- * function.
- * @param {Function} [callback] - the final argument should be the callback,
- * called when all functions have completed processing.
- * @returns {Function} - If only the first argument, `fns`, is provided, it will
- * return a function which lets you pass in the arguments as if it were a single
- * function call. The signature is `(..args, callback)`. If invoked with any
- * arguments, `callback` is required.
- * @example
- *
- * async.applyEach([enableSearch, updateSchema], 'bucket', callback);
- *
- * // partial application example:
- * async.each(
- *     buckets,
- *     async.applyEach([enableSearch, updateSchema]),
- *     callback
- * );
- */
-var applyEach = applyEach$1(map);
-
-function doParallelLimit(fn) {
-    return function (obj, limit, iteratee, callback) {
-        return fn(_eachOfLimit(limit), obj, wrapAsync(iteratee), callback);
-    };
-}
-
-/**
- * The same as [`map`]{@link module:Collections.map} but runs a maximum of `limit` async operations at a time.
- *
- * @name mapLimit
- * @static
- * @memberOf module:Collections
- * @method
- * @see [async.map]{@link module:Collections.map}
- * @category Collection
- * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {number} limit - The maximum number of async operations at a time.
- * @param {AsyncFunction} iteratee - An async function to apply to each item in
- * `coll`.
- * The iteratee should complete with the transformed item.
- * Invoked with (item, callback).
- * @param {Function} [callback] - A callback which is called when all `iteratee`
- * functions have finished, or an error occurs. Results is an array of the
- * transformed items from the `coll`. Invoked with (err, results).
- */
-var mapLimit = doParallelLimit(_asyncMap);
-
-/**
- * The same as [`map`]{@link module:Collections.map} but runs only a single async operation at a time.
- *
- * @name mapSeries
- * @static
- * @memberOf module:Collections
- * @method
- * @see [async.map]{@link module:Collections.map}
- * @category Collection
- * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {AsyncFunction} iteratee - An async function to apply to each item in
- * `coll`.
- * The iteratee should complete with the transformed item.
- * Invoked with (item, callback).
- * @param {Function} [callback] - A callback which is called when all `iteratee`
- * functions have finished, or an error occurs. Results is an array of the
- * transformed items from the `coll`. Invoked with (err, results).
- */
-var mapSeries = doLimit(mapLimit, 1);
-
-/**
- * The same as [`applyEach`]{@link module:ControlFlow.applyEach} but runs only a single async operation at a time.
- *
- * @name applyEachSeries
- * @static
- * @memberOf module:ControlFlow
- * @method
- * @see [async.applyEach]{@link module:ControlFlow.applyEach}
- * @category Control Flow
- * @param {Array|Iterable|Object} fns - A collection of {@link AsyncFunction}s to all
- * call with the same arguments
- * @param {...*} [args] - any number of separate arguments to pass to the
- * function.
- * @param {Function} [callback] - the final argument should be the callback,
- * called when all functions have completed processing.
- * @returns {Function} - If only the first argument is provided, it will return
- * a function which lets you pass in the arguments as if it were a single
- * function call.
- */
-var applyEachSeries = applyEach$1(mapSeries);
-
-/**
- * A specialized version of `_.forEach` for arrays without support for
- * iteratee shorthands.
- *
- * @private
- * @param {Array} [array] The array to iterate over.
- * @param {Function} iteratee The function invoked per iteration.
- * @returns {Array} Returns `array`.
- */
-function arrayEach(array, iteratee) {
-  var index = -1,
-      length = array == null ? 0 : array.length;
-
-  while (++index < length) {
-    if (iteratee(array[index], index, array) === false) {
-      break;
-    }
-  }
-  return array;
-}
-
-/**
- * Creates a base function for methods like `_.forIn` and `_.forOwn`.
- *
- * @private
- * @param {boolean} [fromRight] Specify iterating from right to left.
- * @returns {Function} Returns the new base function.
- */
-function createBaseFor(fromRight) {
-  return function(object, iteratee, keysFunc) {
-    var index = -1,
-        iterable = Object(object),
-        props = keysFunc(object),
-        length = props.length;
-
-    while (length--) {
-      var key = props[fromRight ? length : ++index];
-      if (iteratee(iterable[key], key, iterable) === false) {
-        break;
-      }
-    }
-    return object;
-  };
-}
-
-/**
- * The base implementation of `baseForOwn` which iterates over `object`
- * properties returned by `keysFunc` and invokes `iteratee` for each property.
- * Iteratee functions may exit iteration early by explicitly returning `false`.
- *
- * @private
- * @param {Object} object The object to iterate over.
- * @param {Function} iteratee The function invoked per iteration.
- * @param {Function} keysFunc The function to get the keys of `object`.
- * @returns {Object} Returns `object`.
- */
-var baseFor = createBaseFor();
-
-/**
- * The base implementation of `_.forOwn` without support for iteratee shorthands.
- *
- * @private
- * @param {Object} object The object to iterate over.
- * @param {Function} iteratee The function invoked per iteration.
- * @returns {Object} Returns `object`.
- */
-function baseForOwn(object, iteratee) {
-  return object && baseFor(object, iteratee, keys);
-}
-
-/**
- * The base implementation of `_.findIndex` and `_.findLastIndex` without
- * support for iteratee shorthands.
- *
- * @private
- * @param {Array} array The array to inspect.
- * @param {Function} predicate The function invoked per iteration.
- * @param {number} fromIndex The index to search from.
- * @param {boolean} [fromRight] Specify iterating from right to left.
- * @returns {number} Returns the index of the matched value, else `-1`.
- */
-function baseFindIndex(array, predicate, fromIndex, fromRight) {
-  var length = array.length,
-      index = fromIndex + (fromRight ? 1 : -1);
-
-  while ((fromRight ? index-- : ++index < length)) {
-    if (predicate(array[index], index, array)) {
-      return index;
-    }
-  }
-  return -1;
-}
-
-/**
- * The base implementation of `_.isNaN` without support for number objects.
- *
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is `NaN`, else `false`.
- */
-function baseIsNaN(value) {
-  return value !== value;
-}
-
-/**
- * A specialized version of `_.indexOf` which performs strict equality
- * comparisons of values, i.e. `===`.
- *
- * @private
- * @param {Array} array The array to inspect.
- * @param {*} value The value to search for.
- * @param {number} fromIndex The index to search from.
- * @returns {number} Returns the index of the matched value, else `-1`.
- */
-function strictIndexOf(array, value, fromIndex) {
-  var index = fromIndex - 1,
-      length = array.length;
-
-  while (++index < length) {
-    if (array[index] === value) {
-      return index;
-    }
-  }
-  return -1;
-}
-
-/**
- * The base implementation of `_.indexOf` without `fromIndex` bounds checks.
- *
- * @private
- * @param {Array} array The array to inspect.
- * @param {*} value The value to search for.
- * @param {number} fromIndex The index to search from.
- * @returns {number} Returns the index of the matched value, else `-1`.
- */
-function baseIndexOf(array, value, fromIndex) {
-  return value === value
-    ? strictIndexOf(array, value, fromIndex)
-    : baseFindIndex(array, baseIsNaN, fromIndex);
-}
-
-/**
- * Determines the best order for running the {@link AsyncFunction}s in `tasks`, based on
- * their requirements. Each function can optionally depend on other functions
- * being completed first, and each function is run as soon as its requirements
- * are satisfied.
- *
- * If any of the {@link AsyncFunction}s pass an error to their callback, the `auto` sequence
- * will stop. Further tasks will not execute (so any other functions depending
- * on it will not run), and the main `callback` is immediately called with the
- * error.
- *
- * {@link AsyncFunction}s also receive an object containing the results of functions which
- * have completed so far as the first argument, if they have dependencies. If a
- * task function has no dependencies, it will only be passed a callback.
- *
- * @name auto
- * @static
- * @memberOf module:ControlFlow
- * @method
- * @category Control Flow
- * @param {Object} tasks - An object. Each of its properties is either a
- * function or an array of requirements, with the {@link AsyncFunction} itself the last item
- * in the array. The object's key of a property serves as the name of the task
- * defined by that property, i.e. can be used when specifying requirements for
- * other tasks. The function receives one or two arguments:
- * * a `results` object, containing the results of the previously executed
- *   functions, only passed if the task has any dependencies,
- * * a `callback(err, result)` function, which must be called when finished,
- *   passing an `error` (which can be `null`) and the result of the function's
- *   execution.
- * @param {number} [concurrency=Infinity] - An optional `integer` for
- * determining the maximum number of tasks that can be run in parallel. By
- * default, as many as possible.
- * @param {Function} [callback] - An optional callback which is called when all
- * the tasks have been completed. It receives the `err` argument if any `tasks`
- * pass an error to their callback. Results are always returned; however, if an
- * error occurs, no further `tasks` will be performed, and the results object
- * will only contain partial results. Invoked with (err, results).
- * @returns undefined
- * @example
- *
- * async.auto({
- *     // this function will just be passed a callback
- *     readData: async.apply(fs.readFile, 'data.txt', 'utf-8'),
- *     showData: ['readData', function(results, cb) {
- *         // results.readData is the file's contents
- *         // ...
- *     }]
- * }, callback);
- *
- * async.auto({
- *     get_data: function(callback) {
- *         console.log('in get_data');
- *         // async code to get some data
- *         callback(null, 'data', 'converted to array');
- *     },
- *     make_folder: function(callback) {
- *         console.log('in make_folder');
- *         // async code to create a directory to store a file in
- *         // this is run at the same time as getting the data
- *         callback(null, 'folder');
- *     },
- *     write_file: ['get_data', 'make_folder', function(results, callback) {
- *         console.log('in write_file', JSON.stringify(results));
- *         // once there is some data and the directory exists,
- *         // write the data to a file in the directory
- *         callback(null, 'filename');
- *     }],
- *     email_link: ['write_file', function(results, callback) {
- *         console.log('in email_link', JSON.stringify(results));
- *         // once the file is written let's email a link to it...
- *         // results.write_file contains the filename returned by write_file.
- *         callback(null, {'file':results.write_file, 'email':'user@example.com'});
- *     }]
- * }, function(err, results) {
- *     console.log('err = ', err);
- *     console.log('results = ', results);
- * });
- */
-var auto = function (tasks, concurrency, callback) {
-    if (typeof concurrency === 'function') {
-        // concurrency is optional, shift the args.
-        callback = concurrency;
-        concurrency = null;
-    }
-    callback = once(callback || noop);
-    var keys$$1 = keys(tasks);
-    var numTasks = keys$$1.length;
-    if (!numTasks) {
-        return callback(null);
-    }
-    if (!concurrency) {
-        concurrency = numTasks;
-    }
-
-    var results = {};
-    var runningTasks = 0;
-    var hasError = false;
-
-    var listeners = Object.create(null);
-
-    var readyTasks = [];
-
-    // for cycle detection:
-    var readyToCheck = []; // tasks that have been identified as reachable
-    // without the possibility of returning to an ancestor task
-    var uncheckedDependencies = {};
-
-    baseForOwn(tasks, function (task, key) {
-        if (!isArray(task)) {
-            // no dependencies
-            enqueueTask(key, [task]);
-            readyToCheck.push(key);
-            return;
-        }
-
-        var dependencies = task.slice(0, task.length - 1);
-        var remainingDependencies = dependencies.length;
-        if (remainingDependencies === 0) {
-            enqueueTask(key, task);
-            readyToCheck.push(key);
-            return;
-        }
-        uncheckedDependencies[key] = remainingDependencies;
-
-        arrayEach(dependencies, function (dependencyName) {
-            if (!tasks[dependencyName]) {
-                throw new Error('async.auto task `' + key +
-                    '` has a non-existent dependency `' +
-                    dependencyName + '` in ' +
-                    dependencies.join(', '));
-            }
-            addListener(dependencyName, function () {
-                remainingDependencies--;
-                if (remainingDependencies === 0) {
-                    enqueueTask(key, task);
-                }
-            });
-        });
-    });
-
-    checkForDeadlocks();
-    processQueue();
-
-    function enqueueTask(key, task) {
-        readyTasks.push(function () {
-            runTask(key, task);
-        });
-    }
-
-    function processQueue() {
-        if (readyTasks.length === 0 && runningTasks === 0) {
-            return callback(null, results);
-        }
-        while(readyTasks.length && runningTasks < concurrency) {
-            var run = readyTasks.shift();
-            run();
-        }
-
-    }
-
-    function addListener(taskName, fn) {
-        var taskListeners = listeners[taskName];
-        if (!taskListeners) {
-            taskListeners = listeners[taskName] = [];
-        }
-
-        taskListeners.push(fn);
-    }
-
-    function taskComplete(taskName) {
-        var taskListeners = listeners[taskName] || [];
-        arrayEach(taskListeners, function (fn) {
-            fn();
-        });
-        processQueue();
-    }
-
-
-    function runTask(key, task) {
-        if (hasError) return;
-
-        var taskCallback = onlyOnce(function(err, result) {
-            runningTasks--;
-            if (arguments.length > 2) {
-                result = slice(arguments, 1);
-            }
-            if (err) {
-                var safeResults = {};
-                baseForOwn(results, function(val, rkey) {
-                    safeResults[rkey] = val;
-                });
-                safeResults[key] = result;
-                hasError = true;
-                listeners = Object.create(null);
-
-                callback(err, safeResults);
-            } else {
-                results[key] = result;
-                taskComplete(key);
-            }
-        });
-
-        runningTasks++;
-        var taskFn = wrapAsync(task[task.length - 1]);
-        if (task.length > 1) {
-            taskFn(results, taskCallback);
-        } else {
-            taskFn(taskCallback);
-        }
-    }
-
-    function checkForDeadlocks() {
-        // Kahn's algorithm
-        // https://en.wikipedia.org/wiki/Topological_sorting#Kahn.27s_algorithm
-        // http://connalle.blogspot.com/2013/10/topological-sortingkahn-algorithm.html
-        var currentTask;
-        var counter = 0;
-        while (readyToCheck.length) {
-            currentTask = readyToCheck.pop();
-            counter++;
-            arrayEach(getDependents(currentTask), function (dependent) {
-                if (--uncheckedDependencies[dependent] === 0) {
-                    readyToCheck.push(dependent);
-                }
-            });
-        }
-
-        if (counter !== numTasks) {
-            throw new Error(
-                'async.auto cannot execute tasks due to a recursive dependency'
-            );
-        }
-    }
-
-    function getDependents(taskName) {
-        var result = [];
-        baseForOwn(tasks, function (task, key) {
-            if (isArray(task) && baseIndexOf(task, taskName, 0) >= 0) {
-                result.push(key);
-            }
-        });
-        return result;
-    }
-};
-
-/**
- * A specialized version of `_.map` for arrays without support for iteratee
- * shorthands.
- *
- * @private
- * @param {Array} [array] The array to iterate over.
- * @param {Function} iteratee The function invoked per iteration.
- * @returns {Array} Returns the new mapped array.
- */
-function arrayMap(array, iteratee) {
-  var index = -1,
-      length = array == null ? 0 : array.length,
-      result = Array(length);
-
-  while (++index < length) {
-    result[index] = iteratee(array[index], index, array);
-  }
-  return result;
-}
-
-/** `Object#toString` result references. */
-var symbolTag = '[object Symbol]';
-
-/**
- * Checks if `value` is classified as a `Symbol` primitive or object.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a symbol, else `false`.
- * @example
- *
- * _.isSymbol(Symbol.iterator);
- * // => true
- *
- * _.isSymbol('abc');
- * // => false
- */
-function isSymbol(value) {
-  return typeof value == 'symbol' ||
-    (isObjectLike(value) && baseGetTag(value) == symbolTag);
-}
-
-/** Used as references for various `Number` constants. */
-var INFINITY = 1 / 0;
-
-/** Used to convert symbols to primitives and strings. */
-var symbolProto = Symbol$1 ? Symbol$1.prototype : undefined;
-var symbolToString = symbolProto ? symbolProto.toString : undefined;
-
-/**
- * The base implementation of `_.toString` which doesn't convert nullish
- * values to empty strings.
- *
- * @private
- * @param {*} value The value to process.
- * @returns {string} Returns the string.
- */
-function baseToString(value) {
-  // Exit early for strings to avoid a performance hit in some environments.
-  if (typeof value == 'string') {
-    return value;
-  }
-  if (isArray(value)) {
-    // Recursively convert values (susceptible to call stack limits).
-    return arrayMap(value, baseToString) + '';
-  }
-  if (isSymbol(value)) {
-    return symbolToString ? symbolToString.call(value) : '';
-  }
-  var result = (value + '');
-  return (result == '0' && (1 / value) == -INFINITY) ? '-0' : result;
-}
-
-/**
- * The base implementation of `_.slice` without an iteratee call guard.
- *
- * @private
- * @param {Array} array The array to slice.
- * @param {number} [start=0] The start position.
- * @param {number} [end=array.length] The end position.
- * @returns {Array} Returns the slice of `array`.
- */
-function baseSlice(array, start, end) {
-  var index = -1,
-      length = array.length;
-
-  if (start < 0) {
-    start = -start > length ? 0 : (length + start);
-  }
-  end = end > length ? length : end;
-  if (end < 0) {
-    end += length;
-  }
-  length = start > end ? 0 : ((end - start) >>> 0);
-  start >>>= 0;
-
-  var result = Array(length);
-  while (++index < length) {
-    result[index] = array[index + start];
-  }
-  return result;
-}
-
-/**
- * Casts `array` to a slice if it's needed.
- *
- * @private
- * @param {Array} array The array to inspect.
- * @param {number} start The start position.
- * @param {number} [end=array.length] The end position.
- * @returns {Array} Returns the cast slice.
- */
-function castSlice(array, start, end) {
-  var length = array.length;
-  end = end === undefined ? length : end;
-  return (!start && end >= length) ? array : baseSlice(array, start, end);
-}
-
-/**
- * Used by `_.trim` and `_.trimEnd` to get the index of the last string symbol
- * that is not found in the character symbols.
- *
- * @private
- * @param {Array} strSymbols The string symbols to inspect.
- * @param {Array} chrSymbols The character symbols to find.
- * @returns {number} Returns the index of the last unmatched string symbol.
- */
-function charsEndIndex(strSymbols, chrSymbols) {
-  var index = strSymbols.length;
-
-  while (index-- && baseIndexOf(chrSymbols, strSymbols[index], 0) > -1) {}
-  return index;
-}
-
-/**
- * Used by `_.trim` and `_.trimStart` to get the index of the first string symbol
- * that is not found in the character symbols.
- *
- * @private
- * @param {Array} strSymbols The string symbols to inspect.
- * @param {Array} chrSymbols The character symbols to find.
- * @returns {number} Returns the index of the first unmatched string symbol.
- */
-function charsStartIndex(strSymbols, chrSymbols) {
-  var index = -1,
-      length = strSymbols.length;
-
-  while (++index < length && baseIndexOf(chrSymbols, strSymbols[index], 0) > -1) {}
-  return index;
-}
-
-/**
- * Converts an ASCII `string` to an array.
- *
- * @private
- * @param {string} string The string to convert.
- * @returns {Array} Returns the converted array.
- */
-function asciiToArray(string) {
-  return string.split('');
-}
-
-/** Used to compose unicode character classes. */
-var rsAstralRange = '\\ud800-\\udfff';
-var rsComboMarksRange = '\\u0300-\\u036f';
-var reComboHalfMarksRange = '\\ufe20-\\ufe2f';
-var rsComboSymbolsRange = '\\u20d0-\\u20ff';
-var rsComboRange = rsComboMarksRange + reComboHalfMarksRange + rsComboSymbolsRange;
-var rsVarRange = '\\ufe0e\\ufe0f';
-
-/** Used to compose unicode capture groups. */
-var rsZWJ = '\\u200d';
-
-/** Used to detect strings with [zero-width joiners or code points from the astral planes](http://eev.ee/blog/2015/09/12/dark-corners-of-unicode/). */
-var reHasUnicode = RegExp('[' + rsZWJ + rsAstralRange  + rsComboRange + rsVarRange + ']');
-
-/**
- * Checks if `string` contains Unicode symbols.
- *
- * @private
- * @param {string} string The string to inspect.
- * @returns {boolean} Returns `true` if a symbol is found, else `false`.
- */
-function hasUnicode(string) {
-  return reHasUnicode.test(string);
-}
-
-/** Used to compose unicode character classes. */
-var rsAstralRange$1 = '\\ud800-\\udfff';
-var rsComboMarksRange$1 = '\\u0300-\\u036f';
-var reComboHalfMarksRange$1 = '\\ufe20-\\ufe2f';
-var rsComboSymbolsRange$1 = '\\u20d0-\\u20ff';
-var rsComboRange$1 = rsComboMarksRange$1 + reComboHalfMarksRange$1 + rsComboSymbolsRange$1;
-var rsVarRange$1 = '\\ufe0e\\ufe0f';
-
-/** Used to compose unicode capture groups. */
-var rsAstral = '[' + rsAstralRange$1 + ']';
-var rsCombo = '[' + rsComboRange$1 + ']';
-var rsFitz = '\\ud83c[\\udffb-\\udfff]';
-var rsModifier = '(?:' + rsCombo + '|' + rsFitz + ')';
-var rsNonAstral = '[^' + rsAstralRange$1 + ']';
-var rsRegional = '(?:\\ud83c[\\udde6-\\uddff]){2}';
-var rsSurrPair = '[\\ud800-\\udbff][\\udc00-\\udfff]';
-var rsZWJ$1 = '\\u200d';
-
-/** Used to compose unicode regexes. */
-var reOptMod = rsModifier + '?';
-var rsOptVar = '[' + rsVarRange$1 + ']?';
-var rsOptJoin = '(?:' + rsZWJ$1 + '(?:' + [rsNonAstral, rsRegional, rsSurrPair].join('|') + ')' + rsOptVar + reOptMod + ')*';
-var rsSeq = rsOptVar + reOptMod + rsOptJoin;
-var rsSymbol = '(?:' + [rsNonAstral + rsCombo + '?', rsCombo, rsRegional, rsSurrPair, rsAstral].join('|') + ')';
-
-/** Used to match [string symbols](https://mathiasbynens.be/notes/javascript-unicode). */
-var reUnicode = RegExp(rsFitz + '(?=' + rsFitz + ')|' + rsSymbol + rsSeq, 'g');
-
-/**
- * Converts a Unicode `string` to an array.
- *
- * @private
- * @param {string} string The string to convert.
- * @returns {Array} Returns the converted array.
- */
-function unicodeToArray(string) {
-  return string.match(reUnicode) || [];
-}
-
-/**
- * Converts `string` to an array.
- *
- * @private
- * @param {string} string The string to convert.
- * @returns {Array} Returns the converted array.
- */
-function stringToArray(string) {
-  return hasUnicode(string)
-    ? unicodeToArray(string)
-    : asciiToArray(string);
-}
-
-/**
- * Converts `value` to a string. An empty string is returned for `null`
- * and `undefined` values. The sign of `-0` is preserved.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to convert.
- * @returns {string} Returns the converted string.
- * @example
- *
- * _.toString(null);
- * // => ''
- *
- * _.toString(-0);
- * // => '-0'
- *
- * _.toString([1, 2, 3]);
- * // => '1,2,3'
- */
-function toString(value) {
-  return value == null ? '' : baseToString(value);
-}
-
-/** Used to match leading and trailing whitespace. */
-var reTrim = /^\s+|\s+$/g;
-
-/**
- * Removes leading and trailing whitespace or specified characters from `string`.
- *
- * @static
- * @memberOf _
- * @since 3.0.0
- * @category String
- * @param {string} [string=''] The string to trim.
- * @param {string} [chars=whitespace] The characters to trim.
- * @param- {Object} [guard] Enables use as an iteratee for methods like `_.map`.
- * @returns {string} Returns the trimmed string.
- * @example
- *
- * _.trim('  abc  ');
- * // => 'abc'
- *
- * _.trim('-_-abc-_-', '_-');
- * // => 'abc'
- *
- * _.map(['  foo  ', '  bar  '], _.trim);
- * // => ['foo', 'bar']
- */
-function trim(string, chars, guard) {
-  string = toString(string);
-  if (string && (guard || chars === undefined)) {
-    return string.replace(reTrim, '');
-  }
-  if (!string || !(chars = baseToString(chars))) {
-    return string;
-  }
-  var strSymbols = stringToArray(string),
-      chrSymbols = stringToArray(chars),
-      start = charsStartIndex(strSymbols, chrSymbols),
-      end = charsEndIndex(strSymbols, chrSymbols) + 1;
-
-  return castSlice(strSymbols, start, end).join('');
-}
-
-var FN_ARGS = /^(?:async\s+)?(function)?\s*[^\(]*\(\s*([^\)]*)\)/m;
-var FN_ARG_SPLIT = /,/;
-var FN_ARG = /(=.+)?(\s*)$/;
-var STRIP_COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg;
-
-function parseParams(func) {
-    func = func.toString().replace(STRIP_COMMENTS, '');
-    func = func.match(FN_ARGS)[2].replace(' ', '');
-    func = func ? func.split(FN_ARG_SPLIT) : [];
-    func = func.map(function (arg){
-        return trim(arg.replace(FN_ARG, ''));
-    });
-    return func;
-}
-
-/**
- * A dependency-injected version of the [async.auto]{@link module:ControlFlow.auto} function. Dependent
- * tasks are specified as parameters to the function, after the usual callback
- * parameter, with the parameter names matching the names of the tasks it
- * depends on. This can provide even more readable task graphs which can be
- * easier to maintain.
- *
- * If a final callback is specified, the task results are similarly injected,
- * specified as named parameters after the initial error parameter.
- *
- * The autoInject function is purely syntactic sugar and its semantics are
- * otherwise equivalent to [async.auto]{@link module:ControlFlow.auto}.
- *
- * @name autoInject
- * @static
- * @memberOf module:ControlFlow
- * @method
- * @see [async.auto]{@link module:ControlFlow.auto}
- * @category Control Flow
- * @param {Object} tasks - An object, each of whose properties is an {@link AsyncFunction} of
- * the form 'func([dependencies...], callback). The object's key of a property
- * serves as the name of the task defined by that property, i.e. can be used
- * when specifying requirements for other tasks.
- * * The `callback` parameter is a `callback(err, result)` which must be called
- *   when finished, passing an `error` (which can be `null`) and the result of
- *   the function's execution. The remaining parameters name other tasks on
- *   which the task is dependent, and the results from those tasks are the
- *   arguments of those parameters.
- * @param {Function} [callback] - An optional callback which is called when all
- * the tasks have been completed. It receives the `err` argument if any `tasks`
- * pass an error to their callback, and a `results` object with any completed
- * task results, similar to `auto`.
- * @example
- *
- * //  The example from `auto` can be rewritten as follows:
- * async.autoInject({
- *     get_data: function(callback) {
- *         // async code to get some data
- *         callback(null, 'data', 'converted to array');
- *     },
- *     make_folder: function(callback) {
- *         // async code to create a directory to store a file in
- *         // this is run at the same time as getting the data
- *         callback(null, 'folder');
- *     },
- *     write_file: function(get_data, make_folder, callback) {
- *         // once there is some data and the directory exists,
- *         // write the data to a file in the directory
- *         callback(null, 'filename');
- *     },
- *     email_link: function(write_file, callback) {
- *         // once the file is written let's email a link to it...
- *         // write_file contains the filename returned by write_file.
- *         callback(null, {'file':write_file, 'email':'user@example.com'});
- *     }
- * }, function(err, results) {
- *     console.log('err = ', err);
- *     console.log('email_link = ', results.email_link);
- * });
- *
- * // If you are using a JS minifier that mangles parameter names, `autoInject`
- * // will not work with plain functions, since the parameter names will be
- * // collapsed to a single letter identifier.  To work around this, you can
- * // explicitly specify the names of the parameters your task function needs
- * // in an array, similar to Angular.js dependency injection.
- *
- * // This still has an advantage over plain `auto`, since the results a task
- * // depends on are still spread into arguments.
- * async.autoInject({
- *     //...
- *     write_file: ['get_data', 'make_folder', function(get_data, make_folder, callback) {
- *         callback(null, 'filename');
- *     }],
- *     email_link: ['write_file', function(write_file, callback) {
- *         callback(null, {'file':write_file, 'email':'user@example.com'});
- *     }]
- *     //...
- * }, function(err, results) {
- *     console.log('err = ', err);
- *     console.log('email_link = ', results.email_link);
- * });
- */
-function autoInject(tasks, callback) {
-    var newTasks = {};
-
-    baseForOwn(tasks, function (taskFn, key) {
-        var params;
-        var fnIsAsync = isAsync(taskFn);
-        var hasNoDeps =
-            (!fnIsAsync && taskFn.length === 1) ||
-            (fnIsAsync && taskFn.length === 0);
-
-        if (isArray(taskFn)) {
-            params = taskFn.slice(0, -1);
-            taskFn = taskFn[taskFn.length - 1];
-
-            newTasks[key] = params.concat(params.length > 0 ? newTask : taskFn);
-        } else if (hasNoDeps) {
-            // no dependencies, use the function as-is
-            newTasks[key] = taskFn;
-        } else {
-            params = parseParams(taskFn);
-            if (taskFn.length === 0 && !fnIsAsync && params.length === 0) {
-                throw new Error("autoInject task functions require explicit parameters.");
-            }
-
-            // remove callback param
-            if (!fnIsAsync) params.pop();
-
-            newTasks[key] = params.concat(newTask);
-        }
-
-        function newTask(results, taskCb) {
-            var newArgs = arrayMap(params, function (name) {
-                return results[name];
-            });
-            newArgs.push(taskCb);
-            wrapAsync(taskFn).apply(null, newArgs);
-        }
-    });
-
-    auto(newTasks, callback);
-}
-
-// Simple doubly linked list (https://en.wikipedia.org/wiki/Doubly_linked_list) implementation
-// used for queues. This implementation assumes that the node provided by the user can be modified
-// to adjust the next and last properties. We implement only the minimal functionality
-// for queue support.
-function DLL() {
-    this.head = this.tail = null;
-    this.length = 0;
-}
-
-function setInitial(dll, node) {
-    dll.length = 1;
-    dll.head = dll.tail = node;
-}
-
-DLL.prototype.removeLink = function(node) {
-    if (node.prev) node.prev.next = node.next;
-    else this.head = node.next;
-    if (node.next) node.next.prev = node.prev;
-    else this.tail = node.prev;
-
-    node.prev = node.next = null;
-    this.length -= 1;
-    return node;
-};
-
-DLL.prototype.empty = function () {
-    while(this.head) this.shift();
-    return this;
-};
-
-DLL.prototype.insertAfter = function(node, newNode) {
-    newNode.prev = node;
-    newNode.next = node.next;
-    if (node.next) node.next.prev = newNode;
-    else this.tail = newNode;
-    node.next = newNode;
-    this.length += 1;
-};
-
-DLL.prototype.insertBefore = function(node, newNode) {
-    newNode.prev = node.prev;
-    newNode.next = node;
-    if (node.prev) node.prev.next = newNode;
-    else this.head = newNode;
-    node.prev = newNode;
-    this.length += 1;
-};
-
-DLL.prototype.unshift = function(node) {
-    if (this.head) this.insertBefore(this.head, node);
-    else setInitial(this, node);
-};
-
-DLL.prototype.push = function(node) {
-    if (this.tail) this.insertAfter(this.tail, node);
-    else setInitial(this, node);
-};
-
-DLL.prototype.shift = function() {
-    return this.head && this.removeLink(this.head);
-};
-
-DLL.prototype.pop = function() {
-    return this.tail && this.removeLink(this.tail);
-};
-
-DLL.prototype.toArray = function () {
-    var arr = Array(this.length);
-    var curr = this.head;
-    for(var idx = 0; idx < this.length; idx++) {
-        arr[idx] = curr.data;
-        curr = curr.next;
-    }
-    return arr;
-};
-
-DLL.prototype.remove = function (testFn) {
-    var curr = this.head;
-    while(!!curr) {
-        var next = curr.next;
-        if (testFn(curr)) {
-            this.removeLink(curr);
-        }
-        curr = next;
-    }
-    return this;
-};
-
-function queue(worker, concurrency, payload) {
-    if (concurrency == null) {
-        concurrency = 1;
-    }
-    else if(concurrency === 0) {
-        throw new Error('Concurrency must not be zero');
-    }
-
-    var _worker = wrapAsync(worker);
-    var numRunning = 0;
-    var workersList = [];
-
-    var processingScheduled = false;
-    function _insert(data, insertAtFront, callback) {
-        if (callback != null && typeof callback !== 'function') {
-            throw new Error('task callback must be a function');
-        }
-        q.started = true;
-        if (!isArray(data)) {
-            data = [data];
-        }
-        if (data.length === 0 && q.idle()) {
-            // call drain immediately if there are no tasks
-            return setImmediate$1(function() {
-                q.drain();
-            });
-        }
-
-        for (var i = 0, l = data.length; i < l; i++) {
-            var item = {
-                data: data[i],
-                callback: callback || noop
-            };
-
-            if (insertAtFront) {
-                q._tasks.unshift(item);
-            } else {
-                q._tasks.push(item);
-            }
-        }
-
-        if (!processingScheduled) {
-            processingScheduled = true;
-            setImmediate$1(function() {
-                processingScheduled = false;
-                q.process();
-            });
-        }
-    }
-
-    function _next(tasks) {
-        return function(err){
-            numRunning -= 1;
-
-            for (var i = 0, l = tasks.length; i < l; i++) {
-                var task = tasks[i];
-
-                var index = baseIndexOf(workersList, task, 0);
-                if (index === 0) {
-                    workersList.shift();
-                } else if (index > 0) {
-                    workersList.splice(index, 1);
-                }
-
-                task.callback.apply(task, arguments);
-
-                if (err != null) {
-                    q.error(err, task.data);
-                }
-            }
-
-            if (numRunning <= (q.concurrency - q.buffer) ) {
-                q.unsaturated();
-            }
-
-            if (q.idle()) {
-                q.drain();
-            }
-            q.process();
-        };
-    }
-
-    var isProcessing = false;
-    var q = {
-        _tasks: new DLL(),
-        concurrency: concurrency,
-        payload: payload,
-        saturated: noop,
-        unsaturated:noop,
-        buffer: concurrency / 4,
-        empty: noop,
-        drain: noop,
-        error: noop,
-        started: false,
-        paused: false,
-        push: function (data, callback) {
-            _insert(data, false, callback);
-        },
-        kill: function () {
-            q.drain = noop;
-            q._tasks.empty();
-        },
-        unshift: function (data, callback) {
-            _insert(data, true, callback);
-        },
-        remove: function (testFn) {
-            q._tasks.remove(testFn);
-        },
-        process: function () {
-            // Avoid trying to start too many processing operations. This can occur
-            // when callbacks resolve synchronously (#1267).
-            if (isProcessing) {
-                return;
-            }
-            isProcessing = true;
-            while(!q.paused && numRunning < q.concurrency && q._tasks.length){
-                var tasks = [], data = [];
-                var l = q._tasks.length;
-                if (q.payload) l = Math.min(l, q.payload);
-                for (var i = 0; i < l; i++) {
-                    var node = q._tasks.shift();
-                    tasks.push(node);
-                    workersList.push(node);
-                    data.push(node.data);
-                }
-
-                numRunning += 1;
-
-                if (q._tasks.length === 0) {
-                    q.empty();
-                }
-
-                if (numRunning === q.concurrency) {
-                    q.saturated();
-                }
-
-                var cb = onlyOnce(_next(tasks));
-                _worker(data, cb);
-            }
-            isProcessing = false;
-        },
-        length: function () {
-            return q._tasks.length;
-        },
-        running: function () {
-            return numRunning;
-        },
-        workersList: function () {
-            return workersList;
-        },
-        idle: function() {
-            return q._tasks.length + numRunning === 0;
-        },
-        pause: function () {
-            q.paused = true;
-        },
-        resume: function () {
-            if (q.paused === false) { return; }
-            q.paused = false;
-            setImmediate$1(q.process);
-        }
-    };
-    return q;
-}
-
-/**
- * A cargo of tasks for the worker function to complete. Cargo inherits all of
- * the same methods and event callbacks as [`queue`]{@link module:ControlFlow.queue}.
- * @typedef {Object} CargoObject
- * @memberOf module:ControlFlow
- * @property {Function} length - A function returning the number of items
- * waiting to be processed. Invoke like `cargo.length()`.
- * @property {number} payload - An `integer` for determining how many tasks
- * should be process per round. This property can be changed after a `cargo` is
- * created to alter the payload on-the-fly.
- * @property {Function} push - Adds `task` to the `queue`. The callback is
- * called once the `worker` has finished processing the task. Instead of a
- * single task, an array of `tasks` can be submitted. The respective callback is
- * used for every task in the list. Invoke like `cargo.push(task, [callback])`.
- * @property {Function} saturated - A callback that is called when the
- * `queue.length()` hits the concurrency and further tasks will be queued.
- * @property {Function} empty - A callback that is called when the last item
- * from the `queue` is given to a `worker`.
- * @property {Function} drain - A callback that is called when the last item
- * from the `queue` has returned from the `worker`.
- * @property {Function} idle - a function returning false if there are items
- * waiting or being processed, or true if not. Invoke like `cargo.idle()`.
- * @property {Function} pause - a function that pauses the processing of tasks
- * until `resume()` is called. Invoke like `cargo.pause()`.
- * @property {Function} resume - a function that resumes the processing of
- * queued tasks when the queue is paused. Invoke like `cargo.resume()`.
- * @property {Function} kill - a function that removes the `drain` callback and
- * empties remaining tasks from the queue forcing it to go idle. Invoke like `cargo.kill()`.
- */
-
-/**
- * Creates a `cargo` object with the specified payload. Tasks added to the
- * cargo will be processed altogether (up to the `payload` limit). If the
- * `worker` is in progress, the task is queued until it becomes available. Once
- * the `worker` has completed some tasks, each callback of those tasks is
- * called. Check out [these](https://camo.githubusercontent.com/6bbd36f4cf5b35a0f11a96dcd2e97711ffc2fb37/68747470733a2f2f662e636c6f75642e6769746875622e636f6d2f6173736574732f313637363837312f36383130382f62626330636662302d356632392d313165322d393734662d3333393763363464633835382e676966) [animations](https://camo.githubusercontent.com/f4810e00e1c5f5f8addbe3e9f49064fd5d102699/68747470733a2f2f662e636c6f75642e6769746875622e636f6d2f6173736574732f313637363837312f36383130312f38346339323036362d356632392d313165322d383134662d3964336430323431336266642e676966)
- * for how `cargo` and `queue` work.
- *
- * While [`queue`]{@link module:ControlFlow.queue} passes only one task to one of a group of workers
- * at a time, cargo passes an array of tasks to a single worker, repeating
- * when the worker is finished.
- *
- * @name cargo
- * @static
- * @memberOf module:ControlFlow
- * @method
- * @see [async.queue]{@link module:ControlFlow.queue}
- * @category Control Flow
- * @param {AsyncFunction} worker - An asynchronous function for processing an array
- * of queued tasks. Invoked with `(tasks, callback)`.
- * @param {number} [payload=Infinity] - An optional `integer` for determining
- * how many tasks should be processed per round; if omitted, the default is
- * unlimited.
- * @returns {module:ControlFlow.CargoObject} A cargo object to manage the tasks. Callbacks can
- * attached as certain properties to listen for specific events during the
- * lifecycle of the cargo and inner queue.
- * @example
- *
- * // create a cargo object with payload 2
- * var cargo = async.cargo(function(tasks, callback) {
- *     for (var i=0; i<tasks.length; i++) {
- *         console.log('hello ' + tasks[i].name);
- *     }
- *     callback();
- * }, 2);
- *
- * // add some items
- * cargo.push({name: 'foo'}, function(err) {
- *     console.log('finished processing foo');
- * });
- * cargo.push({name: 'bar'}, function(err) {
- *     console.log('finished processing bar');
- * });
- * cargo.push({name: 'baz'}, function(err) {
- *     console.log('finished processing baz');
- * });
- */
-function cargo(worker, payload) {
-    return queue(worker, 1, payload);
-}
-
-/**
- * The same as [`eachOf`]{@link module:Collections.eachOf} but runs only a single async operation at a time.
- *
- * @name eachOfSeries
- * @static
- * @memberOf module:Collections
- * @method
- * @see [async.eachOf]{@link module:Collections.eachOf}
- * @alias forEachOfSeries
- * @category Collection
- * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {AsyncFunction} iteratee - An async function to apply to each item in
- * `coll`.
- * Invoked with (item, key, callback).
- * @param {Function} [callback] - A callback which is called when all `iteratee`
- * functions have finished, or an error occurs. Invoked with (err).
- */
-var eachOfSeries = doLimit(eachOfLimit, 1);
-
-/**
- * Reduces `coll` into a single value using an async `iteratee` to return each
- * successive step. `memo` is the initial state of the reduction. This function
- * only operates in series.
- *
- * For performance reasons, it may make sense to split a call to this function
- * into a parallel map, and then use the normal `Array.prototype.reduce` on the
- * results. This function is for situations where each step in the reduction
- * needs to be async; if you can get the data before reducing it, then it's
- * probably a good idea to do so.
- *
- * @name reduce
- * @static
- * @memberOf module:Collections
- * @method
- * @alias inject
- * @alias foldl
- * @category Collection
- * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {*} memo - The initial state of the reduction.
- * @param {AsyncFunction} iteratee - A function applied to each item in the
- * array to produce the next step in the reduction.
- * The `iteratee` should complete with the next state of the reduction.
- * If the iteratee complete with an error, the reduction is stopped and the
- * main `callback` is immediately called with the error.
- * Invoked with (memo, item, callback).
- * @param {Function} [callback] - A callback which is called after all the
- * `iteratee` functions have finished. Result is the reduced value. Invoked with
- * (err, result).
- * @example
- *
- * async.reduce([1,2,3], 0, function(memo, item, callback) {
- *     // pointless async:
- *     process.nextTick(function() {
- *         callback(null, memo + item)
- *     });
- * }, function(err, result) {
- *     // result is now equal to the last value of memo, which is 6
- * });
- */
-function reduce(coll, memo, iteratee, callback) {
-    callback = once(callback || noop);
-    var _iteratee = wrapAsync(iteratee);
-    eachOfSeries(coll, function(x, i, callback) {
-        _iteratee(memo, x, function(err, v) {
-            memo = v;
-            callback(err);
-        });
-    }, function(err) {
-        callback(err, memo);
-    });
-}
-
-/**
- * Version of the compose function that is more natural to read. Each function
- * consumes the return value of the previous function. It is the equivalent of
- * [compose]{@link module:ControlFlow.compose} with the arguments reversed.
- *
- * Each function is executed with the `this` binding of the composed function.
- *
- * @name seq
- * @static
- * @memberOf module:ControlFlow
- * @method
- * @see [async.compose]{@link module:ControlFlow.compose}
- * @category Control Flow
- * @param {...AsyncFunction} functions - the asynchronous functions to compose
- * @returns {Function} a function that composes the `functions` in order
- * @example
- *
- * // Requires lodash (or underscore), express3 and dresende's orm2.
- * // Part of an app, that fetches cats of the logged user.
- * // This example uses `seq` function to avoid overnesting and error
- * // handling clutter.
- * app.get('/cats', function(request, response) {
- *     var User = request.models.User;
- *     async.seq(
- *         _.bind(User.get, User),  // 'User.get' has signature (id, callback(err, data))
- *         function(user, fn) {
- *             user.getCats(fn);      // 'getCats' has signature (callback(err, data))
- *         }
- *     )(req.session.user_id, function (err, cats) {
- *         if (err) {
- *             console.error(err);
- *             response.json({ status: 'error', message: err.message });
- *         } else {
- *             response.json({ status: 'ok', message: 'Cats found', data: cats });
- *         }
- *     });
- * });
- */
-function seq(/*...functions*/) {
-    var _functions = arrayMap(arguments, wrapAsync);
-    return function(/*...args*/) {
-        var args = slice(arguments);
-        var that = this;
-
-        var cb = args[args.length - 1];
-        if (typeof cb == 'function') {
-            args.pop();
-        } else {
-            cb = noop;
-        }
-
-        reduce(_functions, args, function(newargs, fn, cb) {
-            fn.apply(that, newargs.concat(function(err/*, ...nextargs*/) {
-                var nextargs = slice(arguments, 1);
-                cb(err, nextargs);
+                }, _callee, this);
             }));
-        },
-        function(err, results) {
-            cb.apply(that, [err].concat(results));
-        });
-    };
-}
 
-/**
- * Creates a function which is a composition of the passed asynchronous
- * functions. Each function consumes the return value of the function that
- * follows. Composing functions `f()`, `g()`, and `h()` would produce the result
- * of `f(g(h()))`, only this version uses callbacks to obtain the return values.
- *
- * Each function is executed with the `this` binding of the composed function.
- *
- * @name compose
- * @static
- * @memberOf module:ControlFlow
- * @method
- * @category Control Flow
- * @param {...AsyncFunction} functions - the asynchronous functions to compose
- * @returns {Function} an asynchronous function that is the composed
- * asynchronous `functions`
- * @example
- *
- * function add1(n, callback) {
- *     setTimeout(function () {
- *         callback(null, n + 1);
- *     }, 10);
- * }
- *
- * function mul3(n, callback) {
- *     setTimeout(function () {
- *         callback(null, n * 3);
- *     }, 10);
- * }
- *
- * var add1mul3 = async.compose(mul3, add1);
- * add1mul3(4, function (err, result) {
- *     // result now equals 15
- * });
- */
-var compose = function(/*...args*/) {
-    return seq.apply(null, slice(arguments).reverse());
-};
-
-var _concat = Array.prototype.concat;
-
-/**
- * The same as [`concat`]{@link module:Collections.concat} but runs a maximum of `limit` async operations at a time.
- *
- * @name concatLimit
- * @static
- * @memberOf module:Collections
- * @method
- * @see [async.concat]{@link module:Collections.concat}
- * @category Collection
- * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {number} limit - The maximum number of async operations at a time.
- * @param {AsyncFunction} iteratee - A function to apply to each item in `coll`,
- * which should use an array as its result. Invoked with (item, callback).
- * @param {Function} [callback] - A callback which is called after all the
- * `iteratee` functions have finished, or an error occurs. Results is an array
- * containing the concatenated results of the `iteratee` function. Invoked with
- * (err, results).
- */
-var concatLimit = function(coll, limit, iteratee, callback) {
-    callback = callback || noop;
-    var _iteratee = wrapAsync(iteratee);
-    mapLimit(coll, limit, function(val, callback) {
-        _iteratee(val, function(err /*, ...args*/) {
-            if (err) return callback(err);
-            return callback(null, slice(arguments, 1));
-        });
-    }, function(err, mapResults) {
-        var result = [];
-        for (var i = 0; i < mapResults.length; i++) {
-            if (mapResults[i]) {
-                result = _concat.apply(result, mapResults[i]);
+            function map(_x, _x2) {
+                return _ref.apply(this, arguments);
             }
-        }
 
-        return callback(err, result);
-    });
-};
-
-/**
- * Applies `iteratee` to each item in `coll`, concatenating the results. Returns
- * the concatenated list. The `iteratee`s are called in parallel, and the
- * results are concatenated as they return. There is no guarantee that the
- * results array will be returned in the original order of `coll` passed to the
- * `iteratee` function.
- *
- * @name concat
- * @static
- * @memberOf module:Collections
- * @method
- * @category Collection
- * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {AsyncFunction} iteratee - A function to apply to each item in `coll`,
- * which should use an array as its result. Invoked with (item, callback).
- * @param {Function} [callback(err)] - A callback which is called after all the
- * `iteratee` functions have finished, or an error occurs. Results is an array
- * containing the concatenated results of the `iteratee` function. Invoked with
- * (err, results).
- * @example
- *
- * async.concat(['dir1','dir2','dir3'], fs.readdir, function(err, files) {
- *     // files is now a list of filenames that exist in the 3 directories
- * });
- */
-var concat = doLimit(concatLimit, Infinity);
-
-/**
- * The same as [`concat`]{@link module:Collections.concat} but runs only a single async operation at a time.
- *
- * @name concatSeries
- * @static
- * @memberOf module:Collections
- * @method
- * @see [async.concat]{@link module:Collections.concat}
- * @category Collection
- * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {AsyncFunction} iteratee - A function to apply to each item in `coll`.
- * The iteratee should complete with an array an array of results.
- * Invoked with (item, callback).
- * @param {Function} [callback(err)] - A callback which is called after all the
- * `iteratee` functions have finished, or an error occurs. Results is an array
- * containing the concatenated results of the `iteratee` function. Invoked with
- * (err, results).
- */
-var concatSeries = doLimit(concatLimit, 1);
-
-/**
- * Returns a function that when called, calls-back with the values provided.
- * Useful as the first function in a [`waterfall`]{@link module:ControlFlow.waterfall}, or for plugging values in to
- * [`auto`]{@link module:ControlFlow.auto}.
- *
- * @name constant
- * @static
- * @memberOf module:Utils
- * @method
- * @category Util
- * @param {...*} arguments... - Any number of arguments to automatically invoke
- * callback with.
- * @returns {AsyncFunction} Returns a function that when invoked, automatically
- * invokes the callback with the previous given arguments.
- * @example
- *
- * async.waterfall([
- *     async.constant(42),
- *     function (value, next) {
- *         // value === 42
- *     },
- *     //...
- * ], callback);
- *
- * async.waterfall([
- *     async.constant(filename, "utf8"),
- *     fs.readFile,
- *     function (fileData, next) {
- *         //...
- *     }
- *     //...
- * ], callback);
- *
- * async.auto({
- *     hostname: async.constant("https://server.net/"),
- *     port: findFreePort,
- *     launchServer: ["hostname", "port", function (options, cb) {
- *         startServer(options, cb);
- *     }],
- *     //...
- * }, callback);
- */
-var constant = function(/*...values*/) {
-    var values = slice(arguments);
-    var args = [null].concat(values);
-    return function (/*...ignoredArgs, callback*/) {
-        var callback = arguments[arguments.length - 1];
-        return callback.apply(this, args);
-    };
-};
-
-/**
- * This method returns the first argument it receives.
- *
- * @static
- * @since 0.1.0
- * @memberOf _
- * @category Util
- * @param {*} value Any value.
- * @returns {*} Returns `value`.
- * @example
- *
- * var object = { 'a': 1 };
- *
- * console.log(_.identity(object) === object);
- * // => true
- */
-function identity(value) {
-  return value;
-}
-
-function _createTester(check, getResult) {
-    return function(eachfn, arr, iteratee, cb) {
-        cb = cb || noop;
-        var testPassed = false;
-        var testResult;
-        eachfn(arr, function(value, _, callback) {
-            iteratee(value, function(err, result) {
-                if (err) {
-                    callback(err);
-                } else if (check(result) && !testResult) {
-                    testPassed = true;
-                    testResult = getResult(true, value);
-                    callback(null, breakLoop);
-                } else {
-                    callback();
-                }
-            });
-        }, function(err) {
-            if (err) {
-                cb(err);
-            } else {
-                cb(null, testPassed ? testResult : getResult(false));
-            }
-        });
-    };
-}
-
-function _findGetResult(v, x) {
-    return x;
-}
-
-/**
- * Returns the first value in `coll` that passes an async truth test. The
- * `iteratee` is applied in parallel, meaning the first iteratee to return
- * `true` will fire the detect `callback` with that result. That means the
- * result might not be the first item in the original `coll` (in terms of order)
- * that passes the test.
-
- * If order within the original `coll` is important, then look at
- * [`detectSeries`]{@link module:Collections.detectSeries}.
- *
- * @name detect
- * @static
- * @memberOf module:Collections
- * @method
- * @alias find
- * @category Collections
- * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {AsyncFunction} iteratee - A truth test to apply to each item in `coll`.
- * The iteratee must complete with a boolean value as its result.
- * Invoked with (item, callback).
- * @param {Function} [callback] - A callback which is called as soon as any
- * iteratee returns `true`, or after all the `iteratee` functions have finished.
- * Result will be the first item in the array that passes the truth test
- * (iteratee) or the value `undefined` if none passed. Invoked with
- * (err, result).
- * @example
- *
- * async.detect(['file1','file2','file3'], function(filePath, callback) {
- *     fs.access(filePath, function(err) {
- *         callback(null, !err)
- *     });
- * }, function(err, result) {
- *     // result now equals the first file in the list that exists
- * });
- */
-var detect = doParallel(_createTester(identity, _findGetResult));
-
-/**
- * The same as [`detect`]{@link module:Collections.detect} but runs a maximum of `limit` async operations at a
- * time.
- *
- * @name detectLimit
- * @static
- * @memberOf module:Collections
- * @method
- * @see [async.detect]{@link module:Collections.detect}
- * @alias findLimit
- * @category Collections
- * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {number} limit - The maximum number of async operations at a time.
- * @param {AsyncFunction} iteratee - A truth test to apply to each item in `coll`.
- * The iteratee must complete with a boolean value as its result.
- * Invoked with (item, callback).
- * @param {Function} [callback] - A callback which is called as soon as any
- * iteratee returns `true`, or after all the `iteratee` functions have finished.
- * Result will be the first item in the array that passes the truth test
- * (iteratee) or the value `undefined` if none passed. Invoked with
- * (err, result).
- */
-var detectLimit = doParallelLimit(_createTester(identity, _findGetResult));
-
-/**
- * The same as [`detect`]{@link module:Collections.detect} but runs only a single async operation at a time.
- *
- * @name detectSeries
- * @static
- * @memberOf module:Collections
- * @method
- * @see [async.detect]{@link module:Collections.detect}
- * @alias findSeries
- * @category Collections
- * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {AsyncFunction} iteratee - A truth test to apply to each item in `coll`.
- * The iteratee must complete with a boolean value as its result.
- * Invoked with (item, callback).
- * @param {Function} [callback] - A callback which is called as soon as any
- * iteratee returns `true`, or after all the `iteratee` functions have finished.
- * Result will be the first item in the array that passes the truth test
- * (iteratee) or the value `undefined` if none passed. Invoked with
- * (err, result).
- */
-var detectSeries = doLimit(detectLimit, 1);
-
-function consoleFunc(name) {
-    return function (fn/*, ...args*/) {
-        var args = slice(arguments, 1);
-        args.push(function (err/*, ...args*/) {
-            var args = slice(arguments, 1);
-            if (typeof console === 'object') {
-                if (err) {
-                    if (console.error) {
-                        console.error(err);
-                    }
-                } else if (console[name]) {
-                    arrayEach(args, function (x) {
-                        console[name](x);
-                    });
-                }
-            }
-        });
-        wrapAsync(fn).apply(null, args);
-    };
-}
-
-/**
- * Logs the result of an [`async` function]{@link AsyncFunction} to the
- * `console` using `console.dir` to display the properties of the resulting object.
- * Only works in Node.js or in browsers that support `console.dir` and
- * `console.error` (such as FF and Chrome).
- * If multiple arguments are returned from the async function,
- * `console.dir` is called on each argument in order.
- *
- * @name dir
- * @static
- * @memberOf module:Utils
- * @method
- * @category Util
- * @param {AsyncFunction} function - The function you want to eventually apply
- * all arguments to.
- * @param {...*} arguments... - Any number of arguments to apply to the function.
- * @example
- *
- * // in a module
- * var hello = function(name, callback) {
- *     setTimeout(function() {
- *         callback(null, {hello: name});
- *     }, 1000);
- * };
- *
- * // in the node repl
- * node> async.dir(hello, 'world');
- * {hello: 'world'}
- */
-var dir = consoleFunc('dir');
-
-/**
- * The post-check version of [`during`]{@link module:ControlFlow.during}. To reflect the difference in
- * the order of operations, the arguments `test` and `fn` are switched.
- *
- * Also a version of [`doWhilst`]{@link module:ControlFlow.doWhilst} with asynchronous `test` function.
- * @name doDuring
- * @static
- * @memberOf module:ControlFlow
- * @method
- * @see [async.during]{@link module:ControlFlow.during}
- * @category Control Flow
- * @param {AsyncFunction} fn - An async function which is called each time
- * `test` passes. Invoked with (callback).
- * @param {AsyncFunction} test - asynchronous truth test to perform before each
- * execution of `fn`. Invoked with (...args, callback), where `...args` are the
- * non-error args from the previous callback of `fn`.
- * @param {Function} [callback] - A callback which is called after the test
- * function has failed and repeated execution of `fn` has stopped. `callback`
- * will be passed an error if one occurred, otherwise `null`.
- */
-function doDuring(fn, test, callback) {
-    callback = onlyOnce(callback || noop);
-    var _fn = wrapAsync(fn);
-    var _test = wrapAsync(test);
-
-    function next(err/*, ...args*/) {
-        if (err) return callback(err);
-        var args = slice(arguments, 1);
-        args.push(check);
-        _test.apply(this, args);
-    }
-
-    function check(err, truth) {
-        if (err) return callback(err);
-        if (!truth) return callback(null);
-        _fn(next);
-    }
-
-    check(null, true);
-
-}
-
-/**
- * The post-check version of [`whilst`]{@link module:ControlFlow.whilst}. To reflect the difference in
- * the order of operations, the arguments `test` and `iteratee` are switched.
- *
- * `doWhilst` is to `whilst` as `do while` is to `while` in plain JavaScript.
- *
- * @name doWhilst
- * @static
- * @memberOf module:ControlFlow
- * @method
- * @see [async.whilst]{@link module:ControlFlow.whilst}
- * @category Control Flow
- * @param {AsyncFunction} iteratee - A function which is called each time `test`
- * passes. Invoked with (callback).
- * @param {Function} test - synchronous truth test to perform after each
- * execution of `iteratee`. Invoked with any non-error callback results of
- * `iteratee`.
- * @param {Function} [callback] - A callback which is called after the test
- * function has failed and repeated execution of `iteratee` has stopped.
- * `callback` will be passed an error and any arguments passed to the final
- * `iteratee`'s callback. Invoked with (err, [results]);
- */
-function doWhilst(iteratee, test, callback) {
-    callback = onlyOnce(callback || noop);
-    var _iteratee = wrapAsync(iteratee);
-    var next = function(err/*, ...args*/) {
-        if (err) return callback(err);
-        var args = slice(arguments, 1);
-        if (test.apply(this, args)) return _iteratee(next);
-        callback.apply(null, [null].concat(args));
-    };
-    _iteratee(next);
-}
-
-/**
- * Like ['doWhilst']{@link module:ControlFlow.doWhilst}, except the `test` is inverted. Note the
- * argument ordering differs from `until`.
- *
- * @name doUntil
- * @static
- * @memberOf module:ControlFlow
- * @method
- * @see [async.doWhilst]{@link module:ControlFlow.doWhilst}
- * @category Control Flow
- * @param {AsyncFunction} iteratee - An async function which is called each time
- * `test` fails. Invoked with (callback).
- * @param {Function} test - synchronous truth test to perform after each
- * execution of `iteratee`. Invoked with any non-error callback results of
- * `iteratee`.
- * @param {Function} [callback] - A callback which is called after the test
- * function has passed and repeated execution of `iteratee` has stopped. `callback`
- * will be passed an error and any arguments passed to the final `iteratee`'s
- * callback. Invoked with (err, [results]);
- */
-function doUntil(iteratee, test, callback) {
-    doWhilst(iteratee, function() {
-        return !test.apply(this, arguments);
-    }, callback);
-}
-
-/**
- * Like [`whilst`]{@link module:ControlFlow.whilst}, except the `test` is an asynchronous function that
- * is passed a callback in the form of `function (err, truth)`. If error is
- * passed to `test` or `fn`, the main callback is immediately called with the
- * value of the error.
- *
- * @name during
- * @static
- * @memberOf module:ControlFlow
- * @method
- * @see [async.whilst]{@link module:ControlFlow.whilst}
- * @category Control Flow
- * @param {AsyncFunction} test - asynchronous truth test to perform before each
- * execution of `fn`. Invoked with (callback).
- * @param {AsyncFunction} fn - An async function which is called each time
- * `test` passes. Invoked with (callback).
- * @param {Function} [callback] - A callback which is called after the test
- * function has failed and repeated execution of `fn` has stopped. `callback`
- * will be passed an error, if one occurred, otherwise `null`.
- * @example
- *
- * var count = 0;
- *
- * async.during(
- *     function (callback) {
- *         return callback(null, count < 5);
- *     },
- *     function (callback) {
- *         count++;
- *         setTimeout(callback, 1000);
- *     },
- *     function (err) {
- *         // 5 seconds have passed
- *     }
- * );
- */
-function during(test, fn, callback) {
-    callback = onlyOnce(callback || noop);
-    var _fn = wrapAsync(fn);
-    var _test = wrapAsync(test);
-
-    function next(err) {
-        if (err) return callback(err);
-        _test(check);
-    }
-
-    function check(err, truth) {
-        if (err) return callback(err);
-        if (!truth) return callback(null);
-        _fn(next);
-    }
-
-    _test(check);
-}
-
-function _withoutIndex(iteratee) {
-    return function (value, index, callback) {
-        return iteratee(value, callback);
-    };
-}
-
-/**
- * Applies the function `iteratee` to each item in `coll`, in parallel.
- * The `iteratee` is called with an item from the list, and a callback for when
- * it has finished. If the `iteratee` passes an error to its `callback`, the
- * main `callback` (for the `each` function) is immediately called with the
- * error.
- *
- * Note, that since this function applies `iteratee` to each item in parallel,
- * there is no guarantee that the iteratee functions will complete in order.
- *
- * @name each
- * @static
- * @memberOf module:Collections
- * @method
- * @alias forEach
- * @category Collection
- * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {AsyncFunction} iteratee - An async function to apply to
- * each item in `coll`. Invoked with (item, callback).
- * The array index is not passed to the iteratee.
- * If you need the index, use `eachOf`.
- * @param {Function} [callback] - A callback which is called when all
- * `iteratee` functions have finished, or an error occurs. Invoked with (err).
- * @example
- *
- * // assuming openFiles is an array of file names and saveFile is a function
- * // to save the modified contents of that file:
- *
- * async.each(openFiles, saveFile, function(err){
- *   // if any of the saves produced an error, err would equal that error
- * });
- *
- * // assuming openFiles is an array of file names
- * async.each(openFiles, function(file, callback) {
- *
- *     // Perform operation on file here.
- *     console.log('Processing file ' + file);
- *
- *     if( file.length > 32 ) {
- *       console.log('This file name is too long');
- *       callback('File name too long');
- *     } else {
- *       // Do work to process file here
- *       console.log('File processed');
- *       callback();
- *     }
- * }, function(err) {
- *     // if any of the file processing produced an error, err would equal that error
- *     if( err ) {
- *       // One of the iterations produced an error.
- *       // All processing will now stop.
- *       console.log('A file failed to process');
- *     } else {
- *       console.log('All files have been processed successfully');
- *     }
- * });
- */
-function eachLimit(coll, iteratee, callback) {
-    eachOf(coll, _withoutIndex(wrapAsync(iteratee)), callback);
-}
-
-/**
- * The same as [`each`]{@link module:Collections.each} but runs a maximum of `limit` async operations at a time.
- *
- * @name eachLimit
- * @static
- * @memberOf module:Collections
- * @method
- * @see [async.each]{@link module:Collections.each}
- * @alias forEachLimit
- * @category Collection
- * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {number} limit - The maximum number of async operations at a time.
- * @param {AsyncFunction} iteratee - An async function to apply to each item in
- * `coll`.
- * The array index is not passed to the iteratee.
- * If you need the index, use `eachOfLimit`.
- * Invoked with (item, callback).
- * @param {Function} [callback] - A callback which is called when all
- * `iteratee` functions have finished, or an error occurs. Invoked with (err).
- */
-function eachLimit$1(coll, limit, iteratee, callback) {
-    _eachOfLimit(limit)(coll, _withoutIndex(wrapAsync(iteratee)), callback);
-}
-
-/**
- * The same as [`each`]{@link module:Collections.each} but runs only a single async operation at a time.
- *
- * @name eachSeries
- * @static
- * @memberOf module:Collections
- * @method
- * @see [async.each]{@link module:Collections.each}
- * @alias forEachSeries
- * @category Collection
- * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {AsyncFunction} iteratee - An async function to apply to each
- * item in `coll`.
- * The array index is not passed to the iteratee.
- * If you need the index, use `eachOfSeries`.
- * Invoked with (item, callback).
- * @param {Function} [callback] - A callback which is called when all
- * `iteratee` functions have finished, or an error occurs. Invoked with (err).
- */
-var eachSeries = doLimit(eachLimit$1, 1);
-
-/**
- * Wrap an async function and ensure it calls its callback on a later tick of
- * the event loop.  If the function already calls its callback on a next tick,
- * no extra deferral is added. This is useful for preventing stack overflows
- * (`RangeError: Maximum call stack size exceeded`) and generally keeping
- * [Zalgo](http://blog.izs.me/post/59142742143/designing-apis-for-asynchrony)
- * contained. ES2017 `async` functions are returned as-is -- they are immune
- * to Zalgo's corrupting influences, as they always resolve on a later tick.
- *
- * @name ensureAsync
- * @static
- * @memberOf module:Utils
- * @method
- * @category Util
- * @param {AsyncFunction} fn - an async function, one that expects a node-style
- * callback as its last argument.
- * @returns {AsyncFunction} Returns a wrapped function with the exact same call
- * signature as the function passed in.
- * @example
- *
- * function sometimesAsync(arg, callback) {
- *     if (cache[arg]) {
- *         return callback(null, cache[arg]); // this would be synchronous!!
- *     } else {
- *         doSomeIO(arg, callback); // this IO would be asynchronous
- *     }
- * }
- *
- * // this has a risk of stack overflows if many results are cached in a row
- * async.mapSeries(args, sometimesAsync, done);
- *
- * // this will defer sometimesAsync's callback if necessary,
- * // preventing stack overflows
- * async.mapSeries(args, async.ensureAsync(sometimesAsync), done);
- */
-function ensureAsync(fn) {
-    if (isAsync(fn)) return fn;
-    return initialParams(function (args, callback) {
-        var sync = true;
-        args.push(function () {
-            var innerArgs = arguments;
-            if (sync) {
-                setImmediate$1(function () {
-                    callback.apply(null, innerArgs);
-                });
-            } else {
-                callback.apply(null, innerArgs);
-            }
-        });
-        fn.apply(this, args);
-        sync = false;
-    });
-}
-
-function notId(v) {
-    return !v;
-}
-
-/**
- * Returns `true` if every element in `coll` satisfies an async test. If any
- * iteratee call returns `false`, the main `callback` is immediately called.
- *
- * @name every
- * @static
- * @memberOf module:Collections
- * @method
- * @alias all
- * @category Collection
- * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {AsyncFunction} iteratee - An async truth test to apply to each item
- * in the collection in parallel.
- * The iteratee must complete with a boolean result value.
- * Invoked with (item, callback).
- * @param {Function} [callback] - A callback which is called after all the
- * `iteratee` functions have finished. Result will be either `true` or `false`
- * depending on the values of the async tests. Invoked with (err, result).
- * @example
- *
- * async.every(['file1','file2','file3'], function(filePath, callback) {
- *     fs.access(filePath, function(err) {
- *         callback(null, !err)
- *     });
- * }, function(err, result) {
- *     // if result is true then every file exists
- * });
- */
-var every = doParallel(_createTester(notId, notId));
-
-/**
- * The same as [`every`]{@link module:Collections.every} but runs a maximum of `limit` async operations at a time.
- *
- * @name everyLimit
- * @static
- * @memberOf module:Collections
- * @method
- * @see [async.every]{@link module:Collections.every}
- * @alias allLimit
- * @category Collection
- * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {number} limit - The maximum number of async operations at a time.
- * @param {AsyncFunction} iteratee - An async truth test to apply to each item
- * in the collection in parallel.
- * The iteratee must complete with a boolean result value.
- * Invoked with (item, callback).
- * @param {Function} [callback] - A callback which is called after all the
- * `iteratee` functions have finished. Result will be either `true` or `false`
- * depending on the values of the async tests. Invoked with (err, result).
- */
-var everyLimit = doParallelLimit(_createTester(notId, notId));
-
-/**
- * The same as [`every`]{@link module:Collections.every} but runs only a single async operation at a time.
- *
- * @name everySeries
- * @static
- * @memberOf module:Collections
- * @method
- * @see [async.every]{@link module:Collections.every}
- * @alias allSeries
- * @category Collection
- * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {AsyncFunction} iteratee - An async truth test to apply to each item
- * in the collection in series.
- * The iteratee must complete with a boolean result value.
- * Invoked with (item, callback).
- * @param {Function} [callback] - A callback which is called after all the
- * `iteratee` functions have finished. Result will be either `true` or `false`
- * depending on the values of the async tests. Invoked with (err, result).
- */
-var everySeries = doLimit(everyLimit, 1);
-
-/**
- * The base implementation of `_.property` without support for deep paths.
- *
- * @private
- * @param {string} key The key of the property to get.
- * @returns {Function} Returns the new accessor function.
- */
-function baseProperty(key) {
-  return function(object) {
-    return object == null ? undefined : object[key];
-  };
-}
-
-function filterArray(eachfn, arr, iteratee, callback) {
-    var truthValues = new Array(arr.length);
-    eachfn(arr, function (x, index, callback) {
-        iteratee(x, function (err, v) {
-            truthValues[index] = !!v;
-            callback(err);
-        });
-    }, function (err) {
-        if (err) return callback(err);
-        var results = [];
-        for (var i = 0; i < arr.length; i++) {
-            if (truthValues[i]) results.push(arr[i]);
-        }
-        callback(null, results);
-    });
-}
-
-function filterGeneric(eachfn, coll, iteratee, callback) {
-    var results = [];
-    eachfn(coll, function (x, index, callback) {
-        iteratee(x, function (err, v) {
-            if (err) {
-                callback(err);
-            } else {
-                if (v) {
-                    results.push({index: index, value: x});
-                }
-                callback();
-            }
-        });
-    }, function (err) {
-        if (err) {
-            callback(err);
-        } else {
-            callback(null, arrayMap(results.sort(function (a, b) {
-                return a.index - b.index;
-            }), baseProperty('value')));
-        }
-    });
-}
-
-function _filter(eachfn, coll, iteratee, callback) {
-    var filter = isArrayLike(coll) ? filterArray : filterGeneric;
-    filter(eachfn, coll, wrapAsync(iteratee), callback || noop);
-}
-
-/**
- * Returns a new array of all the values in `coll` which pass an async truth
- * test. This operation is performed in parallel, but the results array will be
- * in the same order as the original.
- *
- * @name filter
- * @static
- * @memberOf module:Collections
- * @method
- * @alias select
- * @category Collection
- * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {Function} iteratee - A truth test to apply to each item in `coll`.
- * The `iteratee` is passed a `callback(err, truthValue)`, which must be called
- * with a boolean argument once it has completed. Invoked with (item, callback).
- * @param {Function} [callback] - A callback which is called after all the
- * `iteratee` functions have finished. Invoked with (err, results).
- * @example
- *
- * async.filter(['file1','file2','file3'], function(filePath, callback) {
- *     fs.access(filePath, function(err) {
- *         callback(null, !err)
- *     });
- * }, function(err, results) {
- *     // results now equals an array of the existing files
- * });
- */
-var filter = doParallel(_filter);
-
-/**
- * The same as [`filter`]{@link module:Collections.filter} but runs a maximum of `limit` async operations at a
- * time.
- *
- * @name filterLimit
- * @static
- * @memberOf module:Collections
- * @method
- * @see [async.filter]{@link module:Collections.filter}
- * @alias selectLimit
- * @category Collection
- * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {number} limit - The maximum number of async operations at a time.
- * @param {Function} iteratee - A truth test to apply to each item in `coll`.
- * The `iteratee` is passed a `callback(err, truthValue)`, which must be called
- * with a boolean argument once it has completed. Invoked with (item, callback).
- * @param {Function} [callback] - A callback which is called after all the
- * `iteratee` functions have finished. Invoked with (err, results).
- */
-var filterLimit = doParallelLimit(_filter);
-
-/**
- * The same as [`filter`]{@link module:Collections.filter} but runs only a single async operation at a time.
- *
- * @name filterSeries
- * @static
- * @memberOf module:Collections
- * @method
- * @see [async.filter]{@link module:Collections.filter}
- * @alias selectSeries
- * @category Collection
- * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {Function} iteratee - A truth test to apply to each item in `coll`.
- * The `iteratee` is passed a `callback(err, truthValue)`, which must be called
- * with a boolean argument once it has completed. Invoked with (item, callback).
- * @param {Function} [callback] - A callback which is called after all the
- * `iteratee` functions have finished. Invoked with (err, results)
- */
-var filterSeries = doLimit(filterLimit, 1);
-
-/**
- * Calls the asynchronous function `fn` with a callback parameter that allows it
- * to call itself again, in series, indefinitely.
-
- * If an error is passed to the callback then `errback` is called with the
- * error, and execution stops, otherwise it will never be called.
- *
- * @name forever
- * @static
- * @memberOf module:ControlFlow
- * @method
- * @category Control Flow
- * @param {AsyncFunction} fn - an async function to call repeatedly.
- * Invoked with (next).
- * @param {Function} [errback] - when `fn` passes an error to it's callback,
- * this function will be called, and execution stops. Invoked with (err).
- * @example
- *
- * async.forever(
- *     function(next) {
- *         // next is suitable for passing to things that need a callback(err [, whatever]);
- *         // it will result in this function being called again.
- *     },
- *     function(err) {
- *         // if next is called with a value in its first parameter, it will appear
- *         // in here as 'err', and execution will stop.
- *     }
- * );
- */
-function forever(fn, errback) {
-    var done = onlyOnce(errback || noop);
-    var task = wrapAsync(ensureAsync(fn));
-
-    function next(err) {
-        if (err) return done(err);
-        task(next);
-    }
-    next();
-}
-
-/**
- * The same as [`groupBy`]{@link module:Collections.groupBy} but runs a maximum of `limit` async operations at a time.
- *
- * @name groupByLimit
- * @static
- * @memberOf module:Collections
- * @method
- * @see [async.groupBy]{@link module:Collections.groupBy}
- * @category Collection
- * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {number} limit - The maximum number of async operations at a time.
- * @param {AsyncFunction} iteratee - An async function to apply to each item in
- * `coll`.
- * The iteratee should complete with a `key` to group the value under.
- * Invoked with (value, callback).
- * @param {Function} [callback] - A callback which is called when all `iteratee`
- * functions have finished, or an error occurs. Result is an `Object` whoses
- * properties are arrays of values which returned the corresponding key.
- */
-var groupByLimit = function(coll, limit, iteratee, callback) {
-    callback = callback || noop;
-    var _iteratee = wrapAsync(iteratee);
-    mapLimit(coll, limit, function(val, callback) {
-        _iteratee(val, function(err, key) {
-            if (err) return callback(err);
-            return callback(null, {key: key, val: val});
-        });
-    }, function(err, mapResults) {
-        var result = {};
-        // from MDN, handle object having an `hasOwnProperty` prop
-        var hasOwnProperty = Object.prototype.hasOwnProperty;
-
-        for (var i = 0; i < mapResults.length; i++) {
-            if (mapResults[i]) {
-                var key = mapResults[i].key;
-                var val = mapResults[i].val;
-
-                if (hasOwnProperty.call(result, key)) {
-                    result[key].push(val);
-                } else {
-                    result[key] = [val];
-                }
-            }
-        }
-
-        return callback(err, result);
-    });
-};
-
-/**
- * Returns a new object, where each value corresponds to an array of items, from
- * `coll`, that returned the corresponding key. That is, the keys of the object
- * correspond to the values passed to the `iteratee` callback.
- *
- * Note: Since this function applies the `iteratee` to each item in parallel,
- * there is no guarantee that the `iteratee` functions will complete in order.
- * However, the values for each key in the `result` will be in the same order as
- * the original `coll`. For Objects, the values will roughly be in the order of
- * the original Objects' keys (but this can vary across JavaScript engines).
- *
- * @name groupBy
- * @static
- * @memberOf module:Collections
- * @method
- * @category Collection
- * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {AsyncFunction} iteratee - An async function to apply to each item in
- * `coll`.
- * The iteratee should complete with a `key` to group the value under.
- * Invoked with (value, callback).
- * @param {Function} [callback] - A callback which is called when all `iteratee`
- * functions have finished, or an error occurs. Result is an `Object` whoses
- * properties are arrays of values which returned the corresponding key.
- * @example
- *
- * async.groupBy(['userId1', 'userId2', 'userId3'], function(userId, callback) {
- *     db.findById(userId, function(err, user) {
- *         if (err) return callback(err);
- *         return callback(null, user.age);
- *     });
- * }, function(err, result) {
- *     // result is object containing the userIds grouped by age
- *     // e.g. { 30: ['userId1', 'userId3'], 42: ['userId2']};
- * });
- */
-var groupBy = doLimit(groupByLimit, Infinity);
-
-/**
- * The same as [`groupBy`]{@link module:Collections.groupBy} but runs only a single async operation at a time.
- *
- * @name groupBySeries
- * @static
- * @memberOf module:Collections
- * @method
- * @see [async.groupBy]{@link module:Collections.groupBy}
- * @category Collection
- * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {number} limit - The maximum number of async operations at a time.
- * @param {AsyncFunction} iteratee - An async function to apply to each item in
- * `coll`.
- * The iteratee should complete with a `key` to group the value under.
- * Invoked with (value, callback).
- * @param {Function} [callback] - A callback which is called when all `iteratee`
- * functions have finished, or an error occurs. Result is an `Object` whoses
- * properties are arrays of values which returned the corresponding key.
- */
-var groupBySeries = doLimit(groupByLimit, 1);
-
-/**
- * Logs the result of an `async` function to the `console`. Only works in
- * Node.js or in browsers that support `console.log` and `console.error` (such
- * as FF and Chrome). If multiple arguments are returned from the async
- * function, `console.log` is called on each argument in order.
- *
- * @name log
- * @static
- * @memberOf module:Utils
- * @method
- * @category Util
- * @param {AsyncFunction} function - The function you want to eventually apply
- * all arguments to.
- * @param {...*} arguments... - Any number of arguments to apply to the function.
- * @example
- *
- * // in a module
- * var hello = function(name, callback) {
- *     setTimeout(function() {
- *         callback(null, 'hello ' + name);
- *     }, 1000);
- * };
- *
- * // in the node repl
- * node> async.log(hello, 'world');
- * 'hello world'
- */
-var log = consoleFunc('log');
-
-/**
- * The same as [`mapValues`]{@link module:Collections.mapValues} but runs a maximum of `limit` async operations at a
- * time.
- *
- * @name mapValuesLimit
- * @static
- * @memberOf module:Collections
- * @method
- * @see [async.mapValues]{@link module:Collections.mapValues}
- * @category Collection
- * @param {Object} obj - A collection to iterate over.
- * @param {number} limit - The maximum number of async operations at a time.
- * @param {AsyncFunction} iteratee - A function to apply to each value and key
- * in `coll`.
- * The iteratee should complete with the transformed value as its result.
- * Invoked with (value, key, callback).
- * @param {Function} [callback] - A callback which is called when all `iteratee`
- * functions have finished, or an error occurs. `result` is a new object consisting
- * of each key from `obj`, with each transformed value on the right-hand side.
- * Invoked with (err, result).
- */
-function mapValuesLimit(obj, limit, iteratee, callback) {
-    callback = once(callback || noop);
-    var newObj = {};
-    var _iteratee = wrapAsync(iteratee);
-    eachOfLimit(obj, limit, function(val, key, next) {
-        _iteratee(val, key, function (err, result) {
-            if (err) return next(err);
-            newObj[key] = result;
-            next();
-        });
-    }, function (err) {
-        callback(err, newObj);
-    });
-}
-
-/**
- * A relative of [`map`]{@link module:Collections.map}, designed for use with objects.
- *
- * Produces a new Object by mapping each value of `obj` through the `iteratee`
- * function. The `iteratee` is called each `value` and `key` from `obj` and a
- * callback for when it has finished processing. Each of these callbacks takes
- * two arguments: an `error`, and the transformed item from `obj`. If `iteratee`
- * passes an error to its callback, the main `callback` (for the `mapValues`
- * function) is immediately called with the error.
- *
- * Note, the order of the keys in the result is not guaranteed.  The keys will
- * be roughly in the order they complete, (but this is very engine-specific)
- *
- * @name mapValues
- * @static
- * @memberOf module:Collections
- * @method
- * @category Collection
- * @param {Object} obj - A collection to iterate over.
- * @param {AsyncFunction} iteratee - A function to apply to each value and key
- * in `coll`.
- * The iteratee should complete with the transformed value as its result.
- * Invoked with (value, key, callback).
- * @param {Function} [callback] - A callback which is called when all `iteratee`
- * functions have finished, or an error occurs. `result` is a new object consisting
- * of each key from `obj`, with each transformed value on the right-hand side.
- * Invoked with (err, result).
- * @example
- *
- * async.mapValues({
- *     f1: 'file1',
- *     f2: 'file2',
- *     f3: 'file3'
- * }, function (file, key, callback) {
- *   fs.stat(file, callback);
- * }, function(err, result) {
- *     // result is now a map of stats for each file, e.g.
- *     // {
- *     //     f1: [stats for file1],
- *     //     f2: [stats for file2],
- *     //     f3: [stats for file3]
- *     // }
- * });
- */
-
-var mapValues = doLimit(mapValuesLimit, Infinity);
-
-/**
- * The same as [`mapValues`]{@link module:Collections.mapValues} but runs only a single async operation at a time.
- *
- * @name mapValuesSeries
- * @static
- * @memberOf module:Collections
- * @method
- * @see [async.mapValues]{@link module:Collections.mapValues}
- * @category Collection
- * @param {Object} obj - A collection to iterate over.
- * @param {AsyncFunction} iteratee - A function to apply to each value and key
- * in `coll`.
- * The iteratee should complete with the transformed value as its result.
- * Invoked with (value, key, callback).
- * @param {Function} [callback] - A callback which is called when all `iteratee`
- * functions have finished, or an error occurs. `result` is a new object consisting
- * of each key from `obj`, with each transformed value on the right-hand side.
- * Invoked with (err, result).
- */
-var mapValuesSeries = doLimit(mapValuesLimit, 1);
-
-function has(obj, key) {
-    return key in obj;
-}
-
-/**
- * Caches the results of an async function. When creating a hash to store
- * function results against, the callback is omitted from the hash and an
- * optional hash function can be used.
- *
- * If no hash function is specified, the first argument is used as a hash key,
- * which may work reasonably if it is a string or a data type that converts to a
- * distinct string. Note that objects and arrays will not behave reasonably.
- * Neither will cases where the other arguments are significant. In such cases,
- * specify your own hash function.
- *
- * The cache of results is exposed as the `memo` property of the function
- * returned by `memoize`.
- *
- * @name memoize
- * @static
- * @memberOf module:Utils
- * @method
- * @category Util
- * @param {AsyncFunction} fn - The async function to proxy and cache results from.
- * @param {Function} hasher - An optional function for generating a custom hash
- * for storing results. It has all the arguments applied to it apart from the
- * callback, and must be synchronous.
- * @returns {AsyncFunction} a memoized version of `fn`
- * @example
- *
- * var slow_fn = function(name, callback) {
- *     // do something
- *     callback(null, result);
- * };
- * var fn = async.memoize(slow_fn);
- *
- * // fn can now be used as if it were slow_fn
- * fn('some name', function() {
- *     // callback
- * });
- */
-function memoize(fn, hasher) {
-    var memo = Object.create(null);
-    var queues = Object.create(null);
-    hasher = hasher || identity;
-    var _fn = wrapAsync(fn);
-    var memoized = initialParams(function memoized(args, callback) {
-        var key = hasher.apply(null, args);
-        if (has(memo, key)) {
-            setImmediate$1(function() {
-                callback.apply(null, memo[key]);
-            });
-        } else if (has(queues, key)) {
-            queues[key].push(callback);
-        } else {
-            queues[key] = [callback];
-            _fn.apply(null, args.concat(function(/*args*/) {
-                var args = slice(arguments);
-                memo[key] = args;
-                var q = queues[key];
-                delete queues[key];
-                for (var i = 0, l = q.length; i < l; i++) {
-                    q[i].apply(null, args);
-                }
-            }));
-        }
-    });
-    memoized.memo = memo;
-    memoized.unmemoized = fn;
-    return memoized;
-}
-
-/**
- * Calls `callback` on a later loop around the event loop. In Node.js this just
- * calls `process.nextTicl`.  In the browser it will use `setImmediate` if
- * available, otherwise `setTimeout(callback, 0)`, which means other higher
- * priority events may precede the execution of `callback`.
- *
- * This is used internally for browser-compatibility purposes.
- *
- * @name nextTick
- * @static
- * @memberOf module:Utils
- * @method
- * @see [async.setImmediate]{@link module:Utils.setImmediate}
- * @category Util
- * @param {Function} callback - The function to call on a later loop around
- * the event loop. Invoked with (args...).
- * @param {...*} args... - any number of additional arguments to pass to the
- * callback on the next tick.
- * @example
- *
- * var call_order = [];
- * async.nextTick(function() {
- *     call_order.push('two');
- *     // call_order now equals ['one','two']
- * });
- * call_order.push('one');
- *
- * async.setImmediate(function (a, b, c) {
- *     // a, b, and c equal 1, 2, and 3
- * }, 1, 2, 3);
- */
-var _defer$1;
-
-if (hasNextTick) {
-    _defer$1 = process.nextTick;
-} else if (hasSetImmediate) {
-    _defer$1 = setImmediate;
-} else {
-    _defer$1 = fallback;
-}
-
-var nextTick = wrap(_defer$1);
-
-function _parallel(eachfn, tasks, callback) {
-    callback = callback || noop;
-    var results = isArrayLike(tasks) ? [] : {};
-
-    eachfn(tasks, function (task, key, callback) {
-        wrapAsync(task)(function (err, result) {
-            if (arguments.length > 2) {
-                result = slice(arguments, 1);
-            }
-            results[key] = result;
-            callback(err);
-        });
-    }, function (err) {
-        callback(err, results);
-    });
-}
-
-/**
- * Run the `tasks` collection of functions in parallel, without waiting until
- * the previous function has completed. If any of the functions pass an error to
- * its callback, the main `callback` is immediately called with the value of the
- * error. Once the `tasks` have completed, the results are passed to the final
- * `callback` as an array.
- *
- * **Note:** `parallel` is about kicking-off I/O tasks in parallel, not about
- * parallel execution of code.  If your tasks do not use any timers or perform
- * any I/O, they will actually be executed in series.  Any synchronous setup
- * sections for each task will happen one after the other.  JavaScript remains
- * single-threaded.
- *
- * **Hint:** Use [`reflect`]{@link module:Utils.reflect} to continue the
- * execution of other tasks when a task fails.
- *
- * It is also possible to use an object instead of an array. Each property will
- * be run as a function and the results will be passed to the final `callback`
- * as an object instead of an array. This can be a more readable way of handling
- * results from {@link async.parallel}.
- *
- * @name parallel
- * @static
- * @memberOf module:ControlFlow
- * @method
- * @category Control Flow
- * @param {Array|Iterable|Object} tasks - A collection of
- * [async functions]{@link AsyncFunction} to run.
- * Each async function can complete with any number of optional `result` values.
- * @param {Function} [callback] - An optional callback to run once all the
- * functions have completed successfully. This function gets a results array
- * (or object) containing all the result arguments passed to the task callbacks.
- * Invoked with (err, results).
- *
- * @example
- * async.parallel([
- *     function(callback) {
- *         setTimeout(function() {
- *             callback(null, 'one');
- *         }, 200);
- *     },
- *     function(callback) {
- *         setTimeout(function() {
- *             callback(null, 'two');
- *         }, 100);
- *     }
- * ],
- * // optional callback
- * function(err, results) {
- *     // the results array will equal ['one','two'] even though
- *     // the second function had a shorter timeout.
- * });
- *
- * // an example using an object instead of an array
- * async.parallel({
- *     one: function(callback) {
- *         setTimeout(function() {
- *             callback(null, 1);
- *         }, 200);
- *     },
- *     two: function(callback) {
- *         setTimeout(function() {
- *             callback(null, 2);
- *         }, 100);
- *     }
- * }, function(err, results) {
- *     // results is now equals to: {one: 1, two: 2}
- * });
- */
-function parallelLimit(tasks, callback) {
-    _parallel(eachOf, tasks, callback);
-}
-
-/**
- * The same as [`parallel`]{@link module:ControlFlow.parallel} but runs a maximum of `limit` async operations at a
- * time.
- *
- * @name parallelLimit
- * @static
- * @memberOf module:ControlFlow
- * @method
- * @see [async.parallel]{@link module:ControlFlow.parallel}
- * @category Control Flow
- * @param {Array|Iterable|Object} tasks - A collection of
- * [async functions]{@link AsyncFunction} to run.
- * Each async function can complete with any number of optional `result` values.
- * @param {number} limit - The maximum number of async operations at a time.
- * @param {Function} [callback] - An optional callback to run once all the
- * functions have completed successfully. This function gets a results array
- * (or object) containing all the result arguments passed to the task callbacks.
- * Invoked with (err, results).
- */
-function parallelLimit$1(tasks, limit, callback) {
-    _parallel(_eachOfLimit(limit), tasks, callback);
-}
-
-/**
- * A queue of tasks for the worker function to complete.
- * @typedef {Object} QueueObject
- * @memberOf module:ControlFlow
- * @property {Function} length - a function returning the number of items
- * waiting to be processed. Invoke with `queue.length()`.
- * @property {boolean} started - a boolean indicating whether or not any
- * items have been pushed and processed by the queue.
- * @property {Function} running - a function returning the number of items
- * currently being processed. Invoke with `queue.running()`.
- * @property {Function} workersList - a function returning the array of items
- * currently being processed. Invoke with `queue.workersList()`.
- * @property {Function} idle - a function returning false if there are items
- * waiting or being processed, or true if not. Invoke with `queue.idle()`.
- * @property {number} concurrency - an integer for determining how many `worker`
- * functions should be run in parallel. This property can be changed after a
- * `queue` is created to alter the concurrency on-the-fly.
- * @property {Function} push - add a new task to the `queue`. Calls `callback`
- * once the `worker` has finished processing the task. Instead of a single task,
- * a `tasks` array can be submitted. The respective callback is used for every
- * task in the list. Invoke with `queue.push(task, [callback])`,
- * @property {Function} unshift - add a new task to the front of the `queue`.
- * Invoke with `queue.unshift(task, [callback])`.
- * @property {Function} remove - remove items from the queue that match a test
- * function.  The test function will be passed an object with a `data` property,
- * and a `priority` property, if this is a
- * [priorityQueue]{@link module:ControlFlow.priorityQueue} object.
- * Invoked with `queue.remove(testFn)`, where `testFn` is of the form
- * `function ({data, priority}) {}` and returns a Boolean.
- * @property {Function} saturated - a callback that is called when the number of
- * running workers hits the `concurrency` limit, and further tasks will be
- * queued.
- * @property {Function} unsaturated - a callback that is called when the number
- * of running workers is less than the `concurrency` & `buffer` limits, and
- * further tasks will not be queued.
- * @property {number} buffer - A minimum threshold buffer in order to say that
- * the `queue` is `unsaturated`.
- * @property {Function} empty - a callback that is called when the last item
- * from the `queue` is given to a `worker`.
- * @property {Function} drain - a callback that is called when the last item
- * from the `queue` has returned from the `worker`.
- * @property {Function} error - a callback that is called when a task errors.
- * Has the signature `function(error, task)`.
- * @property {boolean} paused - a boolean for determining whether the queue is
- * in a paused state.
- * @property {Function} pause - a function that pauses the processing of tasks
- * until `resume()` is called. Invoke with `queue.pause()`.
- * @property {Function} resume - a function that resumes the processing of
- * queued tasks when the queue is paused. Invoke with `queue.resume()`.
- * @property {Function} kill - a function that removes the `drain` callback and
- * empties remaining tasks from the queue forcing it to go idle. No more tasks
- * should be pushed to the queue after calling this function. Invoke with `queue.kill()`.
- */
-
-/**
- * Creates a `queue` object with the specified `concurrency`. Tasks added to the
- * `queue` are processed in parallel (up to the `concurrency` limit). If all
- * `worker`s are in progress, the task is queued until one becomes available.
- * Once a `worker` completes a `task`, that `task`'s callback is called.
- *
- * @name queue
- * @static
- * @memberOf module:ControlFlow
- * @method
- * @category Control Flow
- * @param {AsyncFunction} worker - An async function for processing a queued task.
- * If you want to handle errors from an individual task, pass a callback to
- * `q.push()`. Invoked with (task, callback).
- * @param {number} [concurrency=1] - An `integer` for determining how many
- * `worker` functions should be run in parallel.  If omitted, the concurrency
- * defaults to `1`.  If the concurrency is `0`, an error is thrown.
- * @returns {module:ControlFlow.QueueObject} A queue object to manage the tasks. Callbacks can
- * attached as certain properties to listen for specific events during the
- * lifecycle of the queue.
- * @example
- *
- * // create a queue object with concurrency 2
- * var q = async.queue(function(task, callback) {
- *     console.log('hello ' + task.name);
- *     callback();
- * }, 2);
- *
- * // assign a callback
- * q.drain = function() {
- *     console.log('all items have been processed');
- * };
- *
- * // add some items to the queue
- * q.push({name: 'foo'}, function(err) {
- *     console.log('finished processing foo');
- * });
- * q.push({name: 'bar'}, function (err) {
- *     console.log('finished processing bar');
- * });
- *
- * // add some items to the queue (batch-wise)
- * q.push([{name: 'baz'},{name: 'bay'},{name: 'bax'}], function(err) {
- *     console.log('finished processing item');
- * });
- *
- * // add some items to the front of the queue
- * q.unshift({name: 'bar'}, function (err) {
- *     console.log('finished processing bar');
- * });
- */
-var queue$1 = function (worker, concurrency) {
-    var _worker = wrapAsync(worker);
-    return queue(function (items, cb) {
-        _worker(items[0], cb);
-    }, concurrency, 1);
-};
-
-/**
- * The same as [async.queue]{@link module:ControlFlow.queue} only tasks are assigned a priority and
- * completed in ascending priority order.
- *
- * @name priorityQueue
- * @static
- * @memberOf module:ControlFlow
- * @method
- * @see [async.queue]{@link module:ControlFlow.queue}
- * @category Control Flow
- * @param {AsyncFunction} worker - An async function for processing a queued task.
- * If you want to handle errors from an individual task, pass a callback to
- * `q.push()`.
- * Invoked with (task, callback).
- * @param {number} concurrency - An `integer` for determining how many `worker`
- * functions should be run in parallel.  If omitted, the concurrency defaults to
- * `1`.  If the concurrency is `0`, an error is thrown.
- * @returns {module:ControlFlow.QueueObject} A priorityQueue object to manage the tasks. There are two
- * differences between `queue` and `priorityQueue` objects:
- * * `push(task, priority, [callback])` - `priority` should be a number. If an
- *   array of `tasks` is given, all tasks will be assigned the same priority.
- * * The `unshift` method was removed.
- */
-var priorityQueue = function(worker, concurrency) {
-    // Start with a normal queue
-    var q = queue$1(worker, concurrency);
-
-    // Override push to accept second parameter representing priority
-    q.push = function(data, priority, callback) {
-        if (callback == null) callback = noop;
-        if (typeof callback !== 'function') {
-            throw new Error('task callback must be a function');
-        }
-        q.started = true;
-        if (!isArray(data)) {
-            data = [data];
-        }
-        if (data.length === 0) {
-            // call drain immediately if there are no tasks
-            return setImmediate$1(function() {
-                q.drain();
-            });
-        }
-
-        priority = priority || 0;
-        var nextNode = q._tasks.head;
-        while (nextNode && priority >= nextNode.priority) {
-            nextNode = nextNode.next;
-        }
-
-        for (var i = 0, l = data.length; i < l; i++) {
-            var item = {
-                data: data[i],
-                priority: priority,
-                callback: callback
-            };
-
-            if (nextNode) {
-                q._tasks.insertBefore(nextNode, item);
-            } else {
-                q._tasks.push(item);
-            }
-        }
-        setImmediate$1(q.process);
-    };
-
-    // Remove unshift function
-    delete q.unshift;
-
-    return q;
-};
-
-/**
- * Runs the `tasks` array of functions in parallel, without waiting until the
- * previous function has completed. Once any of the `tasks` complete or pass an
- * error to its callback, the main `callback` is immediately called. It's
- * equivalent to `Promise.race()`.
- *
- * @name race
- * @static
- * @memberOf module:ControlFlow
- * @method
- * @category Control Flow
- * @param {Array} tasks - An array containing [async functions]{@link AsyncFunction}
- * to run. Each function can complete with an optional `result` value.
- * @param {Function} callback - A callback to run once any of the functions have
- * completed. This function gets an error or result from the first function that
- * completed. Invoked with (err, result).
- * @returns undefined
- * @example
- *
- * async.race([
- *     function(callback) {
- *         setTimeout(function() {
- *             callback(null, 'one');
- *         }, 200);
- *     },
- *     function(callback) {
- *         setTimeout(function() {
- *             callback(null, 'two');
- *         }, 100);
- *     }
- * ],
- * // main callback
- * function(err, result) {
- *     // the result will be equal to 'two' as it finishes earlier
- * });
- */
-function race(tasks, callback) {
-    callback = once(callback || noop);
-    if (!isArray(tasks)) return callback(new TypeError('First argument to race must be an array of functions'));
-    if (!tasks.length) return callback();
-    for (var i = 0, l = tasks.length; i < l; i++) {
-        wrapAsync(tasks[i])(callback);
-    }
-}
-
-/**
- * Same as [`reduce`]{@link module:Collections.reduce}, only operates on `array` in reverse order.
- *
- * @name reduceRight
- * @static
- * @memberOf module:Collections
- * @method
- * @see [async.reduce]{@link module:Collections.reduce}
- * @alias foldr
- * @category Collection
- * @param {Array} array - A collection to iterate over.
- * @param {*} memo - The initial state of the reduction.
- * @param {AsyncFunction} iteratee - A function applied to each item in the
- * array to produce the next step in the reduction.
- * The `iteratee` should complete with the next state of the reduction.
- * If the iteratee complete with an error, the reduction is stopped and the
- * main `callback` is immediately called with the error.
- * Invoked with (memo, item, callback).
- * @param {Function} [callback] - A callback which is called after all the
- * `iteratee` functions have finished. Result is the reduced value. Invoked with
- * (err, result).
- */
-function reduceRight (array, memo, iteratee, callback) {
-    var reversed = slice(array).reverse();
-    reduce(reversed, memo, iteratee, callback);
-}
-
-/**
- * Wraps the async function in another function that always completes with a
- * result object, even when it errors.
- *
- * The result object has either the property `error` or `value`.
- *
- * @name reflect
- * @static
- * @memberOf module:Utils
- * @method
- * @category Util
- * @param {AsyncFunction} fn - The async function you want to wrap
- * @returns {Function} - A function that always passes null to it's callback as
- * the error. The second argument to the callback will be an `object` with
- * either an `error` or a `value` property.
- * @example
- *
- * async.parallel([
- *     async.reflect(function(callback) {
- *         // do some stuff ...
- *         callback(null, 'one');
- *     }),
- *     async.reflect(function(callback) {
- *         // do some more stuff but error ...
- *         callback('bad stuff happened');
- *     }),
- *     async.reflect(function(callback) {
- *         // do some more stuff ...
- *         callback(null, 'two');
- *     })
- * ],
- * // optional callback
- * function(err, results) {
- *     // values
- *     // results[0].value = 'one'
- *     // results[1].error = 'bad stuff happened'
- *     // results[2].value = 'two'
- * });
- */
-function reflect(fn) {
-    var _fn = wrapAsync(fn);
-    return initialParams(function reflectOn(args, reflectCallback) {
-        args.push(function callback(error, cbArg) {
-            if (error) {
-                reflectCallback(null, { error: error });
-            } else {
-                var value;
-                if (arguments.length <= 2) {
-                    value = cbArg;
-                } else {
-                    value = slice(arguments, 1);
-                }
-                reflectCallback(null, { value: value });
-            }
-        });
-
-        return _fn.apply(this, args);
-    });
-}
-
-/**
- * A helper function that wraps an array or an object of functions with `reflect`.
- *
- * @name reflectAll
- * @static
- * @memberOf module:Utils
- * @method
- * @see [async.reflect]{@link module:Utils.reflect}
- * @category Util
- * @param {Array|Object|Iterable} tasks - The collection of
- * [async functions]{@link AsyncFunction} to wrap in `async.reflect`.
- * @returns {Array} Returns an array of async functions, each wrapped in
- * `async.reflect`
- * @example
- *
- * let tasks = [
- *     function(callback) {
- *         setTimeout(function() {
- *             callback(null, 'one');
- *         }, 200);
- *     },
- *     function(callback) {
- *         // do some more stuff but error ...
- *         callback(new Error('bad stuff happened'));
- *     },
- *     function(callback) {
- *         setTimeout(function() {
- *             callback(null, 'two');
- *         }, 100);
- *     }
- * ];
- *
- * async.parallel(async.reflectAll(tasks),
- * // optional callback
- * function(err, results) {
- *     // values
- *     // results[0].value = 'one'
- *     // results[1].error = Error('bad stuff happened')
- *     // results[2].value = 'two'
- * });
- *
- * // an example using an object instead of an array
- * let tasks = {
- *     one: function(callback) {
- *         setTimeout(function() {
- *             callback(null, 'one');
- *         }, 200);
- *     },
- *     two: function(callback) {
- *         callback('two');
- *     },
- *     three: function(callback) {
- *         setTimeout(function() {
- *             callback(null, 'three');
- *         }, 100);
- *     }
- * };
- *
- * async.parallel(async.reflectAll(tasks),
- * // optional callback
- * function(err, results) {
- *     // values
- *     // results.one.value = 'one'
- *     // results.two.error = 'two'
- *     // results.three.value = 'three'
- * });
- */
-function reflectAll(tasks) {
-    var results;
-    if (isArray(tasks)) {
-        results = arrayMap(tasks, reflect);
-    } else {
-        results = {};
-        baseForOwn(tasks, function(task, key) {
-            results[key] = reflect.call(this, task);
-        });
-    }
-    return results;
-}
-
-function reject$1(eachfn, arr, iteratee, callback) {
-    _filter(eachfn, arr, function(value, cb) {
-        iteratee(value, function(err, v) {
-            cb(err, !v);
-        });
-    }, callback);
-}
-
-/**
- * The opposite of [`filter`]{@link module:Collections.filter}. Removes values that pass an `async` truth test.
- *
- * @name reject
- * @static
- * @memberOf module:Collections
- * @method
- * @see [async.filter]{@link module:Collections.filter}
- * @category Collection
- * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {Function} iteratee - An async truth test to apply to each item in
- * `coll`.
- * The should complete with a boolean value as its `result`.
- * Invoked with (item, callback).
- * @param {Function} [callback] - A callback which is called after all the
- * `iteratee` functions have finished. Invoked with (err, results).
- * @example
- *
- * async.reject(['file1','file2','file3'], function(filePath, callback) {
- *     fs.access(filePath, function(err) {
- *         callback(null, !err)
- *     });
- * }, function(err, results) {
- *     // results now equals an array of missing files
- *     createFiles(results);
- * });
- */
-var reject = doParallel(reject$1);
-
-/**
- * The same as [`reject`]{@link module:Collections.reject} but runs a maximum of `limit` async operations at a
- * time.
- *
- * @name rejectLimit
- * @static
- * @memberOf module:Collections
- * @method
- * @see [async.reject]{@link module:Collections.reject}
- * @category Collection
- * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {number} limit - The maximum number of async operations at a time.
- * @param {Function} iteratee - An async truth test to apply to each item in
- * `coll`.
- * The should complete with a boolean value as its `result`.
- * Invoked with (item, callback).
- * @param {Function} [callback] - A callback which is called after all the
- * `iteratee` functions have finished. Invoked with (err, results).
- */
-var rejectLimit = doParallelLimit(reject$1);
-
-/**
- * The same as [`reject`]{@link module:Collections.reject} but runs only a single async operation at a time.
- *
- * @name rejectSeries
- * @static
- * @memberOf module:Collections
- * @method
- * @see [async.reject]{@link module:Collections.reject}
- * @category Collection
- * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {Function} iteratee - An async truth test to apply to each item in
- * `coll`.
- * The should complete with a boolean value as its `result`.
- * Invoked with (item, callback).
- * @param {Function} [callback] - A callback which is called after all the
- * `iteratee` functions have finished. Invoked with (err, results).
- */
-var rejectSeries = doLimit(rejectLimit, 1);
-
-/**
- * Creates a function that returns `value`.
- *
- * @static
- * @memberOf _
- * @since 2.4.0
- * @category Util
- * @param {*} value The value to return from the new function.
- * @returns {Function} Returns the new constant function.
- * @example
- *
- * var objects = _.times(2, _.constant({ 'a': 1 }));
- *
- * console.log(objects);
- * // => [{ 'a': 1 }, { 'a': 1 }]
- *
- * console.log(objects[0] === objects[1]);
- * // => true
- */
-function constant$1(value) {
-  return function() {
-    return value;
-  };
-}
-
-/**
- * Attempts to get a successful response from `task` no more than `times` times
- * before returning an error. If the task is successful, the `callback` will be
- * passed the result of the successful task. If all attempts fail, the callback
- * will be passed the error and result (if any) of the final attempt.
- *
- * @name retry
- * @static
- * @memberOf module:ControlFlow
- * @method
- * @category Control Flow
- * @see [async.retryable]{@link module:ControlFlow.retryable}
- * @param {Object|number} [opts = {times: 5, interval: 0}| 5] - Can be either an
- * object with `times` and `interval` or a number.
- * * `times` - The number of attempts to make before giving up.  The default
- *   is `5`.
- * * `interval` - The time to wait between retries, in milliseconds.  The
- *   default is `0`. The interval may also be specified as a function of the
- *   retry count (see example).
- * * `errorFilter` - An optional synchronous function that is invoked on
- *   erroneous result. If it returns `true` the retry attempts will continue;
- *   if the function returns `false` the retry flow is aborted with the current
- *   attempt's error and result being returned to the final callback.
- *   Invoked with (err).
- * * If `opts` is a number, the number specifies the number of times to retry,
- *   with the default interval of `0`.
- * @param {AsyncFunction} task - An async function to retry.
- * Invoked with (callback).
- * @param {Function} [callback] - An optional callback which is called when the
- * task has succeeded, or after the final failed attempt. It receives the `err`
- * and `result` arguments of the last attempt at completing the `task`. Invoked
- * with (err, results).
- *
- * @example
- *
- * // The `retry` function can be used as a stand-alone control flow by passing
- * // a callback, as shown below:
- *
- * // try calling apiMethod 3 times
- * async.retry(3, apiMethod, function(err, result) {
- *     // do something with the result
- * });
- *
- * // try calling apiMethod 3 times, waiting 200 ms between each retry
- * async.retry({times: 3, interval: 200}, apiMethod, function(err, result) {
- *     // do something with the result
- * });
- *
- * // try calling apiMethod 10 times with exponential backoff
- * // (i.e. intervals of 100, 200, 400, 800, 1600, ... milliseconds)
- * async.retry({
- *   times: 10,
- *   interval: function(retryCount) {
- *     return 50 * Math.pow(2, retryCount);
- *   }
- * }, apiMethod, function(err, result) {
- *     // do something with the result
- * });
- *
- * // try calling apiMethod the default 5 times no delay between each retry
- * async.retry(apiMethod, function(err, result) {
- *     // do something with the result
- * });
- *
- * // try calling apiMethod only when error condition satisfies, all other
- * // errors will abort the retry control flow and return to final callback
- * async.retry({
- *   errorFilter: function(err) {
- *     return err.message === 'Temporary error'; // only retry on a specific error
- *   }
- * }, apiMethod, function(err, result) {
- *     // do something with the result
- * });
- *
- * // to retry individual methods that are not as reliable within other
- * // control flow functions, use the `retryable` wrapper:
- * async.auto({
- *     users: api.getUsers.bind(api),
- *     payments: async.retryable(3, api.getPayments.bind(api))
- * }, function(err, results) {
- *     // do something with the results
- * });
- *
- */
-function retry(opts, task, callback) {
-    var DEFAULT_TIMES = 5;
-    var DEFAULT_INTERVAL = 0;
-
-    var options = {
-        times: DEFAULT_TIMES,
-        intervalFunc: constant$1(DEFAULT_INTERVAL)
-    };
-
-    function parseTimes(acc, t) {
-        if (typeof t === 'object') {
-            acc.times = +t.times || DEFAULT_TIMES;
-
-            acc.intervalFunc = typeof t.interval === 'function' ?
-                t.interval :
-                constant$1(+t.interval || DEFAULT_INTERVAL);
-
-            acc.errorFilter = t.errorFilter;
-        } else if (typeof t === 'number' || typeof t === 'string') {
-            acc.times = +t || DEFAULT_TIMES;
-        } else {
-            throw new Error("Invalid arguments for async.retry");
-        }
-    }
-
-    if (arguments.length < 3 && typeof opts === 'function') {
-        callback = task || noop;
-        task = opts;
-    } else {
-        parseTimes(options, opts);
-        callback = callback || noop;
-    }
-
-    if (typeof task !== 'function') {
-        throw new Error("Invalid arguments for async.retry");
-    }
-
-    var _task = wrapAsync(task);
-
-    var attempt = 1;
-    function retryAttempt() {
-        _task(function(err) {
-            if (err && attempt++ < options.times &&
-                (typeof options.errorFilter != 'function' ||
-                    options.errorFilter(err))) {
-                setTimeout(retryAttempt, options.intervalFunc(attempt));
-            } else {
-                callback.apply(null, arguments);
-            }
-        });
-    }
-
-    retryAttempt();
-}
-
-/**
- * A close relative of [`retry`]{@link module:ControlFlow.retry}.  This method
- * wraps a task and makes it retryable, rather than immediately calling it
- * with retries.
- *
- * @name retryable
- * @static
- * @memberOf module:ControlFlow
- * @method
- * @see [async.retry]{@link module:ControlFlow.retry}
- * @category Control Flow
- * @param {Object|number} [opts = {times: 5, interval: 0}| 5] - optional
- * options, exactly the same as from `retry`
- * @param {AsyncFunction} task - the asynchronous function to wrap.
- * This function will be passed any arguments passed to the returned wrapper.
- * Invoked with (...args, callback).
- * @returns {AsyncFunction} The wrapped function, which when invoked, will
- * retry on an error, based on the parameters specified in `opts`.
- * This function will accept the same parameters as `task`.
- * @example
- *
- * async.auto({
- *     dep1: async.retryable(3, getFromFlakyService),
- *     process: ["dep1", async.retryable(3, function (results, cb) {
- *         maybeProcessData(results.dep1, cb);
- *     })]
- * }, callback);
- */
-var retryable = function (opts, task) {
-    if (!task) {
-        task = opts;
-        opts = null;
-    }
-    var _task = wrapAsync(task);
-    return initialParams(function (args, callback) {
-        function taskFn(cb) {
-            _task.apply(null, args.concat(cb));
-        }
-
-        if (opts) retry(opts, taskFn, callback);
-        else retry(taskFn, callback);
-
-    });
-};
-
-/**
- * Run the functions in the `tasks` collection in series, each one running once
- * the previous function has completed. If any functions in the series pass an
- * error to its callback, no more functions are run, and `callback` is
- * immediately called with the value of the error. Otherwise, `callback`
- * receives an array of results when `tasks` have completed.
- *
- * It is also possible to use an object instead of an array. Each property will
- * be run as a function, and the results will be passed to the final `callback`
- * as an object instead of an array. This can be a more readable way of handling
- *  results from {@link async.series}.
- *
- * **Note** that while many implementations preserve the order of object
- * properties, the [ECMAScript Language Specification](http://www.ecma-international.org/ecma-262/5.1/#sec-8.6)
- * explicitly states that
- *
- * > The mechanics and order of enumerating the properties is not specified.
- *
- * So if you rely on the order in which your series of functions are executed,
- * and want this to work on all platforms, consider using an array.
- *
- * @name series
- * @static
- * @memberOf module:ControlFlow
- * @method
- * @category Control Flow
- * @param {Array|Iterable|Object} tasks - A collection containing
- * [async functions]{@link AsyncFunction} to run in series.
- * Each function can complete with any number of optional `result` values.
- * @param {Function} [callback] - An optional callback to run once all the
- * functions have completed. This function gets a results array (or object)
- * containing all the result arguments passed to the `task` callbacks. Invoked
- * with (err, result).
- * @example
- * async.series([
- *     function(callback) {
- *         // do some stuff ...
- *         callback(null, 'one');
- *     },
- *     function(callback) {
- *         // do some more stuff ...
- *         callback(null, 'two');
- *     }
- * ],
- * // optional callback
- * function(err, results) {
- *     // results is now equal to ['one', 'two']
- * });
- *
- * async.series({
- *     one: function(callback) {
- *         setTimeout(function() {
- *             callback(null, 1);
- *         }, 200);
- *     },
- *     two: function(callback){
- *         setTimeout(function() {
- *             callback(null, 2);
- *         }, 100);
- *     }
- * }, function(err, results) {
- *     // results is now equal to: {one: 1, two: 2}
- * });
- */
-function series(tasks, callback) {
-    _parallel(eachOfSeries, tasks, callback);
-}
-
-/**
- * Returns `true` if at least one element in the `coll` satisfies an async test.
- * If any iteratee call returns `true`, the main `callback` is immediately
- * called.
- *
- * @name some
- * @static
- * @memberOf module:Collections
- * @method
- * @alias any
- * @category Collection
- * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {AsyncFunction} iteratee - An async truth test to apply to each item
- * in the collections in parallel.
- * The iteratee should complete with a boolean `result` value.
- * Invoked with (item, callback).
- * @param {Function} [callback] - A callback which is called as soon as any
- * iteratee returns `true`, or after all the iteratee functions have finished.
- * Result will be either `true` or `false` depending on the values of the async
- * tests. Invoked with (err, result).
- * @example
- *
- * async.some(['file1','file2','file3'], function(filePath, callback) {
- *     fs.access(filePath, function(err) {
- *         callback(null, !err)
- *     });
- * }, function(err, result) {
- *     // if result is true then at least one of the files exists
- * });
- */
-var some = doParallel(_createTester(Boolean, identity));
-
-/**
- * The same as [`some`]{@link module:Collections.some} but runs a maximum of `limit` async operations at a time.
- *
- * @name someLimit
- * @static
- * @memberOf module:Collections
- * @method
- * @see [async.some]{@link module:Collections.some}
- * @alias anyLimit
- * @category Collection
- * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {number} limit - The maximum number of async operations at a time.
- * @param {AsyncFunction} iteratee - An async truth test to apply to each item
- * in the collections in parallel.
- * The iteratee should complete with a boolean `result` value.
- * Invoked with (item, callback).
- * @param {Function} [callback] - A callback which is called as soon as any
- * iteratee returns `true`, or after all the iteratee functions have finished.
- * Result will be either `true` or `false` depending on the values of the async
- * tests. Invoked with (err, result).
- */
-var someLimit = doParallelLimit(_createTester(Boolean, identity));
-
-/**
- * The same as [`some`]{@link module:Collections.some} but runs only a single async operation at a time.
- *
- * @name someSeries
- * @static
- * @memberOf module:Collections
- * @method
- * @see [async.some]{@link module:Collections.some}
- * @alias anySeries
- * @category Collection
- * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {AsyncFunction} iteratee - An async truth test to apply to each item
- * in the collections in series.
- * The iteratee should complete with a boolean `result` value.
- * Invoked with (item, callback).
- * @param {Function} [callback] - A callback which is called as soon as any
- * iteratee returns `true`, or after all the iteratee functions have finished.
- * Result will be either `true` or `false` depending on the values of the async
- * tests. Invoked with (err, result).
- */
-var someSeries = doLimit(someLimit, 1);
-
-/**
- * Sorts a list by the results of running each `coll` value through an async
- * `iteratee`.
- *
- * @name sortBy
- * @static
- * @memberOf module:Collections
- * @method
- * @category Collection
- * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {AsyncFunction} iteratee - An async function to apply to each item in
- * `coll`.
- * The iteratee should complete with a value to use as the sort criteria as
- * its `result`.
- * Invoked with (item, callback).
- * @param {Function} callback - A callback which is called after all the
- * `iteratee` functions have finished, or an error occurs. Results is the items
- * from the original `coll` sorted by the values returned by the `iteratee`
- * calls. Invoked with (err, results).
- * @example
- *
- * async.sortBy(['file1','file2','file3'], function(file, callback) {
- *     fs.stat(file, function(err, stats) {
- *         callback(err, stats.mtime);
- *     });
- * }, function(err, results) {
- *     // results is now the original array of files sorted by
- *     // modified date
- * });
- *
- * // By modifying the callback parameter the
- * // sorting order can be influenced:
- *
- * // ascending order
- * async.sortBy([1,9,3,5], function(x, callback) {
- *     callback(null, x);
- * }, function(err,result) {
- *     // result callback
- * });
- *
- * // descending order
- * async.sortBy([1,9,3,5], function(x, callback) {
- *     callback(null, x*-1);    //<- x*-1 instead of x, turns the order around
- * }, function(err,result) {
- *     // result callback
- * });
- */
-function sortBy (coll, iteratee, callback) {
-    var _iteratee = wrapAsync(iteratee);
-    map(coll, function (x, callback) {
-        _iteratee(x, function (err, criteria) {
-            if (err) return callback(err);
-            callback(null, {value: x, criteria: criteria});
-        });
-    }, function (err, results) {
-        if (err) return callback(err);
-        callback(null, arrayMap(results.sort(comparator), baseProperty('value')));
-    });
-
-    function comparator(left, right) {
-        var a = left.criteria, b = right.criteria;
-        return a < b ? -1 : a > b ? 1 : 0;
-    }
-}
-
-/**
- * Sets a time limit on an asynchronous function. If the function does not call
- * its callback within the specified milliseconds, it will be called with a
- * timeout error. The code property for the error object will be `'ETIMEDOUT'`.
- *
- * @name timeout
- * @static
- * @memberOf module:Utils
- * @method
- * @category Util
- * @param {AsyncFunction} asyncFn - The async function to limit in time.
- * @param {number} milliseconds - The specified time limit.
- * @param {*} [info] - Any variable you want attached (`string`, `object`, etc)
- * to timeout Error for more information..
- * @returns {AsyncFunction} Returns a wrapped function that can be used with any
- * of the control flow functions.
- * Invoke this function with the same parameters as you would `asyncFunc`.
- * @example
- *
- * function myFunction(foo, callback) {
- *     doAsyncTask(foo, function(err, data) {
- *         // handle errors
- *         if (err) return callback(err);
- *
- *         // do some stuff ...
- *
- *         // return processed data
- *         return callback(null, data);
- *     });
- * }
- *
- * var wrapped = async.timeout(myFunction, 1000);
- *
- * // call `wrapped` as you would `myFunction`
- * wrapped({ bar: 'bar' }, function(err, data) {
- *     // if `myFunction` takes < 1000 ms to execute, `err`
- *     // and `data` will have their expected values
- *
- *     // else `err` will be an Error with the code 'ETIMEDOUT'
- * });
- */
-function timeout(asyncFn, milliseconds, info) {
-    var fn = wrapAsync(asyncFn);
-
-    return initialParams(function (args, callback) {
-        var timedOut = false;
-        var timer;
-
-        function timeoutCallback() {
-            var name = asyncFn.name || 'anonymous';
-            var error  = new Error('Callback function "' + name + '" timed out.');
-            error.code = 'ETIMEDOUT';
-            if (info) {
-                error.info = info;
-            }
-            timedOut = true;
-            callback(error);
-        }
-
-        args.push(function () {
-            if (!timedOut) {
-                callback.apply(null, arguments);
-                clearTimeout(timer);
-            }
-        });
-
-        // setup timer and call original function
-        timer = setTimeout(timeoutCallback, milliseconds);
-        fn.apply(null, args);
-    });
-}
-
-/* Built-in method references for those with the same name as other `lodash` methods. */
-var nativeCeil = Math.ceil;
-var nativeMax = Math.max;
-
-/**
- * The base implementation of `_.range` and `_.rangeRight` which doesn't
- * coerce arguments.
- *
- * @private
- * @param {number} start The start of the range.
- * @param {number} end The end of the range.
- * @param {number} step The value to increment or decrement by.
- * @param {boolean} [fromRight] Specify iterating from right to left.
- * @returns {Array} Returns the range of numbers.
- */
-function baseRange(start, end, step, fromRight) {
-  var index = -1,
-      length = nativeMax(nativeCeil((end - start) / (step || 1)), 0),
-      result = Array(length);
-
-  while (length--) {
-    result[fromRight ? length : ++index] = start;
-    start += step;
-  }
-  return result;
-}
-
-/**
- * The same as [times]{@link module:ControlFlow.times} but runs a maximum of `limit` async operations at a
- * time.
- *
- * @name timesLimit
- * @static
- * @memberOf module:ControlFlow
- * @method
- * @see [async.times]{@link module:ControlFlow.times}
- * @category Control Flow
- * @param {number} count - The number of times to run the function.
- * @param {number} limit - The maximum number of async operations at a time.
- * @param {AsyncFunction} iteratee - The async function to call `n` times.
- * Invoked with the iteration index and a callback: (n, next).
- * @param {Function} callback - see [async.map]{@link module:Collections.map}.
- */
-function timeLimit(count, limit, iteratee, callback) {
-    var _iteratee = wrapAsync(iteratee);
-    mapLimit(baseRange(0, count, 1), limit, _iteratee, callback);
-}
-
-/**
- * Calls the `iteratee` function `n` times, and accumulates results in the same
- * manner you would use with [map]{@link module:Collections.map}.
- *
- * @name times
- * @static
- * @memberOf module:ControlFlow
- * @method
- * @see [async.map]{@link module:Collections.map}
- * @category Control Flow
- * @param {number} n - The number of times to run the function.
- * @param {AsyncFunction} iteratee - The async function to call `n` times.
- * Invoked with the iteration index and a callback: (n, next).
- * @param {Function} callback - see {@link module:Collections.map}.
- * @example
- *
- * // Pretend this is some complicated async factory
- * var createUser = function(id, callback) {
- *     callback(null, {
- *         id: 'user' + id
- *     });
- * };
- *
- * // generate 5 users
- * async.times(5, function(n, next) {
- *     createUser(n, function(err, user) {
- *         next(err, user);
- *     });
- * }, function(err, users) {
- *     // we should now have 5 users
- * });
- */
-var times = doLimit(timeLimit, Infinity);
-
-/**
- * The same as [times]{@link module:ControlFlow.times} but runs only a single async operation at a time.
- *
- * @name timesSeries
- * @static
- * @memberOf module:ControlFlow
- * @method
- * @see [async.times]{@link module:ControlFlow.times}
- * @category Control Flow
- * @param {number} n - The number of times to run the function.
- * @param {AsyncFunction} iteratee - The async function to call `n` times.
- * Invoked with the iteration index and a callback: (n, next).
- * @param {Function} callback - see {@link module:Collections.map}.
- */
-var timesSeries = doLimit(timeLimit, 1);
-
-/**
- * A relative of `reduce`.  Takes an Object or Array, and iterates over each
- * element in series, each step potentially mutating an `accumulator` value.
- * The type of the accumulator defaults to the type of collection passed in.
- *
- * @name transform
- * @static
- * @memberOf module:Collections
- * @method
- * @category Collection
- * @param {Array|Iterable|Object} coll - A collection to iterate over.
- * @param {*} [accumulator] - The initial state of the transform.  If omitted,
- * it will default to an empty Object or Array, depending on the type of `coll`
- * @param {AsyncFunction} iteratee - A function applied to each item in the
- * collection that potentially modifies the accumulator.
- * Invoked with (accumulator, item, key, callback).
- * @param {Function} [callback] - A callback which is called after all the
- * `iteratee` functions have finished. Result is the transformed accumulator.
- * Invoked with (err, result).
- * @example
- *
- * async.transform([1,2,3], function(acc, item, index, callback) {
- *     // pointless async:
- *     process.nextTick(function() {
- *         acc.push(item * 2)
- *         callback(null)
- *     });
- * }, function(err, result) {
- *     // result is now equal to [2, 4, 6]
- * });
- *
- * @example
- *
- * async.transform({a: 1, b: 2, c: 3}, function (obj, val, key, callback) {
- *     setImmediate(function () {
- *         obj[key] = val * 2;
- *         callback();
- *     })
- * }, function (err, result) {
- *     // result is equal to {a: 2, b: 4, c: 6}
- * })
- */
-function transform (coll, accumulator, iteratee, callback) {
-    if (arguments.length <= 3) {
-        callback = iteratee;
-        iteratee = accumulator;
-        accumulator = isArray(coll) ? [] : {};
-    }
-    callback = once(callback || noop);
-    var _iteratee = wrapAsync(iteratee);
-
-    eachOf(coll, function(v, k, cb) {
-        _iteratee(accumulator, v, k, cb);
-    }, function(err) {
-        callback(err, accumulator);
-    });
-}
-
-/**
- * It runs each task in series but stops whenever any of the functions were
- * successful. If one of the tasks were successful, the `callback` will be
- * passed the result of the successful task. If all tasks fail, the callback
- * will be passed the error and result (if any) of the final attempt.
- *
- * @name tryEach
- * @static
- * @memberOf module:ControlFlow
- * @method
- * @category Control Flow
- * @param {Array|Iterable|Object} tasks - A collection containing functions to
- * run, each function is passed a `callback(err, result)` it must call on
- * completion with an error `err` (which can be `null`) and an optional `result`
- * value.
- * @param {Function} [callback] - An optional callback which is called when one
- * of the tasks has succeeded, or all have failed. It receives the `err` and
- * `result` arguments of the last attempt at completing the `task`. Invoked with
- * (err, results).
- * @example
- * async.tryEach([
- *     function getDataFromFirstWebsite(callback) {
- *         // Try getting the data from the first website
- *         callback(err, data);
- *     },
- *     function getDataFromSecondWebsite(callback) {
- *         // First website failed,
- *         // Try getting the data from the backup website
- *         callback(err, data);
- *     }
- * ],
- * // optional callback
- * function(err, results) {
- *     Now do something with the data.
- * });
- *
- */
-function tryEach(tasks, callback) {
-    var error = null;
-    var result;
-    callback = callback || noop;
-    eachSeries(tasks, function(task, callback) {
-        wrapAsync(task)(function (err, res/*, ...args*/) {
-            if (arguments.length > 2) {
-                result = slice(arguments, 1);
-            } else {
-                result = res;
-            }
-            error = err;
-            callback(!err);
-        });
-    }, function () {
-        callback(error, result);
-    });
-}
-
-/**
- * Undoes a [memoize]{@link module:Utils.memoize}d function, reverting it to the original,
- * unmemoized form. Handy for testing.
- *
- * @name unmemoize
- * @static
- * @memberOf module:Utils
- * @method
- * @see [async.memoize]{@link module:Utils.memoize}
- * @category Util
- * @param {AsyncFunction} fn - the memoized function
- * @returns {AsyncFunction} a function that calls the original unmemoized function
- */
-function unmemoize(fn) {
-    return function () {
-        return (fn.unmemoized || fn).apply(null, arguments);
-    };
-}
-
-/**
- * Repeatedly call `iteratee`, while `test` returns `true`. Calls `callback` when
- * stopped, or an error occurs.
- *
- * @name whilst
- * @static
- * @memberOf module:ControlFlow
- * @method
- * @category Control Flow
- * @param {Function} test - synchronous truth test to perform before each
- * execution of `iteratee`. Invoked with ().
- * @param {AsyncFunction} iteratee - An async function which is called each time
- * `test` passes. Invoked with (callback).
- * @param {Function} [callback] - A callback which is called after the test
- * function has failed and repeated execution of `iteratee` has stopped. `callback`
- * will be passed an error and any arguments passed to the final `iteratee`'s
- * callback. Invoked with (err, [results]);
- * @returns undefined
- * @example
- *
- * var count = 0;
- * async.whilst(
- *     function() { return count < 5; },
- *     function(callback) {
- *         count++;
- *         setTimeout(function() {
- *             callback(null, count);
- *         }, 1000);
- *     },
- *     function (err, n) {
- *         // 5 seconds have passed, n = 5
- *     }
- * );
- */
-function whilst(test, iteratee, callback) {
-    callback = onlyOnce(callback || noop);
-    var _iteratee = wrapAsync(iteratee);
-    if (!test()) return callback(null);
-    var next = function(err/*, ...args*/) {
-        if (err) return callback(err);
-        if (test()) return _iteratee(next);
-        var args = slice(arguments, 1);
-        callback.apply(null, [null].concat(args));
-    };
-    _iteratee(next);
-}
-
-/**
- * Repeatedly call `iteratee` until `test` returns `true`. Calls `callback` when
- * stopped, or an error occurs. `callback` will be passed an error and any
- * arguments passed to the final `iteratee`'s callback.
- *
- * The inverse of [whilst]{@link module:ControlFlow.whilst}.
- *
- * @name until
- * @static
- * @memberOf module:ControlFlow
- * @method
- * @see [async.whilst]{@link module:ControlFlow.whilst}
- * @category Control Flow
- * @param {Function} test - synchronous truth test to perform before each
- * execution of `iteratee`. Invoked with ().
- * @param {AsyncFunction} iteratee - An async function which is called each time
- * `test` fails. Invoked with (callback).
- * @param {Function} [callback] - A callback which is called after the test
- * function has passed and repeated execution of `iteratee` has stopped. `callback`
- * will be passed an error and any arguments passed to the final `iteratee`'s
- * callback. Invoked with (err, [results]);
- */
-function until(test, iteratee, callback) {
-    whilst(function() {
-        return !test.apply(this, arguments);
-    }, iteratee, callback);
-}
-
-/**
- * Runs the `tasks` array of functions in series, each passing their results to
- * the next in the array. However, if any of the `tasks` pass an error to their
- * own callback, the next function is not executed, and the main `callback` is
- * immediately called with the error.
- *
- * @name waterfall
- * @static
- * @memberOf module:ControlFlow
- * @method
- * @category Control Flow
- * @param {Array} tasks - An array of [async functions]{@link AsyncFunction}
- * to run.
- * Each function should complete with any number of `result` values.
- * The `result` values will be passed as arguments, in order, to the next task.
- * @param {Function} [callback] - An optional callback to run once all the
- * functions have completed. This will be passed the results of the last task's
- * callback. Invoked with (err, [results]).
- * @returns undefined
- * @example
- *
- * async.waterfall([
- *     function(callback) {
- *         callback(null, 'one', 'two');
- *     },
- *     function(arg1, arg2, callback) {
- *         // arg1 now equals 'one' and arg2 now equals 'two'
- *         callback(null, 'three');
- *     },
- *     function(arg1, callback) {
- *         // arg1 now equals 'three'
- *         callback(null, 'done');
- *     }
- * ], function (err, result) {
- *     // result now equals 'done'
- * });
- *
- * // Or, with named functions:
- * async.waterfall([
- *     myFirstFunction,
- *     mySecondFunction,
- *     myLastFunction,
- * ], function (err, result) {
- *     // result now equals 'done'
- * });
- * function myFirstFunction(callback) {
- *     callback(null, 'one', 'two');
- * }
- * function mySecondFunction(arg1, arg2, callback) {
- *     // arg1 now equals 'one' and arg2 now equals 'two'
- *     callback(null, 'three');
- * }
- * function myLastFunction(arg1, callback) {
- *     // arg1 now equals 'three'
- *     callback(null, 'done');
- * }
- */
-var waterfall = function(tasks, callback) {
-    callback = once(callback || noop);
-    if (!isArray(tasks)) return callback(new Error('First argument to waterfall must be an array of functions'));
-    if (!tasks.length) return callback();
-    var taskIndex = 0;
-
-    function nextTask(args) {
-        var task = wrapAsync(tasks[taskIndex++]);
-        args.push(onlyOnce(next));
-        task.apply(null, args);
-    }
-
-    function next(err/*, ...args*/) {
-        if (err || taskIndex === tasks.length) {
-            return callback.apply(null, arguments);
-        }
-        nextTask(slice(arguments, 1));
-    }
-
-    nextTask([]);
-};
-
-/**
- * An "async function" in the context of Async is an asynchronous function with
- * a variable number of parameters, with the final parameter being a callback.
- * (`function (arg1, arg2, ..., callback) {}`)
- * The final callback is of the form `callback(err, results...)`, which must be
- * called once the function is completed.  The callback should be called with a
- * Error as its first argument to signal that an error occurred.
- * Otherwise, if no error occurred, it should be called with `null` as the first
- * argument, and any additional `result` arguments that may apply, to signal
- * successful completion.
- * The callback must be called exactly once, ideally on a later tick of the
- * JavaScript event loop.
- *
- * This type of function is also referred to as a "Node-style async function",
- * or a "continuation passing-style function" (CPS). Most of the methods of this
- * library are themselves CPS/Node-style async functions, or functions that
- * return CPS/Node-style async functions.
- *
- * Wherever we accept a Node-style async function, we also directly accept an
- * [ES2017 `async` function]{@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function}.
- * In this case, the `async` function will not be passed a final callback
- * argument, and any thrown error will be used as the `err` argument of the
- * implicit callback, and the return value will be used as the `result` value.
- * (i.e. a `rejected` of the returned Promise becomes the `err` callback
- * argument, and a `resolved` value becomes the `result`.)
- *
- * Note, due to JavaScript limitations, we can only detect native `async`
- * functions and not transpilied implementations.
- * Your environment must have `async`/`await` support for this to work.
- * (e.g. Node > v7.6, or a recent version of a modern browser).
- * If you are using `async` functions through a transpiler (e.g. Babel), you
- * must still wrap the function with [asyncify]{@link module:Utils.asyncify},
- * because the `async function` will be compiled to an ordinary function that
- * returns a promise.
- *
- * @typedef {Function} AsyncFunction
- * @static
- */
-
-/**
- * Async is a utility module which provides straight-forward, powerful functions
- * for working with asynchronous JavaScript. Although originally designed for
- * use with [Node.js](http://nodejs.org) and installable via
- * `npm install --save async`, it can also be used directly in the browser.
- * @module async
- * @see AsyncFunction
- */
-
-
-/**
- * A collection of `async` functions for manipulating collections, such as
- * arrays and objects.
- * @module Collections
- */
-
-/**
- * A collection of `async` functions for controlling the flow through a script.
- * @module ControlFlow
- */
-
-/**
- * A collection of `async` utility functions.
- * @module Utils
- */
-
-var index = {
-    apply: apply,
-    applyEach: applyEach,
-    applyEachSeries: applyEachSeries,
-    asyncify: asyncify,
-    auto: auto,
-    autoInject: autoInject,
-    cargo: cargo,
-    compose: compose,
-    concat: concat,
-    concatLimit: concatLimit,
-    concatSeries: concatSeries,
-    constant: constant,
-    detect: detect,
-    detectLimit: detectLimit,
-    detectSeries: detectSeries,
-    dir: dir,
-    doDuring: doDuring,
-    doUntil: doUntil,
-    doWhilst: doWhilst,
-    during: during,
-    each: eachLimit,
-    eachLimit: eachLimit$1,
-    eachOf: eachOf,
-    eachOfLimit: eachOfLimit,
-    eachOfSeries: eachOfSeries,
-    eachSeries: eachSeries,
-    ensureAsync: ensureAsync,
-    every: every,
-    everyLimit: everyLimit,
-    everySeries: everySeries,
-    filter: filter,
-    filterLimit: filterLimit,
-    filterSeries: filterSeries,
-    forever: forever,
-    groupBy: groupBy,
-    groupByLimit: groupByLimit,
-    groupBySeries: groupBySeries,
-    log: log,
-    map: map,
-    mapLimit: mapLimit,
-    mapSeries: mapSeries,
-    mapValues: mapValues,
-    mapValuesLimit: mapValuesLimit,
-    mapValuesSeries: mapValuesSeries,
-    memoize: memoize,
-    nextTick: nextTick,
-    parallel: parallelLimit,
-    parallelLimit: parallelLimit$1,
-    priorityQueue: priorityQueue,
-    queue: queue$1,
-    race: race,
-    reduce: reduce,
-    reduceRight: reduceRight,
-    reflect: reflect,
-    reflectAll: reflectAll,
-    reject: reject,
-    rejectLimit: rejectLimit,
-    rejectSeries: rejectSeries,
-    retry: retry,
-    retryable: retryable,
-    seq: seq,
-    series: series,
-    setImmediate: setImmediate$1,
-    some: some,
-    someLimit: someLimit,
-    someSeries: someSeries,
-    sortBy: sortBy,
-    timeout: timeout,
-    times: times,
-    timesLimit: timeLimit,
-    timesSeries: timesSeries,
-    transform: transform,
-    tryEach: tryEach,
-    unmemoize: unmemoize,
-    until: until,
-    waterfall: waterfall,
-    whilst: whilst,
-
-    // aliases
-    all: every,
-    allLimit: everyLimit,
-    allSeries: everySeries,
-    any: some,
-    anyLimit: someLimit,
-    anySeries: someSeries,
-    find: detect,
-    findLimit: detectLimit,
-    findSeries: detectSeries,
-    forEach: eachLimit,
-    forEachSeries: eachSeries,
-    forEachLimit: eachLimit$1,
-    forEachOf: eachOf,
-    forEachOfSeries: eachOfSeries,
-    forEachOfLimit: eachOfLimit,
-    inject: reduce,
-    foldl: reduce,
-    foldr: reduceRight,
-    select: filter,
-    selectLimit: filterLimit,
-    selectSeries: filterSeries,
-    wrapSync: asyncify
-};
-
-exports['default'] = index;
-exports.apply = apply;
-exports.applyEach = applyEach;
-exports.applyEachSeries = applyEachSeries;
-exports.asyncify = asyncify;
-exports.auto = auto;
-exports.autoInject = autoInject;
-exports.cargo = cargo;
-exports.compose = compose;
-exports.concat = concat;
-exports.concatLimit = concatLimit;
-exports.concatSeries = concatSeries;
-exports.constant = constant;
-exports.detect = detect;
-exports.detectLimit = detectLimit;
-exports.detectSeries = detectSeries;
-exports.dir = dir;
-exports.doDuring = doDuring;
-exports.doUntil = doUntil;
-exports.doWhilst = doWhilst;
-exports.during = during;
-exports.each = eachLimit;
-exports.eachLimit = eachLimit$1;
-exports.eachOf = eachOf;
-exports.eachOfLimit = eachOfLimit;
-exports.eachOfSeries = eachOfSeries;
-exports.eachSeries = eachSeries;
-exports.ensureAsync = ensureAsync;
-exports.every = every;
-exports.everyLimit = everyLimit;
-exports.everySeries = everySeries;
-exports.filter = filter;
-exports.filterLimit = filterLimit;
-exports.filterSeries = filterSeries;
-exports.forever = forever;
-exports.groupBy = groupBy;
-exports.groupByLimit = groupByLimit;
-exports.groupBySeries = groupBySeries;
-exports.log = log;
-exports.map = map;
-exports.mapLimit = mapLimit;
-exports.mapSeries = mapSeries;
-exports.mapValues = mapValues;
-exports.mapValuesLimit = mapValuesLimit;
-exports.mapValuesSeries = mapValuesSeries;
-exports.memoize = memoize;
-exports.nextTick = nextTick;
-exports.parallel = parallelLimit;
-exports.parallelLimit = parallelLimit$1;
-exports.priorityQueue = priorityQueue;
-exports.queue = queue$1;
-exports.race = race;
-exports.reduce = reduce;
-exports.reduceRight = reduceRight;
-exports.reflect = reflect;
-exports.reflectAll = reflectAll;
-exports.reject = reject;
-exports.rejectLimit = rejectLimit;
-exports.rejectSeries = rejectSeries;
-exports.retry = retry;
-exports.retryable = retryable;
-exports.seq = seq;
-exports.series = series;
-exports.setImmediate = setImmediate$1;
-exports.some = some;
-exports.someLimit = someLimit;
-exports.someSeries = someSeries;
-exports.sortBy = sortBy;
-exports.timeout = timeout;
-exports.times = times;
-exports.timesLimit = timeLimit;
-exports.timesSeries = timesSeries;
-exports.transform = transform;
-exports.tryEach = tryEach;
-exports.unmemoize = unmemoize;
-exports.until = until;
-exports.waterfall = waterfall;
-exports.whilst = whilst;
-exports.all = every;
-exports.allLimit = everyLimit;
-exports.allSeries = everySeries;
-exports.any = some;
-exports.anyLimit = someLimit;
-exports.anySeries = someSeries;
-exports.find = detect;
-exports.findLimit = detectLimit;
-exports.findSeries = detectSeries;
-exports.forEach = eachLimit;
-exports.forEachSeries = eachSeries;
-exports.forEachLimit = eachLimit$1;
-exports.forEachOf = eachOf;
-exports.forEachOfSeries = eachOfSeries;
-exports.forEachOfLimit = eachOfLimit;
-exports.inject = reduce;
-exports.foldl = reduce;
-exports.foldr = reduceRight;
-exports.select = filter;
-exports.selectLimit = filterLimit;
-exports.selectSeries = filterSeries;
-exports.wrapSync = asyncify;
-
-Object.defineProperty(exports, '__esModule', { value: true });
-
-})));
-
-},{"process":17,"buffer":25}],35:[function(require,module,exports) {
+            return map;
+        }()
+    }]);
+    return Async;
+}();
+
+module.exports = new Async();
+},{"babel-runtime/regenerator":49,"babel-runtime/helpers/asyncToGenerator":11,"babel-runtime/helpers/classCallCheck":12,"babel-runtime/helpers/createClass":13}],35:[function(require,module,exports) {
 var global = arguments[3];
 var process = require("process");
 var define;
@@ -51565,7 +46053,7 @@ exports.default = function (self, call) {
 
   return call && ((typeof call === "undefined" ? "undefined" : (0, _typeof3.default)(call)) === "object" || typeof call === "function") ? call : self;
 };
-},{"../helpers/typeof":15}],320:[function(require,module,exports) {
+},{"../helpers/typeof":15}],319:[function(require,module,exports) {
 // Works with __proto__ only. Old v8 can't work with null proto objects.
 /* eslint-disable no-proto */
 var isObject = require('./_is-object');
@@ -51592,30 +46080,30 @@ module.exports = {
   check: check
 };
 
-},{"./_is-object":110,"./_an-object":176,"./_ctx":108,"./_object-gopd":274}],249:[function(require,module,exports) {
+},{"./_is-object":106,"./_an-object":177,"./_ctx":103,"./_object-gopd":274}],249:[function(require,module,exports) {
 // 19.1.3.19 Object.setPrototypeOf(O, proto)
 var $export = require('./_export');
 $export($export.S, 'Object', { setPrototypeOf: require('./_set-proto').set });
 
-},{"./_export":102,"./_set-proto":320}],195:[function(require,module,exports) {
+},{"./_export":105,"./_set-proto":319}],195:[function(require,module,exports) {
 require('../../modules/es6.object.set-prototype-of');
 module.exports = require('../../modules/_core').Object.setPrototypeOf;
 
-},{"../../modules/es6.object.set-prototype-of":249,"../../modules/_core":75}],128:[function(require,module,exports) {
+},{"../../modules/es6.object.set-prototype-of":249,"../../modules/_core":76}],128:[function(require,module,exports) {
 module.exports = { "default": require("core-js/library/fn/object/set-prototype-of"), __esModule: true };
 },{"core-js/library/fn/object/set-prototype-of":195}],250:[function(require,module,exports) {
 var $export = require('./_export');
 // 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
 $export($export.S, 'Object', { create: require('./_object-create') });
 
-},{"./_export":102,"./_object-create":242}],196:[function(require,module,exports) {
+},{"./_export":105,"./_object-create":240}],196:[function(require,module,exports) {
 require('../../modules/es6.object.create');
 var $Object = require('../../modules/_core').Object;
 module.exports = function create(P, D) {
   return $Object.create(P, D);
 };
 
-},{"../../modules/es6.object.create":250,"../../modules/_core":75}],129:[function(require,module,exports) {
+},{"../../modules/es6.object.create":250,"../../modules/_core":76}],129:[function(require,module,exports) {
 module.exports = { "default": require("core-js/library/fn/object/create"), __esModule: true };
 },{"core-js/library/fn/object/create":196}],82:[function(require,module,exports) {
 "use strict";
@@ -51687,7 +46175,7 @@ var Decorator = function () {
 }();
 
 module.exports = Decorator;
-},{"babel-runtime/helpers/classCallCheck":12,"babel-runtime/helpers/createClass":13,"lodash":8}],50:[function(require,module,exports) {
+},{"babel-runtime/helpers/classCallCheck":12,"babel-runtime/helpers/createClass":13,"lodash":8}],52:[function(require,module,exports) {
 'use strict';
 
 var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
@@ -51733,7 +46221,7 @@ var DecoratorEvent = function (_Decorator) {
 }(Decorator);
 
 module.exports = DecoratorEvent;
-},{"babel-runtime/helpers/classCallCheck":12,"babel-runtime/helpers/createClass":13,"babel-runtime/helpers/possibleConstructorReturn":81,"babel-runtime/helpers/inherits":82,"./decorator":78}],51:[function(require,module,exports) {
+},{"babel-runtime/helpers/classCallCheck":12,"babel-runtime/helpers/createClass":13,"babel-runtime/helpers/possibleConstructorReturn":81,"babel-runtime/helpers/inherits":82,"./decorator":78}],50:[function(require,module,exports) {
 'use strict';
 
 var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
@@ -51786,6 +46274,12 @@ var IntentEvent = function (_Decorator) {
                 }
                 var intentName = _this2.params[0];
                 var intent = intents[intentName];
+                if (intentName.regexp) {
+                    var regexp = new RegExp(intentName.regexp, intentName.flags.join(''));
+                    if (regexp.test(execution.input)) {
+                        return resolve(true);
+                    }
+                }
                 if (intent) {
                     execution.setMagicVar('intent', intent);
                     return resolve(true);
@@ -51798,7 +46292,7 @@ var IntentEvent = function (_Decorator) {
 }(Decorator);
 
 module.exports = IntentEvent;
-},{"babel-runtime/helpers/classCallCheck":12,"babel-runtime/helpers/createClass":13,"babel-runtime/helpers/possibleConstructorReturn":81,"babel-runtime/helpers/inherits":82,"./decorator":78,"lodash":8}],52:[function(require,module,exports) {
+},{"babel-runtime/helpers/classCallCheck":12,"babel-runtime/helpers/createClass":13,"babel-runtime/helpers/possibleConstructorReturn":81,"babel-runtime/helpers/inherits":82,"./decorator":78,"lodash":8}],51:[function(require,module,exports) {
 'use strict';
 
 var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
@@ -51835,7 +46329,7 @@ var Intent = require('./Intent');
 var Action = require('./Action');
 
 module.exports = { Event: DecoratorEvent, Intent: Intent, Action: Action };
-},{"./Event":50,"./Intent":51,"./Action":52}],16:[function(require,module,exports) {
+},{"./Event":52,"./Intent":50,"./Action":51}],16:[function(require,module,exports) {
 'use strict';
 
 var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
@@ -52020,7 +46514,7 @@ var Decorators = function () {
 }();
 
 module.exports = Decorators;
-},{"babel-runtime/helpers/classCallCheck":12,"babel-runtime/helpers/createClass":13,"./index":31,"lodash":8}],259:[function(require,module,exports) {
+},{"babel-runtime/helpers/classCallCheck":12,"babel-runtime/helpers/createClass":13,"./index":31,"lodash":8}],256:[function(require,module,exports) {
 var classof = require('./_classof');
 var ITERATOR = require('./_wks')('iterator');
 var Iterators = require('./_iterators');
@@ -52032,14 +46526,14 @@ module.exports = require('./_core').isIterable = function (it) {
     || Iterators.hasOwnProperty(classof(O));
 };
 
-},{"./_classof":109,"./_wks":101,"./_iterators":100,"./_core":75}],197:[function(require,module,exports) {
+},{"./_classof":104,"./_wks":101,"./_iterators":100,"./_core":76}],197:[function(require,module,exports) {
 require('../modules/web.dom.iterable');
 require('../modules/es6.string.iterator');
 module.exports = require('../modules/core.is-iterable');
 
-},{"../modules/web.dom.iterable":72,"../modules/es6.string.iterator":71,"../modules/core.is-iterable":259}],144:[function(require,module,exports) {
+},{"../modules/web.dom.iterable":72,"../modules/es6.string.iterator":71,"../modules/core.is-iterable":256}],144:[function(require,module,exports) {
 module.exports = { "default": require("core-js/library/fn/is-iterable"), __esModule: true };
-},{"core-js/library/fn/is-iterable":197}],260:[function(require,module,exports) {
+},{"core-js/library/fn/is-iterable":197}],257:[function(require,module,exports) {
 var anObject = require('./_an-object');
 var get = require('./core.get-iterator-method');
 module.exports = require('./_core').getIterator = function (it) {
@@ -52048,12 +46542,12 @@ module.exports = require('./_core').getIterator = function (it) {
   return anObject(iterFn.call(it));
 };
 
-},{"./_an-object":176,"./core.get-iterator-method":135,"./_core":75}],198:[function(require,module,exports) {
+},{"./_an-object":177,"./core.get-iterator-method":135,"./_core":76}],198:[function(require,module,exports) {
 require('../modules/web.dom.iterable');
 require('../modules/es6.string.iterator');
 module.exports = require('../modules/core.get-iterator');
 
-},{"../modules/web.dom.iterable":72,"../modules/es6.string.iterator":71,"../modules/core.get-iterator":260}],145:[function(require,module,exports) {
+},{"../modules/web.dom.iterable":72,"../modules/es6.string.iterator":71,"../modules/core.get-iterator":257}],145:[function(require,module,exports) {
 module.exports = { "default": require("core-js/library/fn/get-iterator"), __esModule: true };
 },{"core-js/library/fn/get-iterator":198}],92:[function(require,module,exports) {
 "use strict";
@@ -52107,7 +46601,7 @@ exports.default = function () {
     }
   };
 }();
-},{"../core-js/is-iterable":144,"../core-js/get-iterator":145}],58:[function(require,module,exports) {
+},{"../core-js/is-iterable":144,"../core-js/get-iterator":145}],56:[function(require,module,exports) {
 'use strict';
 
 var _slicedToArray2 = require('babel-runtime/helpers/slicedToArray');
@@ -52256,7 +46750,7 @@ var evaluate = require('static-eval');
 var _require = require('esprima'),
     parse = _require.parse;
 
-var async = require('async');
+var async = require('./utils/async');
 var asyncReplace = require('async-replace');
 
 var Decorators = require('./decorators/decorators');
@@ -52806,245 +47300,229 @@ var Execution = function () {
             var _this5 = this;
 
             return new Promise(function () {
-                var _ref5 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee7(resolve, reject) {
+                var _ref5 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee6(resolve, reject) {
                     var scope, value, name, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, address, valueObj;
 
-                    return _regenerator2.default.wrap(function _callee7$(_context7) {
+                    return _regenerator2.default.wrap(function _callee6$(_context6) {
                         while (1) {
-                            switch (_context7.prev = _context7.next) {
+                            switch (_context6.prev = _context6.next) {
                                 case 0:
                                     scope = _this5.getScope(level);
                                     value = obj;
 
+                                    console.log(value);
+
                                     if (!(value === null)) {
-                                        _context7.next = 4;
+                                        _context6.next = 5;
                                         break;
                                     }
 
-                                    return _context7.abrupt('return', resolve(value));
+                                    return _context6.abrupt('return', resolve(value));
 
-                                case 4:
-                                    if (!_.isArray(obj)) {
-                                        _context7.next = 7;
+                                case 5:
+                                    if (!_.isArray(value)) {
+                                        _context6.next = 11;
                                         break;
                                     }
 
-                                    async.map(obj, function () {
-                                        var _ref6 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee5(val) {
-                                            return _regenerator2.default.wrap(function _callee5$(_context5) {
-                                                while (1) {
-                                                    switch (_context5.prev = _context5.next) {
-                                                        case 0:
-                                                            _context5.next = 2;
-                                                            return _this5.getValue(val, level);
-
-                                                        case 2:
-                                                            return _context5.abrupt('return', _context5.sent);
-
-                                                        case 3:
-                                                        case 'end':
-                                                            return _context5.stop();
-                                                    }
-                                                }
-                                            }, _callee5, _this5);
-                                        }));
-
-                                        return function (_x14) {
-                                            return _ref6.apply(this, arguments);
-                                        };
-                                    }(), function (err, value) {
-                                        if (err) return reject(err);
-                                        resolve(value);
+                                    _context6.next = 8;
+                                    return async.map(obj, function (val) {
+                                        return _this5.getValue(val, level);
                                     });
-                                    return _context7.abrupt('return');
 
-                                case 7:
+                                case 8:
+                                    value = _context6.sent;
+
+                                    resolve(value);
+                                    return _context6.abrupt('return');
+
+                                case 11:
                                     if (!obj.expression) {
-                                        _context7.next = 13;
+                                        _context6.next = 17;
                                         break;
                                     }
 
-                                    _context7.next = 10;
+                                    _context6.next = 14;
                                     return _this5.execExpression(obj.expression, obj.variables, level);
 
-                                case 10:
-                                    value = _context7.sent;
-                                    _context7.next = 65;
+                                case 14:
+                                    value = _context6.sent;
+                                    _context6.next = 69;
                                     break;
 
-                                case 13:
+                                case 17:
                                     if (!obj.variable) {
-                                        _context7.next = 24;
+                                        _context6.next = 28;
                                         break;
                                     }
 
                                     if (!/^:/.test(obj.variable)) {
-                                        _context7.next = 19;
+                                        _context6.next = 23;
                                         break;
                                     }
 
                                     name = value.variable;
 
                                     value = _this5.getMagicVar(name, value, level);
-                                    _context7.next = 22;
+                                    _context6.next = 26;
                                     break;
 
-                                case 19:
-                                    _context7.next = 21;
+                                case 23:
+                                    _context6.next = 25;
                                     return _this5.getVariable(obj, level);
 
-                                case 21:
-                                    value = _context7.sent;
+                                case 25:
+                                    value = _context6.sent;
 
-                                case 22:
-                                    _context7.next = 65;
+                                case 26:
+                                    _context6.next = 69;
                                     break;
 
-                                case 24:
+                                case 28:
                                     if (!(obj.text && !obj.__deepIndex)) {
-                                        _context7.next = 30;
+                                        _context6.next = 34;
                                         break;
                                     }
 
-                                    _context7.next = 27;
+                                    _context6.next = 31;
                                     return new Promise(function (resolve, reject) {
                                         asyncReplace(obj.text, /\{([^\}]+)\}/g, function () {
-                                            var _ref7 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee6(match, sub, offset, string, done) {
-                                                return _regenerator2.default.wrap(function _callee6$(_context6) {
+                                            var _ref6 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee5(match, sub, offset, string, done) {
+                                                return _regenerator2.default.wrap(function _callee5$(_context5) {
                                                     while (1) {
-                                                        switch (_context6.prev = _context6.next) {
+                                                        switch (_context5.prev = _context5.next) {
                                                             case 0:
-                                                                _context6.t0 = done;
-                                                                _context6.next = 3;
+                                                                _context5.t0 = done;
+                                                                _context5.next = 3;
                                                                 return _this5.getValue(obj.variables[sub].value, level);
 
                                                             case 3:
-                                                                _context6.t1 = _context6.sent;
-                                                                (0, _context6.t0)(null, _context6.t1);
+                                                                _context5.t1 = _context5.sent;
+                                                                (0, _context5.t0)(null, _context5.t1);
 
                                                             case 5:
                                                             case 'end':
-                                                                return _context6.stop();
+                                                                return _context5.stop();
                                                         }
                                                     }
-                                                }, _callee6, _this5);
+                                                }, _callee5, _this5);
                                             }));
 
-                                            return function (_x15, _x16, _x17, _x18, _x19) {
-                                                return _ref7.apply(this, arguments);
+                                            return function (_x14, _x15, _x16, _x17, _x18) {
+                                                return _ref6.apply(this, arguments);
                                             };
                                         }(), function (err, result) {
                                             resolve(result);
                                         });
                                     });
 
-                                case 27:
-                                    value = _context7.sent;
-                                    _context7.next = 65;
+                                case 31:
+                                    value = _context6.sent;
+                                    _context6.next = 69;
                                     break;
 
-                                case 30:
+                                case 34:
                                     if (!(obj.type == 'executeFn')) {
-                                        _context7.next = 36;
+                                        _context6.next = 40;
                                         break;
                                     }
 
-                                    _context7.next = 33;
+                                    _context6.next = 37;
                                     return _this5.findFunctionAndExec(obj, level);
 
-                                case 33:
-                                    value = _context7.sent;
-                                    _context7.next = 65;
+                                case 37:
+                                    value = _context6.sent;
+                                    _context6.next = 69;
                                     break;
 
-                                case 36:
+                                case 40:
                                     if (!value.__deepIndex) {
-                                        _context7.next = 65;
+                                        _context6.next = 69;
                                         break;
                                     }
 
                                     _iteratorNormalCompletion = true;
                                     _didIteratorError = false;
                                     _iteratorError = undefined;
-                                    _context7.prev = 40;
+                                    _context6.prev = 44;
                                     _iterator = value.__deepIndex[Symbol.iterator]();
 
-                                case 42:
+                                case 46:
                                     if (_iteratorNormalCompletion = (_step = _iterator.next()).done) {
-                                        _context7.next = 51;
+                                        _context6.next = 55;
                                         break;
                                     }
 
                                     address = _step.value;
-                                    _context7.next = 46;
+                                    _context6.next = 50;
                                     return _this5.getValue(_.get(value, address), level, next);
 
-                                case 46:
-                                    valueObj = _context7.sent;
+                                case 50:
+                                    valueObj = _context6.sent;
 
                                     _.set(value, address, valueObj);
 
-                                case 48:
+                                case 52:
                                     _iteratorNormalCompletion = true;
-                                    _context7.next = 42;
+                                    _context6.next = 46;
                                     break;
 
-                                case 51:
-                                    _context7.next = 57;
+                                case 55:
+                                    _context6.next = 61;
                                     break;
-
-                                case 53:
-                                    _context7.prev = 53;
-                                    _context7.t0 = _context7['catch'](40);
-                                    _didIteratorError = true;
-                                    _iteratorError = _context7.t0;
 
                                 case 57:
-                                    _context7.prev = 57;
-                                    _context7.prev = 58;
+                                    _context6.prev = 57;
+                                    _context6.t0 = _context6['catch'](44);
+                                    _didIteratorError = true;
+                                    _iteratorError = _context6.t0;
+
+                                case 61:
+                                    _context6.prev = 61;
+                                    _context6.prev = 62;
 
                                     if (!_iteratorNormalCompletion && _iterator.return) {
                                         _iterator.return();
                                     }
 
-                                case 60:
-                                    _context7.prev = 60;
+                                case 64:
+                                    _context6.prev = 64;
 
                                     if (!_didIteratorError) {
-                                        _context7.next = 63;
+                                        _context6.next = 67;
                                         break;
                                     }
 
                                     throw _iteratorError;
 
-                                case 63:
-                                    return _context7.finish(60);
+                                case 67:
+                                    return _context6.finish(64);
 
-                                case 64:
-                                    return _context7.finish(57);
+                                case 68:
+                                    return _context6.finish(61);
 
-                                case 65:
+                                case 69:
                                     if (!(_.isString(value) && value[0] === '#')) {
-                                        _context7.next = 69;
+                                        _context6.next = 73;
                                         break;
                                     }
 
-                                    _context7.next = 68;
+                                    _context6.next = 72;
                                     return _this5.translate(value.substr(1), level);
 
-                                case 68:
-                                    value = _context7.sent;
+                                case 72:
+                                    value = _context6.sent;
 
-                                case 69:
+                                case 73:
 
                                     resolve(value);
 
-                                case 70:
+                                case 74:
                                 case 'end':
-                                    return _context7.stop();
+                                    return _context6.stop();
                             }
                         }
-                    }, _callee7, _this5, [[40, 53, 57, 65], [58,, 60, 64]]);
+                    }, _callee6, _this5, [[44, 57, 61, 69], [62,, 64, 68]]);
                 }));
 
                 return function (_x12, _x13) {
@@ -53098,26 +47576,26 @@ var Execution = function () {
             var _this8 = this;
 
             return new Promise(function () {
-                var _ref8 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee9(resolve, reject) {
+                var _ref7 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee8(resolve, reject) {
                     var ast;
-                    return _regenerator2.default.wrap(function _callee9$(_context9) {
+                    return _regenerator2.default.wrap(function _callee8$(_context8) {
                         while (1) {
-                            switch (_context9.prev = _context9.next) {
+                            switch (_context8.prev = _context8.next) {
                                 case 0:
-                                    _context9.next = 2;
+                                    _context8.next = 2;
                                     return new Promise(function (resolve, reject) {
                                         asyncReplace(expr, /\{([0-9]+)\}/g, function () {
-                                            var _ref9 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee8(match, index, offset, string, done) {
+                                            var _ref8 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee7(match, index, offset, string, done) {
                                                 var val;
-                                                return _regenerator2.default.wrap(function _callee8$(_context8) {
+                                                return _regenerator2.default.wrap(function _callee7$(_context7) {
                                                     while (1) {
-                                                        switch (_context8.prev = _context8.next) {
+                                                        switch (_context7.prev = _context7.next) {
                                                             case 0:
-                                                                _context8.next = 2;
+                                                                _context7.next = 2;
                                                                 return _this8.getValue(variables[index], level);
 
                                                             case 2:
-                                                                val = _context8.sent;
+                                                                val = _context7.sent;
 
                                                                 if (!/^[0-9]+(\.[0-9]+)?$/.test(val) && !_.isBoolean(val) && val !== null) {
                                                                     val = '"' + val + '"';
@@ -53126,14 +47604,14 @@ var Execution = function () {
 
                                                             case 5:
                                                             case 'end':
-                                                                return _context8.stop();
+                                                                return _context7.stop();
                                                         }
                                                     }
-                                                }, _callee8, _this8);
+                                                }, _callee7, _this8);
                                             }));
 
-                                            return function (_x23, _x24, _x25, _x26, _x27) {
-                                                return _ref9.apply(this, arguments);
+                                            return function (_x22, _x23, _x24, _x25, _x26) {
+                                                return _ref8.apply(this, arguments);
                                             };
                                         }(), function (err, result) {
                                             resolve(result);
@@ -53141,7 +47619,7 @@ var Execution = function () {
                                     });
 
                                 case 2:
-                                    expr = _context9.sent;
+                                    expr = _context8.sent;
 
                                     expr = expr.replace(/'/g, '"');
                                     expr = expr.replace(/not/g, '!');
@@ -53153,14 +47631,14 @@ var Execution = function () {
 
                                 case 9:
                                 case 'end':
-                                    return _context9.stop();
+                                    return _context8.stop();
                             }
                         }
-                    }, _callee9, _this8);
+                    }, _callee8, _this8);
                 }));
 
-                return function (_x21, _x22) {
-                    return _ref8.apply(this, arguments);
+                return function (_x20, _x21) {
+                    return _ref7.apply(this, arguments);
                 };
             }());
         }
@@ -53184,45 +47662,45 @@ var Execution = function () {
     }, {
         key: 'translate',
         value: function () {
-            var _ref10 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee10(str, level) {
+            var _ref9 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee9(str, level) {
                 var params = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
 
                 var converse, lang, hasTranslate, _converse$lang;
 
-                return _regenerator2.default.wrap(function _callee10$(_context10) {
+                return _regenerator2.default.wrap(function _callee9$(_context9) {
                     while (1) {
-                        switch (_context10.prev = _context10.next) {
+                        switch (_context9.prev = _context9.next) {
                             case 0:
                                 converse = this.interpreter.converse;
                                 lang = this.user.getLang() || converse.lang.current;
                                 hasTranslate = converse.lang.data[lang] && converse.lang.get(str, null, lang);
 
                                 if (!hasTranslate) {
-                                    _context10.next = 8;
+                                    _context9.next = 8;
                                     break;
                                 }
 
-                                _context10.next = 6;
+                                _context9.next = 6;
                                 return this.execParams(params, level);
 
                             case 6:
-                                params = _context10.sent;
+                                params = _context9.sent;
 
                                 str = (_converse$lang = converse.lang).translate.apply(_converse$lang, [str].concat([lang].concat((0, _toConsumableArray3.default)(params))));
 
                             case 8:
-                                return _context10.abrupt('return', str);
+                                return _context9.abrupt('return', str);
 
                             case 9:
                             case 'end':
-                                return _context10.stop();
+                                return _context9.stop();
                         }
                     }
-                }, _callee10, this);
+                }, _callee9, this);
             }));
 
-            function translate(_x29, _x30) {
-                return _ref10.apply(this, arguments);
+            function translate(_x28, _x29) {
+                return _ref9.apply(this, arguments);
             }
 
             return translate;
@@ -53233,72 +47711,72 @@ var Execution = function () {
             var _this10 = this;
 
             return new Promise(function () {
-                var _ref11 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee11(resolve, reject) {
+                var _ref10 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee10(resolve, reject) {
                     var converse, outputValue, _iteratorNormalCompletion2, _didIteratorError2, _iteratorError2, _iterator2, _step2, d, params, name, send, triggerFound;
 
-                    return _regenerator2.default.wrap(function _callee11$(_context11) {
+                    return _regenerator2.default.wrap(function _callee10$(_context10) {
                         while (1) {
-                            switch (_context11.prev = _context11.next) {
+                            switch (_context10.prev = _context10.next) {
                                 case 0:
                                     converse = _this10.interpreter.converse;
                                     outputValue = ins.output;
 
                                     if (_this10.output) {
-                                        _context11.next = 4;
+                                        _context10.next = 4;
                                         break;
                                     }
 
-                                    return _context11.abrupt('return');
+                                    return _context10.abrupt('return');
 
                                 case 4:
                                     if (!ins.output.variables) {
-                                        _context11.next = 8;
+                                        _context10.next = 8;
                                         break;
                                     }
 
-                                    _context11.next = 7;
+                                    _context10.next = 7;
                                     return _this10.getValue(ins.output, level);
 
                                 case 7:
-                                    outputValue = _context11.sent;
+                                    outputValue = _context10.sent;
 
                                 case 8:
-                                    _context11.next = 10;
+                                    _context10.next = 10;
                                     return _this10.translate(outputValue, level, ins.params);
 
                                 case 10:
-                                    outputValue = _context11.sent;
+                                    outputValue = _context10.sent;
 
                                     if (!ins.decorators) {
-                                        _context11.next = 43;
+                                        _context10.next = 43;
                                         break;
                                     }
 
                                     _iteratorNormalCompletion2 = true;
                                     _didIteratorError2 = false;
                                     _iteratorError2 = undefined;
-                                    _context11.prev = 15;
+                                    _context10.prev = 15;
                                     _iterator2 = ins.decorators[Symbol.iterator]();
 
                                 case 17:
                                     if (_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done) {
-                                        _context11.next = 29;
+                                        _context10.next = 29;
                                         break;
                                     }
 
                                     d = _step2.value;
 
                                     if (!(d.name == 'Format')) {
-                                        _context11.next = 26;
+                                        _context10.next = 26;
                                         break;
                                     }
 
                                     params = [].concat((0, _toConsumableArray3.default)(d.params));
-                                    _context11.next = 23;
+                                    _context10.next = 23;
                                     return _this10.execParams(params, level);
 
                                 case 23:
-                                    params = _context11.sent;
+                                    params = _context10.sent;
                                     name = params[0];
 
                                     if (converse._format[name]) {
@@ -53308,42 +47786,42 @@ var Execution = function () {
 
                                 case 26:
                                     _iteratorNormalCompletion2 = true;
-                                    _context11.next = 17;
+                                    _context10.next = 17;
                                     break;
 
                                 case 29:
-                                    _context11.next = 35;
+                                    _context10.next = 35;
                                     break;
 
                                 case 31:
-                                    _context11.prev = 31;
-                                    _context11.t0 = _context11['catch'](15);
+                                    _context10.prev = 31;
+                                    _context10.t0 = _context10['catch'](15);
                                     _didIteratorError2 = true;
-                                    _iteratorError2 = _context11.t0;
+                                    _iteratorError2 = _context10.t0;
 
                                 case 35:
-                                    _context11.prev = 35;
-                                    _context11.prev = 36;
+                                    _context10.prev = 35;
+                                    _context10.prev = 36;
 
                                     if (!_iteratorNormalCompletion2 && _iterator2.return) {
                                         _iterator2.return();
                                     }
 
                                 case 38:
-                                    _context11.prev = 38;
+                                    _context10.prev = 38;
 
                                     if (!_didIteratorError2) {
-                                        _context11.next = 41;
+                                        _context10.next = 41;
                                         break;
                                     }
 
                                     throw _iteratorError2;
 
                                 case 41:
-                                    return _context11.finish(38);
+                                    return _context10.finish(38);
 
                                 case 42:
-                                    return _context11.finish(35);
+                                    return _context10.finish(35);
 
                                 case 43:
                                     send = function send(outputChanged) {
@@ -53368,14 +47846,14 @@ var Execution = function () {
 
                                 case 46:
                                 case 'end':
-                                    return _context11.stop();
+                                    return _context10.stop();
                             }
                         }
-                    }, _callee11, _this10, [[15, 31, 35, 43], [36,, 38, 42]]);
+                    }, _callee10, _this10, [[15, 31, 35, 43], [36,, 38, 42]]);
                 }));
 
-                return function (_x31, _x32) {
-                    return _ref11.apply(this, arguments);
+                return function (_x30, _x31) {
+                    return _ref10.apply(this, arguments);
                 };
             }());
         }
@@ -53392,46 +47870,23 @@ var Execution = function () {
         value: function execParams(params, level, done) {
             var _this11 = this;
 
-            return new Promise(function (resolve, reject) {
-                async.map(params, function () {
-                    var _ref12 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee12(val) {
-                        return _regenerator2.default.wrap(function _callee12$(_context12) {
-                            while (1) {
-                                switch (_context12.prev = _context12.next) {
-                                    case 0:
-                                        _context12.next = 2;
-                                        return _this11.getValue(val, level, done);
-
-                                    case 2:
-                                        return _context12.abrupt('return', _context12.sent);
-
-                                    case 3:
-                                    case 'end':
-                                        return _context12.stop();
-                                }
-                            }
-                        }, _callee12, _this11);
-                    }));
-
-                    return function (_x33) {
-                        return _ref12.apply(this, arguments);
-                    };
-                }(), function (err, result) {
-                    if (err) return reject(err);
-                    resolve(result);
-                });
+            if (!params) {
+                return Promise.resolve([]);
+            }
+            return async.map(params, function (val) {
+                return _this11.getValue(val, level, done);
             });
         }
     }, {
         key: 'execApiFn',
         value: function () {
-            var _ref13 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee13(ins, level, done, more) {
-                return _regenerator2.default.wrap(function _callee13$(_context13) {
+            var _ref11 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee11(ins, level, done, more) {
+                return _regenerator2.default.wrap(function _callee11$(_context11) {
                     while (1) {
-                        switch (_context13.prev = _context13.next) {
+                        switch (_context11.prev = _context11.next) {
                             case 0:
-                                _context13.t0 = ins.name;
-                                _context13.next = _context13.t0 === 'Prompt' ? 3 : _context13.t0 === 'Input' ? 3 : 8;
+                                _context11.t0 = ins.name;
+                                _context11.next = _context11.t0 === 'Prompt' ? 3 : _context11.t0 === 'Input' ? 3 : 8;
                                 break;
 
                             case 3:
@@ -53445,34 +47900,34 @@ var Execution = function () {
                                     this.options.waintingInput.call(this, ins.params, level);
                                 }
                                 this._finishScript();
-                                return _context13.abrupt('return');
+                                return _context11.abrupt('return');
 
                             case 8:
                                 more.execution = this;
                                 more.level = level;
                                 more.ins = ins;
-                                _context13.t1 = (more.context || this).interpreter.converse;
-                                _context13.t2 = ins.name;
-                                _context13.next = 15;
+                                _context11.t1 = (more.context || this).interpreter.converse;
+                                _context11.t2 = ins.name;
+                                _context11.next = 15;
                                 return this.execParams(ins.params, level, done);
 
                             case 15:
-                                _context13.t3 = _context13.sent;
-                                _context13.t4 = done;
-                                _context13.t5 = this.user;
-                                _context13.t6 = more;
-                                return _context13.abrupt('return', _context13.t1.execFunction.call(_context13.t1, _context13.t2, _context13.t3, _context13.t4, _context13.t5, _context13.t6));
+                                _context11.t3 = _context11.sent;
+                                _context11.t4 = done;
+                                _context11.t5 = this.user;
+                                _context11.t6 = more;
+                                return _context11.abrupt('return', _context11.t1.execFunction.call(_context11.t1, _context11.t2, _context11.t3, _context11.t4, _context11.t5, _context11.t6));
 
                             case 20:
                             case 'end':
-                                return _context13.stop();
+                                return _context11.stop();
                         }
                     }
-                }, _callee13, this);
+                }, _callee11, this);
             }));
 
-            function execApiFn(_x34, _x35, _x36, _x37) {
-                return _ref13.apply(this, arguments);
+            function execApiFn(_x32, _x33, _x34, _x35) {
+                return _ref11.apply(this, arguments);
             }
 
             return execApiFn;
@@ -53572,7 +48027,7 @@ var Interpreter = function () {
 }();
 
 module.exports = Interpreter;
-},{"babel-runtime/helpers/typeof":15,"babel-runtime/regenerator":49,"babel-runtime/helpers/asyncToGenerator":11,"babel-runtime/helpers/toConsumableArray":10,"babel-runtime/helpers/classCallCheck":12,"babel-runtime/helpers/createClass":13,"lodash":8,"colors":77,"./user":3,"md5":18,"static-eval":19,"esprima":20,"async":21,"async-replace":22,"./decorators/decorators":16,"./error":58}],605:[function(require,module,exports) {
+},{"babel-runtime/helpers/typeof":15,"babel-runtime/regenerator":49,"babel-runtime/helpers/asyncToGenerator":11,"babel-runtime/helpers/toConsumableArray":10,"babel-runtime/helpers/classCallCheck":12,"babel-runtime/helpers/createClass":13,"lodash":8,"colors":77,"./user":3,"md5":18,"static-eval":19,"esprima":20,"./utils/async":596,"async-replace":22,"./decorators/decorators":16,"./error":56}],181:[function(require,module,exports) {
 'use strict';
 
 var hasOwn = Object.prototype.hasOwnProperty;
@@ -55127,7 +49582,7 @@ Url.prototype.parseHost = function() {
   if (host) this.hostname = host;
 };
 
-},{"punycode":266,"./util":251,"querystring":261}],635:[function(require,module,exports) {
+},{"punycode":266,"./util":251,"querystring":261}],297:[function(require,module,exports) {
 /****************************************************
  * AUTOMATICALLY GENERATED by generate-pubsuffix.js *
  *                  DO NOT EDIT!                    *
@@ -55229,7 +49684,7 @@ module.exports.getPublicSuffix = function getPublicSuffix(domain) {
 var index = module.exports.index = Object.freeze({ "ac": true, "com.ac": true, "edu.ac": true, "gov.ac": true, "net.ac": true, "mil.ac": true, "org.ac": true, "ad": true, "nom.ad": true, "ae": true, "co.ae": true, "net.ae": true, "org.ae": true, "sch.ae": true, "ac.ae": true, "gov.ae": true, "mil.ae": true, "aero": true, "accident-investigation.aero": true, "accident-prevention.aero": true, "aerobatic.aero": true, "aeroclub.aero": true, "aerodrome.aero": true, "agents.aero": true, "aircraft.aero": true, "airline.aero": true, "airport.aero": true, "air-surveillance.aero": true, "airtraffic.aero": true, "air-traffic-control.aero": true, "ambulance.aero": true, "amusement.aero": true, "association.aero": true, "author.aero": true, "ballooning.aero": true, "broker.aero": true, "caa.aero": true, "cargo.aero": true, "catering.aero": true, "certification.aero": true, "championship.aero": true, "charter.aero": true, "civilaviation.aero": true, "club.aero": true, "conference.aero": true, "consultant.aero": true, "consulting.aero": true, "control.aero": true, "council.aero": true, "crew.aero": true, "design.aero": true, "dgca.aero": true, "educator.aero": true, "emergency.aero": true, "engine.aero": true, "engineer.aero": true, "entertainment.aero": true, "equipment.aero": true, "exchange.aero": true, "express.aero": true, "federation.aero": true, "flight.aero": true, "freight.aero": true, "fuel.aero": true, "gliding.aero": true, "government.aero": true, "groundhandling.aero": true, "group.aero": true, "hanggliding.aero": true, "homebuilt.aero": true, "insurance.aero": true, "journal.aero": true, "journalist.aero": true, "leasing.aero": true, "logistics.aero": true, "magazine.aero": true, "maintenance.aero": true, "media.aero": true, "microlight.aero": true, "modelling.aero": true, "navigation.aero": true, "parachuting.aero": true, "paragliding.aero": true, "passenger-association.aero": true, "pilot.aero": true, "press.aero": true, "production.aero": true, "recreation.aero": true, "repbody.aero": true, "res.aero": true, "research.aero": true, "rotorcraft.aero": true, "safety.aero": true, "scientist.aero": true, "services.aero": true, "show.aero": true, "skydiving.aero": true, "software.aero": true, "student.aero": true, "trader.aero": true, "trading.aero": true, "trainer.aero": true, "union.aero": true, "workinggroup.aero": true, "works.aero": true, "af": true, "gov.af": true, "com.af": true, "org.af": true, "net.af": true, "edu.af": true, "ag": true, "com.ag": true, "org.ag": true, "net.ag": true, "co.ag": true, "nom.ag": true, "ai": true, "off.ai": true, "com.ai": true, "net.ai": true, "org.ai": true, "al": true, "com.al": true, "edu.al": true, "gov.al": true, "mil.al": true, "net.al": true, "org.al": true, "am": true, "ao": true, "ed.ao": true, "gv.ao": true, "og.ao": true, "co.ao": true, "pb.ao": true, "it.ao": true, "aq": true, "ar": true, "com.ar": true, "edu.ar": true, "gob.ar": true, "gov.ar": true, "int.ar": true, "mil.ar": true, "net.ar": true, "org.ar": true, "tur.ar": true, "arpa": true, "e164.arpa": true, "in-addr.arpa": true, "ip6.arpa": true, "iris.arpa": true, "uri.arpa": true, "urn.arpa": true, "as": true, "gov.as": true, "asia": true, "at": true, "ac.at": true, "co.at": true, "gv.at": true, "or.at": true, "au": true, "com.au": true, "net.au": true, "org.au": true, "edu.au": true, "gov.au": true, "asn.au": true, "id.au": true, "info.au": true, "conf.au": true, "oz.au": true, "act.au": true, "nsw.au": true, "nt.au": true, "qld.au": true, "sa.au": true, "tas.au": true, "vic.au": true, "wa.au": true, "act.edu.au": true, "nsw.edu.au": true, "nt.edu.au": true, "qld.edu.au": true, "sa.edu.au": true, "tas.edu.au": true, "vic.edu.au": true, "wa.edu.au": true, "qld.gov.au": true, "sa.gov.au": true, "tas.gov.au": true, "vic.gov.au": true, "wa.gov.au": true, "aw": true, "com.aw": true, "ax": true, "az": true, "com.az": true, "net.az": true, "int.az": true, "gov.az": true, "org.az": true, "edu.az": true, "info.az": true, "pp.az": true, "mil.az": true, "name.az": true, "pro.az": true, "biz.az": true, "ba": true, "com.ba": true, "edu.ba": true, "gov.ba": true, "mil.ba": true, "net.ba": true, "org.ba": true, "bb": true, "biz.bb": true, "co.bb": true, "com.bb": true, "edu.bb": true, "gov.bb": true, "info.bb": true, "net.bb": true, "org.bb": true, "store.bb": true, "tv.bb": true, "*.bd": true, "be": true, "ac.be": true, "bf": true, "gov.bf": true, "bg": true, "a.bg": true, "b.bg": true, "c.bg": true, "d.bg": true, "e.bg": true, "f.bg": true, "g.bg": true, "h.bg": true, "i.bg": true, "j.bg": true, "k.bg": true, "l.bg": true, "m.bg": true, "n.bg": true, "o.bg": true, "p.bg": true, "q.bg": true, "r.bg": true, "s.bg": true, "t.bg": true, "u.bg": true, "v.bg": true, "w.bg": true, "x.bg": true, "y.bg": true, "z.bg": true, "0.bg": true, "1.bg": true, "2.bg": true, "3.bg": true, "4.bg": true, "5.bg": true, "6.bg": true, "7.bg": true, "8.bg": true, "9.bg": true, "bh": true, "com.bh": true, "edu.bh": true, "net.bh": true, "org.bh": true, "gov.bh": true, "bi": true, "co.bi": true, "com.bi": true, "edu.bi": true, "or.bi": true, "org.bi": true, "biz": true, "bj": true, "asso.bj": true, "barreau.bj": true, "gouv.bj": true, "bm": true, "com.bm": true, "edu.bm": true, "gov.bm": true, "net.bm": true, "org.bm": true, "*.bn": true, "bo": true, "com.bo": true, "edu.bo": true, "gov.bo": true, "gob.bo": true, "int.bo": true, "org.bo": true, "net.bo": true, "mil.bo": true, "tv.bo": true, "br": true, "adm.br": true, "adv.br": true, "agr.br": true, "am.br": true, "arq.br": true, "art.br": true, "ato.br": true, "b.br": true, "bio.br": true, "blog.br": true, "bmd.br": true, "cim.br": true, "cng.br": true, "cnt.br": true, "com.br": true, "coop.br": true, "ecn.br": true, "eco.br": true, "edu.br": true, "emp.br": true, "eng.br": true, "esp.br": true, "etc.br": true, "eti.br": true, "far.br": true, "flog.br": true, "fm.br": true, "fnd.br": true, "fot.br": true, "fst.br": true, "g12.br": true, "ggf.br": true, "gov.br": true, "imb.br": true, "ind.br": true, "inf.br": true, "jor.br": true, "jus.br": true, "leg.br": true, "lel.br": true, "mat.br": true, "med.br": true, "mil.br": true, "mp.br": true, "mus.br": true, "net.br": true, "*.nom.br": true, "not.br": true, "ntr.br": true, "odo.br": true, "org.br": true, "ppg.br": true, "pro.br": true, "psc.br": true, "psi.br": true, "qsl.br": true, "radio.br": true, "rec.br": true, "slg.br": true, "srv.br": true, "taxi.br": true, "teo.br": true, "tmp.br": true, "trd.br": true, "tur.br": true, "tv.br": true, "vet.br": true, "vlog.br": true, "wiki.br": true, "zlg.br": true, "bs": true, "com.bs": true, "net.bs": true, "org.bs": true, "edu.bs": true, "gov.bs": true, "bt": true, "com.bt": true, "edu.bt": true, "gov.bt": true, "net.bt": true, "org.bt": true, "bv": true, "bw": true, "co.bw": true, "org.bw": true, "by": true, "gov.by": true, "mil.by": true, "com.by": true, "of.by": true, "bz": true, "com.bz": true, "net.bz": true, "org.bz": true, "edu.bz": true, "gov.bz": true, "ca": true, "ab.ca": true, "bc.ca": true, "mb.ca": true, "nb.ca": true, "nf.ca": true, "nl.ca": true, "ns.ca": true, "nt.ca": true, "nu.ca": true, "on.ca": true, "pe.ca": true, "qc.ca": true, "sk.ca": true, "yk.ca": true, "gc.ca": true, "cat": true, "cc": true, "cd": true, "gov.cd": true, "cf": true, "cg": true, "ch": true, "ci": true, "org.ci": true, "or.ci": true, "com.ci": true, "co.ci": true, "edu.ci": true, "ed.ci": true, "ac.ci": true, "net.ci": true, "go.ci": true, "asso.ci": true, "xn--aroport-bya.ci": true, "int.ci": true, "presse.ci": true, "md.ci": true, "gouv.ci": true, "*.ck": true, "www.ck": false, "cl": true, "gov.cl": true, "gob.cl": true, "co.cl": true, "mil.cl": true, "cm": true, "co.cm": true, "com.cm": true, "gov.cm": true, "net.cm": true, "cn": true, "ac.cn": true, "com.cn": true, "edu.cn": true, "gov.cn": true, "net.cn": true, "org.cn": true, "mil.cn": true, "xn--55qx5d.cn": true, "xn--io0a7i.cn": true, "xn--od0alg.cn": true, "ah.cn": true, "bj.cn": true, "cq.cn": true, "fj.cn": true, "gd.cn": true, "gs.cn": true, "gz.cn": true, "gx.cn": true, "ha.cn": true, "hb.cn": true, "he.cn": true, "hi.cn": true, "hl.cn": true, "hn.cn": true, "jl.cn": true, "js.cn": true, "jx.cn": true, "ln.cn": true, "nm.cn": true, "nx.cn": true, "qh.cn": true, "sc.cn": true, "sd.cn": true, "sh.cn": true, "sn.cn": true, "sx.cn": true, "tj.cn": true, "xj.cn": true, "xz.cn": true, "yn.cn": true, "zj.cn": true, "hk.cn": true, "mo.cn": true, "tw.cn": true, "co": true, "arts.co": true, "com.co": true, "edu.co": true, "firm.co": true, "gov.co": true, "info.co": true, "int.co": true, "mil.co": true, "net.co": true, "nom.co": true, "org.co": true, "rec.co": true, "web.co": true, "com": true, "coop": true, "cr": true, "ac.cr": true, "co.cr": true, "ed.cr": true, "fi.cr": true, "go.cr": true, "or.cr": true, "sa.cr": true, "cu": true, "com.cu": true, "edu.cu": true, "org.cu": true, "net.cu": true, "gov.cu": true, "inf.cu": true, "cv": true, "cw": true, "com.cw": true, "edu.cw": true, "net.cw": true, "org.cw": true, "cx": true, "gov.cx": true, "cy": true, "ac.cy": true, "biz.cy": true, "com.cy": true, "ekloges.cy": true, "gov.cy": true, "ltd.cy": true, "name.cy": true, "net.cy": true, "org.cy": true, "parliament.cy": true, "press.cy": true, "pro.cy": true, "tm.cy": true, "cz": true, "de": true, "dj": true, "dk": true, "dm": true, "com.dm": true, "net.dm": true, "org.dm": true, "edu.dm": true, "gov.dm": true, "do": true, "art.do": true, "com.do": true, "edu.do": true, "gob.do": true, "gov.do": true, "mil.do": true, "net.do": true, "org.do": true, "sld.do": true, "web.do": true, "dz": true, "com.dz": true, "org.dz": true, "net.dz": true, "gov.dz": true, "edu.dz": true, "asso.dz": true, "pol.dz": true, "art.dz": true, "ec": true, "com.ec": true, "info.ec": true, "net.ec": true, "fin.ec": true, "k12.ec": true, "med.ec": true, "pro.ec": true, "org.ec": true, "edu.ec": true, "gov.ec": true, "gob.ec": true, "mil.ec": true, "edu": true, "ee": true, "edu.ee": true, "gov.ee": true, "riik.ee": true, "lib.ee": true, "med.ee": true, "com.ee": true, "pri.ee": true, "aip.ee": true, "org.ee": true, "fie.ee": true, "eg": true, "com.eg": true, "edu.eg": true, "eun.eg": true, "gov.eg": true, "mil.eg": true, "name.eg": true, "net.eg": true, "org.eg": true, "sci.eg": true, "*.er": true, "es": true, "com.es": true, "nom.es": true, "org.es": true, "gob.es": true, "edu.es": true, "et": true, "com.et": true, "gov.et": true, "org.et": true, "edu.et": true, "biz.et": true, "name.et": true, "info.et": true, "net.et": true, "eu": true, "fi": true, "aland.fi": true, "*.fj": true, "*.fk": true, "fm": true, "fo": true, "fr": true, "com.fr": true, "asso.fr": true, "nom.fr": true, "prd.fr": true, "presse.fr": true, "tm.fr": true, "aeroport.fr": true, "assedic.fr": true, "avocat.fr": true, "avoues.fr": true, "cci.fr": true, "chambagri.fr": true, "chirurgiens-dentistes.fr": true, "experts-comptables.fr": true, "geometre-expert.fr": true, "gouv.fr": true, "greta.fr": true, "huissier-justice.fr": true, "medecin.fr": true, "notaires.fr": true, "pharmacien.fr": true, "port.fr": true, "veterinaire.fr": true, "ga": true, "gb": true, "gd": true, "ge": true, "com.ge": true, "edu.ge": true, "gov.ge": true, "org.ge": true, "mil.ge": true, "net.ge": true, "pvt.ge": true, "gf": true, "gg": true, "co.gg": true, "net.gg": true, "org.gg": true, "gh": true, "com.gh": true, "edu.gh": true, "gov.gh": true, "org.gh": true, "mil.gh": true, "gi": true, "com.gi": true, "ltd.gi": true, "gov.gi": true, "mod.gi": true, "edu.gi": true, "org.gi": true, "gl": true, "co.gl": true, "com.gl": true, "edu.gl": true, "net.gl": true, "org.gl": true, "gm": true, "gn": true, "ac.gn": true, "com.gn": true, "edu.gn": true, "gov.gn": true, "org.gn": true, "net.gn": true, "gov": true, "gp": true, "com.gp": true, "net.gp": true, "mobi.gp": true, "edu.gp": true, "org.gp": true, "asso.gp": true, "gq": true, "gr": true, "com.gr": true, "edu.gr": true, "net.gr": true, "org.gr": true, "gov.gr": true, "gs": true, "gt": true, "com.gt": true, "edu.gt": true, "gob.gt": true, "ind.gt": true, "mil.gt": true, "net.gt": true, "org.gt": true, "*.gu": true, "gw": true, "gy": true, "co.gy": true, "com.gy": true, "edu.gy": true, "gov.gy": true, "net.gy": true, "org.gy": true, "hk": true, "com.hk": true, "edu.hk": true, "gov.hk": true, "idv.hk": true, "net.hk": true, "org.hk": true, "xn--55qx5d.hk": true, "xn--wcvs22d.hk": true, "xn--lcvr32d.hk": true, "xn--mxtq1m.hk": true, "xn--gmqw5a.hk": true, "xn--ciqpn.hk": true, "xn--gmq050i.hk": true, "xn--zf0avx.hk": true, "xn--io0a7i.hk": true, "xn--mk0axi.hk": true, "xn--od0alg.hk": true, "xn--od0aq3b.hk": true, "xn--tn0ag.hk": true, "xn--uc0atv.hk": true, "xn--uc0ay4a.hk": true, "hm": true, "hn": true, "com.hn": true, "edu.hn": true, "org.hn": true, "net.hn": true, "mil.hn": true, "gob.hn": true, "hr": true, "iz.hr": true, "from.hr": true, "name.hr": true, "com.hr": true, "ht": true, "com.ht": true, "shop.ht": true, "firm.ht": true, "info.ht": true, "adult.ht": true, "net.ht": true, "pro.ht": true, "org.ht": true, "med.ht": true, "art.ht": true, "coop.ht": true, "pol.ht": true, "asso.ht": true, "edu.ht": true, "rel.ht": true, "gouv.ht": true, "perso.ht": true, "hu": true, "co.hu": true, "info.hu": true, "org.hu": true, "priv.hu": true, "sport.hu": true, "tm.hu": true, "2000.hu": true, "agrar.hu": true, "bolt.hu": true, "casino.hu": true, "city.hu": true, "erotica.hu": true, "erotika.hu": true, "film.hu": true, "forum.hu": true, "games.hu": true, "hotel.hu": true, "ingatlan.hu": true, "jogasz.hu": true, "konyvelo.hu": true, "lakas.hu": true, "media.hu": true, "news.hu": true, "reklam.hu": true, "sex.hu": true, "shop.hu": true, "suli.hu": true, "szex.hu": true, "tozsde.hu": true, "utazas.hu": true, "video.hu": true, "id": true, "ac.id": true, "biz.id": true, "co.id": true, "desa.id": true, "go.id": true, "mil.id": true, "my.id": true, "net.id": true, "or.id": true, "sch.id": true, "web.id": true, "ie": true, "gov.ie": true, "il": true, "ac.il": true, "co.il": true, "gov.il": true, "idf.il": true, "k12.il": true, "muni.il": true, "net.il": true, "org.il": true, "im": true, "ac.im": true, "co.im": true, "com.im": true, "ltd.co.im": true, "net.im": true, "org.im": true, "plc.co.im": true, "tt.im": true, "tv.im": true, "in": true, "co.in": true, "firm.in": true, "net.in": true, "org.in": true, "gen.in": true, "ind.in": true, "nic.in": true, "ac.in": true, "edu.in": true, "res.in": true, "gov.in": true, "mil.in": true, "info": true, "int": true, "eu.int": true, "io": true, "com.io": true, "iq": true, "gov.iq": true, "edu.iq": true, "mil.iq": true, "com.iq": true, "org.iq": true, "net.iq": true, "ir": true, "ac.ir": true, "co.ir": true, "gov.ir": true, "id.ir": true, "net.ir": true, "org.ir": true, "sch.ir": true, "xn--mgba3a4f16a.ir": true, "xn--mgba3a4fra.ir": true, "is": true, "net.is": true, "com.is": true, "edu.is": true, "gov.is": true, "org.is": true, "int.is": true, "it": true, "gov.it": true, "edu.it": true, "abr.it": true, "abruzzo.it": true, "aosta-valley.it": true, "aostavalley.it": true, "bas.it": true, "basilicata.it": true, "cal.it": true, "calabria.it": true, "cam.it": true, "campania.it": true, "emilia-romagna.it": true, "emiliaromagna.it": true, "emr.it": true, "friuli-v-giulia.it": true, "friuli-ve-giulia.it": true, "friuli-vegiulia.it": true, "friuli-venezia-giulia.it": true, "friuli-veneziagiulia.it": true, "friuli-vgiulia.it": true, "friuliv-giulia.it": true, "friulive-giulia.it": true, "friulivegiulia.it": true, "friulivenezia-giulia.it": true, "friuliveneziagiulia.it": true, "friulivgiulia.it": true, "fvg.it": true, "laz.it": true, "lazio.it": true, "lig.it": true, "liguria.it": true, "lom.it": true, "lombardia.it": true, "lombardy.it": true, "lucania.it": true, "mar.it": true, "marche.it": true, "mol.it": true, "molise.it": true, "piedmont.it": true, "piemonte.it": true, "pmn.it": true, "pug.it": true, "puglia.it": true, "sar.it": true, "sardegna.it": true, "sardinia.it": true, "sic.it": true, "sicilia.it": true, "sicily.it": true, "taa.it": true, "tos.it": true, "toscana.it": true, "trentino-a-adige.it": true, "trentino-aadige.it": true, "trentino-alto-adige.it": true, "trentino-altoadige.it": true, "trentino-s-tirol.it": true, "trentino-stirol.it": true, "trentino-sud-tirol.it": true, "trentino-sudtirol.it": true, "trentino-sued-tirol.it": true, "trentino-suedtirol.it": true, "trentinoa-adige.it": true, "trentinoaadige.it": true, "trentinoalto-adige.it": true, "trentinoaltoadige.it": true, "trentinos-tirol.it": true, "trentinostirol.it": true, "trentinosud-tirol.it": true, "trentinosudtirol.it": true, "trentinosued-tirol.it": true, "trentinosuedtirol.it": true, "tuscany.it": true, "umb.it": true, "umbria.it": true, "val-d-aosta.it": true, "val-daosta.it": true, "vald-aosta.it": true, "valdaosta.it": true, "valle-aosta.it": true, "valle-d-aosta.it": true, "valle-daosta.it": true, "valleaosta.it": true, "valled-aosta.it": true, "valledaosta.it": true, "vallee-aoste.it": true, "valleeaoste.it": true, "vao.it": true, "vda.it": true, "ven.it": true, "veneto.it": true, "ag.it": true, "agrigento.it": true, "al.it": true, "alessandria.it": true, "alto-adige.it": true, "altoadige.it": true, "an.it": true, "ancona.it": true, "andria-barletta-trani.it": true, "andria-trani-barletta.it": true, "andriabarlettatrani.it": true, "andriatranibarletta.it": true, "ao.it": true, "aosta.it": true, "aoste.it": true, "ap.it": true, "aq.it": true, "aquila.it": true, "ar.it": true, "arezzo.it": true, "ascoli-piceno.it": true, "ascolipiceno.it": true, "asti.it": true, "at.it": true, "av.it": true, "avellino.it": true, "ba.it": true, "balsan.it": true, "bari.it": true, "barletta-trani-andria.it": true, "barlettatraniandria.it": true, "belluno.it": true, "benevento.it": true, "bergamo.it": true, "bg.it": true, "bi.it": true, "biella.it": true, "bl.it": true, "bn.it": true, "bo.it": true, "bologna.it": true, "bolzano.it": true, "bozen.it": true, "br.it": true, "brescia.it": true, "brindisi.it": true, "bs.it": true, "bt.it": true, "bz.it": true, "ca.it": true, "cagliari.it": true, "caltanissetta.it": true, "campidano-medio.it": true, "campidanomedio.it": true, "campobasso.it": true, "carbonia-iglesias.it": true, "carboniaiglesias.it": true, "carrara-massa.it": true, "carraramassa.it": true, "caserta.it": true, "catania.it": true, "catanzaro.it": true, "cb.it": true, "ce.it": true, "cesena-forli.it": true, "cesenaforli.it": true, "ch.it": true, "chieti.it": true, "ci.it": true, "cl.it": true, "cn.it": true, "co.it": true, "como.it": true, "cosenza.it": true, "cr.it": true, "cremona.it": true, "crotone.it": true, "cs.it": true, "ct.it": true, "cuneo.it": true, "cz.it": true, "dell-ogliastra.it": true, "dellogliastra.it": true, "en.it": true, "enna.it": true, "fc.it": true, "fe.it": true, "fermo.it": true, "ferrara.it": true, "fg.it": true, "fi.it": true, "firenze.it": true, "florence.it": true, "fm.it": true, "foggia.it": true, "forli-cesena.it": true, "forlicesena.it": true, "fr.it": true, "frosinone.it": true, "ge.it": true, "genoa.it": true, "genova.it": true, "go.it": true, "gorizia.it": true, "gr.it": true, "grosseto.it": true, "iglesias-carbonia.it": true, "iglesiascarbonia.it": true, "im.it": true, "imperia.it": true, "is.it": true, "isernia.it": true, "kr.it": true, "la-spezia.it": true, "laquila.it": true, "laspezia.it": true, "latina.it": true, "lc.it": true, "le.it": true, "lecce.it": true, "lecco.it": true, "li.it": true, "livorno.it": true, "lo.it": true, "lodi.it": true, "lt.it": true, "lu.it": true, "lucca.it": true, "macerata.it": true, "mantova.it": true, "massa-carrara.it": true, "massacarrara.it": true, "matera.it": true, "mb.it": true, "mc.it": true, "me.it": true, "medio-campidano.it": true, "mediocampidano.it": true, "messina.it": true, "mi.it": true, "milan.it": true, "milano.it": true, "mn.it": true, "mo.it": true, "modena.it": true, "monza-brianza.it": true, "monza-e-della-brianza.it": true, "monza.it": true, "monzabrianza.it": true, "monzaebrianza.it": true, "monzaedellabrianza.it": true, "ms.it": true, "mt.it": true, "na.it": true, "naples.it": true, "napoli.it": true, "no.it": true, "novara.it": true, "nu.it": true, "nuoro.it": true, "og.it": true, "ogliastra.it": true, "olbia-tempio.it": true, "olbiatempio.it": true, "or.it": true, "oristano.it": true, "ot.it": true, "pa.it": true, "padova.it": true, "padua.it": true, "palermo.it": true, "parma.it": true, "pavia.it": true, "pc.it": true, "pd.it": true, "pe.it": true, "perugia.it": true, "pesaro-urbino.it": true, "pesarourbino.it": true, "pescara.it": true, "pg.it": true, "pi.it": true, "piacenza.it": true, "pisa.it": true, "pistoia.it": true, "pn.it": true, "po.it": true, "pordenone.it": true, "potenza.it": true, "pr.it": true, "prato.it": true, "pt.it": true, "pu.it": true, "pv.it": true, "pz.it": true, "ra.it": true, "ragusa.it": true, "ravenna.it": true, "rc.it": true, "re.it": true, "reggio-calabria.it": true, "reggio-emilia.it": true, "reggiocalabria.it": true, "reggioemilia.it": true, "rg.it": true, "ri.it": true, "rieti.it": true, "rimini.it": true, "rm.it": true, "rn.it": true, "ro.it": true, "roma.it": true, "rome.it": true, "rovigo.it": true, "sa.it": true, "salerno.it": true, "sassari.it": true, "savona.it": true, "si.it": true, "siena.it": true, "siracusa.it": true, "so.it": true, "sondrio.it": true, "sp.it": true, "sr.it": true, "ss.it": true, "suedtirol.it": true, "sv.it": true, "ta.it": true, "taranto.it": true, "te.it": true, "tempio-olbia.it": true, "tempioolbia.it": true, "teramo.it": true, "terni.it": true, "tn.it": true, "to.it": true, "torino.it": true, "tp.it": true, "tr.it": true, "trani-andria-barletta.it": true, "trani-barletta-andria.it": true, "traniandriabarletta.it": true, "tranibarlettaandria.it": true, "trapani.it": true, "trentino.it": true, "trento.it": true, "treviso.it": true, "trieste.it": true, "ts.it": true, "turin.it": true, "tv.it": true, "ud.it": true, "udine.it": true, "urbino-pesaro.it": true, "urbinopesaro.it": true, "va.it": true, "varese.it": true, "vb.it": true, "vc.it": true, "ve.it": true, "venezia.it": true, "venice.it": true, "verbania.it": true, "vercelli.it": true, "verona.it": true, "vi.it": true, "vibo-valentia.it": true, "vibovalentia.it": true, "vicenza.it": true, "viterbo.it": true, "vr.it": true, "vs.it": true, "vt.it": true, "vv.it": true, "je": true, "co.je": true, "net.je": true, "org.je": true, "*.jm": true, "jo": true, "com.jo": true, "org.jo": true, "net.jo": true, "edu.jo": true, "sch.jo": true, "gov.jo": true, "mil.jo": true, "name.jo": true, "jobs": true, "jp": true, "ac.jp": true, "ad.jp": true, "co.jp": true, "ed.jp": true, "go.jp": true, "gr.jp": true, "lg.jp": true, "ne.jp": true, "or.jp": true, "aichi.jp": true, "akita.jp": true, "aomori.jp": true, "chiba.jp": true, "ehime.jp": true, "fukui.jp": true, "fukuoka.jp": true, "fukushima.jp": true, "gifu.jp": true, "gunma.jp": true, "hiroshima.jp": true, "hokkaido.jp": true, "hyogo.jp": true, "ibaraki.jp": true, "ishikawa.jp": true, "iwate.jp": true, "kagawa.jp": true, "kagoshima.jp": true, "kanagawa.jp": true, "kochi.jp": true, "kumamoto.jp": true, "kyoto.jp": true, "mie.jp": true, "miyagi.jp": true, "miyazaki.jp": true, "nagano.jp": true, "nagasaki.jp": true, "nara.jp": true, "niigata.jp": true, "oita.jp": true, "okayama.jp": true, "okinawa.jp": true, "osaka.jp": true, "saga.jp": true, "saitama.jp": true, "shiga.jp": true, "shimane.jp": true, "shizuoka.jp": true, "tochigi.jp": true, "tokushima.jp": true, "tokyo.jp": true, "tottori.jp": true, "toyama.jp": true, "wakayama.jp": true, "yamagata.jp": true, "yamaguchi.jp": true, "yamanashi.jp": true, "xn--4pvxs.jp": true, "xn--vgu402c.jp": true, "xn--c3s14m.jp": true, "xn--f6qx53a.jp": true, "xn--8pvr4u.jp": true, "xn--uist22h.jp": true, "xn--djrs72d6uy.jp": true, "xn--mkru45i.jp": true, "xn--0trq7p7nn.jp": true, "xn--8ltr62k.jp": true, "xn--2m4a15e.jp": true, "xn--efvn9s.jp": true, "xn--32vp30h.jp": true, "xn--4it797k.jp": true, "xn--1lqs71d.jp": true, "xn--5rtp49c.jp": true, "xn--5js045d.jp": true, "xn--ehqz56n.jp": true, "xn--1lqs03n.jp": true, "xn--qqqt11m.jp": true, "xn--kbrq7o.jp": true, "xn--pssu33l.jp": true, "xn--ntsq17g.jp": true, "xn--uisz3g.jp": true, "xn--6btw5a.jp": true, "xn--1ctwo.jp": true, "xn--6orx2r.jp": true, "xn--rht61e.jp": true, "xn--rht27z.jp": true, "xn--djty4k.jp": true, "xn--nit225k.jp": true, "xn--rht3d.jp": true, "xn--klty5x.jp": true, "xn--kltx9a.jp": true, "xn--kltp7d.jp": true, "xn--uuwu58a.jp": true, "xn--zbx025d.jp": true, "xn--ntso0iqx3a.jp": true, "xn--elqq16h.jp": true, "xn--4it168d.jp": true, "xn--klt787d.jp": true, "xn--rny31h.jp": true, "xn--7t0a264c.jp": true, "xn--5rtq34k.jp": true, "xn--k7yn95e.jp": true, "xn--tor131o.jp": true, "xn--d5qv7z876c.jp": true, "*.kawasaki.jp": true, "*.kitakyushu.jp": true, "*.kobe.jp": true, "*.nagoya.jp": true, "*.sapporo.jp": true, "*.sendai.jp": true, "*.yokohama.jp": true, "city.kawasaki.jp": false, "city.kitakyushu.jp": false, "city.kobe.jp": false, "city.nagoya.jp": false, "city.sapporo.jp": false, "city.sendai.jp": false, "city.yokohama.jp": false, "aisai.aichi.jp": true, "ama.aichi.jp": true, "anjo.aichi.jp": true, "asuke.aichi.jp": true, "chiryu.aichi.jp": true, "chita.aichi.jp": true, "fuso.aichi.jp": true, "gamagori.aichi.jp": true, "handa.aichi.jp": true, "hazu.aichi.jp": true, "hekinan.aichi.jp": true, "higashiura.aichi.jp": true, "ichinomiya.aichi.jp": true, "inazawa.aichi.jp": true, "inuyama.aichi.jp": true, "isshiki.aichi.jp": true, "iwakura.aichi.jp": true, "kanie.aichi.jp": true, "kariya.aichi.jp": true, "kasugai.aichi.jp": true, "kira.aichi.jp": true, "kiyosu.aichi.jp": true, "komaki.aichi.jp": true, "konan.aichi.jp": true, "kota.aichi.jp": true, "mihama.aichi.jp": true, "miyoshi.aichi.jp": true, "nishio.aichi.jp": true, "nisshin.aichi.jp": true, "obu.aichi.jp": true, "oguchi.aichi.jp": true, "oharu.aichi.jp": true, "okazaki.aichi.jp": true, "owariasahi.aichi.jp": true, "seto.aichi.jp": true, "shikatsu.aichi.jp": true, "shinshiro.aichi.jp": true, "shitara.aichi.jp": true, "tahara.aichi.jp": true, "takahama.aichi.jp": true, "tobishima.aichi.jp": true, "toei.aichi.jp": true, "togo.aichi.jp": true, "tokai.aichi.jp": true, "tokoname.aichi.jp": true, "toyoake.aichi.jp": true, "toyohashi.aichi.jp": true, "toyokawa.aichi.jp": true, "toyone.aichi.jp": true, "toyota.aichi.jp": true, "tsushima.aichi.jp": true, "yatomi.aichi.jp": true, "akita.akita.jp": true, "daisen.akita.jp": true, "fujisato.akita.jp": true, "gojome.akita.jp": true, "hachirogata.akita.jp": true, "happou.akita.jp": true, "higashinaruse.akita.jp": true, "honjo.akita.jp": true, "honjyo.akita.jp": true, "ikawa.akita.jp": true, "kamikoani.akita.jp": true, "kamioka.akita.jp": true, "katagami.akita.jp": true, "kazuno.akita.jp": true, "kitaakita.akita.jp": true, "kosaka.akita.jp": true, "kyowa.akita.jp": true, "misato.akita.jp": true, "mitane.akita.jp": true, "moriyoshi.akita.jp": true, "nikaho.akita.jp": true, "noshiro.akita.jp": true, "odate.akita.jp": true, "oga.akita.jp": true, "ogata.akita.jp": true, "semboku.akita.jp": true, "yokote.akita.jp": true, "yurihonjo.akita.jp": true, "aomori.aomori.jp": true, "gonohe.aomori.jp": true, "hachinohe.aomori.jp": true, "hashikami.aomori.jp": true, "hiranai.aomori.jp": true, "hirosaki.aomori.jp": true, "itayanagi.aomori.jp": true, "kuroishi.aomori.jp": true, "misawa.aomori.jp": true, "mutsu.aomori.jp": true, "nakadomari.aomori.jp": true, "noheji.aomori.jp": true, "oirase.aomori.jp": true, "owani.aomori.jp": true, "rokunohe.aomori.jp": true, "sannohe.aomori.jp": true, "shichinohe.aomori.jp": true, "shingo.aomori.jp": true, "takko.aomori.jp": true, "towada.aomori.jp": true, "tsugaru.aomori.jp": true, "tsuruta.aomori.jp": true, "abiko.chiba.jp": true, "asahi.chiba.jp": true, "chonan.chiba.jp": true, "chosei.chiba.jp": true, "choshi.chiba.jp": true, "chuo.chiba.jp": true, "funabashi.chiba.jp": true, "futtsu.chiba.jp": true, "hanamigawa.chiba.jp": true, "ichihara.chiba.jp": true, "ichikawa.chiba.jp": true, "ichinomiya.chiba.jp": true, "inzai.chiba.jp": true, "isumi.chiba.jp": true, "kamagaya.chiba.jp": true, "kamogawa.chiba.jp": true, "kashiwa.chiba.jp": true, "katori.chiba.jp": true, "katsuura.chiba.jp": true, "kimitsu.chiba.jp": true, "kisarazu.chiba.jp": true, "kozaki.chiba.jp": true, "kujukuri.chiba.jp": true, "kyonan.chiba.jp": true, "matsudo.chiba.jp": true, "midori.chiba.jp": true, "mihama.chiba.jp": true, "minamiboso.chiba.jp": true, "mobara.chiba.jp": true, "mutsuzawa.chiba.jp": true, "nagara.chiba.jp": true, "nagareyama.chiba.jp": true, "narashino.chiba.jp": true, "narita.chiba.jp": true, "noda.chiba.jp": true, "oamishirasato.chiba.jp": true, "omigawa.chiba.jp": true, "onjuku.chiba.jp": true, "otaki.chiba.jp": true, "sakae.chiba.jp": true, "sakura.chiba.jp": true, "shimofusa.chiba.jp": true, "shirako.chiba.jp": true, "shiroi.chiba.jp": true, "shisui.chiba.jp": true, "sodegaura.chiba.jp": true, "sosa.chiba.jp": true, "tako.chiba.jp": true, "tateyama.chiba.jp": true, "togane.chiba.jp": true, "tohnosho.chiba.jp": true, "tomisato.chiba.jp": true, "urayasu.chiba.jp": true, "yachimata.chiba.jp": true, "yachiyo.chiba.jp": true, "yokaichiba.chiba.jp": true, "yokoshibahikari.chiba.jp": true, "yotsukaido.chiba.jp": true, "ainan.ehime.jp": true, "honai.ehime.jp": true, "ikata.ehime.jp": true, "imabari.ehime.jp": true, "iyo.ehime.jp": true, "kamijima.ehime.jp": true, "kihoku.ehime.jp": true, "kumakogen.ehime.jp": true, "masaki.ehime.jp": true, "matsuno.ehime.jp": true, "matsuyama.ehime.jp": true, "namikata.ehime.jp": true, "niihama.ehime.jp": true, "ozu.ehime.jp": true, "saijo.ehime.jp": true, "seiyo.ehime.jp": true, "shikokuchuo.ehime.jp": true, "tobe.ehime.jp": true, "toon.ehime.jp": true, "uchiko.ehime.jp": true, "uwajima.ehime.jp": true, "yawatahama.ehime.jp": true, "echizen.fukui.jp": true, "eiheiji.fukui.jp": true, "fukui.fukui.jp": true, "ikeda.fukui.jp": true, "katsuyama.fukui.jp": true, "mihama.fukui.jp": true, "minamiechizen.fukui.jp": true, "obama.fukui.jp": true, "ohi.fukui.jp": true, "ono.fukui.jp": true, "sabae.fukui.jp": true, "sakai.fukui.jp": true, "takahama.fukui.jp": true, "tsuruga.fukui.jp": true, "wakasa.fukui.jp": true, "ashiya.fukuoka.jp": true, "buzen.fukuoka.jp": true, "chikugo.fukuoka.jp": true, "chikuho.fukuoka.jp": true, "chikujo.fukuoka.jp": true, "chikushino.fukuoka.jp": true, "chikuzen.fukuoka.jp": true, "chuo.fukuoka.jp": true, "dazaifu.fukuoka.jp": true, "fukuchi.fukuoka.jp": true, "hakata.fukuoka.jp": true, "higashi.fukuoka.jp": true, "hirokawa.fukuoka.jp": true, "hisayama.fukuoka.jp": true, "iizuka.fukuoka.jp": true, "inatsuki.fukuoka.jp": true, "kaho.fukuoka.jp": true, "kasuga.fukuoka.jp": true, "kasuya.fukuoka.jp": true, "kawara.fukuoka.jp": true, "keisen.fukuoka.jp": true, "koga.fukuoka.jp": true, "kurate.fukuoka.jp": true, "kurogi.fukuoka.jp": true, "kurume.fukuoka.jp": true, "minami.fukuoka.jp": true, "miyako.fukuoka.jp": true, "miyama.fukuoka.jp": true, "miyawaka.fukuoka.jp": true, "mizumaki.fukuoka.jp": true, "munakata.fukuoka.jp": true, "nakagawa.fukuoka.jp": true, "nakama.fukuoka.jp": true, "nishi.fukuoka.jp": true, "nogata.fukuoka.jp": true, "ogori.fukuoka.jp": true, "okagaki.fukuoka.jp": true, "okawa.fukuoka.jp": true, "oki.fukuoka.jp": true, "omuta.fukuoka.jp": true, "onga.fukuoka.jp": true, "onojo.fukuoka.jp": true, "oto.fukuoka.jp": true, "saigawa.fukuoka.jp": true, "sasaguri.fukuoka.jp": true, "shingu.fukuoka.jp": true, "shinyoshitomi.fukuoka.jp": true, "shonai.fukuoka.jp": true, "soeda.fukuoka.jp": true, "sue.fukuoka.jp": true, "tachiarai.fukuoka.jp": true, "tagawa.fukuoka.jp": true, "takata.fukuoka.jp": true, "toho.fukuoka.jp": true, "toyotsu.fukuoka.jp": true, "tsuiki.fukuoka.jp": true, "ukiha.fukuoka.jp": true, "umi.fukuoka.jp": true, "usui.fukuoka.jp": true, "yamada.fukuoka.jp": true, "yame.fukuoka.jp": true, "yanagawa.fukuoka.jp": true, "yukuhashi.fukuoka.jp": true, "aizubange.fukushima.jp": true, "aizumisato.fukushima.jp": true, "aizuwakamatsu.fukushima.jp": true, "asakawa.fukushima.jp": true, "bandai.fukushima.jp": true, "date.fukushima.jp": true, "fukushima.fukushima.jp": true, "furudono.fukushima.jp": true, "futaba.fukushima.jp": true, "hanawa.fukushima.jp": true, "higashi.fukushima.jp": true, "hirata.fukushima.jp": true, "hirono.fukushima.jp": true, "iitate.fukushima.jp": true, "inawashiro.fukushima.jp": true, "ishikawa.fukushima.jp": true, "iwaki.fukushima.jp": true, "izumizaki.fukushima.jp": true, "kagamiishi.fukushima.jp": true, "kaneyama.fukushima.jp": true, "kawamata.fukushima.jp": true, "kitakata.fukushima.jp": true, "kitashiobara.fukushima.jp": true, "koori.fukushima.jp": true, "koriyama.fukushima.jp": true, "kunimi.fukushima.jp": true, "miharu.fukushima.jp": true, "mishima.fukushima.jp": true, "namie.fukushima.jp": true, "nango.fukushima.jp": true, "nishiaizu.fukushima.jp": true, "nishigo.fukushima.jp": true, "okuma.fukushima.jp": true, "omotego.fukushima.jp": true, "ono.fukushima.jp": true, "otama.fukushima.jp": true, "samegawa.fukushima.jp": true, "shimogo.fukushima.jp": true, "shirakawa.fukushima.jp": true, "showa.fukushima.jp": true, "soma.fukushima.jp": true, "sukagawa.fukushima.jp": true, "taishin.fukushima.jp": true, "tamakawa.fukushima.jp": true, "tanagura.fukushima.jp": true, "tenei.fukushima.jp": true, "yabuki.fukushima.jp": true, "yamato.fukushima.jp": true, "yamatsuri.fukushima.jp": true, "yanaizu.fukushima.jp": true, "yugawa.fukushima.jp": true, "anpachi.gifu.jp": true, "ena.gifu.jp": true, "gifu.gifu.jp": true, "ginan.gifu.jp": true, "godo.gifu.jp": true, "gujo.gifu.jp": true, "hashima.gifu.jp": true, "hichiso.gifu.jp": true, "hida.gifu.jp": true, "higashishirakawa.gifu.jp": true, "ibigawa.gifu.jp": true, "ikeda.gifu.jp": true, "kakamigahara.gifu.jp": true, "kani.gifu.jp": true, "kasahara.gifu.jp": true, "kasamatsu.gifu.jp": true, "kawaue.gifu.jp": true, "kitagata.gifu.jp": true, "mino.gifu.jp": true, "minokamo.gifu.jp": true, "mitake.gifu.jp": true, "mizunami.gifu.jp": true, "motosu.gifu.jp": true, "nakatsugawa.gifu.jp": true, "ogaki.gifu.jp": true, "sakahogi.gifu.jp": true, "seki.gifu.jp": true, "sekigahara.gifu.jp": true, "shirakawa.gifu.jp": true, "tajimi.gifu.jp": true, "takayama.gifu.jp": true, "tarui.gifu.jp": true, "toki.gifu.jp": true, "tomika.gifu.jp": true, "wanouchi.gifu.jp": true, "yamagata.gifu.jp": true, "yaotsu.gifu.jp": true, "yoro.gifu.jp": true, "annaka.gunma.jp": true, "chiyoda.gunma.jp": true, "fujioka.gunma.jp": true, "higashiagatsuma.gunma.jp": true, "isesaki.gunma.jp": true, "itakura.gunma.jp": true, "kanna.gunma.jp": true, "kanra.gunma.jp": true, "katashina.gunma.jp": true, "kawaba.gunma.jp": true, "kiryu.gunma.jp": true, "kusatsu.gunma.jp": true, "maebashi.gunma.jp": true, "meiwa.gunma.jp": true, "midori.gunma.jp": true, "minakami.gunma.jp": true, "naganohara.gunma.jp": true, "nakanojo.gunma.jp": true, "nanmoku.gunma.jp": true, "numata.gunma.jp": true, "oizumi.gunma.jp": true, "ora.gunma.jp": true, "ota.gunma.jp": true, "shibukawa.gunma.jp": true, "shimonita.gunma.jp": true, "shinto.gunma.jp": true, "showa.gunma.jp": true, "takasaki.gunma.jp": true, "takayama.gunma.jp": true, "tamamura.gunma.jp": true, "tatebayashi.gunma.jp": true, "tomioka.gunma.jp": true, "tsukiyono.gunma.jp": true, "tsumagoi.gunma.jp": true, "ueno.gunma.jp": true, "yoshioka.gunma.jp": true, "asaminami.hiroshima.jp": true, "daiwa.hiroshima.jp": true, "etajima.hiroshima.jp": true, "fuchu.hiroshima.jp": true, "fukuyama.hiroshima.jp": true, "hatsukaichi.hiroshima.jp": true, "higashihiroshima.hiroshima.jp": true, "hongo.hiroshima.jp": true, "jinsekikogen.hiroshima.jp": true, "kaita.hiroshima.jp": true, "kui.hiroshima.jp": true, "kumano.hiroshima.jp": true, "kure.hiroshima.jp": true, "mihara.hiroshima.jp": true, "miyoshi.hiroshima.jp": true, "naka.hiroshima.jp": true, "onomichi.hiroshima.jp": true, "osakikamijima.hiroshima.jp": true, "otake.hiroshima.jp": true, "saka.hiroshima.jp": true, "sera.hiroshima.jp": true, "seranishi.hiroshima.jp": true, "shinichi.hiroshima.jp": true, "shobara.hiroshima.jp": true, "takehara.hiroshima.jp": true, "abashiri.hokkaido.jp": true, "abira.hokkaido.jp": true, "aibetsu.hokkaido.jp": true, "akabira.hokkaido.jp": true, "akkeshi.hokkaido.jp": true, "asahikawa.hokkaido.jp": true, "ashibetsu.hokkaido.jp": true, "ashoro.hokkaido.jp": true, "assabu.hokkaido.jp": true, "atsuma.hokkaido.jp": true, "bibai.hokkaido.jp": true, "biei.hokkaido.jp": true, "bifuka.hokkaido.jp": true, "bihoro.hokkaido.jp": true, "biratori.hokkaido.jp": true, "chippubetsu.hokkaido.jp": true, "chitose.hokkaido.jp": true, "date.hokkaido.jp": true, "ebetsu.hokkaido.jp": true, "embetsu.hokkaido.jp": true, "eniwa.hokkaido.jp": true, "erimo.hokkaido.jp": true, "esan.hokkaido.jp": true, "esashi.hokkaido.jp": true, "fukagawa.hokkaido.jp": true, "fukushima.hokkaido.jp": true, "furano.hokkaido.jp": true, "furubira.hokkaido.jp": true, "haboro.hokkaido.jp": true, "hakodate.hokkaido.jp": true, "hamatonbetsu.hokkaido.jp": true, "hidaka.hokkaido.jp": true, "higashikagura.hokkaido.jp": true, "higashikawa.hokkaido.jp": true, "hiroo.hokkaido.jp": true, "hokuryu.hokkaido.jp": true, "hokuto.hokkaido.jp": true, "honbetsu.hokkaido.jp": true, "horokanai.hokkaido.jp": true, "horonobe.hokkaido.jp": true, "ikeda.hokkaido.jp": true, "imakane.hokkaido.jp": true, "ishikari.hokkaido.jp": true, "iwamizawa.hokkaido.jp": true, "iwanai.hokkaido.jp": true, "kamifurano.hokkaido.jp": true, "kamikawa.hokkaido.jp": true, "kamishihoro.hokkaido.jp": true, "kamisunagawa.hokkaido.jp": true, "kamoenai.hokkaido.jp": true, "kayabe.hokkaido.jp": true, "kembuchi.hokkaido.jp": true, "kikonai.hokkaido.jp": true, "kimobetsu.hokkaido.jp": true, "kitahiroshima.hokkaido.jp": true, "kitami.hokkaido.jp": true, "kiyosato.hokkaido.jp": true, "koshimizu.hokkaido.jp": true, "kunneppu.hokkaido.jp": true, "kuriyama.hokkaido.jp": true, "kuromatsunai.hokkaido.jp": true, "kushiro.hokkaido.jp": true, "kutchan.hokkaido.jp": true, "kyowa.hokkaido.jp": true, "mashike.hokkaido.jp": true, "matsumae.hokkaido.jp": true, "mikasa.hokkaido.jp": true, "minamifurano.hokkaido.jp": true, "mombetsu.hokkaido.jp": true, "moseushi.hokkaido.jp": true, "mukawa.hokkaido.jp": true, "muroran.hokkaido.jp": true, "naie.hokkaido.jp": true, "nakagawa.hokkaido.jp": true, "nakasatsunai.hokkaido.jp": true, "nakatombetsu.hokkaido.jp": true, "nanae.hokkaido.jp": true, "nanporo.hokkaido.jp": true, "nayoro.hokkaido.jp": true, "nemuro.hokkaido.jp": true, "niikappu.hokkaido.jp": true, "niki.hokkaido.jp": true, "nishiokoppe.hokkaido.jp": true, "noboribetsu.hokkaido.jp": true, "numata.hokkaido.jp": true, "obihiro.hokkaido.jp": true, "obira.hokkaido.jp": true, "oketo.hokkaido.jp": true, "okoppe.hokkaido.jp": true, "otaru.hokkaido.jp": true, "otobe.hokkaido.jp": true, "otofuke.hokkaido.jp": true, "otoineppu.hokkaido.jp": true, "oumu.hokkaido.jp": true, "ozora.hokkaido.jp": true, "pippu.hokkaido.jp": true, "rankoshi.hokkaido.jp": true, "rebun.hokkaido.jp": true, "rikubetsu.hokkaido.jp": true, "rishiri.hokkaido.jp": true, "rishirifuji.hokkaido.jp": true, "saroma.hokkaido.jp": true, "sarufutsu.hokkaido.jp": true, "shakotan.hokkaido.jp": true, "shari.hokkaido.jp": true, "shibecha.hokkaido.jp": true, "shibetsu.hokkaido.jp": true, "shikabe.hokkaido.jp": true, "shikaoi.hokkaido.jp": true, "shimamaki.hokkaido.jp": true, "shimizu.hokkaido.jp": true, "shimokawa.hokkaido.jp": true, "shinshinotsu.hokkaido.jp": true, "shintoku.hokkaido.jp": true, "shiranuka.hokkaido.jp": true, "shiraoi.hokkaido.jp": true, "shiriuchi.hokkaido.jp": true, "sobetsu.hokkaido.jp": true, "sunagawa.hokkaido.jp": true, "taiki.hokkaido.jp": true, "takasu.hokkaido.jp": true, "takikawa.hokkaido.jp": true, "takinoue.hokkaido.jp": true, "teshikaga.hokkaido.jp": true, "tobetsu.hokkaido.jp": true, "tohma.hokkaido.jp": true, "tomakomai.hokkaido.jp": true, "tomari.hokkaido.jp": true, "toya.hokkaido.jp": true, "toyako.hokkaido.jp": true, "toyotomi.hokkaido.jp": true, "toyoura.hokkaido.jp": true, "tsubetsu.hokkaido.jp": true, "tsukigata.hokkaido.jp": true, "urakawa.hokkaido.jp": true, "urausu.hokkaido.jp": true, "uryu.hokkaido.jp": true, "utashinai.hokkaido.jp": true, "wakkanai.hokkaido.jp": true, "wassamu.hokkaido.jp": true, "yakumo.hokkaido.jp": true, "yoichi.hokkaido.jp": true, "aioi.hyogo.jp": true, "akashi.hyogo.jp": true, "ako.hyogo.jp": true, "amagasaki.hyogo.jp": true, "aogaki.hyogo.jp": true, "asago.hyogo.jp": true, "ashiya.hyogo.jp": true, "awaji.hyogo.jp": true, "fukusaki.hyogo.jp": true, "goshiki.hyogo.jp": true, "harima.hyogo.jp": true, "himeji.hyogo.jp": true, "ichikawa.hyogo.jp": true, "inagawa.hyogo.jp": true, "itami.hyogo.jp": true, "kakogawa.hyogo.jp": true, "kamigori.hyogo.jp": true, "kamikawa.hyogo.jp": true, "kasai.hyogo.jp": true, "kasuga.hyogo.jp": true, "kawanishi.hyogo.jp": true, "miki.hyogo.jp": true, "minamiawaji.hyogo.jp": true, "nishinomiya.hyogo.jp": true, "nishiwaki.hyogo.jp": true, "ono.hyogo.jp": true, "sanda.hyogo.jp": true, "sannan.hyogo.jp": true, "sasayama.hyogo.jp": true, "sayo.hyogo.jp": true, "shingu.hyogo.jp": true, "shinonsen.hyogo.jp": true, "shiso.hyogo.jp": true, "sumoto.hyogo.jp": true, "taishi.hyogo.jp": true, "taka.hyogo.jp": true, "takarazuka.hyogo.jp": true, "takasago.hyogo.jp": true, "takino.hyogo.jp": true, "tamba.hyogo.jp": true, "tatsuno.hyogo.jp": true, "toyooka.hyogo.jp": true, "yabu.hyogo.jp": true, "yashiro.hyogo.jp": true, "yoka.hyogo.jp": true, "yokawa.hyogo.jp": true, "ami.ibaraki.jp": true, "asahi.ibaraki.jp": true, "bando.ibaraki.jp": true, "chikusei.ibaraki.jp": true, "daigo.ibaraki.jp": true, "fujishiro.ibaraki.jp": true, "hitachi.ibaraki.jp": true, "hitachinaka.ibaraki.jp": true, "hitachiomiya.ibaraki.jp": true, "hitachiota.ibaraki.jp": true, "ibaraki.ibaraki.jp": true, "ina.ibaraki.jp": true, "inashiki.ibaraki.jp": true, "itako.ibaraki.jp": true, "iwama.ibaraki.jp": true, "joso.ibaraki.jp": true, "kamisu.ibaraki.jp": true, "kasama.ibaraki.jp": true, "kashima.ibaraki.jp": true, "kasumigaura.ibaraki.jp": true, "koga.ibaraki.jp": true, "miho.ibaraki.jp": true, "mito.ibaraki.jp": true, "moriya.ibaraki.jp": true, "naka.ibaraki.jp": true, "namegata.ibaraki.jp": true, "oarai.ibaraki.jp": true, "ogawa.ibaraki.jp": true, "omitama.ibaraki.jp": true, "ryugasaki.ibaraki.jp": true, "sakai.ibaraki.jp": true, "sakuragawa.ibaraki.jp": true, "shimodate.ibaraki.jp": true, "shimotsuma.ibaraki.jp": true, "shirosato.ibaraki.jp": true, "sowa.ibaraki.jp": true, "suifu.ibaraki.jp": true, "takahagi.ibaraki.jp": true, "tamatsukuri.ibaraki.jp": true, "tokai.ibaraki.jp": true, "tomobe.ibaraki.jp": true, "tone.ibaraki.jp": true, "toride.ibaraki.jp": true, "tsuchiura.ibaraki.jp": true, "tsukuba.ibaraki.jp": true, "uchihara.ibaraki.jp": true, "ushiku.ibaraki.jp": true, "yachiyo.ibaraki.jp": true, "yamagata.ibaraki.jp": true, "yawara.ibaraki.jp": true, "yuki.ibaraki.jp": true, "anamizu.ishikawa.jp": true, "hakui.ishikawa.jp": true, "hakusan.ishikawa.jp": true, "kaga.ishikawa.jp": true, "kahoku.ishikawa.jp": true, "kanazawa.ishikawa.jp": true, "kawakita.ishikawa.jp": true, "komatsu.ishikawa.jp": true, "nakanoto.ishikawa.jp": true, "nanao.ishikawa.jp": true, "nomi.ishikawa.jp": true, "nonoichi.ishikawa.jp": true, "noto.ishikawa.jp": true, "shika.ishikawa.jp": true, "suzu.ishikawa.jp": true, "tsubata.ishikawa.jp": true, "tsurugi.ishikawa.jp": true, "uchinada.ishikawa.jp": true, "wajima.ishikawa.jp": true, "fudai.iwate.jp": true, "fujisawa.iwate.jp": true, "hanamaki.iwate.jp": true, "hiraizumi.iwate.jp": true, "hirono.iwate.jp": true, "ichinohe.iwate.jp": true, "ichinoseki.iwate.jp": true, "iwaizumi.iwate.jp": true, "iwate.iwate.jp": true, "joboji.iwate.jp": true, "kamaishi.iwate.jp": true, "kanegasaki.iwate.jp": true, "karumai.iwate.jp": true, "kawai.iwate.jp": true, "kitakami.iwate.jp": true, "kuji.iwate.jp": true, "kunohe.iwate.jp": true, "kuzumaki.iwate.jp": true, "miyako.iwate.jp": true, "mizusawa.iwate.jp": true, "morioka.iwate.jp": true, "ninohe.iwate.jp": true, "noda.iwate.jp": true, "ofunato.iwate.jp": true, "oshu.iwate.jp": true, "otsuchi.iwate.jp": true, "rikuzentakata.iwate.jp": true, "shiwa.iwate.jp": true, "shizukuishi.iwate.jp": true, "sumita.iwate.jp": true, "tanohata.iwate.jp": true, "tono.iwate.jp": true, "yahaba.iwate.jp": true, "yamada.iwate.jp": true, "ayagawa.kagawa.jp": true, "higashikagawa.kagawa.jp": true, "kanonji.kagawa.jp": true, "kotohira.kagawa.jp": true, "manno.kagawa.jp": true, "marugame.kagawa.jp": true, "mitoyo.kagawa.jp": true, "naoshima.kagawa.jp": true, "sanuki.kagawa.jp": true, "tadotsu.kagawa.jp": true, "takamatsu.kagawa.jp": true, "tonosho.kagawa.jp": true, "uchinomi.kagawa.jp": true, "utazu.kagawa.jp": true, "zentsuji.kagawa.jp": true, "akune.kagoshima.jp": true, "amami.kagoshima.jp": true, "hioki.kagoshima.jp": true, "isa.kagoshima.jp": true, "isen.kagoshima.jp": true, "izumi.kagoshima.jp": true, "kagoshima.kagoshima.jp": true, "kanoya.kagoshima.jp": true, "kawanabe.kagoshima.jp": true, "kinko.kagoshima.jp": true, "kouyama.kagoshima.jp": true, "makurazaki.kagoshima.jp": true, "matsumoto.kagoshima.jp": true, "minamitane.kagoshima.jp": true, "nakatane.kagoshima.jp": true, "nishinoomote.kagoshima.jp": true, "satsumasendai.kagoshima.jp": true, "soo.kagoshima.jp": true, "tarumizu.kagoshima.jp": true, "yusui.kagoshima.jp": true, "aikawa.kanagawa.jp": true, "atsugi.kanagawa.jp": true, "ayase.kanagawa.jp": true, "chigasaki.kanagawa.jp": true, "ebina.kanagawa.jp": true, "fujisawa.kanagawa.jp": true, "hadano.kanagawa.jp": true, "hakone.kanagawa.jp": true, "hiratsuka.kanagawa.jp": true, "isehara.kanagawa.jp": true, "kaisei.kanagawa.jp": true, "kamakura.kanagawa.jp": true, "kiyokawa.kanagawa.jp": true, "matsuda.kanagawa.jp": true, "minamiashigara.kanagawa.jp": true, "miura.kanagawa.jp": true, "nakai.kanagawa.jp": true, "ninomiya.kanagawa.jp": true, "odawara.kanagawa.jp": true, "oi.kanagawa.jp": true, "oiso.kanagawa.jp": true, "sagamihara.kanagawa.jp": true, "samukawa.kanagawa.jp": true, "tsukui.kanagawa.jp": true, "yamakita.kanagawa.jp": true, "yamato.kanagawa.jp": true, "yokosuka.kanagawa.jp": true, "yugawara.kanagawa.jp": true, "zama.kanagawa.jp": true, "zushi.kanagawa.jp": true, "aki.kochi.jp": true, "geisei.kochi.jp": true, "hidaka.kochi.jp": true, "higashitsuno.kochi.jp": true, "ino.kochi.jp": true, "kagami.kochi.jp": true, "kami.kochi.jp": true, "kitagawa.kochi.jp": true, "kochi.kochi.jp": true, "mihara.kochi.jp": true, "motoyama.kochi.jp": true, "muroto.kochi.jp": true, "nahari.kochi.jp": true, "nakamura.kochi.jp": true, "nankoku.kochi.jp": true, "nishitosa.kochi.jp": true, "niyodogawa.kochi.jp": true, "ochi.kochi.jp": true, "okawa.kochi.jp": true, "otoyo.kochi.jp": true, "otsuki.kochi.jp": true, "sakawa.kochi.jp": true, "sukumo.kochi.jp": true, "susaki.kochi.jp": true, "tosa.kochi.jp": true, "tosashimizu.kochi.jp": true, "toyo.kochi.jp": true, "tsuno.kochi.jp": true, "umaji.kochi.jp": true, "yasuda.kochi.jp": true, "yusuhara.kochi.jp": true, "amakusa.kumamoto.jp": true, "arao.kumamoto.jp": true, "aso.kumamoto.jp": true, "choyo.kumamoto.jp": true, "gyokuto.kumamoto.jp": true, "kamiamakusa.kumamoto.jp": true, "kikuchi.kumamoto.jp": true, "kumamoto.kumamoto.jp": true, "mashiki.kumamoto.jp": true, "mifune.kumamoto.jp": true, "minamata.kumamoto.jp": true, "minamioguni.kumamoto.jp": true, "nagasu.kumamoto.jp": true, "nishihara.kumamoto.jp": true, "oguni.kumamoto.jp": true, "ozu.kumamoto.jp": true, "sumoto.kumamoto.jp": true, "takamori.kumamoto.jp": true, "uki.kumamoto.jp": true, "uto.kumamoto.jp": true, "yamaga.kumamoto.jp": true, "yamato.kumamoto.jp": true, "yatsushiro.kumamoto.jp": true, "ayabe.kyoto.jp": true, "fukuchiyama.kyoto.jp": true, "higashiyama.kyoto.jp": true, "ide.kyoto.jp": true, "ine.kyoto.jp": true, "joyo.kyoto.jp": true, "kameoka.kyoto.jp": true, "kamo.kyoto.jp": true, "kita.kyoto.jp": true, "kizu.kyoto.jp": true, "kumiyama.kyoto.jp": true, "kyotamba.kyoto.jp": true, "kyotanabe.kyoto.jp": true, "kyotango.kyoto.jp": true, "maizuru.kyoto.jp": true, "minami.kyoto.jp": true, "minamiyamashiro.kyoto.jp": true, "miyazu.kyoto.jp": true, "muko.kyoto.jp": true, "nagaokakyo.kyoto.jp": true, "nakagyo.kyoto.jp": true, "nantan.kyoto.jp": true, "oyamazaki.kyoto.jp": true, "sakyo.kyoto.jp": true, "seika.kyoto.jp": true, "tanabe.kyoto.jp": true, "uji.kyoto.jp": true, "ujitawara.kyoto.jp": true, "wazuka.kyoto.jp": true, "yamashina.kyoto.jp": true, "yawata.kyoto.jp": true, "asahi.mie.jp": true, "inabe.mie.jp": true, "ise.mie.jp": true, "kameyama.mie.jp": true, "kawagoe.mie.jp": true, "kiho.mie.jp": true, "kisosaki.mie.jp": true, "kiwa.mie.jp": true, "komono.mie.jp": true, "kumano.mie.jp": true, "kuwana.mie.jp": true, "matsusaka.mie.jp": true, "meiwa.mie.jp": true, "mihama.mie.jp": true, "minamiise.mie.jp": true, "misugi.mie.jp": true, "miyama.mie.jp": true, "nabari.mie.jp": true, "shima.mie.jp": true, "suzuka.mie.jp": true, "tado.mie.jp": true, "taiki.mie.jp": true, "taki.mie.jp": true, "tamaki.mie.jp": true, "toba.mie.jp": true, "tsu.mie.jp": true, "udono.mie.jp": true, "ureshino.mie.jp": true, "watarai.mie.jp": true, "yokkaichi.mie.jp": true, "furukawa.miyagi.jp": true, "higashimatsushima.miyagi.jp": true, "ishinomaki.miyagi.jp": true, "iwanuma.miyagi.jp": true, "kakuda.miyagi.jp": true, "kami.miyagi.jp": true, "kawasaki.miyagi.jp": true, "marumori.miyagi.jp": true, "matsushima.miyagi.jp": true, "minamisanriku.miyagi.jp": true, "misato.miyagi.jp": true, "murata.miyagi.jp": true, "natori.miyagi.jp": true, "ogawara.miyagi.jp": true, "ohira.miyagi.jp": true, "onagawa.miyagi.jp": true, "osaki.miyagi.jp": true, "rifu.miyagi.jp": true, "semine.miyagi.jp": true, "shibata.miyagi.jp": true, "shichikashuku.miyagi.jp": true, "shikama.miyagi.jp": true, "shiogama.miyagi.jp": true, "shiroishi.miyagi.jp": true, "tagajo.miyagi.jp": true, "taiwa.miyagi.jp": true, "tome.miyagi.jp": true, "tomiya.miyagi.jp": true, "wakuya.miyagi.jp": true, "watari.miyagi.jp": true, "yamamoto.miyagi.jp": true, "zao.miyagi.jp": true, "aya.miyazaki.jp": true, "ebino.miyazaki.jp": true, "gokase.miyazaki.jp": true, "hyuga.miyazaki.jp": true, "kadogawa.miyazaki.jp": true, "kawaminami.miyazaki.jp": true, "kijo.miyazaki.jp": true, "kitagawa.miyazaki.jp": true, "kitakata.miyazaki.jp": true, "kitaura.miyazaki.jp": true, "kobayashi.miyazaki.jp": true, "kunitomi.miyazaki.jp": true, "kushima.miyazaki.jp": true, "mimata.miyazaki.jp": true, "miyakonojo.miyazaki.jp": true, "miyazaki.miyazaki.jp": true, "morotsuka.miyazaki.jp": true, "nichinan.miyazaki.jp": true, "nishimera.miyazaki.jp": true, "nobeoka.miyazaki.jp": true, "saito.miyazaki.jp": true, "shiiba.miyazaki.jp": true, "shintomi.miyazaki.jp": true, "takaharu.miyazaki.jp": true, "takanabe.miyazaki.jp": true, "takazaki.miyazaki.jp": true, "tsuno.miyazaki.jp": true, "achi.nagano.jp": true, "agematsu.nagano.jp": true, "anan.nagano.jp": true, "aoki.nagano.jp": true, "asahi.nagano.jp": true, "azumino.nagano.jp": true, "chikuhoku.nagano.jp": true, "chikuma.nagano.jp": true, "chino.nagano.jp": true, "fujimi.nagano.jp": true, "hakuba.nagano.jp": true, "hara.nagano.jp": true, "hiraya.nagano.jp": true, "iida.nagano.jp": true, "iijima.nagano.jp": true, "iiyama.nagano.jp": true, "iizuna.nagano.jp": true, "ikeda.nagano.jp": true, "ikusaka.nagano.jp": true, "ina.nagano.jp": true, "karuizawa.nagano.jp": true, "kawakami.nagano.jp": true, "kiso.nagano.jp": true, "kisofukushima.nagano.jp": true, "kitaaiki.nagano.jp": true, "komagane.nagano.jp": true, "komoro.nagano.jp": true, "matsukawa.nagano.jp": true, "matsumoto.nagano.jp": true, "miasa.nagano.jp": true, "minamiaiki.nagano.jp": true, "minamimaki.nagano.jp": true, "minamiminowa.nagano.jp": true, "minowa.nagano.jp": true, "miyada.nagano.jp": true, "miyota.nagano.jp": true, "mochizuki.nagano.jp": true, "nagano.nagano.jp": true, "nagawa.nagano.jp": true, "nagiso.nagano.jp": true, "nakagawa.nagano.jp": true, "nakano.nagano.jp": true, "nozawaonsen.nagano.jp": true, "obuse.nagano.jp": true, "ogawa.nagano.jp": true, "okaya.nagano.jp": true, "omachi.nagano.jp": true, "omi.nagano.jp": true, "ookuwa.nagano.jp": true, "ooshika.nagano.jp": true, "otaki.nagano.jp": true, "otari.nagano.jp": true, "sakae.nagano.jp": true, "sakaki.nagano.jp": true, "saku.nagano.jp": true, "sakuho.nagano.jp": true, "shimosuwa.nagano.jp": true, "shinanomachi.nagano.jp": true, "shiojiri.nagano.jp": true, "suwa.nagano.jp": true, "suzaka.nagano.jp": true, "takagi.nagano.jp": true, "takamori.nagano.jp": true, "takayama.nagano.jp": true, "tateshina.nagano.jp": true, "tatsuno.nagano.jp": true, "togakushi.nagano.jp": true, "togura.nagano.jp": true, "tomi.nagano.jp": true, "ueda.nagano.jp": true, "wada.nagano.jp": true, "yamagata.nagano.jp": true, "yamanouchi.nagano.jp": true, "yasaka.nagano.jp": true, "yasuoka.nagano.jp": true, "chijiwa.nagasaki.jp": true, "futsu.nagasaki.jp": true, "goto.nagasaki.jp": true, "hasami.nagasaki.jp": true, "hirado.nagasaki.jp": true, "iki.nagasaki.jp": true, "isahaya.nagasaki.jp": true, "kawatana.nagasaki.jp": true, "kuchinotsu.nagasaki.jp": true, "matsuura.nagasaki.jp": true, "nagasaki.nagasaki.jp": true, "obama.nagasaki.jp": true, "omura.nagasaki.jp": true, "oseto.nagasaki.jp": true, "saikai.nagasaki.jp": true, "sasebo.nagasaki.jp": true, "seihi.nagasaki.jp": true, "shimabara.nagasaki.jp": true, "shinkamigoto.nagasaki.jp": true, "togitsu.nagasaki.jp": true, "tsushima.nagasaki.jp": true, "unzen.nagasaki.jp": true, "ando.nara.jp": true, "gose.nara.jp": true, "heguri.nara.jp": true, "higashiyoshino.nara.jp": true, "ikaruga.nara.jp": true, "ikoma.nara.jp": true, "kamikitayama.nara.jp": true, "kanmaki.nara.jp": true, "kashiba.nara.jp": true, "kashihara.nara.jp": true, "katsuragi.nara.jp": true, "kawai.nara.jp": true, "kawakami.nara.jp": true, "kawanishi.nara.jp": true, "koryo.nara.jp": true, "kurotaki.nara.jp": true, "mitsue.nara.jp": true, "miyake.nara.jp": true, "nara.nara.jp": true, "nosegawa.nara.jp": true, "oji.nara.jp": true, "ouda.nara.jp": true, "oyodo.nara.jp": true, "sakurai.nara.jp": true, "sango.nara.jp": true, "shimoichi.nara.jp": true, "shimokitayama.nara.jp": true, "shinjo.nara.jp": true, "soni.nara.jp": true, "takatori.nara.jp": true, "tawaramoto.nara.jp": true, "tenkawa.nara.jp": true, "tenri.nara.jp": true, "uda.nara.jp": true, "yamatokoriyama.nara.jp": true, "yamatotakada.nara.jp": true, "yamazoe.nara.jp": true, "yoshino.nara.jp": true, "aga.niigata.jp": true, "agano.niigata.jp": true, "gosen.niigata.jp": true, "itoigawa.niigata.jp": true, "izumozaki.niigata.jp": true, "joetsu.niigata.jp": true, "kamo.niigata.jp": true, "kariwa.niigata.jp": true, "kashiwazaki.niigata.jp": true, "minamiuonuma.niigata.jp": true, "mitsuke.niigata.jp": true, "muika.niigata.jp": true, "murakami.niigata.jp": true, "myoko.niigata.jp": true, "nagaoka.niigata.jp": true, "niigata.niigata.jp": true, "ojiya.niigata.jp": true, "omi.niigata.jp": true, "sado.niigata.jp": true, "sanjo.niigata.jp": true, "seiro.niigata.jp": true, "seirou.niigata.jp": true, "sekikawa.niigata.jp": true, "shibata.niigata.jp": true, "tagami.niigata.jp": true, "tainai.niigata.jp": true, "tochio.niigata.jp": true, "tokamachi.niigata.jp": true, "tsubame.niigata.jp": true, "tsunan.niigata.jp": true, "uonuma.niigata.jp": true, "yahiko.niigata.jp": true, "yoita.niigata.jp": true, "yuzawa.niigata.jp": true, "beppu.oita.jp": true, "bungoono.oita.jp": true, "bungotakada.oita.jp": true, "hasama.oita.jp": true, "hiji.oita.jp": true, "himeshima.oita.jp": true, "hita.oita.jp": true, "kamitsue.oita.jp": true, "kokonoe.oita.jp": true, "kuju.oita.jp": true, "kunisaki.oita.jp": true, "kusu.oita.jp": true, "oita.oita.jp": true, "saiki.oita.jp": true, "taketa.oita.jp": true, "tsukumi.oita.jp": true, "usa.oita.jp": true, "usuki.oita.jp": true, "yufu.oita.jp": true, "akaiwa.okayama.jp": true, "asakuchi.okayama.jp": true, "bizen.okayama.jp": true, "hayashima.okayama.jp": true, "ibara.okayama.jp": true, "kagamino.okayama.jp": true, "kasaoka.okayama.jp": true, "kibichuo.okayama.jp": true, "kumenan.okayama.jp": true, "kurashiki.okayama.jp": true, "maniwa.okayama.jp": true, "misaki.okayama.jp": true, "nagi.okayama.jp": true, "niimi.okayama.jp": true, "nishiawakura.okayama.jp": true, "okayama.okayama.jp": true, "satosho.okayama.jp": true, "setouchi.okayama.jp": true, "shinjo.okayama.jp": true, "shoo.okayama.jp": true, "soja.okayama.jp": true, "takahashi.okayama.jp": true, "tamano.okayama.jp": true, "tsuyama.okayama.jp": true, "wake.okayama.jp": true, "yakage.okayama.jp": true, "aguni.okinawa.jp": true, "ginowan.okinawa.jp": true, "ginoza.okinawa.jp": true, "gushikami.okinawa.jp": true, "haebaru.okinawa.jp": true, "higashi.okinawa.jp": true, "hirara.okinawa.jp": true, "iheya.okinawa.jp": true, "ishigaki.okinawa.jp": true, "ishikawa.okinawa.jp": true, "itoman.okinawa.jp": true, "izena.okinawa.jp": true, "kadena.okinawa.jp": true, "kin.okinawa.jp": true, "kitadaito.okinawa.jp": true, "kitanakagusuku.okinawa.jp": true, "kumejima.okinawa.jp": true, "kunigami.okinawa.jp": true, "minamidaito.okinawa.jp": true, "motobu.okinawa.jp": true, "nago.okinawa.jp": true, "naha.okinawa.jp": true, "nakagusuku.okinawa.jp": true, "nakijin.okinawa.jp": true, "nanjo.okinawa.jp": true, "nishihara.okinawa.jp": true, "ogimi.okinawa.jp": true, "okinawa.okinawa.jp": true, "onna.okinawa.jp": true, "shimoji.okinawa.jp": true, "taketomi.okinawa.jp": true, "tarama.okinawa.jp": true, "tokashiki.okinawa.jp": true, "tomigusuku.okinawa.jp": true, "tonaki.okinawa.jp": true, "urasoe.okinawa.jp": true, "uruma.okinawa.jp": true, "yaese.okinawa.jp": true, "yomitan.okinawa.jp": true, "yonabaru.okinawa.jp": true, "yonaguni.okinawa.jp": true, "zamami.okinawa.jp": true, "abeno.osaka.jp": true, "chihayaakasaka.osaka.jp": true, "chuo.osaka.jp": true, "daito.osaka.jp": true, "fujiidera.osaka.jp": true, "habikino.osaka.jp": true, "hannan.osaka.jp": true, "higashiosaka.osaka.jp": true, "higashisumiyoshi.osaka.jp": true, "higashiyodogawa.osaka.jp": true, "hirakata.osaka.jp": true, "ibaraki.osaka.jp": true, "ikeda.osaka.jp": true, "izumi.osaka.jp": true, "izumiotsu.osaka.jp": true, "izumisano.osaka.jp": true, "kadoma.osaka.jp": true, "kaizuka.osaka.jp": true, "kanan.osaka.jp": true, "kashiwara.osaka.jp": true, "katano.osaka.jp": true, "kawachinagano.osaka.jp": true, "kishiwada.osaka.jp": true, "kita.osaka.jp": true, "kumatori.osaka.jp": true, "matsubara.osaka.jp": true, "minato.osaka.jp": true, "minoh.osaka.jp": true, "misaki.osaka.jp": true, "moriguchi.osaka.jp": true, "neyagawa.osaka.jp": true, "nishi.osaka.jp": true, "nose.osaka.jp": true, "osakasayama.osaka.jp": true, "sakai.osaka.jp": true, "sayama.osaka.jp": true, "sennan.osaka.jp": true, "settsu.osaka.jp": true, "shijonawate.osaka.jp": true, "shimamoto.osaka.jp": true, "suita.osaka.jp": true, "tadaoka.osaka.jp": true, "taishi.osaka.jp": true, "tajiri.osaka.jp": true, "takaishi.osaka.jp": true, "takatsuki.osaka.jp": true, "tondabayashi.osaka.jp": true, "toyonaka.osaka.jp": true, "toyono.osaka.jp": true, "yao.osaka.jp": true, "ariake.saga.jp": true, "arita.saga.jp": true, "fukudomi.saga.jp": true, "genkai.saga.jp": true, "hamatama.saga.jp": true, "hizen.saga.jp": true, "imari.saga.jp": true, "kamimine.saga.jp": true, "kanzaki.saga.jp": true, "karatsu.saga.jp": true, "kashima.saga.jp": true, "kitagata.saga.jp": true, "kitahata.saga.jp": true, "kiyama.saga.jp": true, "kouhoku.saga.jp": true, "kyuragi.saga.jp": true, "nishiarita.saga.jp": true, "ogi.saga.jp": true, "omachi.saga.jp": true, "ouchi.saga.jp": true, "saga.saga.jp": true, "shiroishi.saga.jp": true, "taku.saga.jp": true, "tara.saga.jp": true, "tosu.saga.jp": true, "yoshinogari.saga.jp": true, "arakawa.saitama.jp": true, "asaka.saitama.jp": true, "chichibu.saitama.jp": true, "fujimi.saitama.jp": true, "fujimino.saitama.jp": true, "fukaya.saitama.jp": true, "hanno.saitama.jp": true, "hanyu.saitama.jp": true, "hasuda.saitama.jp": true, "hatogaya.saitama.jp": true, "hatoyama.saitama.jp": true, "hidaka.saitama.jp": true, "higashichichibu.saitama.jp": true, "higashimatsuyama.saitama.jp": true, "honjo.saitama.jp": true, "ina.saitama.jp": true, "iruma.saitama.jp": true, "iwatsuki.saitama.jp": true, "kamiizumi.saitama.jp": true, "kamikawa.saitama.jp": true, "kamisato.saitama.jp": true, "kasukabe.saitama.jp": true, "kawagoe.saitama.jp": true, "kawaguchi.saitama.jp": true, "kawajima.saitama.jp": true, "kazo.saitama.jp": true, "kitamoto.saitama.jp": true, "koshigaya.saitama.jp": true, "kounosu.saitama.jp": true, "kuki.saitama.jp": true, "kumagaya.saitama.jp": true, "matsubushi.saitama.jp": true, "minano.saitama.jp": true, "misato.saitama.jp": true, "miyashiro.saitama.jp": true, "miyoshi.saitama.jp": true, "moroyama.saitama.jp": true, "nagatoro.saitama.jp": true, "namegawa.saitama.jp": true, "niiza.saitama.jp": true, "ogano.saitama.jp": true, "ogawa.saitama.jp": true, "ogose.saitama.jp": true, "okegawa.saitama.jp": true, "omiya.saitama.jp": true, "otaki.saitama.jp": true, "ranzan.saitama.jp": true, "ryokami.saitama.jp": true, "saitama.saitama.jp": true, "sakado.saitama.jp": true, "satte.saitama.jp": true, "sayama.saitama.jp": true, "shiki.saitama.jp": true, "shiraoka.saitama.jp": true, "soka.saitama.jp": true, "sugito.saitama.jp": true, "toda.saitama.jp": true, "tokigawa.saitama.jp": true, "tokorozawa.saitama.jp": true, "tsurugashima.saitama.jp": true, "urawa.saitama.jp": true, "warabi.saitama.jp": true, "yashio.saitama.jp": true, "yokoze.saitama.jp": true, "yono.saitama.jp": true, "yorii.saitama.jp": true, "yoshida.saitama.jp": true, "yoshikawa.saitama.jp": true, "yoshimi.saitama.jp": true, "aisho.shiga.jp": true, "gamo.shiga.jp": true, "higashiomi.shiga.jp": true, "hikone.shiga.jp": true, "koka.shiga.jp": true, "konan.shiga.jp": true, "kosei.shiga.jp": true, "koto.shiga.jp": true, "kusatsu.shiga.jp": true, "maibara.shiga.jp": true, "moriyama.shiga.jp": true, "nagahama.shiga.jp": true, "nishiazai.shiga.jp": true, "notogawa.shiga.jp": true, "omihachiman.shiga.jp": true, "otsu.shiga.jp": true, "ritto.shiga.jp": true, "ryuoh.shiga.jp": true, "takashima.shiga.jp": true, "takatsuki.shiga.jp": true, "torahime.shiga.jp": true, "toyosato.shiga.jp": true, "yasu.shiga.jp": true, "akagi.shimane.jp": true, "ama.shimane.jp": true, "gotsu.shimane.jp": true, "hamada.shimane.jp": true, "higashiizumo.shimane.jp": true, "hikawa.shimane.jp": true, "hikimi.shimane.jp": true, "izumo.shimane.jp": true, "kakinoki.shimane.jp": true, "masuda.shimane.jp": true, "matsue.shimane.jp": true, "misato.shimane.jp": true, "nishinoshima.shimane.jp": true, "ohda.shimane.jp": true, "okinoshima.shimane.jp": true, "okuizumo.shimane.jp": true, "shimane.shimane.jp": true, "tamayu.shimane.jp": true, "tsuwano.shimane.jp": true, "unnan.shimane.jp": true, "yakumo.shimane.jp": true, "yasugi.shimane.jp": true, "yatsuka.shimane.jp": true, "arai.shizuoka.jp": true, "atami.shizuoka.jp": true, "fuji.shizuoka.jp": true, "fujieda.shizuoka.jp": true, "fujikawa.shizuoka.jp": true, "fujinomiya.shizuoka.jp": true, "fukuroi.shizuoka.jp": true, "gotemba.shizuoka.jp": true, "haibara.shizuoka.jp": true, "hamamatsu.shizuoka.jp": true, "higashiizu.shizuoka.jp": true, "ito.shizuoka.jp": true, "iwata.shizuoka.jp": true, "izu.shizuoka.jp": true, "izunokuni.shizuoka.jp": true, "kakegawa.shizuoka.jp": true, "kannami.shizuoka.jp": true, "kawanehon.shizuoka.jp": true, "kawazu.shizuoka.jp": true, "kikugawa.shizuoka.jp": true, "kosai.shizuoka.jp": true, "makinohara.shizuoka.jp": true, "matsuzaki.shizuoka.jp": true, "minamiizu.shizuoka.jp": true, "mishima.shizuoka.jp": true, "morimachi.shizuoka.jp": true, "nishiizu.shizuoka.jp": true, "numazu.shizuoka.jp": true, "omaezaki.shizuoka.jp": true, "shimada.shizuoka.jp": true, "shimizu.shizuoka.jp": true, "shimoda.shizuoka.jp": true, "shizuoka.shizuoka.jp": true, "susono.shizuoka.jp": true, "yaizu.shizuoka.jp": true, "yoshida.shizuoka.jp": true, "ashikaga.tochigi.jp": true, "bato.tochigi.jp": true, "haga.tochigi.jp": true, "ichikai.tochigi.jp": true, "iwafune.tochigi.jp": true, "kaminokawa.tochigi.jp": true, "kanuma.tochigi.jp": true, "karasuyama.tochigi.jp": true, "kuroiso.tochigi.jp": true, "mashiko.tochigi.jp": true, "mibu.tochigi.jp": true, "moka.tochigi.jp": true, "motegi.tochigi.jp": true, "nasu.tochigi.jp": true, "nasushiobara.tochigi.jp": true, "nikko.tochigi.jp": true, "nishikata.tochigi.jp": true, "nogi.tochigi.jp": true, "ohira.tochigi.jp": true, "ohtawara.tochigi.jp": true, "oyama.tochigi.jp": true, "sakura.tochigi.jp": true, "sano.tochigi.jp": true, "shimotsuke.tochigi.jp": true, "shioya.tochigi.jp": true, "takanezawa.tochigi.jp": true, "tochigi.tochigi.jp": true, "tsuga.tochigi.jp": true, "ujiie.tochigi.jp": true, "utsunomiya.tochigi.jp": true, "yaita.tochigi.jp": true, "aizumi.tokushima.jp": true, "anan.tokushima.jp": true, "ichiba.tokushima.jp": true, "itano.tokushima.jp": true, "kainan.tokushima.jp": true, "komatsushima.tokushima.jp": true, "matsushige.tokushima.jp": true, "mima.tokushima.jp": true, "minami.tokushima.jp": true, "miyoshi.tokushima.jp": true, "mugi.tokushima.jp": true, "nakagawa.tokushima.jp": true, "naruto.tokushima.jp": true, "sanagochi.tokushima.jp": true, "shishikui.tokushima.jp": true, "tokushima.tokushima.jp": true, "wajiki.tokushima.jp": true, "adachi.tokyo.jp": true, "akiruno.tokyo.jp": true, "akishima.tokyo.jp": true, "aogashima.tokyo.jp": true, "arakawa.tokyo.jp": true, "bunkyo.tokyo.jp": true, "chiyoda.tokyo.jp": true, "chofu.tokyo.jp": true, "chuo.tokyo.jp": true, "edogawa.tokyo.jp": true, "fuchu.tokyo.jp": true, "fussa.tokyo.jp": true, "hachijo.tokyo.jp": true, "hachioji.tokyo.jp": true, "hamura.tokyo.jp": true, "higashikurume.tokyo.jp": true, "higashimurayama.tokyo.jp": true, "higashiyamato.tokyo.jp": true, "hino.tokyo.jp": true, "hinode.tokyo.jp": true, "hinohara.tokyo.jp": true, "inagi.tokyo.jp": true, "itabashi.tokyo.jp": true, "katsushika.tokyo.jp": true, "kita.tokyo.jp": true, "kiyose.tokyo.jp": true, "kodaira.tokyo.jp": true, "koganei.tokyo.jp": true, "kokubunji.tokyo.jp": true, "komae.tokyo.jp": true, "koto.tokyo.jp": true, "kouzushima.tokyo.jp": true, "kunitachi.tokyo.jp": true, "machida.tokyo.jp": true, "meguro.tokyo.jp": true, "minato.tokyo.jp": true, "mitaka.tokyo.jp": true, "mizuho.tokyo.jp": true, "musashimurayama.tokyo.jp": true, "musashino.tokyo.jp": true, "nakano.tokyo.jp": true, "nerima.tokyo.jp": true, "ogasawara.tokyo.jp": true, "okutama.tokyo.jp": true, "ome.tokyo.jp": true, "oshima.tokyo.jp": true, "ota.tokyo.jp": true, "setagaya.tokyo.jp": true, "shibuya.tokyo.jp": true, "shinagawa.tokyo.jp": true, "shinjuku.tokyo.jp": true, "suginami.tokyo.jp": true, "sumida.tokyo.jp": true, "tachikawa.tokyo.jp": true, "taito.tokyo.jp": true, "tama.tokyo.jp": true, "toshima.tokyo.jp": true, "chizu.tottori.jp": true, "hino.tottori.jp": true, "kawahara.tottori.jp": true, "koge.tottori.jp": true, "kotoura.tottori.jp": true, "misasa.tottori.jp": true, "nanbu.tottori.jp": true, "nichinan.tottori.jp": true, "sakaiminato.tottori.jp": true, "tottori.tottori.jp": true, "wakasa.tottori.jp": true, "yazu.tottori.jp": true, "yonago.tottori.jp": true, "asahi.toyama.jp": true, "fuchu.toyama.jp": true, "fukumitsu.toyama.jp": true, "funahashi.toyama.jp": true, "himi.toyama.jp": true, "imizu.toyama.jp": true, "inami.toyama.jp": true, "johana.toyama.jp": true, "kamiichi.toyama.jp": true, "kurobe.toyama.jp": true, "nakaniikawa.toyama.jp": true, "namerikawa.toyama.jp": true, "nanto.toyama.jp": true, "nyuzen.toyama.jp": true, "oyabe.toyama.jp": true, "taira.toyama.jp": true, "takaoka.toyama.jp": true, "tateyama.toyama.jp": true, "toga.toyama.jp": true, "tonami.toyama.jp": true, "toyama.toyama.jp": true, "unazuki.toyama.jp": true, "uozu.toyama.jp": true, "yamada.toyama.jp": true, "arida.wakayama.jp": true, "aridagawa.wakayama.jp": true, "gobo.wakayama.jp": true, "hashimoto.wakayama.jp": true, "hidaka.wakayama.jp": true, "hirogawa.wakayama.jp": true, "inami.wakayama.jp": true, "iwade.wakayama.jp": true, "kainan.wakayama.jp": true, "kamitonda.wakayama.jp": true, "katsuragi.wakayama.jp": true, "kimino.wakayama.jp": true, "kinokawa.wakayama.jp": true, "kitayama.wakayama.jp": true, "koya.wakayama.jp": true, "koza.wakayama.jp": true, "kozagawa.wakayama.jp": true, "kudoyama.wakayama.jp": true, "kushimoto.wakayama.jp": true, "mihama.wakayama.jp": true, "misato.wakayama.jp": true, "nachikatsuura.wakayama.jp": true, "shingu.wakayama.jp": true, "shirahama.wakayama.jp": true, "taiji.wakayama.jp": true, "tanabe.wakayama.jp": true, "wakayama.wakayama.jp": true, "yuasa.wakayama.jp": true, "yura.wakayama.jp": true, "asahi.yamagata.jp": true, "funagata.yamagata.jp": true, "higashine.yamagata.jp": true, "iide.yamagata.jp": true, "kahoku.yamagata.jp": true, "kaminoyama.yamagata.jp": true, "kaneyama.yamagata.jp": true, "kawanishi.yamagata.jp": true, "mamurogawa.yamagata.jp": true, "mikawa.yamagata.jp": true, "murayama.yamagata.jp": true, "nagai.yamagata.jp": true, "nakayama.yamagata.jp": true, "nanyo.yamagata.jp": true, "nishikawa.yamagata.jp": true, "obanazawa.yamagata.jp": true, "oe.yamagata.jp": true, "oguni.yamagata.jp": true, "ohkura.yamagata.jp": true, "oishida.yamagata.jp": true, "sagae.yamagata.jp": true, "sakata.yamagata.jp": true, "sakegawa.yamagata.jp": true, "shinjo.yamagata.jp": true, "shirataka.yamagata.jp": true, "shonai.yamagata.jp": true, "takahata.yamagata.jp": true, "tendo.yamagata.jp": true, "tozawa.yamagata.jp": true, "tsuruoka.yamagata.jp": true, "yamagata.yamagata.jp": true, "yamanobe.yamagata.jp": true, "yonezawa.yamagata.jp": true, "yuza.yamagata.jp": true, "abu.yamaguchi.jp": true, "hagi.yamaguchi.jp": true, "hikari.yamaguchi.jp": true, "hofu.yamaguchi.jp": true, "iwakuni.yamaguchi.jp": true, "kudamatsu.yamaguchi.jp": true, "mitou.yamaguchi.jp": true, "nagato.yamaguchi.jp": true, "oshima.yamaguchi.jp": true, "shimonoseki.yamaguchi.jp": true, "shunan.yamaguchi.jp": true, "tabuse.yamaguchi.jp": true, "tokuyama.yamaguchi.jp": true, "toyota.yamaguchi.jp": true, "ube.yamaguchi.jp": true, "yuu.yamaguchi.jp": true, "chuo.yamanashi.jp": true, "doshi.yamanashi.jp": true, "fuefuki.yamanashi.jp": true, "fujikawa.yamanashi.jp": true, "fujikawaguchiko.yamanashi.jp": true, "fujiyoshida.yamanashi.jp": true, "hayakawa.yamanashi.jp": true, "hokuto.yamanashi.jp": true, "ichikawamisato.yamanashi.jp": true, "kai.yamanashi.jp": true, "kofu.yamanashi.jp": true, "koshu.yamanashi.jp": true, "kosuge.yamanashi.jp": true, "minami-alps.yamanashi.jp": true, "minobu.yamanashi.jp": true, "nakamichi.yamanashi.jp": true, "nanbu.yamanashi.jp": true, "narusawa.yamanashi.jp": true, "nirasaki.yamanashi.jp": true, "nishikatsura.yamanashi.jp": true, "oshino.yamanashi.jp": true, "otsuki.yamanashi.jp": true, "showa.yamanashi.jp": true, "tabayama.yamanashi.jp": true, "tsuru.yamanashi.jp": true, "uenohara.yamanashi.jp": true, "yamanakako.yamanashi.jp": true, "yamanashi.yamanashi.jp": true, "*.ke": true, "kg": true, "org.kg": true, "net.kg": true, "com.kg": true, "edu.kg": true, "gov.kg": true, "mil.kg": true, "*.kh": true, "ki": true, "edu.ki": true, "biz.ki": true, "net.ki": true, "org.ki": true, "gov.ki": true, "info.ki": true, "com.ki": true, "km": true, "org.km": true, "nom.km": true, "gov.km": true, "prd.km": true, "tm.km": true, "edu.km": true, "mil.km": true, "ass.km": true, "com.km": true, "coop.km": true, "asso.km": true, "presse.km": true, "medecin.km": true, "notaires.km": true, "pharmaciens.km": true, "veterinaire.km": true, "gouv.km": true, "kn": true, "net.kn": true, "org.kn": true, "edu.kn": true, "gov.kn": true, "kp": true, "com.kp": true, "edu.kp": true, "gov.kp": true, "org.kp": true, "rep.kp": true, "tra.kp": true, "kr": true, "ac.kr": true, "co.kr": true, "es.kr": true, "go.kr": true, "hs.kr": true, "kg.kr": true, "mil.kr": true, "ms.kr": true, "ne.kr": true, "or.kr": true, "pe.kr": true, "re.kr": true, "sc.kr": true, "busan.kr": true, "chungbuk.kr": true, "chungnam.kr": true, "daegu.kr": true, "daejeon.kr": true, "gangwon.kr": true, "gwangju.kr": true, "gyeongbuk.kr": true, "gyeonggi.kr": true, "gyeongnam.kr": true, "incheon.kr": true, "jeju.kr": true, "jeonbuk.kr": true, "jeonnam.kr": true, "seoul.kr": true, "ulsan.kr": true, "*.kw": true, "ky": true, "edu.ky": true, "gov.ky": true, "com.ky": true, "org.ky": true, "net.ky": true, "kz": true, "org.kz": true, "edu.kz": true, "net.kz": true, "gov.kz": true, "mil.kz": true, "com.kz": true, "la": true, "int.la": true, "net.la": true, "info.la": true, "edu.la": true, "gov.la": true, "per.la": true, "com.la": true, "org.la": true, "lb": true, "com.lb": true, "edu.lb": true, "gov.lb": true, "net.lb": true, "org.lb": true, "lc": true, "com.lc": true, "net.lc": true, "co.lc": true, "org.lc": true, "edu.lc": true, "gov.lc": true, "li": true, "lk": true, "gov.lk": true, "sch.lk": true, "net.lk": true, "int.lk": true, "com.lk": true, "org.lk": true, "edu.lk": true, "ngo.lk": true, "soc.lk": true, "web.lk": true, "ltd.lk": true, "assn.lk": true, "grp.lk": true, "hotel.lk": true, "ac.lk": true, "lr": true, "com.lr": true, "edu.lr": true, "gov.lr": true, "org.lr": true, "net.lr": true, "ls": true, "co.ls": true, "org.ls": true, "lt": true, "gov.lt": true, "lu": true, "lv": true, "com.lv": true, "edu.lv": true, "gov.lv": true, "org.lv": true, "mil.lv": true, "id.lv": true, "net.lv": true, "asn.lv": true, "conf.lv": true, "ly": true, "com.ly": true, "net.ly": true, "gov.ly": true, "plc.ly": true, "edu.ly": true, "sch.ly": true, "med.ly": true, "org.ly": true, "id.ly": true, "ma": true, "co.ma": true, "net.ma": true, "gov.ma": true, "org.ma": true, "ac.ma": true, "press.ma": true, "mc": true, "tm.mc": true, "asso.mc": true, "md": true, "me": true, "co.me": true, "net.me": true, "org.me": true, "edu.me": true, "ac.me": true, "gov.me": true, "its.me": true, "priv.me": true, "mg": true, "org.mg": true, "nom.mg": true, "gov.mg": true, "prd.mg": true, "tm.mg": true, "edu.mg": true, "mil.mg": true, "com.mg": true, "co.mg": true, "mh": true, "mil": true, "mk": true, "com.mk": true, "org.mk": true, "net.mk": true, "edu.mk": true, "gov.mk": true, "inf.mk": true, "name.mk": true, "ml": true, "com.ml": true, "edu.ml": true, "gouv.ml": true, "gov.ml": true, "net.ml": true, "org.ml": true, "presse.ml": true, "*.mm": true, "mn": true, "gov.mn": true, "edu.mn": true, "org.mn": true, "mo": true, "com.mo": true, "net.mo": true, "org.mo": true, "edu.mo": true, "gov.mo": true, "mobi": true, "mp": true, "mq": true, "mr": true, "gov.mr": true, "ms": true, "com.ms": true, "edu.ms": true, "gov.ms": true, "net.ms": true, "org.ms": true, "mt": true, "com.mt": true, "edu.mt": true, "net.mt": true, "org.mt": true, "mu": true, "com.mu": true, "net.mu": true, "org.mu": true, "gov.mu": true, "ac.mu": true, "co.mu": true, "or.mu": true, "museum": true, "academy.museum": true, "agriculture.museum": true, "air.museum": true, "airguard.museum": true, "alabama.museum": true, "alaska.museum": true, "amber.museum": true, "ambulance.museum": true, "american.museum": true, "americana.museum": true, "americanantiques.museum": true, "americanart.museum": true, "amsterdam.museum": true, "and.museum": true, "annefrank.museum": true, "anthro.museum": true, "anthropology.museum": true, "antiques.museum": true, "aquarium.museum": true, "arboretum.museum": true, "archaeological.museum": true, "archaeology.museum": true, "architecture.museum": true, "art.museum": true, "artanddesign.museum": true, "artcenter.museum": true, "artdeco.museum": true, "arteducation.museum": true, "artgallery.museum": true, "arts.museum": true, "artsandcrafts.museum": true, "asmatart.museum": true, "assassination.museum": true, "assisi.museum": true, "association.museum": true, "astronomy.museum": true, "atlanta.museum": true, "austin.museum": true, "australia.museum": true, "automotive.museum": true, "aviation.museum": true, "axis.museum": true, "badajoz.museum": true, "baghdad.museum": true, "bahn.museum": true, "bale.museum": true, "baltimore.museum": true, "barcelona.museum": true, "baseball.museum": true, "basel.museum": true, "baths.museum": true, "bauern.museum": true, "beauxarts.museum": true, "beeldengeluid.museum": true, "bellevue.museum": true, "bergbau.museum": true, "berkeley.museum": true, "berlin.museum": true, "bern.museum": true, "bible.museum": true, "bilbao.museum": true, "bill.museum": true, "birdart.museum": true, "birthplace.museum": true, "bonn.museum": true, "boston.museum": true, "botanical.museum": true, "botanicalgarden.museum": true, "botanicgarden.museum": true, "botany.museum": true, "brandywinevalley.museum": true, "brasil.museum": true, "bristol.museum": true, "british.museum": true, "britishcolumbia.museum": true, "broadcast.museum": true, "brunel.museum": true, "brussel.museum": true, "brussels.museum": true, "bruxelles.museum": true, "building.museum": true, "burghof.museum": true, "bus.museum": true, "bushey.museum": true, "cadaques.museum": true, "california.museum": true, "cambridge.museum": true, "can.museum": true, "canada.museum": true, "capebreton.museum": true, "carrier.museum": true, "cartoonart.museum": true, "casadelamoneda.museum": true, "castle.museum": true, "castres.museum": true, "celtic.museum": true, "center.museum": true, "chattanooga.museum": true, "cheltenham.museum": true, "chesapeakebay.museum": true, "chicago.museum": true, "children.museum": true, "childrens.museum": true, "childrensgarden.museum": true, "chiropractic.museum": true, "chocolate.museum": true, "christiansburg.museum": true, "cincinnati.museum": true, "cinema.museum": true, "circus.museum": true, "civilisation.museum": true, "civilization.museum": true, "civilwar.museum": true, "clinton.museum": true, "clock.museum": true, "coal.museum": true, "coastaldefence.museum": true, "cody.museum": true, "coldwar.museum": true, "collection.museum": true, "colonialwilliamsburg.museum": true, "coloradoplateau.museum": true, "columbia.museum": true, "columbus.museum": true, "communication.museum": true, "communications.museum": true, "community.museum": true, "computer.museum": true, "computerhistory.museum": true, "xn--comunicaes-v6a2o.museum": true, "contemporary.museum": true, "contemporaryart.museum": true, "convent.museum": true, "copenhagen.museum": true, "corporation.museum": true, "xn--correios-e-telecomunicaes-ghc29a.museum": true, "corvette.museum": true, "costume.museum": true, "countryestate.museum": true, "county.museum": true, "crafts.museum": true, "cranbrook.museum": true, "creation.museum": true, "cultural.museum": true, "culturalcenter.museum": true, "culture.museum": true, "cyber.museum": true, "cymru.museum": true, "dali.museum": true, "dallas.museum": true, "database.museum": true, "ddr.museum": true, "decorativearts.museum": true, "delaware.museum": true, "delmenhorst.museum": true, "denmark.museum": true, "depot.museum": true, "design.museum": true, "detroit.museum": true, "dinosaur.museum": true, "discovery.museum": true, "dolls.museum": true, "donostia.museum": true, "durham.museum": true, "eastafrica.museum": true, "eastcoast.museum": true, "education.museum": true, "educational.museum": true, "egyptian.museum": true, "eisenbahn.museum": true, "elburg.museum": true, "elvendrell.museum": true, "embroidery.museum": true, "encyclopedic.museum": true, "england.museum": true, "entomology.museum": true, "environment.museum": true, "environmentalconservation.museum": true, "epilepsy.museum": true, "essex.museum": true, "estate.museum": true, "ethnology.museum": true, "exeter.museum": true, "exhibition.museum": true, "family.museum": true, "farm.museum": true, "farmequipment.museum": true, "farmers.museum": true, "farmstead.museum": true, "field.museum": true, "figueres.museum": true, "filatelia.museum": true, "film.museum": true, "fineart.museum": true, "finearts.museum": true, "finland.museum": true, "flanders.museum": true, "florida.museum": true, "force.museum": true, "fortmissoula.museum": true, "fortworth.museum": true, "foundation.museum": true, "francaise.museum": true, "frankfurt.museum": true, "franziskaner.museum": true, "freemasonry.museum": true, "freiburg.museum": true, "fribourg.museum": true, "frog.museum": true, "fundacio.museum": true, "furniture.museum": true, "gallery.museum": true, "garden.museum": true, "gateway.museum": true, "geelvinck.museum": true, "gemological.museum": true, "geology.museum": true, "georgia.museum": true, "giessen.museum": true, "glas.museum": true, "glass.museum": true, "gorge.museum": true, "grandrapids.museum": true, "graz.museum": true, "guernsey.museum": true, "halloffame.museum": true, "hamburg.museum": true, "handson.museum": true, "harvestcelebration.museum": true, "hawaii.museum": true, "health.museum": true, "heimatunduhren.museum": true, "hellas.museum": true, "helsinki.museum": true, "hembygdsforbund.museum": true, "heritage.museum": true, "histoire.museum": true, "historical.museum": true, "historicalsociety.museum": true, "historichouses.museum": true, "historisch.museum": true, "historisches.museum": true, "history.museum": true, "historyofscience.museum": true, "horology.museum": true, "house.museum": true, "humanities.museum": true, "illustration.museum": true, "imageandsound.museum": true, "indian.museum": true, "indiana.museum": true, "indianapolis.museum": true, "indianmarket.museum": true, "intelligence.museum": true, "interactive.museum": true, "iraq.museum": true, "iron.museum": true, "isleofman.museum": true, "jamison.museum": true, "jefferson.museum": true, "jerusalem.museum": true, "jewelry.museum": true, "jewish.museum": true, "jewishart.museum": true, "jfk.museum": true, "journalism.museum": true, "judaica.museum": true, "judygarland.museum": true, "juedisches.museum": true, "juif.museum": true, "karate.museum": true, "karikatur.museum": true, "kids.museum": true, "koebenhavn.museum": true, "koeln.museum": true, "kunst.museum": true, "kunstsammlung.museum": true, "kunstunddesign.museum": true, "labor.museum": true, "labour.museum": true, "lajolla.museum": true, "lancashire.museum": true, "landes.museum": true, "lans.museum": true, "xn--lns-qla.museum": true, "larsson.museum": true, "lewismiller.museum": true, "lincoln.museum": true, "linz.museum": true, "living.museum": true, "livinghistory.museum": true, "localhistory.museum": true, "london.museum": true, "losangeles.museum": true, "louvre.museum": true, "loyalist.museum": true, "lucerne.museum": true, "luxembourg.museum": true, "luzern.museum": true, "mad.museum": true, "madrid.museum": true, "mallorca.museum": true, "manchester.museum": true, "mansion.museum": true, "mansions.museum": true, "manx.museum": true, "marburg.museum": true, "maritime.museum": true, "maritimo.museum": true, "maryland.museum": true, "marylhurst.museum": true, "media.museum": true, "medical.museum": true, "medizinhistorisches.museum": true, "meeres.museum": true, "memorial.museum": true, "mesaverde.museum": true, "michigan.museum": true, "midatlantic.museum": true, "military.museum": true, "mill.museum": true, "miners.museum": true, "mining.museum": true, "minnesota.museum": true, "missile.museum": true, "missoula.museum": true, "modern.museum": true, "moma.museum": true, "money.museum": true, "monmouth.museum": true, "monticello.museum": true, "montreal.museum": true, "moscow.museum": true, "motorcycle.museum": true, "muenchen.museum": true, "muenster.museum": true, "mulhouse.museum": true, "muncie.museum": true, "museet.museum": true, "museumcenter.museum": true, "museumvereniging.museum": true, "music.museum": true, "national.museum": true, "nationalfirearms.museum": true, "nationalheritage.museum": true, "nativeamerican.museum": true, "naturalhistory.museum": true, "naturalhistorymuseum.museum": true, "naturalsciences.museum": true, "nature.museum": true, "naturhistorisches.museum": true, "natuurwetenschappen.museum": true, "naumburg.museum": true, "naval.museum": true, "nebraska.museum": true, "neues.museum": true, "newhampshire.museum": true, "newjersey.museum": true, "newmexico.museum": true, "newport.museum": true, "newspaper.museum": true, "newyork.museum": true, "niepce.museum": true, "norfolk.museum": true, "north.museum": true, "nrw.museum": true, "nuernberg.museum": true, "nuremberg.museum": true, "nyc.museum": true, "nyny.museum": true, "oceanographic.museum": true, "oceanographique.museum": true, "omaha.museum": true, "online.museum": true, "ontario.museum": true, "openair.museum": true, "oregon.museum": true, "oregontrail.museum": true, "otago.museum": true, "oxford.museum": true, "pacific.museum": true, "paderborn.museum": true, "palace.museum": true, "paleo.museum": true, "palmsprings.museum": true, "panama.museum": true, "paris.museum": true, "pasadena.museum": true, "pharmacy.museum": true, "philadelphia.museum": true, "philadelphiaarea.museum": true, "philately.museum": true, "phoenix.museum": true, "photography.museum": true, "pilots.museum": true, "pittsburgh.museum": true, "planetarium.museum": true, "plantation.museum": true, "plants.museum": true, "plaza.museum": true, "portal.museum": true, "portland.museum": true, "portlligat.museum": true, "posts-and-telecommunications.museum": true, "preservation.museum": true, "presidio.museum": true, "press.museum": true, "project.museum": true, "public.museum": true, "pubol.museum": true, "quebec.museum": true, "railroad.museum": true, "railway.museum": true, "research.museum": true, "resistance.museum": true, "riodejaneiro.museum": true, "rochester.museum": true, "rockart.museum": true, "roma.museum": true, "russia.museum": true, "saintlouis.museum": true, "salem.museum": true, "salvadordali.museum": true, "salzburg.museum": true, "sandiego.museum": true, "sanfrancisco.museum": true, "santabarbara.museum": true, "santacruz.museum": true, "santafe.museum": true, "saskatchewan.museum": true, "satx.museum": true, "savannahga.museum": true, "schlesisches.museum": true, "schoenbrunn.museum": true, "schokoladen.museum": true, "school.museum": true, "schweiz.museum": true, "science.museum": true, "scienceandhistory.museum": true, "scienceandindustry.museum": true, "sciencecenter.museum": true, "sciencecenters.museum": true, "science-fiction.museum": true, "sciencehistory.museum": true, "sciences.museum": true, "sciencesnaturelles.museum": true, "scotland.museum": true, "seaport.museum": true, "settlement.museum": true, "settlers.museum": true, "shell.museum": true, "sherbrooke.museum": true, "sibenik.museum": true, "silk.museum": true, "ski.museum": true, "skole.museum": true, "society.museum": true, "sologne.museum": true, "soundandvision.museum": true, "southcarolina.museum": true, "southwest.museum": true, "space.museum": true, "spy.museum": true, "square.museum": true, "stadt.museum": true, "stalbans.museum": true, "starnberg.museum": true, "state.museum": true, "stateofdelaware.museum": true, "station.museum": true, "steam.museum": true, "steiermark.museum": true, "stjohn.museum": true, "stockholm.museum": true, "stpetersburg.museum": true, "stuttgart.museum": true, "suisse.museum": true, "surgeonshall.museum": true, "surrey.museum": true, "svizzera.museum": true, "sweden.museum": true, "sydney.museum": true, "tank.museum": true, "tcm.museum": true, "technology.museum": true, "telekommunikation.museum": true, "television.museum": true, "texas.museum": true, "textile.museum": true, "theater.museum": true, "time.museum": true, "timekeeping.museum": true, "topology.museum": true, "torino.museum": true, "touch.museum": true, "town.museum": true, "transport.museum": true, "tree.museum": true, "trolley.museum": true, "trust.museum": true, "trustee.museum": true, "uhren.museum": true, "ulm.museum": true, "undersea.museum": true, "university.museum": true, "usa.museum": true, "usantiques.museum": true, "usarts.museum": true, "uscountryestate.museum": true, "usculture.museum": true, "usdecorativearts.museum": true, "usgarden.museum": true, "ushistory.museum": true, "ushuaia.museum": true, "uslivinghistory.museum": true, "utah.museum": true, "uvic.museum": true, "valley.museum": true, "vantaa.museum": true, "versailles.museum": true, "viking.museum": true, "village.museum": true, "virginia.museum": true, "virtual.museum": true, "virtuel.museum": true, "vlaanderen.museum": true, "volkenkunde.museum": true, "wales.museum": true, "wallonie.museum": true, "war.museum": true, "washingtondc.museum": true, "watchandclock.museum": true, "watch-and-clock.museum": true, "western.museum": true, "westfalen.museum": true, "whaling.museum": true, "wildlife.museum": true, "williamsburg.museum": true, "windmill.museum": true, "workshop.museum": true, "york.museum": true, "yorkshire.museum": true, "yosemite.museum": true, "youth.museum": true, "zoological.museum": true, "zoology.museum": true, "xn--9dbhblg6di.museum": true, "xn--h1aegh.museum": true, "mv": true, "aero.mv": true, "biz.mv": true, "com.mv": true, "coop.mv": true, "edu.mv": true, "gov.mv": true, "info.mv": true, "int.mv": true, "mil.mv": true, "museum.mv": true, "name.mv": true, "net.mv": true, "org.mv": true, "pro.mv": true, "mw": true, "ac.mw": true, "biz.mw": true, "co.mw": true, "com.mw": true, "coop.mw": true, "edu.mw": true, "gov.mw": true, "int.mw": true, "museum.mw": true, "net.mw": true, "org.mw": true, "mx": true, "com.mx": true, "org.mx": true, "gob.mx": true, "edu.mx": true, "net.mx": true, "my": true, "com.my": true, "net.my": true, "org.my": true, "gov.my": true, "edu.my": true, "mil.my": true, "name.my": true, "mz": true, "ac.mz": true, "adv.mz": true, "co.mz": true, "edu.mz": true, "gov.mz": true, "mil.mz": true, "net.mz": true, "org.mz": true, "na": true, "info.na": true, "pro.na": true, "name.na": true, "school.na": true, "or.na": true, "dr.na": true, "us.na": true, "mx.na": true, "ca.na": true, "in.na": true, "cc.na": true, "tv.na": true, "ws.na": true, "mobi.na": true, "co.na": true, "com.na": true, "org.na": true, "name": true, "nc": true, "asso.nc": true, "ne": true, "net": true, "nf": true, "com.nf": true, "net.nf": true, "per.nf": true, "rec.nf": true, "web.nf": true, "arts.nf": true, "firm.nf": true, "info.nf": true, "other.nf": true, "store.nf": true, "ng": true, "com.ng": true, "edu.ng": true, "gov.ng": true, "i.ng": true, "mil.ng": true, "mobi.ng": true, "name.ng": true, "net.ng": true, "org.ng": true, "sch.ng": true, "com.ni": true, "gob.ni": true, "edu.ni": true, "org.ni": true, "nom.ni": true, "net.ni": true, "mil.ni": true, "co.ni": true, "biz.ni": true, "web.ni": true, "int.ni": true, "ac.ni": true, "in.ni": true, "info.ni": true, "nl": true, "bv.nl": true, "no": true, "fhs.no": true, "vgs.no": true, "fylkesbibl.no": true, "folkebibl.no": true, "museum.no": true, "idrett.no": true, "priv.no": true, "mil.no": true, "stat.no": true, "dep.no": true, "kommune.no": true, "herad.no": true, "aa.no": true, "ah.no": true, "bu.no": true, "fm.no": true, "hl.no": true, "hm.no": true, "jan-mayen.no": true, "mr.no": true, "nl.no": true, "nt.no": true, "of.no": true, "ol.no": true, "oslo.no": true, "rl.no": true, "sf.no": true, "st.no": true, "svalbard.no": true, "tm.no": true, "tr.no": true, "va.no": true, "vf.no": true, "gs.aa.no": true, "gs.ah.no": true, "gs.bu.no": true, "gs.fm.no": true, "gs.hl.no": true, "gs.hm.no": true, "gs.jan-mayen.no": true, "gs.mr.no": true, "gs.nl.no": true, "gs.nt.no": true, "gs.of.no": true, "gs.ol.no": true, "gs.oslo.no": true, "gs.rl.no": true, "gs.sf.no": true, "gs.st.no": true, "gs.svalbard.no": true, "gs.tm.no": true, "gs.tr.no": true, "gs.va.no": true, "gs.vf.no": true, "akrehamn.no": true, "xn--krehamn-dxa.no": true, "algard.no": true, "xn--lgrd-poac.no": true, "arna.no": true, "brumunddal.no": true, "bryne.no": true, "bronnoysund.no": true, "xn--brnnysund-m8ac.no": true, "drobak.no": true, "xn--drbak-wua.no": true, "egersund.no": true, "fetsund.no": true, "floro.no": true, "xn--flor-jra.no": true, "fredrikstad.no": true, "hokksund.no": true, "honefoss.no": true, "xn--hnefoss-q1a.no": true, "jessheim.no": true, "jorpeland.no": true, "xn--jrpeland-54a.no": true, "kirkenes.no": true, "kopervik.no": true, "krokstadelva.no": true, "langevag.no": true, "xn--langevg-jxa.no": true, "leirvik.no": true, "mjondalen.no": true, "xn--mjndalen-64a.no": true, "mo-i-rana.no": true, "mosjoen.no": true, "xn--mosjen-eya.no": true, "nesoddtangen.no": true, "orkanger.no": true, "osoyro.no": true, "xn--osyro-wua.no": true, "raholt.no": true, "xn--rholt-mra.no": true, "sandnessjoen.no": true, "xn--sandnessjen-ogb.no": true, "skedsmokorset.no": true, "slattum.no": true, "spjelkavik.no": true, "stathelle.no": true, "stavern.no": true, "stjordalshalsen.no": true, "xn--stjrdalshalsen-sqb.no": true, "tananger.no": true, "tranby.no": true, "vossevangen.no": true, "afjord.no": true, "xn--fjord-lra.no": true, "agdenes.no": true, "al.no": true, "xn--l-1fa.no": true, "alesund.no": true, "xn--lesund-hua.no": true, "alstahaug.no": true, "alta.no": true, "xn--lt-liac.no": true, "alaheadju.no": true, "xn--laheadju-7ya.no": true, "alvdal.no": true, "amli.no": true, "xn--mli-tla.no": true, "amot.no": true, "xn--mot-tla.no": true, "andebu.no": true, "andoy.no": true, "xn--andy-ira.no": true, "andasuolo.no": true, "ardal.no": true, "xn--rdal-poa.no": true, "aremark.no": true, "arendal.no": true, "xn--s-1fa.no": true, "aseral.no": true, "xn--seral-lra.no": true, "asker.no": true, "askim.no": true, "askvoll.no": true, "askoy.no": true, "xn--asky-ira.no": true, "asnes.no": true, "xn--snes-poa.no": true, "audnedaln.no": true, "aukra.no": true, "aure.no": true, "aurland.no": true, "aurskog-holand.no": true, "xn--aurskog-hland-jnb.no": true, "austevoll.no": true, "austrheim.no": true, "averoy.no": true, "xn--avery-yua.no": true, "balestrand.no": true, "ballangen.no": true, "balat.no": true, "xn--blt-elab.no": true, "balsfjord.no": true, "bahccavuotna.no": true, "xn--bhccavuotna-k7a.no": true, "bamble.no": true, "bardu.no": true, "beardu.no": true, "beiarn.no": true, "bajddar.no": true, "xn--bjddar-pta.no": true, "baidar.no": true, "xn--bidr-5nac.no": true, "berg.no": true, "bergen.no": true, "berlevag.no": true, "xn--berlevg-jxa.no": true, "bearalvahki.no": true, "xn--bearalvhki-y4a.no": true, "bindal.no": true, "birkenes.no": true, "bjarkoy.no": true, "xn--bjarky-fya.no": true, "bjerkreim.no": true, "bjugn.no": true, "bodo.no": true, "xn--bod-2na.no": true, "badaddja.no": true, "xn--bdddj-mrabd.no": true, "budejju.no": true, "bokn.no": true, "bremanger.no": true, "bronnoy.no": true, "xn--brnny-wuac.no": true, "bygland.no": true, "bykle.no": true, "barum.no": true, "xn--brum-voa.no": true, "bo.telemark.no": true, "xn--b-5ga.telemark.no": true, "bo.nordland.no": true, "xn--b-5ga.nordland.no": true, "bievat.no": true, "xn--bievt-0qa.no": true, "bomlo.no": true, "xn--bmlo-gra.no": true, "batsfjord.no": true, "xn--btsfjord-9za.no": true, "bahcavuotna.no": true, "xn--bhcavuotna-s4a.no": true, "dovre.no": true, "drammen.no": true, "drangedal.no": true, "dyroy.no": true, "xn--dyry-ira.no": true, "donna.no": true, "xn--dnna-gra.no": true, "eid.no": true, "eidfjord.no": true, "eidsberg.no": true, "eidskog.no": true, "eidsvoll.no": true, "eigersund.no": true, "elverum.no": true, "enebakk.no": true, "engerdal.no": true, "etne.no": true, "etnedal.no": true, "evenes.no": true, "evenassi.no": true, "xn--eveni-0qa01ga.no": true, "evje-og-hornnes.no": true, "farsund.no": true, "fauske.no": true, "fuossko.no": true, "fuoisku.no": true, "fedje.no": true, "fet.no": true, "finnoy.no": true, "xn--finny-yua.no": true, "fitjar.no": true, "fjaler.no": true, "fjell.no": true, "flakstad.no": true, "flatanger.no": true, "flekkefjord.no": true, "flesberg.no": true, "flora.no": true, "fla.no": true, "xn--fl-zia.no": true, "folldal.no": true, "forsand.no": true, "fosnes.no": true, "frei.no": true, "frogn.no": true, "froland.no": true, "frosta.no": true, "frana.no": true, "xn--frna-woa.no": true, "froya.no": true, "xn--frya-hra.no": true, "fusa.no": true, "fyresdal.no": true, "forde.no": true, "xn--frde-gra.no": true, "gamvik.no": true, "gangaviika.no": true, "xn--ggaviika-8ya47h.no": true, "gaular.no": true, "gausdal.no": true, "gildeskal.no": true, "xn--gildeskl-g0a.no": true, "giske.no": true, "gjemnes.no": true, "gjerdrum.no": true, "gjerstad.no": true, "gjesdal.no": true, "gjovik.no": true, "xn--gjvik-wua.no": true, "gloppen.no": true, "gol.no": true, "gran.no": true, "grane.no": true, "granvin.no": true, "gratangen.no": true, "grimstad.no": true, "grong.no": true, "kraanghke.no": true, "xn--kranghke-b0a.no": true, "grue.no": true, "gulen.no": true, "hadsel.no": true, "halden.no": true, "halsa.no": true, "hamar.no": true, "hamaroy.no": true, "habmer.no": true, "xn--hbmer-xqa.no": true, "hapmir.no": true, "xn--hpmir-xqa.no": true, "hammerfest.no": true, "hammarfeasta.no": true, "xn--hmmrfeasta-s4ac.no": true, "haram.no": true, "hareid.no": true, "harstad.no": true, "hasvik.no": true, "aknoluokta.no": true, "xn--koluokta-7ya57h.no": true, "hattfjelldal.no": true, "aarborte.no": true, "haugesund.no": true, "hemne.no": true, "hemnes.no": true, "hemsedal.no": true, "heroy.more-og-romsdal.no": true, "xn--hery-ira.xn--mre-og-romsdal-qqb.no": true, "heroy.nordland.no": true, "xn--hery-ira.nordland.no": true, "hitra.no": true, "hjartdal.no": true, "hjelmeland.no": true, "hobol.no": true, "xn--hobl-ira.no": true, "hof.no": true, "hol.no": true, "hole.no": true, "holmestrand.no": true, "holtalen.no": true, "xn--holtlen-hxa.no": true, "hornindal.no": true, "horten.no": true, "hurdal.no": true, "hurum.no": true, "hvaler.no": true, "hyllestad.no": true, "hagebostad.no": true, "xn--hgebostad-g3a.no": true, "hoyanger.no": true, "xn--hyanger-q1a.no": true, "hoylandet.no": true, "xn--hylandet-54a.no": true, "ha.no": true, "xn--h-2fa.no": true, "ibestad.no": true, "inderoy.no": true, "xn--indery-fya.no": true, "iveland.no": true, "jevnaker.no": true, "jondal.no": true, "jolster.no": true, "xn--jlster-bya.no": true, "karasjok.no": true, "karasjohka.no": true, "xn--krjohka-hwab49j.no": true, "karlsoy.no": true, "galsa.no": true, "xn--gls-elac.no": true, "karmoy.no": true, "xn--karmy-yua.no": true, "kautokeino.no": true, "guovdageaidnu.no": true, "klepp.no": true, "klabu.no": true, "xn--klbu-woa.no": true, "kongsberg.no": true, "kongsvinger.no": true, "kragero.no": true, "xn--krager-gya.no": true, "kristiansand.no": true, "kristiansund.no": true, "krodsherad.no": true, "xn--krdsherad-m8a.no": true, "kvalsund.no": true, "rahkkeravju.no": true, "xn--rhkkervju-01af.no": true, "kvam.no": true, "kvinesdal.no": true, "kvinnherad.no": true, "kviteseid.no": true, "kvitsoy.no": true, "xn--kvitsy-fya.no": true, "kvafjord.no": true, "xn--kvfjord-nxa.no": true, "giehtavuoatna.no": true, "kvanangen.no": true, "xn--kvnangen-k0a.no": true, "navuotna.no": true, "xn--nvuotna-hwa.no": true, "kafjord.no": true, "xn--kfjord-iua.no": true, "gaivuotna.no": true, "xn--givuotna-8ya.no": true, "larvik.no": true, "lavangen.no": true, "lavagis.no": true, "loabat.no": true, "xn--loabt-0qa.no": true, "lebesby.no": true, "davvesiida.no": true, "leikanger.no": true, "leirfjord.no": true, "leka.no": true, "leksvik.no": true, "lenvik.no": true, "leangaviika.no": true, "xn--leagaviika-52b.no": true, "lesja.no": true, "levanger.no": true, "lier.no": true, "lierne.no": true, "lillehammer.no": true, "lillesand.no": true, "lindesnes.no": true, "lindas.no": true, "xn--linds-pra.no": true, "lom.no": true, "loppa.no": true, "lahppi.no": true, "xn--lhppi-xqa.no": true, "lund.no": true, "lunner.no": true, "luroy.no": true, "xn--lury-ira.no": true, "luster.no": true, "lyngdal.no": true, "lyngen.no": true, "ivgu.no": true, "lardal.no": true, "lerdal.no": true, "xn--lrdal-sra.no": true, "lodingen.no": true, "xn--ldingen-q1a.no": true, "lorenskog.no": true, "xn--lrenskog-54a.no": true, "loten.no": true, "xn--lten-gra.no": true, "malvik.no": true, "masoy.no": true, "xn--msy-ula0h.no": true, "muosat.no": true, "xn--muost-0qa.no": true, "mandal.no": true, "marker.no": true, "marnardal.no": true, "masfjorden.no": true, "meland.no": true, "meldal.no": true, "melhus.no": true, "meloy.no": true, "xn--mely-ira.no": true, "meraker.no": true, "xn--merker-kua.no": true, "moareke.no": true, "xn--moreke-jua.no": true, "midsund.no": true, "midtre-gauldal.no": true, "modalen.no": true, "modum.no": true, "molde.no": true, "moskenes.no": true, "moss.no": true, "mosvik.no": true, "malselv.no": true, "xn--mlselv-iua.no": true, "malatvuopmi.no": true, "xn--mlatvuopmi-s4a.no": true, "namdalseid.no": true, "aejrie.no": true, "namsos.no": true, "namsskogan.no": true, "naamesjevuemie.no": true, "xn--nmesjevuemie-tcba.no": true, "laakesvuemie.no": true, "nannestad.no": true, "narvik.no": true, "narviika.no": true, "naustdal.no": true, "nedre-eiker.no": true, "nes.akershus.no": true, "nes.buskerud.no": true, "nesna.no": true, "nesodden.no": true, "nesseby.no": true, "unjarga.no": true, "xn--unjrga-rta.no": true, "nesset.no": true, "nissedal.no": true, "nittedal.no": true, "nord-aurdal.no": true, "nord-fron.no": true, "nord-odal.no": true, "norddal.no": true, "nordkapp.no": true, "davvenjarga.no": true, "xn--davvenjrga-y4a.no": true, "nordre-land.no": true, "nordreisa.no": true, "raisa.no": true, "xn--risa-5na.no": true, "nore-og-uvdal.no": true, "notodden.no": true, "naroy.no": true, "xn--nry-yla5g.no": true, "notteroy.no": true, "xn--nttery-byae.no": true, "odda.no": true, "oksnes.no": true, "xn--ksnes-uua.no": true, "oppdal.no": true, "oppegard.no": true, "xn--oppegrd-ixa.no": true, "orkdal.no": true, "orland.no": true, "xn--rland-uua.no": true, "orskog.no": true, "xn--rskog-uua.no": true, "orsta.no": true, "xn--rsta-fra.no": true, "os.hedmark.no": true, "os.hordaland.no": true, "osen.no": true, "osteroy.no": true, "xn--ostery-fya.no": true, "ostre-toten.no": true, "xn--stre-toten-zcb.no": true, "overhalla.no": true, "ovre-eiker.no": true, "xn--vre-eiker-k8a.no": true, "oyer.no": true, "xn--yer-zna.no": true, "oygarden.no": true, "xn--ygarden-p1a.no": true, "oystre-slidre.no": true, "xn--ystre-slidre-ujb.no": true, "porsanger.no": true, "porsangu.no": true, "xn--porsgu-sta26f.no": true, "porsgrunn.no": true, "radoy.no": true, "xn--rady-ira.no": true, "rakkestad.no": true, "rana.no": true, "ruovat.no": true, "randaberg.no": true, "rauma.no": true, "rendalen.no": true, "rennebu.no": true, "rennesoy.no": true, "xn--rennesy-v1a.no": true, "rindal.no": true, "ringebu.no": true, "ringerike.no": true, "ringsaker.no": true, "rissa.no": true, "risor.no": true, "xn--risr-ira.no": true, "roan.no": true, "rollag.no": true, "rygge.no": true, "ralingen.no": true, "xn--rlingen-mxa.no": true, "rodoy.no": true, "xn--rdy-0nab.no": true, "romskog.no": true, "xn--rmskog-bya.no": true, "roros.no": true, "xn--rros-gra.no": true, "rost.no": true, "xn--rst-0na.no": true, "royken.no": true, "xn--ryken-vua.no": true, "royrvik.no": true, "xn--ryrvik-bya.no": true, "rade.no": true, "xn--rde-ula.no": true, "salangen.no": true, "siellak.no": true, "saltdal.no": true, "salat.no": true, "xn--slt-elab.no": true, "xn--slat-5na.no": true, "samnanger.no": true, "sande.more-og-romsdal.no": true, "sande.xn--mre-og-romsdal-qqb.no": true, "sande.vestfold.no": true, "sandefjord.no": true, "sandnes.no": true, "sandoy.no": true, "xn--sandy-yua.no": true, "sarpsborg.no": true, "sauda.no": true, "sauherad.no": true, "sel.no": true, "selbu.no": true, "selje.no": true, "seljord.no": true, "sigdal.no": true, "siljan.no": true, "sirdal.no": true, "skaun.no": true, "skedsmo.no": true, "ski.no": true, "skien.no": true, "skiptvet.no": true, "skjervoy.no": true, "xn--skjervy-v1a.no": true, "skierva.no": true, "xn--skierv-uta.no": true, "skjak.no": true, "xn--skjk-soa.no": true, "skodje.no": true, "skanland.no": true, "xn--sknland-fxa.no": true, "skanit.no": true, "xn--sknit-yqa.no": true, "smola.no": true, "xn--smla-hra.no": true, "snillfjord.no": true, "snasa.no": true, "xn--snsa-roa.no": true, "snoasa.no": true, "snaase.no": true, "xn--snase-nra.no": true, "sogndal.no": true, "sokndal.no": true, "sola.no": true, "solund.no": true, "songdalen.no": true, "sortland.no": true, "spydeberg.no": true, "stange.no": true, "stavanger.no": true, "steigen.no": true, "steinkjer.no": true, "stjordal.no": true, "xn--stjrdal-s1a.no": true, "stokke.no": true, "stor-elvdal.no": true, "stord.no": true, "stordal.no": true, "storfjord.no": true, "omasvuotna.no": true, "strand.no": true, "stranda.no": true, "stryn.no": true, "sula.no": true, "suldal.no": true, "sund.no": true, "sunndal.no": true, "surnadal.no": true, "sveio.no": true, "svelvik.no": true, "sykkylven.no": true, "sogne.no": true, "xn--sgne-gra.no": true, "somna.no": true, "xn--smna-gra.no": true, "sondre-land.no": true, "xn--sndre-land-0cb.no": true, "sor-aurdal.no": true, "xn--sr-aurdal-l8a.no": true, "sor-fron.no": true, "xn--sr-fron-q1a.no": true, "sor-odal.no": true, "xn--sr-odal-q1a.no": true, "sor-varanger.no": true, "xn--sr-varanger-ggb.no": true, "matta-varjjat.no": true, "xn--mtta-vrjjat-k7af.no": true, "sorfold.no": true, "xn--srfold-bya.no": true, "sorreisa.no": true, "xn--srreisa-q1a.no": true, "sorum.no": true, "xn--srum-gra.no": true, "tana.no": true, "deatnu.no": true, "time.no": true, "tingvoll.no": true, "tinn.no": true, "tjeldsund.no": true, "dielddanuorri.no": true, "tjome.no": true, "xn--tjme-hra.no": true, "tokke.no": true, "tolga.no": true, "torsken.no": true, "tranoy.no": true, "xn--trany-yua.no": true, "tromso.no": true, "xn--troms-zua.no": true, "tromsa.no": true, "romsa.no": true, "trondheim.no": true, "troandin.no": true, "trysil.no": true, "trana.no": true, "xn--trna-woa.no": true, "trogstad.no": true, "xn--trgstad-r1a.no": true, "tvedestrand.no": true, "tydal.no": true, "tynset.no": true, "tysfjord.no": true, "divtasvuodna.no": true, "divttasvuotna.no": true, "tysnes.no": true, "tysvar.no": true, "xn--tysvr-vra.no": true, "tonsberg.no": true, "xn--tnsberg-q1a.no": true, "ullensaker.no": true, "ullensvang.no": true, "ulvik.no": true, "utsira.no": true, "vadso.no": true, "xn--vads-jra.no": true, "cahcesuolo.no": true, "xn--hcesuolo-7ya35b.no": true, "vaksdal.no": true, "valle.no": true, "vang.no": true, "vanylven.no": true, "vardo.no": true, "xn--vard-jra.no": true, "varggat.no": true, "xn--vrggt-xqad.no": true, "vefsn.no": true, "vaapste.no": true, "vega.no": true, "vegarshei.no": true, "xn--vegrshei-c0a.no": true, "vennesla.no": true, "verdal.no": true, "verran.no": true, "vestby.no": true, "vestnes.no": true, "vestre-slidre.no": true, "vestre-toten.no": true, "vestvagoy.no": true, "xn--vestvgy-ixa6o.no": true, "vevelstad.no": true, "vik.no": true, "vikna.no": true, "vindafjord.no": true, "volda.no": true, "voss.no": true, "varoy.no": true, "xn--vry-yla5g.no": true, "vagan.no": true, "xn--vgan-qoa.no": true, "voagat.no": true, "vagsoy.no": true, "xn--vgsy-qoa0j.no": true, "vaga.no": true, "xn--vg-yiab.no": true, "valer.ostfold.no": true, "xn--vler-qoa.xn--stfold-9xa.no": true, "valer.hedmark.no": true, "xn--vler-qoa.hedmark.no": true, "*.np": true, "nr": true, "biz.nr": true, "info.nr": true, "gov.nr": true, "edu.nr": true, "org.nr": true, "net.nr": true, "com.nr": true, "nu": true, "nz": true, "ac.nz": true, "co.nz": true, "cri.nz": true, "geek.nz": true, "gen.nz": true, "govt.nz": true, "health.nz": true, "iwi.nz": true, "kiwi.nz": true, "maori.nz": true, "mil.nz": true, "xn--mori-qsa.nz": true, "net.nz": true, "org.nz": true, "parliament.nz": true, "school.nz": true, "om": true, "co.om": true, "com.om": true, "edu.om": true, "gov.om": true, "med.om": true, "museum.om": true, "net.om": true, "org.om": true, "pro.om": true, "org": true, "pa": true, "ac.pa": true, "gob.pa": true, "com.pa": true, "org.pa": true, "sld.pa": true, "edu.pa": true, "net.pa": true, "ing.pa": true, "abo.pa": true, "med.pa": true, "nom.pa": true, "pe": true, "edu.pe": true, "gob.pe": true, "nom.pe": true, "mil.pe": true, "org.pe": true, "com.pe": true, "net.pe": true, "pf": true, "com.pf": true, "org.pf": true, "edu.pf": true, "*.pg": true, "ph": true, "com.ph": true, "net.ph": true, "org.ph": true, "gov.ph": true, "edu.ph": true, "ngo.ph": true, "mil.ph": true, "i.ph": true, "pk": true, "com.pk": true, "net.pk": true, "edu.pk": true, "org.pk": true, "fam.pk": true, "biz.pk": true, "web.pk": true, "gov.pk": true, "gob.pk": true, "gok.pk": true, "gon.pk": true, "gop.pk": true, "gos.pk": true, "info.pk": true, "pl": true, "com.pl": true, "net.pl": true, "org.pl": true, "aid.pl": true, "agro.pl": true, "atm.pl": true, "auto.pl": true, "biz.pl": true, "edu.pl": true, "gmina.pl": true, "gsm.pl": true, "info.pl": true, "mail.pl": true, "miasta.pl": true, "media.pl": true, "mil.pl": true, "nieruchomosci.pl": true, "nom.pl": true, "pc.pl": true, "powiat.pl": true, "priv.pl": true, "realestate.pl": true, "rel.pl": true, "sex.pl": true, "shop.pl": true, "sklep.pl": true, "sos.pl": true, "szkola.pl": true, "targi.pl": true, "tm.pl": true, "tourism.pl": true, "travel.pl": true, "turystyka.pl": true, "gov.pl": true, "ap.gov.pl": true, "ic.gov.pl": true, "is.gov.pl": true, "us.gov.pl": true, "kmpsp.gov.pl": true, "kppsp.gov.pl": true, "kwpsp.gov.pl": true, "psp.gov.pl": true, "wskr.gov.pl": true, "kwp.gov.pl": true, "mw.gov.pl": true, "ug.gov.pl": true, "um.gov.pl": true, "umig.gov.pl": true, "ugim.gov.pl": true, "upow.gov.pl": true, "uw.gov.pl": true, "starostwo.gov.pl": true, "pa.gov.pl": true, "po.gov.pl": true, "psse.gov.pl": true, "pup.gov.pl": true, "rzgw.gov.pl": true, "sa.gov.pl": true, "so.gov.pl": true, "sr.gov.pl": true, "wsa.gov.pl": true, "sko.gov.pl": true, "uzs.gov.pl": true, "wiih.gov.pl": true, "winb.gov.pl": true, "pinb.gov.pl": true, "wios.gov.pl": true, "witd.gov.pl": true, "wzmiuw.gov.pl": true, "piw.gov.pl": true, "wiw.gov.pl": true, "griw.gov.pl": true, "wif.gov.pl": true, "oum.gov.pl": true, "sdn.gov.pl": true, "zp.gov.pl": true, "uppo.gov.pl": true, "mup.gov.pl": true, "wuoz.gov.pl": true, "konsulat.gov.pl": true, "oirm.gov.pl": true, "augustow.pl": true, "babia-gora.pl": true, "bedzin.pl": true, "beskidy.pl": true, "bialowieza.pl": true, "bialystok.pl": true, "bielawa.pl": true, "bieszczady.pl": true, "boleslawiec.pl": true, "bydgoszcz.pl": true, "bytom.pl": true, "cieszyn.pl": true, "czeladz.pl": true, "czest.pl": true, "dlugoleka.pl": true, "elblag.pl": true, "elk.pl": true, "glogow.pl": true, "gniezno.pl": true, "gorlice.pl": true, "grajewo.pl": true, "ilawa.pl": true, "jaworzno.pl": true, "jelenia-gora.pl": true, "jgora.pl": true, "kalisz.pl": true, "kazimierz-dolny.pl": true, "karpacz.pl": true, "kartuzy.pl": true, "kaszuby.pl": true, "katowice.pl": true, "kepno.pl": true, "ketrzyn.pl": true, "klodzko.pl": true, "kobierzyce.pl": true, "kolobrzeg.pl": true, "konin.pl": true, "konskowola.pl": true, "kutno.pl": true, "lapy.pl": true, "lebork.pl": true, "legnica.pl": true, "lezajsk.pl": true, "limanowa.pl": true, "lomza.pl": true, "lowicz.pl": true, "lubin.pl": true, "lukow.pl": true, "malbork.pl": true, "malopolska.pl": true, "mazowsze.pl": true, "mazury.pl": true, "mielec.pl": true, "mielno.pl": true, "mragowo.pl": true, "naklo.pl": true, "nowaruda.pl": true, "nysa.pl": true, "olawa.pl": true, "olecko.pl": true, "olkusz.pl": true, "olsztyn.pl": true, "opoczno.pl": true, "opole.pl": true, "ostroda.pl": true, "ostroleka.pl": true, "ostrowiec.pl": true, "ostrowwlkp.pl": true, "pila.pl": true, "pisz.pl": true, "podhale.pl": true, "podlasie.pl": true, "polkowice.pl": true, "pomorze.pl": true, "pomorskie.pl": true, "prochowice.pl": true, "pruszkow.pl": true, "przeworsk.pl": true, "pulawy.pl": true, "radom.pl": true, "rawa-maz.pl": true, "rybnik.pl": true, "rzeszow.pl": true, "sanok.pl": true, "sejny.pl": true, "slask.pl": true, "slupsk.pl": true, "sosnowiec.pl": true, "stalowa-wola.pl": true, "skoczow.pl": true, "starachowice.pl": true, "stargard.pl": true, "suwalki.pl": true, "swidnica.pl": true, "swiebodzin.pl": true, "swinoujscie.pl": true, "szczecin.pl": true, "szczytno.pl": true, "tarnobrzeg.pl": true, "tgory.pl": true, "turek.pl": true, "tychy.pl": true, "ustka.pl": true, "walbrzych.pl": true, "warmia.pl": true, "warszawa.pl": true, "waw.pl": true, "wegrow.pl": true, "wielun.pl": true, "wlocl.pl": true, "wloclawek.pl": true, "wodzislaw.pl": true, "wolomin.pl": true, "wroclaw.pl": true, "zachpomor.pl": true, "zagan.pl": true, "zarow.pl": true, "zgora.pl": true, "zgorzelec.pl": true, "pm": true, "pn": true, "gov.pn": true, "co.pn": true, "org.pn": true, "edu.pn": true, "net.pn": true, "post": true, "pr": true, "com.pr": true, "net.pr": true, "org.pr": true, "gov.pr": true, "edu.pr": true, "isla.pr": true, "pro.pr": true, "biz.pr": true, "info.pr": true, "name.pr": true, "est.pr": true, "prof.pr": true, "ac.pr": true, "pro": true, "aaa.pro": true, "aca.pro": true, "acct.pro": true, "avocat.pro": true, "bar.pro": true, "cpa.pro": true, "eng.pro": true, "jur.pro": true, "law.pro": true, "med.pro": true, "recht.pro": true, "ps": true, "edu.ps": true, "gov.ps": true, "sec.ps": true, "plo.ps": true, "com.ps": true, "org.ps": true, "net.ps": true, "pt": true, "net.pt": true, "gov.pt": true, "org.pt": true, "edu.pt": true, "int.pt": true, "publ.pt": true, "com.pt": true, "nome.pt": true, "pw": true, "co.pw": true, "ne.pw": true, "or.pw": true, "ed.pw": true, "go.pw": true, "belau.pw": true, "py": true, "com.py": true, "coop.py": true, "edu.py": true, "gov.py": true, "mil.py": true, "net.py": true, "org.py": true, "qa": true, "com.qa": true, "edu.qa": true, "gov.qa": true, "mil.qa": true, "name.qa": true, "net.qa": true, "org.qa": true, "sch.qa": true, "re": true, "asso.re": true, "com.re": true, "nom.re": true, "ro": true, "arts.ro": true, "com.ro": true, "firm.ro": true, "info.ro": true, "nom.ro": true, "nt.ro": true, "org.ro": true, "rec.ro": true, "store.ro": true, "tm.ro": true, "www.ro": true, "rs": true, "ac.rs": true, "co.rs": true, "edu.rs": true, "gov.rs": true, "in.rs": true, "org.rs": true, "ru": true, "ac.ru": true, "com.ru": true, "edu.ru": true, "int.ru": true, "net.ru": true, "org.ru": true, "pp.ru": true, "adygeya.ru": true, "altai.ru": true, "amur.ru": true, "arkhangelsk.ru": true, "astrakhan.ru": true, "bashkiria.ru": true, "belgorod.ru": true, "bir.ru": true, "bryansk.ru": true, "buryatia.ru": true, "cbg.ru": true, "chel.ru": true, "chelyabinsk.ru": true, "chita.ru": true, "chukotka.ru": true, "chuvashia.ru": true, "dagestan.ru": true, "dudinka.ru": true, "e-burg.ru": true, "grozny.ru": true, "irkutsk.ru": true, "ivanovo.ru": true, "izhevsk.ru": true, "jar.ru": true, "joshkar-ola.ru": true, "kalmykia.ru": true, "kaluga.ru": true, "kamchatka.ru": true, "karelia.ru": true, "kazan.ru": true, "kchr.ru": true, "kemerovo.ru": true, "khabarovsk.ru": true, "khakassia.ru": true, "khv.ru": true, "kirov.ru": true, "koenig.ru": true, "komi.ru": true, "kostroma.ru": true, "krasnoyarsk.ru": true, "kuban.ru": true, "kurgan.ru": true, "kursk.ru": true, "lipetsk.ru": true, "magadan.ru": true, "mari.ru": true, "mari-el.ru": true, "marine.ru": true, "mordovia.ru": true, "msk.ru": true, "murmansk.ru": true, "nalchik.ru": true, "nnov.ru": true, "nov.ru": true, "novosibirsk.ru": true, "nsk.ru": true, "omsk.ru": true, "orenburg.ru": true, "oryol.ru": true, "palana.ru": true, "penza.ru": true, "perm.ru": true, "ptz.ru": true, "rnd.ru": true, "ryazan.ru": true, "sakhalin.ru": true, "samara.ru": true, "saratov.ru": true, "simbirsk.ru": true, "smolensk.ru": true, "spb.ru": true, "stavropol.ru": true, "stv.ru": true, "surgut.ru": true, "tambov.ru": true, "tatarstan.ru": true, "tom.ru": true, "tomsk.ru": true, "tsaritsyn.ru": true, "tsk.ru": true, "tula.ru": true, "tuva.ru": true, "tver.ru": true, "tyumen.ru": true, "udm.ru": true, "udmurtia.ru": true, "ulan-ude.ru": true, "vladikavkaz.ru": true, "vladimir.ru": true, "vladivostok.ru": true, "volgograd.ru": true, "vologda.ru": true, "voronezh.ru": true, "vrn.ru": true, "vyatka.ru": true, "yakutia.ru": true, "yamal.ru": true, "yaroslavl.ru": true, "yekaterinburg.ru": true, "yuzhno-sakhalinsk.ru": true, "amursk.ru": true, "baikal.ru": true, "cmw.ru": true, "fareast.ru": true, "jamal.ru": true, "kms.ru": true, "k-uralsk.ru": true, "kustanai.ru": true, "kuzbass.ru": true, "mytis.ru": true, "nakhodka.ru": true, "nkz.ru": true, "norilsk.ru": true, "oskol.ru": true, "pyatigorsk.ru": true, "rubtsovsk.ru": true, "snz.ru": true, "syzran.ru": true, "vdonsk.ru": true, "zgrad.ru": true, "gov.ru": true, "mil.ru": true, "test.ru": true, "rw": true, "gov.rw": true, "net.rw": true, "edu.rw": true, "ac.rw": true, "com.rw": true, "co.rw": true, "int.rw": true, "mil.rw": true, "gouv.rw": true, "sa": true, "com.sa": true, "net.sa": true, "org.sa": true, "gov.sa": true, "med.sa": true, "pub.sa": true, "edu.sa": true, "sch.sa": true, "sb": true, "com.sb": true, "edu.sb": true, "gov.sb": true, "net.sb": true, "org.sb": true, "sc": true, "com.sc": true, "gov.sc": true, "net.sc": true, "org.sc": true, "edu.sc": true, "sd": true, "com.sd": true, "net.sd": true, "org.sd": true, "edu.sd": true, "med.sd": true, "tv.sd": true, "gov.sd": true, "info.sd": true, "se": true, "a.se": true, "ac.se": true, "b.se": true, "bd.se": true, "brand.se": true, "c.se": true, "d.se": true, "e.se": true, "f.se": true, "fh.se": true, "fhsk.se": true, "fhv.se": true, "g.se": true, "h.se": true, "i.se": true, "k.se": true, "komforb.se": true, "kommunalforbund.se": true, "komvux.se": true, "l.se": true, "lanbib.se": true, "m.se": true, "n.se": true, "naturbruksgymn.se": true, "o.se": true, "org.se": true, "p.se": true, "parti.se": true, "pp.se": true, "press.se": true, "r.se": true, "s.se": true, "t.se": true, "tm.se": true, "u.se": true, "w.se": true, "x.se": true, "y.se": true, "z.se": true, "sg": true, "com.sg": true, "net.sg": true, "org.sg": true, "gov.sg": true, "edu.sg": true, "per.sg": true, "sh": true, "com.sh": true, "net.sh": true, "gov.sh": true, "org.sh": true, "mil.sh": true, "si": true, "sj": true, "sk": true, "sl": true, "com.sl": true, "net.sl": true, "edu.sl": true, "gov.sl": true, "org.sl": true, "sm": true, "sn": true, "art.sn": true, "com.sn": true, "edu.sn": true, "gouv.sn": true, "org.sn": true, "perso.sn": true, "univ.sn": true, "so": true, "com.so": true, "net.so": true, "org.so": true, "sr": true, "st": true, "co.st": true, "com.st": true, "consulado.st": true, "edu.st": true, "embaixada.st": true, "gov.st": true, "mil.st": true, "net.st": true, "org.st": true, "principe.st": true, "saotome.st": true, "store.st": true, "su": true, "adygeya.su": true, "arkhangelsk.su": true, "balashov.su": true, "bashkiria.su": true, "bryansk.su": true, "dagestan.su": true, "grozny.su": true, "ivanovo.su": true, "kalmykia.su": true, "kaluga.su": true, "karelia.su": true, "khakassia.su": true, "krasnodar.su": true, "kurgan.su": true, "lenug.su": true, "mordovia.su": true, "msk.su": true, "murmansk.su": true, "nalchik.su": true, "nov.su": true, "obninsk.su": true, "penza.su": true, "pokrovsk.su": true, "sochi.su": true, "spb.su": true, "togliatti.su": true, "troitsk.su": true, "tula.su": true, "tuva.su": true, "vladikavkaz.su": true, "vladimir.su": true, "vologda.su": true, "sv": true, "com.sv": true, "edu.sv": true, "gob.sv": true, "org.sv": true, "red.sv": true, "sx": true, "gov.sx": true, "sy": true, "edu.sy": true, "gov.sy": true, "net.sy": true, "mil.sy": true, "com.sy": true, "org.sy": true, "sz": true, "co.sz": true, "ac.sz": true, "org.sz": true, "tc": true, "td": true, "tel": true, "tf": true, "tg": true, "th": true, "ac.th": true, "co.th": true, "go.th": true, "in.th": true, "mi.th": true, "net.th": true, "or.th": true, "tj": true, "ac.tj": true, "biz.tj": true, "co.tj": true, "com.tj": true, "edu.tj": true, "go.tj": true, "gov.tj": true, "int.tj": true, "mil.tj": true, "name.tj": true, "net.tj": true, "nic.tj": true, "org.tj": true, "test.tj": true, "web.tj": true, "tk": true, "tl": true, "gov.tl": true, "tm": true, "com.tm": true, "co.tm": true, "org.tm": true, "net.tm": true, "nom.tm": true, "gov.tm": true, "mil.tm": true, "edu.tm": true, "tn": true, "com.tn": true, "ens.tn": true, "fin.tn": true, "gov.tn": true, "ind.tn": true, "intl.tn": true, "nat.tn": true, "net.tn": true, "org.tn": true, "info.tn": true, "perso.tn": true, "tourism.tn": true, "edunet.tn": true, "rnrt.tn": true, "rns.tn": true, "rnu.tn": true, "mincom.tn": true, "agrinet.tn": true, "defense.tn": true, "turen.tn": true, "to": true, "com.to": true, "gov.to": true, "net.to": true, "org.to": true, "edu.to": true, "mil.to": true, "tr": true, "com.tr": true, "info.tr": true, "biz.tr": true, "net.tr": true, "org.tr": true, "web.tr": true, "gen.tr": true, "tv.tr": true, "av.tr": true, "dr.tr": true, "bbs.tr": true, "name.tr": true, "tel.tr": true, "gov.tr": true, "bel.tr": true, "pol.tr": true, "mil.tr": true, "k12.tr": true, "edu.tr": true, "kep.tr": true, "nc.tr": true, "gov.nc.tr": true, "travel": true, "tt": true, "co.tt": true, "com.tt": true, "org.tt": true, "net.tt": true, "biz.tt": true, "info.tt": true, "pro.tt": true, "int.tt": true, "coop.tt": true, "jobs.tt": true, "mobi.tt": true, "travel.tt": true, "museum.tt": true, "aero.tt": true, "name.tt": true, "gov.tt": true, "edu.tt": true, "tv": true, "tw": true, "edu.tw": true, "gov.tw": true, "mil.tw": true, "com.tw": true, "net.tw": true, "org.tw": true, "idv.tw": true, "game.tw": true, "ebiz.tw": true, "club.tw": true, "xn--zf0ao64a.tw": true, "xn--uc0atv.tw": true, "xn--czrw28b.tw": true, "tz": true, "ac.tz": true, "co.tz": true, "go.tz": true, "hotel.tz": true, "info.tz": true, "me.tz": true, "mil.tz": true, "mobi.tz": true, "ne.tz": true, "or.tz": true, "sc.tz": true, "tv.tz": true, "ua": true, "com.ua": true, "edu.ua": true, "gov.ua": true, "in.ua": true, "net.ua": true, "org.ua": true, "cherkassy.ua": true, "cherkasy.ua": true, "chernigov.ua": true, "chernihiv.ua": true, "chernivtsi.ua": true, "chernovtsy.ua": true, "ck.ua": true, "cn.ua": true, "cr.ua": true, "crimea.ua": true, "cv.ua": true, "dn.ua": true, "dnepropetrovsk.ua": true, "dnipropetrovsk.ua": true, "dominic.ua": true, "donetsk.ua": true, "dp.ua": true, "if.ua": true, "ivano-frankivsk.ua": true, "kh.ua": true, "kharkiv.ua": true, "kharkov.ua": true, "kherson.ua": true, "khmelnitskiy.ua": true, "khmelnytskyi.ua": true, "kiev.ua": true, "kirovograd.ua": true, "km.ua": true, "kr.ua": true, "krym.ua": true, "ks.ua": true, "kv.ua": true, "kyiv.ua": true, "lg.ua": true, "lt.ua": true, "lugansk.ua": true, "lutsk.ua": true, "lv.ua": true, "lviv.ua": true, "mk.ua": true, "mykolaiv.ua": true, "nikolaev.ua": true, "od.ua": true, "odesa.ua": true, "odessa.ua": true, "pl.ua": true, "poltava.ua": true, "rivne.ua": true, "rovno.ua": true, "rv.ua": true, "sb.ua": true, "sebastopol.ua": true, "sevastopol.ua": true, "sm.ua": true, "sumy.ua": true, "te.ua": true, "ternopil.ua": true, "uz.ua": true, "uzhgorod.ua": true, "vinnica.ua": true, "vinnytsia.ua": true, "vn.ua": true, "volyn.ua": true, "yalta.ua": true, "zaporizhzhe.ua": true, "zaporizhzhia.ua": true, "zhitomir.ua": true, "zhytomyr.ua": true, "zp.ua": true, "zt.ua": true, "ug": true, "co.ug": true, "or.ug": true, "ac.ug": true, "sc.ug": true, "go.ug": true, "ne.ug": true, "com.ug": true, "org.ug": true, "uk": true, "ac.uk": true, "co.uk": true, "gov.uk": true, "ltd.uk": true, "me.uk": true, "net.uk": true, "nhs.uk": true, "org.uk": true, "plc.uk": true, "police.uk": true, "*.sch.uk": true, "us": true, "dni.us": true, "fed.us": true, "isa.us": true, "kids.us": true, "nsn.us": true, "ak.us": true, "al.us": true, "ar.us": true, "as.us": true, "az.us": true, "ca.us": true, "co.us": true, "ct.us": true, "dc.us": true, "de.us": true, "fl.us": true, "ga.us": true, "gu.us": true, "hi.us": true, "ia.us": true, "id.us": true, "il.us": true, "in.us": true, "ks.us": true, "ky.us": true, "la.us": true, "ma.us": true, "md.us": true, "me.us": true, "mi.us": true, "mn.us": true, "mo.us": true, "ms.us": true, "mt.us": true, "nc.us": true, "nd.us": true, "ne.us": true, "nh.us": true, "nj.us": true, "nm.us": true, "nv.us": true, "ny.us": true, "oh.us": true, "ok.us": true, "or.us": true, "pa.us": true, "pr.us": true, "ri.us": true, "sc.us": true, "sd.us": true, "tn.us": true, "tx.us": true, "ut.us": true, "vi.us": true, "vt.us": true, "va.us": true, "wa.us": true, "wi.us": true, "wv.us": true, "wy.us": true, "k12.ak.us": true, "k12.al.us": true, "k12.ar.us": true, "k12.as.us": true, "k12.az.us": true, "k12.ca.us": true, "k12.co.us": true, "k12.ct.us": true, "k12.dc.us": true, "k12.de.us": true, "k12.fl.us": true, "k12.ga.us": true, "k12.gu.us": true, "k12.ia.us": true, "k12.id.us": true, "k12.il.us": true, "k12.in.us": true, "k12.ks.us": true, "k12.ky.us": true, "k12.la.us": true, "k12.ma.us": true, "k12.md.us": true, "k12.me.us": true, "k12.mi.us": true, "k12.mn.us": true, "k12.mo.us": true, "k12.ms.us": true, "k12.mt.us": true, "k12.nc.us": true, "k12.ne.us": true, "k12.nh.us": true, "k12.nj.us": true, "k12.nm.us": true, "k12.nv.us": true, "k12.ny.us": true, "k12.oh.us": true, "k12.ok.us": true, "k12.or.us": true, "k12.pa.us": true, "k12.pr.us": true, "k12.ri.us": true, "k12.sc.us": true, "k12.tn.us": true, "k12.tx.us": true, "k12.ut.us": true, "k12.vi.us": true, "k12.vt.us": true, "k12.va.us": true, "k12.wa.us": true, "k12.wi.us": true, "k12.wy.us": true, "cc.ak.us": true, "cc.al.us": true, "cc.ar.us": true, "cc.as.us": true, "cc.az.us": true, "cc.ca.us": true, "cc.co.us": true, "cc.ct.us": true, "cc.dc.us": true, "cc.de.us": true, "cc.fl.us": true, "cc.ga.us": true, "cc.gu.us": true, "cc.hi.us": true, "cc.ia.us": true, "cc.id.us": true, "cc.il.us": true, "cc.in.us": true, "cc.ks.us": true, "cc.ky.us": true, "cc.la.us": true, "cc.ma.us": true, "cc.md.us": true, "cc.me.us": true, "cc.mi.us": true, "cc.mn.us": true, "cc.mo.us": true, "cc.ms.us": true, "cc.mt.us": true, "cc.nc.us": true, "cc.nd.us": true, "cc.ne.us": true, "cc.nh.us": true, "cc.nj.us": true, "cc.nm.us": true, "cc.nv.us": true, "cc.ny.us": true, "cc.oh.us": true, "cc.ok.us": true, "cc.or.us": true, "cc.pa.us": true, "cc.pr.us": true, "cc.ri.us": true, "cc.sc.us": true, "cc.sd.us": true, "cc.tn.us": true, "cc.tx.us": true, "cc.ut.us": true, "cc.vi.us": true, "cc.vt.us": true, "cc.va.us": true, "cc.wa.us": true, "cc.wi.us": true, "cc.wv.us": true, "cc.wy.us": true, "lib.ak.us": true, "lib.al.us": true, "lib.ar.us": true, "lib.as.us": true, "lib.az.us": true, "lib.ca.us": true, "lib.co.us": true, "lib.ct.us": true, "lib.dc.us": true, "lib.fl.us": true, "lib.ga.us": true, "lib.gu.us": true, "lib.hi.us": true, "lib.ia.us": true, "lib.id.us": true, "lib.il.us": true, "lib.in.us": true, "lib.ks.us": true, "lib.ky.us": true, "lib.la.us": true, "lib.ma.us": true, "lib.md.us": true, "lib.me.us": true, "lib.mi.us": true, "lib.mn.us": true, "lib.mo.us": true, "lib.ms.us": true, "lib.mt.us": true, "lib.nc.us": true, "lib.nd.us": true, "lib.ne.us": true, "lib.nh.us": true, "lib.nj.us": true, "lib.nm.us": true, "lib.nv.us": true, "lib.ny.us": true, "lib.oh.us": true, "lib.ok.us": true, "lib.or.us": true, "lib.pa.us": true, "lib.pr.us": true, "lib.ri.us": true, "lib.sc.us": true, "lib.sd.us": true, "lib.tn.us": true, "lib.tx.us": true, "lib.ut.us": true, "lib.vi.us": true, "lib.vt.us": true, "lib.va.us": true, "lib.wa.us": true, "lib.wi.us": true, "lib.wy.us": true, "pvt.k12.ma.us": true, "chtr.k12.ma.us": true, "paroch.k12.ma.us": true, "uy": true, "com.uy": true, "edu.uy": true, "gub.uy": true, "mil.uy": true, "net.uy": true, "org.uy": true, "uz": true, "co.uz": true, "com.uz": true, "net.uz": true, "org.uz": true, "va": true, "vc": true, "com.vc": true, "net.vc": true, "org.vc": true, "gov.vc": true, "mil.vc": true, "edu.vc": true, "ve": true, "arts.ve": true, "co.ve": true, "com.ve": true, "e12.ve": true, "edu.ve": true, "firm.ve": true, "gob.ve": true, "gov.ve": true, "info.ve": true, "int.ve": true, "mil.ve": true, "net.ve": true, "org.ve": true, "rec.ve": true, "store.ve": true, "tec.ve": true, "web.ve": true, "vg": true, "vi": true, "co.vi": true, "com.vi": true, "k12.vi": true, "net.vi": true, "org.vi": true, "vn": true, "com.vn": true, "net.vn": true, "org.vn": true, "edu.vn": true, "gov.vn": true, "int.vn": true, "ac.vn": true, "biz.vn": true, "info.vn": true, "name.vn": true, "pro.vn": true, "health.vn": true, "vu": true, "com.vu": true, "edu.vu": true, "net.vu": true, "org.vu": true, "wf": true, "ws": true, "com.ws": true, "net.ws": true, "org.ws": true, "gov.ws": true, "edu.ws": true, "yt": true, "xn--mgbaam7a8h": true, "xn--y9a3aq": true, "xn--54b7fta0cc": true, "xn--90ais": true, "xn--fiqs8s": true, "xn--fiqz9s": true, "xn--lgbbat1ad8j": true, "xn--wgbh1c": true, "xn--e1a4c": true, "xn--node": true, "xn--qxam": true, "xn--j6w193g": true, "xn--h2brj9c": true, "xn--mgbbh1a71e": true, "xn--fpcrj9c3d": true, "xn--gecrj9c": true, "xn--s9brj9c": true, "xn--45brj9c": true, "xn--xkc2dl3a5ee0h": true, "xn--mgba3a4f16a": true, "xn--mgba3a4fra": true, "xn--mgbtx2b": true, "xn--mgbayh7gpa": true, "xn--3e0b707e": true, "xn--80ao21a": true, "xn--fzc2c9e2c": true, "xn--xkc2al3hye2a": true, "xn--mgbc0a9azcg": true, "xn--d1alf": true, "xn--l1acc": true, "xn--mix891f": true, "xn--mix082f": true, "xn--mgbx4cd0ab": true, "xn--mgb9awbf": true, "xn--mgbai9azgqp6j": true, "xn--mgbai9a5eva00b": true, "xn--ygbi2ammx": true, "xn--90a3ac": true, "xn--o1ac.xn--90a3ac": true, "xn--c1avg.xn--90a3ac": true, "xn--90azh.xn--90a3ac": true, "xn--d1at.xn--90a3ac": true, "xn--o1ach.xn--90a3ac": true, "xn--80au.xn--90a3ac": true, "xn--p1ai": true, "xn--wgbl6a": true, "xn--mgberp4a5d4ar": true, "xn--mgberp4a5d4a87g": true, "xn--mgbqly7c0a67fbc": true, "xn--mgbqly7cvafr": true, "xn--mgbpl2fh": true, "xn--yfro4i67o": true, "xn--clchc0ea0b2g2a9gcd": true, "xn--ogbpf8fl": true, "xn--mgbtf8fl": true, "xn--o3cw4h": true, "xn--pgbs0dh": true, "xn--kpry57d": true, "xn--kprw13d": true, "xn--nnx388a": true, "xn--j1amh": true, "xn--mgb2ddes": true, "xxx": true, "*.ye": true, "ac.za": true, "agric.za": true, "alt.za": true, "co.za": true, "edu.za": true, "gov.za": true, "grondar.za": true, "law.za": true, "mil.za": true, "net.za": true, "ngo.za": true, "nis.za": true, "nom.za": true, "org.za": true, "school.za": true, "tm.za": true, "web.za": true, "zm": true, "ac.zm": true, "biz.zm": true, "co.zm": true, "com.zm": true, "edu.zm": true, "gov.zm": true, "info.zm": true, "mil.zm": true, "net.zm": true, "org.zm": true, "sch.zm": true, "*.zw": true, "aaa": true, "aarp": true, "abarth": true, "abb": true, "abbott": true, "abbvie": true, "abc": true, "able": true, "abogado": true, "abudhabi": true, "academy": true, "accenture": true, "accountant": true, "accountants": true, "aco": true, "active": true, "actor": true, "adac": true, "ads": true, "adult": true, "aeg": true, "aetna": true, "afamilycompany": true, "afl": true, "africa": true, "agakhan": true, "agency": true, "aig": true, "aigo": true, "airbus": true, "airforce": true, "airtel": true, "akdn": true, "alfaromeo": true, "alibaba": true, "alipay": true, "allfinanz": true, "allstate": true, "ally": true, "alsace": true, "alstom": true, "americanexpress": true, "americanfamily": true, "amex": true, "amfam": true, "amica": true, "amsterdam": true, "analytics": true, "android": true, "anquan": true, "anz": true, "aol": true, "apartments": true, "app": true, "apple": true, "aquarelle": true, "arab": true, "aramco": true, "archi": true, "army": true, "art": true, "arte": true, "asda": true, "associates": true, "athleta": true, "attorney": true, "auction": true, "audi": true, "audible": true, "audio": true, "auspost": true, "author": true, "auto": true, "autos": true, "avianca": true, "aws": true, "axa": true, "azure": true, "baby": true, "baidu": true, "banamex": true, "bananarepublic": true, "band": true, "bank": true, "bar": true, "barcelona": true, "barclaycard": true, "barclays": true, "barefoot": true, "bargains": true, "baseball": true, "basketball": true, "bauhaus": true, "bayern": true, "bbc": true, "bbt": true, "bbva": true, "bcg": true, "bcn": true, "beats": true, "beauty": true, "beer": true, "bentley": true, "berlin": true, "best": true, "bestbuy": true, "bet": true, "bharti": true, "bible": true, "bid": true, "bike": true, "bing": true, "bingo": true, "bio": true, "black": true, "blackfriday": true, "blanco": true, "blockbuster": true, "blog": true, "bloomberg": true, "blue": true, "bms": true, "bmw": true, "bnl": true, "bnpparibas": true, "boats": true, "boehringer": true, "bofa": true, "bom": true, "bond": true, "boo": true, "book": true, "booking": true, "boots": true, "bosch": true, "bostik": true, "boston": true, "bot": true, "boutique": true, "box": true, "bradesco": true, "bridgestone": true, "broadway": true, "broker": true, "brother": true, "brussels": true, "budapest": true, "bugatti": true, "build": true, "builders": true, "business": true, "buy": true, "buzz": true, "bzh": true, "cab": true, "cafe": true, "cal": true, "call": true, "calvinklein": true, "cam": true, "camera": true, "camp": true, "cancerresearch": true, "canon": true, "capetown": true, "capital": true, "capitalone": true, "car": true, "caravan": true, "cards": true, "care": true, "career": true, "careers": true, "cars": true, "cartier": true, "casa": true, "case": true, "caseih": true, "cash": true, "casino": true, "catering": true, "catholic": true, "cba": true, "cbn": true, "cbre": true, "cbs": true, "ceb": true, "center": true, "ceo": true, "cern": true, "cfa": true, "cfd": true, "chanel": true, "channel": true, "chase": true, "chat": true, "cheap": true, "chintai": true, "chloe": true, "christmas": true, "chrome": true, "chrysler": true, "church": true, "cipriani": true, "circle": true, "cisco": true, "citadel": true, "citi": true, "citic": true, "city": true, "cityeats": true, "claims": true, "cleaning": true, "click": true, "clinic": true, "clinique": true, "clothing": true, "cloud": true, "club": true, "clubmed": true, "coach": true, "codes": true, "coffee": true, "college": true, "cologne": true, "comcast": true, "commbank": true, "community": true, "company": true, "compare": true, "computer": true, "comsec": true, "condos": true, "construction": true, "consulting": true, "contact": true, "contractors": true, "cooking": true, "cookingchannel": true, "cool": true, "corsica": true, "country": true, "coupon": true, "coupons": true, "courses": true, "credit": true, "creditcard": true, "creditunion": true, "cricket": true, "crown": true, "crs": true, "cruise": true, "cruises": true, "csc": true, "cuisinella": true, "cymru": true, "cyou": true, "dabur": true, "dad": true, "dance": true, "data": true, "date": true, "dating": true, "datsun": true, "day": true, "dclk": true, "dds": true, "deal": true, "dealer": true, "deals": true, "degree": true, "delivery": true, "dell": true, "deloitte": true, "delta": true, "democrat": true, "dental": true, "dentist": true, "desi": true, "design": true, "dev": true, "dhl": true, "diamonds": true, "diet": true, "digital": true, "direct": true, "directory": true, "discount": true, "discover": true, "dish": true, "diy": true, "dnp": true, "docs": true, "doctor": true, "dodge": true, "dog": true, "doha": true, "domains": true, "dot": true, "download": true, "drive": true, "dtv": true, "dubai": true, "duck": true, "dunlop": true, "duns": true, "dupont": true, "durban": true, "dvag": true, "dvr": true, "dwg": true, "earth": true, "eat": true, "eco": true, "edeka": true, "education": true, "email": true, "emerck": true, "emerson": true, "energy": true, "engineer": true, "engineering": true, "enterprises": true, "epost": true, "epson": true, "equipment": true, "ericsson": true, "erni": true, "esq": true, "estate": true, "esurance": true, "etisalat": true, "eurovision": true, "eus": true, "events": true, "everbank": true, "exchange": true, "expert": true, "exposed": true, "express": true, "extraspace": true, "fage": true, "fail": true, "fairwinds": true, "faith": true, "family": true, "fan": true, "fans": true, "farm": true, "farmers": true, "fashion": true, "fast": true, "fedex": true, "feedback": true, "ferrari": true, "ferrero": true, "fiat": true, "fidelity": true, "fido": true, "film": true, "final": true, "finance": true, "financial": true, "fire": true, "firestone": true, "firmdale": true, "fish": true, "fishing": true, "fit": true, "fitness": true, "flickr": true, "flights": true, "flir": true, "florist": true, "flowers": true, "fly": true, "foo": true, "food": true, "foodnetwork": true, "football": true, "ford": true, "forex": true, "forsale": true, "forum": true, "foundation": true, "fox": true, "free": true, "fresenius": true, "frl": true, "frogans": true, "frontdoor": true, "frontier": true, "ftr": true, "fujitsu": true, "fujixerox": true, "fun": true, "fund": true, "furniture": true, "futbol": true, "fyi": true, "gal": true, "gallery": true, "gallo": true, "gallup": true, "game": true, "games": true, "gap": true, "garden": true, "gbiz": true, "gdn": true, "gea": true, "gent": true, "genting": true, "george": true, "ggee": true, "gift": true, "gifts": true, "gives": true, "giving": true, "glade": true, "glass": true, "gle": true, "global": true, "globo": true, "gmail": true, "gmbh": true, "gmo": true, "gmx": true, "godaddy": true, "gold": true, "goldpoint": true, "golf": true, "goo": true, "goodhands": true, "goodyear": true, "goog": true, "google": true, "gop": true, "got": true, "grainger": true, "graphics": true, "gratis": true, "green": true, "gripe": true, "grocery": true, "group": true, "guardian": true, "gucci": true, "guge": true, "guide": true, "guitars": true, "guru": true, "hair": true, "hamburg": true, "hangout": true, "haus": true, "hbo": true, "hdfc": true, "hdfcbank": true, "health": true, "healthcare": true, "help": true, "helsinki": true, "here": true, "hermes": true, "hgtv": true, "hiphop": true, "hisamitsu": true, "hitachi": true, "hiv": true, "hkt": true, "hockey": true, "holdings": true, "holiday": true, "homedepot": true, "homegoods": true, "homes": true, "homesense": true, "honda": true, "honeywell": true, "horse": true, "host": true, "hosting": true, "hot": true, "hoteles": true, "hotels": true, "hotmail": true, "house": true, "how": true, "hsbc": true, "htc": true, "hughes": true, "hyatt": true, "hyundai": true, "ibm": true, "icbc": true, "ice": true, "icu": true, "ieee": true, "ifm": true, "iinet": true, "ikano": true, "imamat": true, "imdb": true, "immo": true, "immobilien": true, "industries": true, "infiniti": true, "ing": true, "ink": true, "institute": true, "insurance": true, "insure": true, "intel": true, "international": true, "intuit": true, "investments": true, "ipiranga": true, "irish": true, "iselect": true, "ismaili": true, "ist": true, "istanbul": true, "itau": true, "itv": true, "iveco": true, "iwc": true, "jaguar": true, "java": true, "jcb": true, "jcp": true, "jeep": true, "jetzt": true, "jewelry": true, "jio": true, "jlc": true, "jll": true, "jmp": true, "jnj": true, "joburg": true, "jot": true, "joy": true, "jpmorgan": true, "jprs": true, "juegos": true, "juniper": true, "kaufen": true, "kddi": true, "kerryhotels": true, "kerrylogistics": true, "kerryproperties": true, "kfh": true, "kia": true, "kim": true, "kinder": true, "kindle": true, "kitchen": true, "kiwi": true, "koeln": true, "komatsu": true, "kosher": true, "kpmg": true, "kpn": true, "krd": true, "kred": true, "kuokgroup": true, "kyoto": true, "lacaixa": true, "ladbrokes": true, "lamborghini": true, "lamer": true, "lancaster": true, "lancia": true, "lancome": true, "land": true, "landrover": true, "lanxess": true, "lasalle": true, "lat": true, "latino": true, "latrobe": true, "law": true, "lawyer": true, "lds": true, "lease": true, "leclerc": true, "lefrak": true, "legal": true, "lego": true, "lexus": true, "lgbt": true, "liaison": true, "lidl": true, "life": true, "lifeinsurance": true, "lifestyle": true, "lighting": true, "like": true, "lilly": true, "limited": true, "limo": true, "lincoln": true, "linde": true, "link": true, "lipsy": true, "live": true, "living": true, "lixil": true, "loan": true, "loans": true, "locker": true, "locus": true, "loft": true, "lol": true, "london": true, "lotte": true, "lotto": true, "love": true, "lpl": true, "lplfinancial": true, "ltd": true, "ltda": true, "lundbeck": true, "lupin": true, "luxe": true, "luxury": true, "macys": true, "madrid": true, "maif": true, "maison": true, "makeup": true, "man": true, "management": true, "mango": true, "map": true, "market": true, "marketing": true, "markets": true, "marriott": true, "marshalls": true, "maserati": true, "mattel": true, "mba": true, "mcd": true, "mcdonalds": true, "mckinsey": true, "med": true, "media": true, "meet": true, "melbourne": true, "meme": true, "memorial": true, "men": true, "menu": true, "meo": true, "merckmsd": true, "metlife": true, "miami": true, "microsoft": true, "mini": true, "mint": true, "mit": true, "mitsubishi": true, "mlb": true, "mls": true, "mma": true, "mobile": true, "mobily": true, "moda": true, "moe": true, "moi": true, "mom": true, "monash": true, "money": true, "monster": true, "montblanc": true, "mopar": true, "mormon": true, "mortgage": true, "moscow": true, "moto": true, "motorcycles": true, "mov": true, "movie": true, "movistar": true, "msd": true, "mtn": true, "mtpc": true, "mtr": true, "mutual": true, "mutuelle": true, "nab": true, "nadex": true, "nagoya": true, "nationwide": true, "natura": true, "navy": true, "nba": true, "nec": true, "netbank": true, "netflix": true, "network": true, "neustar": true, "new": true, "newholland": true, "news": true, "next": true, "nextdirect": true, "nexus": true, "nfl": true, "ngo": true, "nhk": true, "nico": true, "nike": true, "nikon": true, "ninja": true, "nissan": true, "nissay": true, "nokia": true, "northwesternmutual": true, "norton": true, "now": true, "nowruz": true, "nowtv": true, "nra": true, "nrw": true, "ntt": true, "nyc": true, "obi": true, "observer": true, "off": true, "office": true, "okinawa": true, "olayan": true, "olayangroup": true, "oldnavy": true, "ollo": true, "omega": true, "one": true, "ong": true, "onl": true, "online": true, "onyourside": true, "ooo": true, "open": true, "oracle": true, "orange": true, "organic": true, "orientexpress": true, "origins": true, "osaka": true, "otsuka": true, "ott": true, "ovh": true, "page": true, "pamperedchef": true, "panasonic": true, "panerai": true, "paris": true, "pars": true, "partners": true, "parts": true, "party": true, "passagens": true, "pay": true, "pccw": true, "pet": true, "pfizer": true, "pharmacy": true, "phd": true, "philips": true, "phone": true, "photo": true, "photography": true, "photos": true, "physio": true, "piaget": true, "pics": true, "pictet": true, "pictures": true, "pid": true, "pin": true, "ping": true, "pink": true, "pioneer": true, "pizza": true, "place": true, "play": true, "playstation": true, "plumbing": true, "plus": true, "pnc": true, "pohl": true, "poker": true, "politie": true, "porn": true, "pramerica": true, "praxi": true, "press": true, "prime": true, "prod": true, "productions": true, "prof": true, "progressive": true, "promo": true, "properties": true, "property": true, "protection": true, "pru": true, "prudential": true, "pub": true, "pwc": true, "qpon": true, "quebec": true, "quest": true, "qvc": true, "racing": true, "radio": true, "raid": true, "read": true, "realestate": true, "realtor": true, "realty": true, "recipes": true, "red": true, "redstone": true, "redumbrella": true, "rehab": true, "reise": true, "reisen": true, "reit": true, "reliance": true, "ren": true, "rent": true, "rentals": true, "repair": true, "report": true, "republican": true, "rest": true, "restaurant": true, "review": true, "reviews": true, "rexroth": true, "rich": true, "richardli": true, "ricoh": true, "rightathome": true, "ril": true, "rio": true, "rip": true, "rmit": true, "rocher": true, "rocks": true, "rodeo": true, "rogers": true, "room": true, "rsvp": true, "ruhr": true, "run": true, "rwe": true, "ryukyu": true, "saarland": true, "safe": true, "safety": true, "sakura": true, "sale": true, "salon": true, "samsclub": true, "samsung": true, "sandvik": true, "sandvikcoromant": true, "sanofi": true, "sap": true, "sapo": true, "sarl": true, "sas": true, "save": true, "saxo": true, "sbi": true, "sbs": true, "sca": true, "scb": true, "schaeffler": true, "schmidt": true, "scholarships": true, "school": true, "schule": true, "schwarz": true, "science": true, "scjohnson": true, "scor": true, "scot": true, "search": true, "seat": true, "secure": true, "security": true, "seek": true, "select": true, "sener": true, "services": true, "ses": true, "seven": true, "sew": true, "sex": true, "sexy": true, "sfr": true, "shangrila": true, "sharp": true, "shaw": true, "shell": true, "shia": true, "shiksha": true, "shoes": true, "shop": true, "shopping": true, "shouji": true, "show": true, "showtime": true, "shriram": true, "silk": true, "sina": true, "singles": true, "site": true, "ski": true, "skin": true, "sky": true, "skype": true, "sling": true, "smart": true, "smile": true, "sncf": true, "soccer": true, "social": true, "softbank": true, "software": true, "sohu": true, "solar": true, "solutions": true, "song": true, "sony": true, "soy": true, "space": true, "spiegel": true, "spot": true, "spreadbetting": true, "srl": true, "srt": true, "stada": true, "staples": true, "star": true, "starhub": true, "statebank": true, "statefarm": true, "statoil": true, "stc": true, "stcgroup": true, "stockholm": true, "storage": true, "store": true, "stream": true, "studio": true, "study": true, "style": true, "sucks": true, "supplies": true, "supply": true, "support": true, "surf": true, "surgery": true, "suzuki": true, "swatch": true, "swiftcover": true, "swiss": true, "sydney": true, "symantec": true, "systems": true, "tab": true, "taipei": true, "talk": true, "taobao": true, "target": true, "tatamotors": true, "tatar": true, "tattoo": true, "tax": true, "taxi": true, "tci": true, "tdk": true, "team": true, "tech": true, "technology": true, "telecity": true, "telefonica": true, "temasek": true, "tennis": true, "teva": true, "thd": true, "theater": true, "theatre": true, "theguardian": true, "tiaa": true, "tickets": true, "tienda": true, "tiffany": true, "tips": true, "tires": true, "tirol": true, "tjmaxx": true, "tjx": true, "tkmaxx": true, "tmall": true, "today": true, "tokyo": true, "tools": true, "top": true, "toray": true, "toshiba": true, "total": true, "tours": true, "town": true, "toyota": true, "toys": true, "trade": true, "trading": true, "training": true, "travelchannel": true, "travelers": true, "travelersinsurance": true, "trust": true, "trv": true, "tube": true, "tui": true, "tunes": true, "tushu": true, "tvs": true, "ubank": true, "ubs": true, "uconnect": true, "unicom": true, "university": true, "uno": true, "uol": true, "ups": true, "vacations": true, "vana": true, "vanguard": true, "vegas": true, "ventures": true, "verisign": true, "versicherung": true, "vet": true, "viajes": true, "video": true, "vig": true, "viking": true, "villas": true, "vin": true, "vip": true, "virgin": true, "visa": true, "vision": true, "vista": true, "vistaprint": true, "viva": true, "vivo": true, "vlaanderen": true, "vodka": true, "volkswagen": true, "volvo": true, "vote": true, "voting": true, "voto": true, "voyage": true, "vuelos": true, "wales": true, "walmart": true, "walter": true, "wang": true, "wanggou": true, "warman": true, "watch": true, "watches": true, "weather": true, "weatherchannel": true, "webcam": true, "weber": true, "website": true, "wed": true, "wedding": true, "weibo": true, "weir": true, "whoswho": true, "wien": true, "wiki": true, "williamhill": true, "win": true, "windows": true, "wine": true, "winners": true, "wme": true, "wolterskluwer": true, "woodside": true, "work": true, "works": true, "world": true, "wow": true, "wtc": true, "wtf": true, "xbox": true, "xerox": true, "xfinity": true, "xihuan": true, "xin": true, "xn--11b4c3d": true, "xn--1ck2e1b": true, "xn--1qqw23a": true, "xn--30rr7y": true, "xn--3bst00m": true, "xn--3ds443g": true, "xn--3oq18vl8pn36a": true, "xn--3pxu8k": true, "xn--42c2d9a": true, "xn--45q11c": true, "xn--4gbrim": true, "xn--4gq48lf9j": true, "xn--55qw42g": true, "xn--55qx5d": true, "xn--5su34j936bgsg": true, "xn--5tzm5g": true, "xn--6frz82g": true, "xn--6qq986b3xl": true, "xn--80adxhks": true, "xn--80aqecdr1a": true, "xn--80asehdb": true, "xn--80aswg": true, "xn--8y0a063a": true, "xn--9dbq2a": true, "xn--9et52u": true, "xn--9krt00a": true, "xn--b4w605ferd": true, "xn--bck1b9a5dre4c": true, "xn--c1avg": true, "xn--c2br7g": true, "xn--cck2b3b": true, "xn--cg4bki": true, "xn--czr694b": true, "xn--czrs0t": true, "xn--czru2d": true, "xn--d1acj3b": true, "xn--eckvdtc9d": true, "xn--efvy88h": true, "xn--estv75g": true, "xn--fct429k": true, "xn--fhbei": true, "xn--fiq228c5hs": true, "xn--fiq64b": true, "xn--fjq720a": true, "xn--flw351e": true, "xn--fzys8d69uvgm": true, "xn--g2xx48c": true, "xn--gckr3f0f": true, "xn--gk3at1e": true, "xn--hxt814e": true, "xn--i1b6b1a6a2e": true, "xn--imr513n": true, "xn--io0a7i": true, "xn--j1aef": true, "xn--jlq61u9w7b": true, "xn--jvr189m": true, "xn--kcrx77d1x4a": true, "xn--kpu716f": true, "xn--kput3i": true, "xn--mgba3a3ejt": true, "xn--mgba7c0bbn0a": true, "xn--mgbaakc7dvf": true, "xn--mgbab2bd": true, "xn--mgbb9fbpob": true, "xn--mgbca7dzdo": true, "xn--mgbi4ecexp": true, "xn--mgbt3dhd": true, "xn--mk1bu44c": true, "xn--mxtq1m": true, "xn--ngbc5azd": true, "xn--ngbe9e0a": true, "xn--ngbrx": true, "xn--nqv7f": true, "xn--nqv7fs00ema": true, "xn--nyqy26a": true, "xn--p1acf": true, "xn--pbt977c": true, "xn--pssy2u": true, "xn--q9jyb4c": true, "xn--qcka1pmc": true, "xn--rhqv96g": true, "xn--rovu88b": true, "xn--ses554g": true, "xn--t60b56a": true, "xn--tckwe": true, "xn--tiq49xqyj": true, "xn--unup4y": true, "xn--vermgensberater-ctb": true, "xn--vermgensberatung-pwb": true, "xn--vhquv": true, "xn--vuq861b": true, "xn--w4r85el8fhu5dnra": true, "xn--w4rs40l": true, "xn--xhq521b": true, "xn--zfr164b": true, "xperia": true, "xyz": true, "yachts": true, "yahoo": true, "yamaxun": true, "yandex": true, "yodobashi": true, "yoga": true, "yokohama": true, "you": true, "youtube": true, "yun": true, "zappos": true, "zara": true, "zero": true, "zip": true, "zippo": true, "zone": true, "zuerich": true, "beep.pl": true, "*.compute.estate": true, "*.alces.network": true, "*.alwaysdata.net": true, "cloudfront.net": true, "compute.amazonaws.com": true, "ap-northeast-1.compute.amazonaws.com": true, "ap-northeast-2.compute.amazonaws.com": true, "ap-southeast-1.compute.amazonaws.com": true, "ap-southeast-2.compute.amazonaws.com": true, "eu-central-1.compute.amazonaws.com": true, "eu-west-1.compute.amazonaws.com": true, "sa-east-1.compute.amazonaws.com": true, "us-gov-west-1.compute.amazonaws.com": true, "us-west-1.compute.amazonaws.com": true, "us-west-2.compute.amazonaws.com": true, "compute-1.amazonaws.com": true, "z-1.compute-1.amazonaws.com": true, "z-2.compute-1.amazonaws.com": true, "us-east-1.amazonaws.com": true, "compute.amazonaws.com.cn": true, "cn-north-1.compute.amazonaws.com.cn": true, "elasticbeanstalk.com": true, "elb.amazonaws.com": true, "s3.amazonaws.com": true, "s3-ap-northeast-1.amazonaws.com": true, "s3-ap-northeast-2.amazonaws.com": true, "s3-ap-southeast-1.amazonaws.com": true, "s3-ap-southeast-2.amazonaws.com": true, "s3-eu-central-1.amazonaws.com": true, "s3-eu-west-1.amazonaws.com": true, "s3-external-1.amazonaws.com": true, "s3-external-2.amazonaws.com": true, "s3-fips-us-gov-west-1.amazonaws.com": true, "s3-sa-east-1.amazonaws.com": true, "s3-us-gov-west-1.amazonaws.com": true, "s3-us-west-1.amazonaws.com": true, "s3-us-west-2.amazonaws.com": true, "s3.ap-northeast-2.amazonaws.com": true, "s3.cn-north-1.amazonaws.com.cn": true, "s3.eu-central-1.amazonaws.com": true, "on-aptible.com": true, "pimienta.org": true, "poivron.org": true, "potager.org": true, "sweetpepper.org": true, "myasustor.com": true, "myfritz.net": true, "backplaneapp.io": true, "betainabox.com": true, "bnr.la": true, "boxfuse.io": true, "browsersafetymark.io": true, "mycd.eu": true, "ae.org": true, "ar.com": true, "br.com": true, "cn.com": true, "com.de": true, "com.se": true, "de.com": true, "eu.com": true, "gb.com": true, "gb.net": true, "hu.com": true, "hu.net": true, "jp.net": true, "jpn.com": true, "kr.com": true, "mex.com": true, "no.com": true, "qc.com": true, "ru.com": true, "sa.com": true, "se.com": true, "se.net": true, "uk.com": true, "uk.net": true, "us.com": true, "uy.com": true, "za.bz": true, "za.com": true, "africa.com": true, "gr.com": true, "in.net": true, "us.org": true, "co.com": true, "c.la": true, "certmgr.org": true, "xenapponazure.com": true, "virtueeldomein.nl": true, "cloudcontrolled.com": true, "cloudcontrolapp.com": true, "co.ca": true, "co.cz": true, "c.cdn77.org": true, "cdn77-ssl.net": true, "r.cdn77.net": true, "rsc.cdn77.org": true, "ssl.origin.cdn77-secure.org": true, "cloudns.asia": true, "cloudns.biz": true, "cloudns.club": true, "cloudns.cc": true, "cloudns.eu": true, "cloudns.in": true, "cloudns.info": true, "cloudns.org": true, "cloudns.pro": true, "cloudns.pw": true, "cloudns.us": true, "co.nl": true, "co.no": true, "*.platform.sh": true, "realm.cz": true, "*.cryptonomic.net": true, "cupcake.is": true, "cyon.link": true, "cyon.site": true, "daplie.me": true, "biz.dk": true, "co.dk": true, "firm.dk": true, "reg.dk": true, "store.dk": true, "dedyn.io": true, "dnshome.de": true, "dreamhosters.com": true, "mydrobo.com": true, "drud.io": true, "drud.us": true, "duckdns.org": true, "dy.fi": true, "tunk.org": true, "dyndns-at-home.com": true, "dyndns-at-work.com": true, "dyndns-blog.com": true, "dyndns-free.com": true, "dyndns-home.com": true, "dyndns-ip.com": true, "dyndns-mail.com": true, "dyndns-office.com": true, "dyndns-pics.com": true, "dyndns-remote.com": true, "dyndns-server.com": true, "dyndns-web.com": true, "dyndns-wiki.com": true, "dyndns-work.com": true, "dyndns.biz": true, "dyndns.info": true, "dyndns.org": true, "dyndns.tv": true, "at-band-camp.net": true, "ath.cx": true, "barrel-of-knowledge.info": true, "barrell-of-knowledge.info": true, "better-than.tv": true, "blogdns.com": true, "blogdns.net": true, "blogdns.org": true, "blogsite.org": true, "boldlygoingnowhere.org": true, "broke-it.net": true, "buyshouses.net": true, "cechire.com": true, "dnsalias.com": true, "dnsalias.net": true, "dnsalias.org": true, "dnsdojo.com": true, "dnsdojo.net": true, "dnsdojo.org": true, "does-it.net": true, "doesntexist.com": true, "doesntexist.org": true, "dontexist.com": true, "dontexist.net": true, "dontexist.org": true, "doomdns.com": true, "doomdns.org": true, "dvrdns.org": true, "dyn-o-saur.com": true, "dynalias.com": true, "dynalias.net": true, "dynalias.org": true, "dynathome.net": true, "dyndns.ws": true, "endofinternet.net": true, "endofinternet.org": true, "endoftheinternet.org": true, "est-a-la-maison.com": true, "est-a-la-masion.com": true, "est-le-patron.com": true, "est-mon-blogueur.com": true, "for-better.biz": true, "for-more.biz": true, "for-our.info": true, "for-some.biz": true, "for-the.biz": true, "forgot.her.name": true, "forgot.his.name": true, "from-ak.com": true, "from-al.com": true, "from-ar.com": true, "from-az.net": true, "from-ca.com": true, "from-co.net": true, "from-ct.com": true, "from-dc.com": true, "from-de.com": true, "from-fl.com": true, "from-ga.com": true, "from-hi.com": true, "from-ia.com": true, "from-id.com": true, "from-il.com": true, "from-in.com": true, "from-ks.com": true, "from-ky.com": true, "from-la.net": true, "from-ma.com": true, "from-md.com": true, "from-me.org": true, "from-mi.com": true, "from-mn.com": true, "from-mo.com": true, "from-ms.com": true, "from-mt.com": true, "from-nc.com": true, "from-nd.com": true, "from-ne.com": true, "from-nh.com": true, "from-nj.com": true, "from-nm.com": true, "from-nv.com": true, "from-ny.net": true, "from-oh.com": true, "from-ok.com": true, "from-or.com": true, "from-pa.com": true, "from-pr.com": true, "from-ri.com": true, "from-sc.com": true, "from-sd.com": true, "from-tn.com": true, "from-tx.com": true, "from-ut.com": true, "from-va.com": true, "from-vt.com": true, "from-wa.com": true, "from-wi.com": true, "from-wv.com": true, "from-wy.com": true, "ftpaccess.cc": true, "fuettertdasnetz.de": true, "game-host.org": true, "game-server.cc": true, "getmyip.com": true, "gets-it.net": true, "go.dyndns.org": true, "gotdns.com": true, "gotdns.org": true, "groks-the.info": true, "groks-this.info": true, "ham-radio-op.net": true, "here-for-more.info": true, "hobby-site.com": true, "hobby-site.org": true, "home.dyndns.org": true, "homedns.org": true, "homeftp.net": true, "homeftp.org": true, "homeip.net": true, "homelinux.com": true, "homelinux.net": true, "homelinux.org": true, "homeunix.com": true, "homeunix.net": true, "homeunix.org": true, "iamallama.com": true, "in-the-band.net": true, "is-a-anarchist.com": true, "is-a-blogger.com": true, "is-a-bookkeeper.com": true, "is-a-bruinsfan.org": true, "is-a-bulls-fan.com": true, "is-a-candidate.org": true, "is-a-caterer.com": true, "is-a-celticsfan.org": true, "is-a-chef.com": true, "is-a-chef.net": true, "is-a-chef.org": true, "is-a-conservative.com": true, "is-a-cpa.com": true, "is-a-cubicle-slave.com": true, "is-a-democrat.com": true, "is-a-designer.com": true, "is-a-doctor.com": true, "is-a-financialadvisor.com": true, "is-a-geek.com": true, "is-a-geek.net": true, "is-a-geek.org": true, "is-a-green.com": true, "is-a-guru.com": true, "is-a-hard-worker.com": true, "is-a-hunter.com": true, "is-a-knight.org": true, "is-a-landscaper.com": true, "is-a-lawyer.com": true, "is-a-liberal.com": true, "is-a-libertarian.com": true, "is-a-linux-user.org": true, "is-a-llama.com": true, "is-a-musician.com": true, "is-a-nascarfan.com": true, "is-a-nurse.com": true, "is-a-painter.com": true, "is-a-patsfan.org": true, "is-a-personaltrainer.com": true, "is-a-photographer.com": true, "is-a-player.com": true, "is-a-republican.com": true, "is-a-rockstar.com": true, "is-a-socialist.com": true, "is-a-soxfan.org": true, "is-a-student.com": true, "is-a-teacher.com": true, "is-a-techie.com": true, "is-a-therapist.com": true, "is-an-accountant.com": true, "is-an-actor.com": true, "is-an-actress.com": true, "is-an-anarchist.com": true, "is-an-artist.com": true, "is-an-engineer.com": true, "is-an-entertainer.com": true, "is-by.us": true, "is-certified.com": true, "is-found.org": true, "is-gone.com": true, "is-into-anime.com": true, "is-into-cars.com": true, "is-into-cartoons.com": true, "is-into-games.com": true, "is-leet.com": true, "is-lost.org": true, "is-not-certified.com": true, "is-saved.org": true, "is-slick.com": true, "is-uberleet.com": true, "is-very-bad.org": true, "is-very-evil.org": true, "is-very-good.org": true, "is-very-nice.org": true, "is-very-sweet.org": true, "is-with-theband.com": true, "isa-geek.com": true, "isa-geek.net": true, "isa-geek.org": true, "isa-hockeynut.com": true, "issmarterthanyou.com": true, "isteingeek.de": true, "istmein.de": true, "kicks-ass.net": true, "kicks-ass.org": true, "knowsitall.info": true, "land-4-sale.us": true, "lebtimnetz.de": true, "leitungsen.de": true, "likes-pie.com": true, "likescandy.com": true, "merseine.nu": true, "mine.nu": true, "misconfused.org": true, "mypets.ws": true, "myphotos.cc": true, "neat-url.com": true, "office-on-the.net": true, "on-the-web.tv": true, "podzone.net": true, "podzone.org": true, "readmyblog.org": true, "saves-the-whales.com": true, "scrapper-site.net": true, "scrapping.cc": true, "selfip.biz": true, "selfip.com": true, "selfip.info": true, "selfip.net": true, "selfip.org": true, "sells-for-less.com": true, "sells-for-u.com": true, "sells-it.net": true, "sellsyourhome.org": true, "servebbs.com": true, "servebbs.net": true, "servebbs.org": true, "serveftp.net": true, "serveftp.org": true, "servegame.org": true, "shacknet.nu": true, "simple-url.com": true, "space-to-rent.com": true, "stuff-4-sale.org": true, "stuff-4-sale.us": true, "teaches-yoga.com": true, "thruhere.net": true, "traeumtgerade.de": true, "webhop.biz": true, "webhop.info": true, "webhop.net": true, "webhop.org": true, "worse-than.tv": true, "writesthisblog.com": true, "ddnss.de": true, "dyn.ddnss.de": true, "dyndns.ddnss.de": true, "dyndns1.de": true, "dyn-ip24.de": true, "home-webserver.de": true, "dyn.home-webserver.de": true, "myhome-server.de": true, "ddnss.org": true, "dynv6.net": true, "e4.cz": true, "eu.org": true, "al.eu.org": true, "asso.eu.org": true, "at.eu.org": true, "au.eu.org": true, "be.eu.org": true, "bg.eu.org": true, "ca.eu.org": true, "cd.eu.org": true, "ch.eu.org": true, "cn.eu.org": true, "cy.eu.org": true, "cz.eu.org": true, "de.eu.org": true, "dk.eu.org": true, "edu.eu.org": true, "ee.eu.org": true, "es.eu.org": true, "fi.eu.org": true, "fr.eu.org": true, "gr.eu.org": true, "hr.eu.org": true, "hu.eu.org": true, "ie.eu.org": true, "il.eu.org": true, "in.eu.org": true, "int.eu.org": true, "is.eu.org": true, "it.eu.org": true, "jp.eu.org": true, "kr.eu.org": true, "lt.eu.org": true, "lu.eu.org": true, "lv.eu.org": true, "mc.eu.org": true, "me.eu.org": true, "mk.eu.org": true, "mt.eu.org": true, "my.eu.org": true, "net.eu.org": true, "ng.eu.org": true, "nl.eu.org": true, "no.eu.org": true, "nz.eu.org": true, "paris.eu.org": true, "pl.eu.org": true, "pt.eu.org": true, "q-a.eu.org": true, "ro.eu.org": true, "ru.eu.org": true, "se.eu.org": true, "si.eu.org": true, "sk.eu.org": true, "tr.eu.org": true, "uk.eu.org": true, "us.eu.org": true, "eu-1.evennode.com": true, "eu-2.evennode.com": true, "us-1.evennode.com": true, "us-2.evennode.com": true, "apps.fbsbx.com": true, "a.ssl.fastly.net": true, "b.ssl.fastly.net": true, "global.ssl.fastly.net": true, "a.prod.fastly.net": true, "global.prod.fastly.net": true, "fhapp.xyz": true, "firebaseapp.com": true, "flynnhub.com": true, "freebox-os.com": true, "freeboxos.com": true, "fbx-os.fr": true, "fbxos.fr": true, "freebox-os.fr": true, "freeboxos.fr": true, "myfusion.cloud": true, "futuremailing.at": true, "*.ex.ortsinfo.at": true, "*.kunden.ortsinfo.at": true, "service.gov.uk": true, "github.io": true, "githubusercontent.com": true, "githubcloud.com": true, "*.api.githubcloud.com": true, "*.ext.githubcloud.com": true, "gist.githubcloud.com": true, "*.githubcloudusercontent.com": true, "gitlab.io": true, "ro.com": true, "ro.im": true, "shop.ro": true, "goip.de": true, "*.0emm.com": true, "appspot.com": true, "blogspot.ae": true, "blogspot.al": true, "blogspot.am": true, "blogspot.ba": true, "blogspot.be": true, "blogspot.bg": true, "blogspot.bj": true, "blogspot.ca": true, "blogspot.cf": true, "blogspot.ch": true, "blogspot.cl": true, "blogspot.co.at": true, "blogspot.co.id": true, "blogspot.co.il": true, "blogspot.co.ke": true, "blogspot.co.nz": true, "blogspot.co.uk": true, "blogspot.co.za": true, "blogspot.com": true, "blogspot.com.ar": true, "blogspot.com.au": true, "blogspot.com.br": true, "blogspot.com.by": true, "blogspot.com.co": true, "blogspot.com.cy": true, "blogspot.com.ee": true, "blogspot.com.eg": true, "blogspot.com.es": true, "blogspot.com.mt": true, "blogspot.com.ng": true, "blogspot.com.tr": true, "blogspot.com.uy": true, "blogspot.cv": true, "blogspot.cz": true, "blogspot.de": true, "blogspot.dk": true, "blogspot.fi": true, "blogspot.fr": true, "blogspot.gr": true, "blogspot.hk": true, "blogspot.hr": true, "blogspot.hu": true, "blogspot.ie": true, "blogspot.in": true, "blogspot.is": true, "blogspot.it": true, "blogspot.jp": true, "blogspot.kr": true, "blogspot.li": true, "blogspot.lt": true, "blogspot.lu": true, "blogspot.md": true, "blogspot.mk": true, "blogspot.mr": true, "blogspot.mx": true, "blogspot.my": true, "blogspot.nl": true, "blogspot.no": true, "blogspot.pe": true, "blogspot.pt": true, "blogspot.qa": true, "blogspot.re": true, "blogspot.ro": true, "blogspot.rs": true, "blogspot.ru": true, "blogspot.se": true, "blogspot.sg": true, "blogspot.si": true, "blogspot.sk": true, "blogspot.sn": true, "blogspot.td": true, "blogspot.tw": true, "blogspot.ug": true, "blogspot.vn": true, "cloudfunctions.net": true, "codespot.com": true, "googleapis.com": true, "googlecode.com": true, "pagespeedmobilizer.com": true, "publishproxy.com": true, "withgoogle.com": true, "withyoutube.com": true, "hashbang.sh": true, "hasura-app.io": true, "hepforge.org": true, "herokuapp.com": true, "herokussl.com": true, "iki.fi": true, "biz.at": true, "info.at": true, "ac.leg.br": true, "al.leg.br": true, "am.leg.br": true, "ap.leg.br": true, "ba.leg.br": true, "ce.leg.br": true, "df.leg.br": true, "es.leg.br": true, "go.leg.br": true, "ma.leg.br": true, "mg.leg.br": true, "ms.leg.br": true, "mt.leg.br": true, "pa.leg.br": true, "pb.leg.br": true, "pe.leg.br": true, "pi.leg.br": true, "pr.leg.br": true, "rj.leg.br": true, "rn.leg.br": true, "ro.leg.br": true, "rr.leg.br": true, "rs.leg.br": true, "sc.leg.br": true, "se.leg.br": true, "sp.leg.br": true, "to.leg.br": true, "*.triton.zone": true, "*.cns.joyent.com": true, "js.org": true, "keymachine.de": true, "knightpoint.systems": true, "co.krd": true, "edu.krd": true, "*.magentosite.cloud": true, "meteorapp.com": true, "eu.meteorapp.com": true, "co.pl": true, "azurewebsites.net": true, "azure-mobile.net": true, "cloudapp.net": true, "bmoattachments.org": true, "4u.com": true, "ngrok.io": true, "nfshost.com": true, "nsupdate.info": true, "nerdpol.ovh": true, "blogsyte.com": true, "brasilia.me": true, "cable-modem.org": true, "ciscofreak.com": true, "collegefan.org": true, "couchpotatofries.org": true, "damnserver.com": true, "ddns.me": true, "ditchyourip.com": true, "dnsfor.me": true, "dnsiskinky.com": true, "dvrcam.info": true, "dynns.com": true, "eating-organic.net": true, "fantasyleague.cc": true, "geekgalaxy.com": true, "golffan.us": true, "health-carereform.com": true, "homesecuritymac.com": true, "homesecuritypc.com": true, "hopto.me": true, "ilovecollege.info": true, "loginto.me": true, "mlbfan.org": true, "mmafan.biz": true, "myactivedirectory.com": true, "mydissent.net": true, "myeffect.net": true, "mymediapc.net": true, "mypsx.net": true, "mysecuritycamera.com": true, "mysecuritycamera.net": true, "mysecuritycamera.org": true, "net-freaks.com": true, "nflfan.org": true, "nhlfan.net": true, "no-ip.ca": true, "no-ip.co.uk": true, "no-ip.net": true, "noip.us": true, "onthewifi.com": true, "pgafan.net": true, "point2this.com": true, "pointto.us": true, "privatizehealthinsurance.net": true, "quicksytes.com": true, "read-books.org": true, "securitytactics.com": true, "serveexchange.com": true, "servehumour.com": true, "servep2p.com": true, "servesarcasm.com": true, "stufftoread.com": true, "ufcfan.org": true, "unusualperson.com": true, "workisboring.com": true, "3utilities.com": true, "bounceme.net": true, "ddns.net": true, "ddnsking.com": true, "gotdns.ch": true, "hopto.org": true, "myftp.biz": true, "myftp.org": true, "myvnc.com": true, "no-ip.biz": true, "no-ip.info": true, "no-ip.org": true, "noip.me": true, "redirectme.net": true, "servebeer.com": true, "serveblog.net": true, "servecounterstrike.com": true, "serveftp.com": true, "servegame.com": true, "servehalflife.com": true, "servehttp.com": true, "serveirc.com": true, "serveminecraft.net": true, "servemp3.com": true, "servepics.com": true, "servequake.com": true, "sytes.net": true, "webhop.me": true, "zapto.org": true, "nyc.mn": true, "nid.io": true, "opencraft.hosting": true, "operaunite.com": true, "outsystemscloud.com": true, "ownprovider.com": true, "oy.lc": true, "pgfog.com": true, "pagefrontapp.com": true, "art.pl": true, "gliwice.pl": true, "krakow.pl": true, "poznan.pl": true, "wroc.pl": true, "zakopane.pl": true, "pantheonsite.io": true, "gotpantheon.com": true, "mypep.link": true, "xen.prgmr.com": true, "priv.at": true, "protonet.io": true, "chirurgiens-dentistes-en-france.fr": true, "qa2.com": true, "dev-myqnapcloud.com": true, "alpha-myqnapcloud.com": true, "myqnapcloud.com": true, "rackmaze.com": true, "rackmaze.net": true, "rhcloud.com": true, "hzc.io": true, "wellbeingzone.eu": true, "ptplus.fit": true, "wellbeingzone.co.uk": true, "sandcats.io": true, "logoip.de": true, "logoip.com": true, "firewall-gateway.com": true, "firewall-gateway.de": true, "my-gateway.de": true, "my-router.de": true, "spdns.de": true, "spdns.eu": true, "firewall-gateway.net": true, "my-firewall.org": true, "myfirewall.org": true, "spdns.org": true, "biz.ua": true, "co.ua": true, "pp.ua": true, "shiftedit.io": true, "myshopblocks.com": true, "1kapp.com": true, "appchizi.com": true, "applinzi.com": true, "sinaapp.com": true, "vipsinaapp.com": true, "bounty-full.com": true, "alpha.bounty-full.com": true, "beta.bounty-full.com": true, "static.land": true, "dev.static.land": true, "sites.static.land": true, "apps.lair.io": true, "*.stolos.io": true, "spacekit.io": true, "stackspace.space": true, "diskstation.me": true, "dscloud.biz": true, "dscloud.me": true, "dscloud.mobi": true, "dsmynas.com": true, "dsmynas.net": true, "dsmynas.org": true, "familyds.com": true, "familyds.net": true, "familyds.org": true, "i234.me": true, "myds.me": true, "synology.me": true, "taifun-dns.de": true, "gda.pl": true, "gdansk.pl": true, "gdynia.pl": true, "med.pl": true, "sopot.pl": true, "bloxcms.com": true, "townnews-staging.com": true, "*.transurl.be": true, "*.transurl.eu": true, "*.transurl.nl": true, "tuxfamily.org": true, "hk.com": true, "hk.org": true, "ltd.hk": true, "inc.hk": true, "lib.de.us": true, "router.management": true, "wmflabs.org": true, "yolasite.com": true, "za.net": true, "za.org": true, "now.sh": true });
 
 // END of automatically generated file
-},{"punycode":266}],636:[function(require,module,exports) {
+},{"punycode":266}],298:[function(require,module,exports) {
 /*!
  * Copyright (c) 2015, Salesforce.com, Inc.
  * All rights reserved.
@@ -55300,7 +49755,7 @@ Store.prototype.removeCookies = function (domain, path, cb) {
 Store.prototype.getAllCookies = function (cb) {
   throw new Error('getAllCookies is not implemented (therefore jar cannot be serialized)');
 };
-},{}],640:[function(require,module,exports) {
+},{}],301:[function(require,module,exports) {
 /*!
  * Copyright (c) 2015, Salesforce.com, Inc.
  * All rights reserved.
@@ -55358,7 +49813,7 @@ function permuteDomain(domain) {
 }
 
 exports.permuteDomain = permuteDomain;
-},{"./pubsuffix":635}],638:[function(require,module,exports) {
+},{"./pubsuffix":297}],300:[function(require,module,exports) {
 /*!
  * Copyright (c) 2015, Salesforce.com, Inc.
  * All rights reserved.
@@ -55428,7 +49883,7 @@ module.exports = function isBuffer(arg) {
     && typeof arg.fill === 'function'
     && typeof arg.readUInt8 === 'function';
 }
-},{}],282:[function(require,module,exports) {
+},{}],283:[function(require,module,exports) {
 if (typeof Object.create === 'function') {
   // implementation from standard node.js 'util' module
   module.exports = function inherits(ctor, superCtor) {
@@ -56000,7 +50455,7 @@ exports._extend = function (origin, add) {
 function hasOwnProperty(obj, prop) {
   return Object.prototype.hasOwnProperty.call(obj, prop);
 }
-},{"./support/isBuffer":255,"inherits":282,"process":17}],637:[function(require,module,exports) {
+},{"./support/isBuffer":255,"inherits":283,"process":17}],299:[function(require,module,exports) {
 /*!
  * Copyright (c) 2015, Salesforce.com, Inc.
  * All rights reserved.
@@ -56171,7 +50626,7 @@ MemoryCookieStore.prototype.getAllCookies = function (cb) {
 
   cb(null, cookies);
 };
-},{"./store":636,"./permuteDomain":640,"./pathMatch":638,"util":223}],639:[function(require,module,exports) {
+},{"./store":298,"./permuteDomain":301,"./pathMatch":300,"util":223}],284:[function(require,module,exports) {
 module.exports = {
   "_from": "tough-cookie@~2.3.3",
   "_id": "tough-cookie@2.3.3",
@@ -56265,7 +50720,7 @@ module.exports = {
   "version": "2.3.3"
 }
 ;
-},{}],609:[function(require,module,exports) {
+},{}],244:[function(require,module,exports) {
 /*!
  * Copyright (c) 2015, Salesforce.com, Inc.
  * All rights reserved.
@@ -57578,7 +52033,7 @@ module.exports = {
   permutePath: permutePath,
   canonicalDomain: canonicalDomain
 };
-},{"net":24,"url":222,"./pubsuffix":635,"./store":636,"./memstore":637,"./pathMatch":638,"../package.json":639,"punycode":266,"./permuteDomain":640}],606:[function(require,module,exports) {
+},{"net":24,"url":222,"./pubsuffix":297,"./store":298,"./memstore":299,"./pathMatch":300,"../package.json":284,"punycode":266,"./permuteDomain":301}],156:[function(require,module,exports) {
 'use strict';
 
 var tough = require('tough-cookie');
@@ -57617,7 +52072,7 @@ RequestJar.prototype.getCookies = function (uri) {
 exports.jar = function (store) {
   return new RequestJar(store);
 };
-},{"tough-cookie":609}],610:[function(require,module,exports) {
+},{"tough-cookie":244}],243:[function(require,module,exports) {
 exports = module.exports = stringify
 exports.getSerialize = serializer
 
@@ -57646,7 +52101,7 @@ function serializer(replacer, cycleReplacer) {
   }
 }
 
-},{}],672:[function(require,module,exports) {
+},{}],356:[function(require,module,exports) {
 
 /* eslint-disable node/no-deprecated-api */
 var buffer = require('buffer')
@@ -57711,7 +52166,7 @@ SafeBuffer.allocUnsafeSlow = function (size) {
   return buffer.SlowBuffer(size)
 }
 
-},{"buffer":25}],641:[function(require,module,exports) {
+},{"buffer":25}],302:[function(require,module,exports) {
 
 var global = arguments[3];
 var process = require("process");
@@ -57754,7 +52209,7 @@ function randomBytes (size, cb) {
   return bytes
 }
 
-},{"safe-buffer":672,"process":17}],289:[function(require,module,exports) {
+},{"safe-buffer":356,"process":17}],289:[function(require,module,exports) {
 if (typeof Object.create === 'function') {
   // implementation from standard node.js 'util' module
   module.exports = function inherits(ctor, superCtor) {
@@ -57779,7 +52234,7 @@ if (typeof Object.create === 'function') {
   }
 }
 
-},{}],678:[function(require,module,exports) {
+},{}],361:[function(require,module,exports) {
 module.exports = require('buffer')
 
 },{"buffer":25}],267:[function(require,module,exports) {
@@ -58048,7 +52503,7 @@ function isObject(arg) {
 function isUndefined(arg) {
   return arg === void 0;
 }
-},{}],755:[function(require,module,exports) {
+},{}],418:[function(require,module,exports) {
 var process = require("process");
 'use strict';
 
@@ -58094,7 +52549,7 @@ function nextTick(fn, arg1, arg2, arg3) {
   }
 }
 
-},{"process":17}],756:[function(require,module,exports) {
+},{"process":17}],416:[function(require,module,exports) {
 
 var global = arguments[3];
 'use strict';
@@ -58206,7 +52661,7 @@ exports.allocUnsafeSlow = function allocUnsafeSlow(size) {
   return new SlowBuffer(size);
 }
 
-},{"buffer":25}],400:[function(require,module,exports) {
+},{"buffer":25}],417:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -58316,7 +52771,7 @@ function objectToString(o) {
   return Object.prototype.toString.call(o);
 }
 
-},{"buffer":25}],757:[function(require,module,exports) {
+},{"buffer":25}],383:[function(require,module,exports) {
 
 'use strict';
 
@@ -58382,7 +52837,7 @@ BufferList.prototype.concat = function (n) {
   }
   return ret;
 };
-},{"buffer":25,"buffer-shims":756}],401:[function(require,module,exports) {
+},{"buffer":25,"buffer-shims":416}],419:[function(require,module,exports) {
 var global = arguments[3];
 
 /**
@@ -58452,7 +52907,7 @@ function config (name) {
   return String(val).toLowerCase() === 'true';
 }
 
-},{}],699:[function(require,module,exports) {
+},{}],325:[function(require,module,exports) {
 var process = require("process");
 
 // A bit simpler than readable streams.
@@ -59006,7 +53461,7 @@ function CorkedRequest(state) {
     }
   };
 }
-},{"process-nextick-args":755,"core-util-is":400,"inherits":289,"util-deprecate":401,"events":267,"buffer":25,"buffer-shims":756,"./_stream_duplex":700,"process":17}],700:[function(require,module,exports) {
+},{"process-nextick-args":418,"core-util-is":417,"inherits":289,"util-deprecate":419,"events":267,"buffer":25,"buffer-shims":416,"./_stream_duplex":326,"process":17}],326:[function(require,module,exports) {
 // a duplex stream is just a stream that is both readable and writable.
 // Since JS doesn't have multiple prototypal inheritance, this class
 // prototypally inherits from Readable, and then parasitically from
@@ -59082,7 +53537,7 @@ function forEach(xs, f) {
     f(xs[i], i);
   }
 }
-},{"process-nextick-args":755,"core-util-is":400,"inherits":289,"./_stream_readable":698,"./_stream_writable":699}],665:[function(require,module,exports) {
+},{"process-nextick-args":418,"core-util-is":417,"inherits":289,"./_stream_readable":324,"./_stream_writable":325}],285:[function(require,module,exports) {
 
 'use strict';
 
@@ -59356,7 +53811,7 @@ function simpleWrite(buf) {
 function simpleEnd(buf) {
   return buf && buf.length ? this.write(buf) : '';
 }
-},{"safe-buffer":678}],698:[function(require,module,exports) {
+},{"safe-buffer":361}],324:[function(require,module,exports) {
 
 var process = require("process");
 'use strict';
@@ -60300,7 +54755,7 @@ function indexOf(xs, x) {
   }
   return -1;
 }
-},{"process-nextick-args":755,"isarray":41,"events":267,"buffer":25,"buffer-shims":756,"core-util-is":400,"inherits":289,"util":24,"./internal/streams/BufferList":757,"./_stream_duplex":700,"string_decoder/":665,"process":17}],701:[function(require,module,exports) {
+},{"process-nextick-args":418,"isarray":41,"events":267,"buffer":25,"buffer-shims":416,"core-util-is":417,"inherits":289,"util":24,"./internal/streams/BufferList":383,"./_stream_duplex":326,"string_decoder/":285,"process":17}],327:[function(require,module,exports) {
 // a transform stream is a readable/writable stream where you do
 // something with the data.  Sometimes it's called a "filter",
 // but that's not a great name for it, since that implies a thing where
@@ -60483,7 +54938,7 @@ function done(stream, er, data) {
 
   return stream.push(null);
 }
-},{"./_stream_duplex":700,"core-util-is":400,"inherits":289}],702:[function(require,module,exports) {
+},{"./_stream_duplex":326,"core-util-is":417,"inherits":289}],328:[function(require,module,exports) {
 // a passthrough stream.
 // basically just the most minimal sort of Transform stream.
 // Every written chunk gets output as-is.
@@ -60510,7 +54965,7 @@ function PassThrough(options) {
 PassThrough.prototype._transform = function (chunk, encoding, cb) {
   cb(null, chunk);
 };
-},{"./_stream_transform":701,"core-util-is":400,"inherits":289}],652:[function(require,module,exports) {
+},{"./_stream_transform":327,"core-util-is":417,"inherits":289}],290:[function(require,module,exports) {
 exports = module.exports = require('./lib/_stream_readable.js');
 exports.Stream = exports;
 exports.Readable = exports;
@@ -60519,19 +54974,19 @@ exports.Duplex = require('./lib/_stream_duplex.js');
 exports.Transform = require('./lib/_stream_transform.js');
 exports.PassThrough = require('./lib/_stream_passthrough.js');
 
-},{"./lib/_stream_readable.js":698,"./lib/_stream_writable.js":699,"./lib/_stream_duplex.js":700,"./lib/_stream_transform.js":701,"./lib/_stream_passthrough.js":702}],653:[function(require,module,exports) {
+},{"./lib/_stream_readable.js":324,"./lib/_stream_writable.js":325,"./lib/_stream_duplex.js":326,"./lib/_stream_transform.js":327,"./lib/_stream_passthrough.js":328}],291:[function(require,module,exports) {
 module.exports = require('./lib/_stream_writable.js');
 
-},{"./lib/_stream_writable.js":699}],654:[function(require,module,exports) {
+},{"./lib/_stream_writable.js":325}],292:[function(require,module,exports) {
 module.exports = require('./lib/_stream_duplex.js');
 
-},{"./lib/_stream_duplex.js":700}],655:[function(require,module,exports) {
+},{"./lib/_stream_duplex.js":326}],293:[function(require,module,exports) {
 module.exports = require('./readable').Transform
 
-},{"./readable":652}],656:[function(require,module,exports) {
+},{"./readable":290}],294:[function(require,module,exports) {
 module.exports = require('./readable').PassThrough
 
-},{"./readable":652}],613:[function(require,module,exports) {
+},{"./readable":290}],224:[function(require,module,exports) {
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -60660,7 +55115,7 @@ Stream.prototype.pipe = function(dest, options) {
   return dest;
 };
 
-},{"events":267,"inherits":289,"readable-stream/readable.js":652,"readable-stream/writable.js":653,"readable-stream/duplex.js":654,"readable-stream/transform.js":655,"readable-stream/passthrough.js":656}],720:[function(require,module,exports) {
+},{"events":267,"inherits":289,"readable-stream/readable.js":290,"readable-stream/writable.js":291,"readable-stream/duplex.js":292,"readable-stream/transform.js":293,"readable-stream/passthrough.js":294}],453:[function(require,module,exports) {
 
 'use strict';
 
@@ -60758,7 +55213,7 @@ HashBase.prototype._digest = function () {
 };
 
 module.exports = HashBase;
-},{"safe-buffer":678,"stream":613,"inherits":289}],673:[function(require,module,exports) {
+},{"safe-buffer":361,"stream":224,"inherits":289}],362:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 'use strict'
 var inherits = require('inherits')
@@ -60906,7 +55361,7 @@ function fnI (a, b, c, d, m, k, s) {
 
 module.exports = MD5
 
-},{"inherits":289,"hash-base":720,"buffer":25}],674:[function(require,module,exports) {
+},{"inherits":289,"hash-base":453,"buffer":25}],367:[function(require,module,exports) {
 
 'use strict'
 var Buffer = require('buffer').Buffer
@@ -61072,7 +55527,7 @@ function fn5 (a, b, c, d, e, m, k, s) {
 
 module.exports = RIPEMD160
 
-},{"buffer":25,"inherits":289,"hash-base":720}],812:[function(require,module,exports) {
+},{"buffer":25,"inherits":289,"hash-base":453}],467:[function(require,module,exports) {
 
 var Buffer = require('safe-buffer').Buffer
 
@@ -61156,7 +55611,7 @@ Hash.prototype._update = function () {
 
 module.exports = Hash
 
-},{"safe-buffer":678}],721:[function(require,module,exports) {
+},{"safe-buffer":361}],420:[function(require,module,exports) {
 
 /*
  * A JavaScript implementation of the Secure Hash Algorithm, SHA-0, as defined
@@ -61253,7 +55708,7 @@ Sha.prototype._hash = function () {
 
 module.exports = Sha
 
-},{"inherits":289,"./hash":812,"safe-buffer":678}],722:[function(require,module,exports) {
+},{"inherits":289,"./hash":467,"safe-buffer":361}],421:[function(require,module,exports) {
 
 /*
  * A JavaScript implementation of the Secure Hash Algorithm, SHA-1, as defined
@@ -61355,7 +55810,7 @@ Sha1.prototype._hash = function () {
 
 module.exports = Sha1
 
-},{"inherits":289,"./hash":812,"safe-buffer":678}],724:[function(require,module,exports) {
+},{"inherits":289,"./hash":467,"safe-buffer":361}],423:[function(require,module,exports) {
 
 /**
  * A JavaScript implementation of the Secure Hash Algorithm, SHA-256, as defined
@@ -61493,7 +55948,7 @@ Sha256.prototype._hash = function () {
 
 module.exports = Sha256
 
-},{"inherits":289,"./hash":812,"safe-buffer":678}],723:[function(require,module,exports) {
+},{"inherits":289,"./hash":467,"safe-buffer":361}],422:[function(require,module,exports) {
 
 /**
  * A JavaScript implementation of the Secure Hash Algorithm, SHA-256, as defined
@@ -61549,7 +56004,7 @@ Sha224.prototype._hash = function () {
 
 module.exports = Sha224
 
-},{"inherits":289,"./sha256":724,"./hash":812,"safe-buffer":678}],726:[function(require,module,exports) {
+},{"inherits":289,"./sha256":423,"./hash":467,"safe-buffer":361}],425:[function(require,module,exports) {
 
 var inherits = require('inherits')
 var Hash = require('./hash')
@@ -61812,7 +56267,7 @@ Sha512.prototype._hash = function () {
 
 module.exports = Sha512
 
-},{"inherits":289,"./hash":812,"safe-buffer":678}],725:[function(require,module,exports) {
+},{"inherits":289,"./hash":467,"safe-buffer":361}],424:[function(require,module,exports) {
 
 var inherits = require('inherits')
 var SHA512 = require('./sha512')
@@ -61872,7 +56327,7 @@ Sha384.prototype._hash = function () {
 
 module.exports = Sha384
 
-},{"inherits":289,"./sha512":726,"./hash":812,"safe-buffer":678}],675:[function(require,module,exports) {
+},{"inherits":289,"./sha512":425,"./hash":467,"safe-buffer":361}],368:[function(require,module,exports) {
 var exports = module.exports = function SHA (algorithm) {
   algorithm = algorithm.toLowerCase()
 
@@ -61889,7 +56344,7 @@ exports.sha256 = require('./sha256')
 exports.sha384 = require('./sha384')
 exports.sha512 = require('./sha512')
 
-},{"./sha":721,"./sha1":722,"./sha224":723,"./sha256":724,"./sha384":725,"./sha512":726}],676:[function(require,module,exports) {
+},{"./sha":420,"./sha1":421,"./sha224":422,"./sha256":423,"./sha384":424,"./sha512":425}],360:[function(require,module,exports) {
 
 var Buffer = require('safe-buffer').Buffer
 var Transform = require('stream').Transform
@@ -61991,7 +56446,7 @@ CipherBase.prototype._toString = function (value, enc, fin) {
 
 module.exports = CipherBase
 
-},{"safe-buffer":678,"stream":613,"string_decoder":665,"inherits":289}],642:[function(require,module,exports) {
+},{"safe-buffer":361,"stream":224,"string_decoder":285,"inherits":289}],303:[function(require,module,exports) {
 'use strict'
 var inherits = require('inherits')
 var MD5 = require('md5.js')
@@ -62023,7 +56478,7 @@ module.exports = function createHash (alg) {
   return new Hash(sha(alg))
 }
 
-},{"inherits":289,"md5.js":673,"ripemd160":674,"sha.js":675,"cipher-base":676}],677:[function(require,module,exports) {
+},{"inherits":289,"md5.js":362,"ripemd160":367,"sha.js":368,"cipher-base":360}],333:[function(require,module,exports) {
 
 'use strict'
 var inherits = require('inherits')
@@ -62072,14 +56527,14 @@ Hmac.prototype._final = function () {
 }
 module.exports = Hmac
 
-},{"inherits":289,"safe-buffer":678,"cipher-base":676}],679:[function(require,module,exports) {
+},{"inherits":289,"safe-buffer":361,"cipher-base":360}],346:[function(require,module,exports) {
 var MD5 = require('md5.js')
 
 module.exports = function (buffer) {
   return new MD5().update(buffer).digest()
 }
 
-},{"md5.js":673}],643:[function(require,module,exports) {
+},{"md5.js":362}],304:[function(require,module,exports) {
 
 'use strict'
 var inherits = require('inherits')
@@ -62144,7 +56599,7 @@ module.exports = function createHmac (alg, key) {
   return new Hmac(alg, key)
 }
 
-},{"inherits":289,"./legacy":677,"cipher-base":676,"safe-buffer":678,"create-hash/md5":679,"ripemd160":674,"sha.js":675}],680:[function(require,module,exports) {
+},{"inherits":289,"./legacy":333,"cipher-base":360,"safe-buffer":361,"create-hash/md5":346,"ripemd160":367,"sha.js":368}],340:[function(require,module,exports) {
 module.exports = {
   "sha224WithRSAEncryption": {
     "sign": "rsa",
@@ -62298,10 +56753,10 @@ module.exports = {
   }
 }
 ;
-},{}],644:[function(require,module,exports) {
+},{}],314:[function(require,module,exports) {
 module.exports = require('./browser/algorithms.json')
 
-},{"./browser/algorithms.json":680}],727:[function(require,module,exports) {
+},{"./browser/algorithms.json":340}],384:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 var MAX_ALLOC = Math.pow(2, 30) - 1; // default in iojs
 
@@ -62332,7 +56787,7 @@ module.exports = function (password, salt, iterations, keylen) {
     throw new TypeError('Bad key length');
   }
 };
-},{"buffer":25}],728:[function(require,module,exports) {
+},{"buffer":25}],385:[function(require,module,exports) {
 var process = require("process");
 var defaultEncoding;
 /* istanbul ignore next */
@@ -62344,7 +56799,7 @@ if (process.browser) {
   defaultEncoding = pVersionMajor >= 6 ? 'utf-8' : 'binary';
 }
 module.exports = defaultEncoding;
-},{"process":17}],682:[function(require,module,exports) {
+},{"process":17}],342:[function(require,module,exports) {
 
 var md5 = require('create-hash/md5');
 var rmd160 = require('ripemd160');
@@ -62447,7 +56902,7 @@ function pbkdf2(password, salt, iterations, keylen, digest) {
 }
 
 module.exports = pbkdf2;
-},{"create-hash/md5":679,"ripemd160":674,"sha.js":675,"./precondition":727,"./default-encoding":728,"safe-buffer":678}],681:[function(require,module,exports) {
+},{"create-hash/md5":346,"ripemd160":367,"sha.js":368,"./precondition":384,"./default-encoding":385,"safe-buffer":361}],341:[function(require,module,exports) {
 
 var global = arguments[3];
 var process = require("process");
@@ -62548,10 +57003,10 @@ module.exports = function (password, salt, iterations, keylen, digest, callback)
     return sync(password, salt, iterations, keylen, digest);
   }), callback);
 };
-},{"./precondition":727,"./default-encoding":728,"./sync":682,"safe-buffer":678,"process":17}],645:[function(require,module,exports) {
+},{"./precondition":384,"./default-encoding":385,"./sync":342,"safe-buffer":361,"process":17}],305:[function(require,module,exports) {
 exports.pbkdf2 = require('./lib/async');
 exports.pbkdf2Sync = require('./lib/sync');
-},{"./lib/async":681,"./lib/sync":682}],813:[function(require,module,exports) {
+},{"./lib/async":341,"./lib/sync":342}],495:[function(require,module,exports) {
 'use strict';
 
 exports.readUInt32BE = function readUInt32BE(bytes, off) {
@@ -62809,7 +57264,7 @@ exports.padSplit = function padSplit(num, size, group) {
   return out.join(' ');
 };
 
-},{}],826:[function(require,module,exports) {
+},{}],505:[function(require,module,exports) {
 module.exports = assert;
 
 function assert(val, msg) {
@@ -62822,7 +57277,7 @@ assert.equal = function assertEqual(l, r, msg) {
     throw new Error(msg || ('Assertion failed: ' + l + ' != ' + r));
 };
 
-},{}],814:[function(require,module,exports) {
+},{}],496:[function(require,module,exports) {
 'use strict';
 
 var assert = require('minimalistic-assert');
@@ -62965,7 +57420,7 @@ Cipher.prototype._finalDecrypt = function _finalDecrypt() {
   return this._unpad(out);
 };
 
-},{"minimalistic-assert":826}],815:[function(require,module,exports) {
+},{"minimalistic-assert":505}],497:[function(require,module,exports) {
 'use strict';
 
 var assert = require('minimalistic-assert');
@@ -63110,7 +57565,7 @@ DES.prototype._decrypt = function _decrypt(state, lStart, rStart, out, off) {
   utils.rip(l, r, out, off);
 };
 
-},{"minimalistic-assert":826,"inherits":289,"../des":729}],816:[function(require,module,exports) {
+},{"minimalistic-assert":505,"inherits":289,"../des":454}],498:[function(require,module,exports) {
 'use strict';
 
 var assert = require('minimalistic-assert');
@@ -63177,7 +57632,7 @@ proto._update = function _update(inp, inOff, out, outOff) {
   }
 };
 
-},{"minimalistic-assert":826,"inherits":289}],817:[function(require,module,exports) {
+},{"minimalistic-assert":505,"inherits":289}],499:[function(require,module,exports) {
 'use strict';
 
 var assert = require('minimalistic-assert');
@@ -63234,7 +57689,7 @@ EDE.prototype._update = function _update(inp, inOff, out, outOff) {
 EDE.prototype._pad = DES.prototype._pad;
 EDE.prototype._unpad = DES.prototype._unpad;
 
-},{"minimalistic-assert":826,"inherits":289,"../des":729}],729:[function(require,module,exports) {
+},{"minimalistic-assert":505,"inherits":289,"../des":454}],454:[function(require,module,exports) {
 'use strict';
 
 exports.utils = require('./des/utils');
@@ -63243,7 +57698,7 @@ exports.DES = require('./des/des');
 exports.CBC = require('./des/cbc');
 exports.EDE = require('./des/ede');
 
-},{"./des/utils":813,"./des/cipher":814,"./des/des":815,"./des/cbc":816,"./des/ede":817}],683:[function(require,module,exports) {
+},{"./des/utils":495,"./des/cipher":496,"./des/des":497,"./des/cbc":498,"./des/ede":499}],363:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 var CipherBase = require('cipher-base')
 var des = require('des.js')
@@ -63289,7 +57744,7 @@ DES.prototype._final = function () {
   return new Buffer(this._des.final())
 }
 
-},{"cipher-base":676,"des.js":729,"inherits":289,"buffer":25}],733:[function(require,module,exports) {
+},{"cipher-base":360,"des.js":454,"inherits":289,"buffer":25}],548:[function(require,module,exports) {
 exports.encrypt = function (self, block) {
   return self._cipher.encryptBlock(block)
 }
@@ -63298,7 +57753,7 @@ exports.decrypt = function (self, block) {
   return self._cipher.decryptBlock(block)
 }
 
-},{}],821:[function(require,module,exports) {
+},{}],512:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 module.exports = function xor (a, b) {
   var length = Math.min(a.length, b.length)
@@ -63311,7 +57766,7 @@ module.exports = function xor (a, b) {
   return buffer
 }
 
-},{"buffer":25}],734:[function(require,module,exports) {
+},{"buffer":25}],549:[function(require,module,exports) {
 var xor = require('buffer-xor')
 
 exports.encrypt = function (self, block) {
@@ -63330,7 +57785,7 @@ exports.decrypt = function (self, block) {
   return xor(out, pad)
 }
 
-},{"buffer-xor":821}],735:[function(require,module,exports) {
+},{"buffer-xor":512}],550:[function(require,module,exports) {
 
 var Buffer = require('safe-buffer').Buffer
 var xor = require('buffer-xor')
@@ -63366,7 +57821,7 @@ exports.encrypt = function (self, data, decrypt) {
   return out
 }
 
-},{"safe-buffer":678,"buffer-xor":821}],736:[function(require,module,exports) {
+},{"safe-buffer":361,"buffer-xor":512}],551:[function(require,module,exports) {
 
 var Buffer = require('safe-buffer').Buffer
 
@@ -63394,7 +57849,7 @@ exports.encrypt = function (self, chunk, decrypt) {
   return out
 }
 
-},{"safe-buffer":678}],737:[function(require,module,exports) {
+},{"safe-buffer":361}],552:[function(require,module,exports) {
 
 var Buffer = require('safe-buffer').Buffer
 
@@ -63439,7 +57894,7 @@ exports.encrypt = function (self, chunk, decrypt) {
   return out
 }
 
-},{"safe-buffer":678}],738:[function(require,module,exports) {
+},{"safe-buffer":361}],553:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 var xor = require('buffer-xor')
 
@@ -63458,7 +57913,7 @@ exports.encrypt = function (self, chunk) {
   return xor(chunk, pad)
 }
 
-},{"buffer-xor":821,"buffer":25}],822:[function(require,module,exports) {
+},{"buffer-xor":512,"buffer":25}],504:[function(require,module,exports) {
 function incr32 (iv) {
   var len = iv.length
   var item
@@ -63475,7 +57930,7 @@ function incr32 (iv) {
 }
 module.exports = incr32
 
-},{}],739:[function(require,module,exports) {
+},{}],554:[function(require,module,exports) {
 
 var xor = require('buffer-xor')
 var Buffer = require('safe-buffer').Buffer
@@ -63508,7 +57963,7 @@ exports.encrypt = function (self, chunk) {
   return xor(chunk, pad)
 }
 
-},{"buffer-xor":821,"safe-buffer":678,"../incr32":822}],732:[function(require,module,exports) {
+},{"buffer-xor":512,"safe-buffer":361,"../incr32":504}],426:[function(require,module,exports) {
 module.exports = {
   "aes-128-ecb": {
     "cipher": "AES",
@@ -63701,7 +58156,7 @@ module.exports = {
   }
 }
 ;
-},{}],685:[function(require,module,exports) {
+},{}],510:[function(require,module,exports) {
 var modeModules = {
   ECB: require('./ecb'),
   CBC: require('./cbc'),
@@ -63721,7 +58176,7 @@ for (var key in modes) {
 
 module.exports = modes
 
-},{"./ecb":733,"./cbc":734,"./cfb":735,"./cfb8":736,"./cfb1":737,"./ofb":738,"./ctr":739,"./list.json":732}],820:[function(require,module,exports) {
+},{"./ecb":548,"./cbc":549,"./cfb":550,"./cfb8":551,"./cfb1":552,"./ofb":553,"./ctr":554,"./list.json":426}],469:[function(require,module,exports) {
 
 // based on the aes implimentation in triple sec
 // https://github.com/keybase/triplesec
@@ -63952,7 +58407,7 @@ AES.prototype.scrub = function () {
 
 module.exports.AES = AES
 
-},{"safe-buffer":678}],863:[function(require,module,exports) {
+},{"safe-buffer":361}],503:[function(require,module,exports) {
 
 var Buffer = require('safe-buffer').Buffer
 var ZEROES = Buffer.alloc(16, 0)
@@ -64044,7 +58499,7 @@ GHASH.prototype.final = function (abl, bl) {
 
 module.exports = GHASH
 
-},{"safe-buffer":678}],818:[function(require,module,exports) {
+},{"safe-buffer":361}],468:[function(require,module,exports) {
 
 var aes = require('./aes')
 var Buffer = require('safe-buffer').Buffer
@@ -64164,7 +58619,7 @@ StreamCipher.prototype.setAAD = function setAAD (buf) {
 
 module.exports = StreamCipher
 
-},{"./aes":820,"safe-buffer":678,"cipher-base":676,"inherits":289,"./ghash":863,"buffer-xor":821,"./incr32":822}],819:[function(require,module,exports) {
+},{"./aes":469,"safe-buffer":361,"cipher-base":360,"inherits":289,"./ghash":503,"buffer-xor":512,"./incr32":504}],470:[function(require,module,exports) {
 
 var aes = require('./aes')
 var Buffer = require('safe-buffer').Buffer
@@ -64194,7 +58649,7 @@ StreamCipher.prototype._final = function () {
 
 module.exports = StreamCipher
 
-},{"./aes":820,"safe-buffer":678,"cipher-base":676,"inherits":289}],740:[function(require,module,exports) {
+},{"./aes":469,"safe-buffer":361,"cipher-base":360,"inherits":289}],452:[function(require,module,exports) {
 
 /* eslint-disable node/no-deprecated-api */
 var buffer = require('buffer')
@@ -64259,7 +58714,7 @@ SafeBuffer.allocUnsafeSlow = function (size) {
   return buffer.SlowBuffer(size)
 }
 
-},{"buffer":25}],687:[function(require,module,exports) {
+},{"buffer":25}],364:[function(require,module,exports) {
 
 var Buffer = require('safe-buffer').Buffer
 var MD5 = require('md5.js')
@@ -64307,7 +58762,7 @@ function EVP_BytesToKey (password, salt, keyBits, ivLen) {
 
 module.exports = EVP_BytesToKey
 
-},{"safe-buffer":740,"md5.js":673}],730:[function(require,module,exports) {
+},{"safe-buffer":452,"md5.js":362}],427:[function(require,module,exports) {
 
 var MODES = require('./modes')
 var AuthCipher = require('./authCipher')
@@ -64424,7 +58879,7 @@ function createCipher (suite, password) {
 exports.createCipheriv = createCipheriv
 exports.createCipher = createCipher
 
-},{"./modes":685,"./authCipher":818,"safe-buffer":678,"./streamCipher":819,"cipher-base":676,"./aes":820,"evp_bytestokey":687,"inherits":289}],731:[function(require,module,exports) {
+},{"./modes":510,"./authCipher":468,"safe-buffer":361,"./streamCipher":470,"cipher-base":360,"./aes":469,"evp_bytestokey":364,"inherits":289}],428:[function(require,module,exports) {
 
 var AuthCipher = require('./authCipher')
 var Buffer = require('safe-buffer').Buffer
@@ -64551,7 +59006,7 @@ function createDecipher (suite, password) {
 exports.createDecipher = createDecipher
 exports.createDecipheriv = createDecipheriv
 
-},{"./authCipher":818,"safe-buffer":678,"./modes":685,"./streamCipher":819,"cipher-base":676,"./aes":820,"evp_bytestokey":687,"inherits":289}],684:[function(require,module,exports) {
+},{"./authCipher":468,"safe-buffer":361,"./modes":510,"./streamCipher":470,"cipher-base":360,"./aes":469,"evp_bytestokey":364,"inherits":289}],370:[function(require,module,exports) {
 var ciphers = require('./encrypter')
 var deciphers = require('./decrypter')
 var modes = require('./modes/list.json')
@@ -64566,7 +59021,7 @@ exports.createDecipher = exports.Decipher = deciphers.createDecipher
 exports.createDecipheriv = exports.Decipheriv = deciphers.createDecipheriv
 exports.listCiphers = exports.getCiphers = getCiphers
 
-},{"./encrypter":730,"./decrypter":731,"./modes/list.json":732}],686:[function(require,module,exports) {
+},{"./encrypter":427,"./decrypter":428,"./modes/list.json":426}],369:[function(require,module,exports) {
 exports['des-ecb'] = {
   key: 8,
   iv: 0
@@ -64592,7 +59047,7 @@ exports['des-ede'] = {
   iv: 0
 }
 
-},{}],646:[function(require,module,exports) {
+},{}],306:[function(require,module,exports) {
 var DES = require('browserify-des')
 var aes = require('browserify-aes/browser')
 var aesModes = require('browserify-aes/modes')
@@ -64661,7 +59116,7 @@ exports.createDecipher = exports.Decipher = createDecipher
 exports.createDecipheriv = exports.Decipheriv = createDecipheriv
 exports.listCiphers = exports.getCiphers = getCiphers
 
-},{"browserify-des":683,"browserify-aes/browser":684,"browserify-aes/modes":685,"browserify-des/modes":686,"evp_bytestokey":687}],694:[function(require,module,exports) {
+},{"browserify-des":363,"browserify-aes/browser":370,"browserify-aes/modes":510,"browserify-des/modes":369,"evp_bytestokey":364}],365:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 (function (module, exports) {
   'use strict';
@@ -68091,7 +62546,7 @@ var Buffer = require("buffer").Buffer;
   };
 })(typeof module === 'undefined' || module, this);
 
-},{"buffer":24}],747:[function(require,module,exports) {
+},{"buffer":24}],459:[function(require,module,exports) {
 var r;
 
 module.exports = function rand(len) {
@@ -68158,7 +62613,7 @@ if (typeof self === 'object') {
   }
 }
 
-},{"crypto":24}],741:[function(require,module,exports) {
+},{"crypto":24}],449:[function(require,module,exports) {
 var bn = require('bn.js');
 var brorand = require('brorand');
 
@@ -68275,7 +62730,7 @@ MillerRabin.prototype.getDivisor = function getDivisor(n, k) {
   return false;
 };
 
-},{"bn.js":694,"brorand":747}],688:[function(require,module,exports) {
+},{"bn.js":365,"brorand":459}],343:[function(require,module,exports) {
 var randomBytes = require('randombytes');
 module.exports = findPrime;
 findPrime.simpleSieve = simpleSieve;
@@ -68382,7 +62837,7 @@ function findPrime(bits, gen) {
 
 }
 
-},{"randombytes":641,"bn.js":694,"miller-rabin":741}],689:[function(require,module,exports) {
+},{"randombytes":302,"bn.js":365,"miller-rabin":449}],334:[function(require,module,exports) {
 module.exports = {
     "modp1": {
         "gen": "02",
@@ -68417,7 +62872,7 @@ module.exports = {
         "prime": "ffffffffffffffffc90fdaa22168c234c4c6628b80dc1cd129024e088a67cc74020bbea63b139b22514a08798e3404ddef9519b3cd3a431b302b0a6df25f14374fe1356d6d51c245e485b576625e7ec6f44c42e9a637ed6b0bff5cb6f406b7edee386bfb5a899fa5ae9f24117c4b1fe649286651ece45b3dc2007cb8a163bf0598da48361c55d39a69163fa8fd24cf5f83655d23dca3ad961c62f356208552bb9ed529077096966d670c354e4abc9804f1746c08ca18217c32905e462e36ce3be39e772c180e86039b2783a2ec07a28fb5c55df06f4c52c9de2bcbf6955817183995497cea956ae515d2261898fa051015728e5a8aaac42dad33170d04507a33a85521abdf1cba64ecfb850458dbef0a8aea71575d060c7db3970f85a6e1e4c7abf5ae8cdb0933d71e8c94e04a25619dcee3d2261ad2ee6bf12ffa06d98a0864d87602733ec86a64521f2b18177b200cbbe117577a615d6c770988c0bad946e208e24fa074e5ab3143db5bfce0fd108e4b82d120a92108011a723c12a787e6d788719a10bdba5b2699c327186af4e23c1a946834b6150bda2583e9ca2ad44ce8dbbbc2db04de8ef92e8efc141fbecaa6287c59474e6bc05d99b2964fa090c3a2233ba186515be7ed1f612970cee2d7afb81bdd762170481cd0069127d5b05aa993b4ea988d8fddc186ffb7dc90a6c08f4df435c93402849236c3fab4d27c7026c1d4dcb2602646dec9751e763dba37bdf8ff9406ad9e530ee5db382f413001aeb06a53ed9027d831179727b0865a8918da3edbebcf9b14ed44ce6cbaced4bb1bdb7f1447e6cc254b332051512bd7af426fb8f401378cd2bf5983ca01c64b92ecf032ea15d1721d03f482d7ce6e74fef6d55e702f46980c82b5a84031900b1c9e59e7c97fbec7e8f323a97a7e36cc88be0f1d45b7ff585ac54bd407b22b4154aacc8f6d7ebf48e1d814cc5ed20f8037e0a79715eef29be32806a1d58bb7c5da76f550aa3d8a1fbff0eb19ccb1a313d55cda56c9ec2ef29632387fe8d76e3c0468043e8f663f4860ee12bf2d5b0b7474d6e694f91e6dbe115974a3926f12fee5e438777cb6a932df8cd8bec4d073b931ba3bc832b68d9dd300741fa7bf8afc47ed2576f6936ba424663aab639c5ae4f5683423b4742bf1c978238f16cbe39d652de3fdb8befc848ad922222e04a4037c0713eb57a81a23f0c73473fc646cea306b4bcbc8862f8385ddfa9d4b7fa2c087e879683303ed5bdd3a062b3cf5b3a278a66d2a13f83f44f82ddf310ee074ab6a364597e899a0255dc164f31cc50846851df9ab48195ded7ea1b1d510bd7ee74d73faf36bc31ecfa268359046f4eb879f924009438b481c6cd7889a002ed5ee382bc9190da6fc026e479558e4475677e9aa9e3050e2765694dfc81f56e880b96e7160c980dd98edd3dfffffffffffffffff"
     }
 };
-},{}],690:[function(require,module,exports) {
+},{}],344:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 var BN = require('bn.js');
 var MillerRabin = require('miller-rabin');
@@ -68584,7 +63039,7 @@ function formatReturnValue(bn, enc) {
   }
 }
 
-},{"bn.js":694,"miller-rabin":741,"./generatePrime":688,"randombytes":641,"buffer":25}],647:[function(require,module,exports) {
+},{"bn.js":365,"miller-rabin":449,"./generatePrime":343,"randombytes":302,"buffer":25}],307:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 var generatePrime = require('./lib/generatePrime')
 var primes = require('./lib/primes.json')
@@ -68629,7 +63084,7 @@ function createDiffieHellman (prime, enc, generator, genc) {
 exports.DiffieHellmanGroup = exports.createDiffieHellmanGroup = exports.getDiffieHellman = getDiffieHellman
 exports.createDiffieHellman = exports.DiffieHellman = createDiffieHellman
 
-},{"./lib/generatePrime":688,"./lib/primes.json":689,"./lib/dh":690,"buffer":25}],742:[function(require,module,exports) {
+},{"./lib/generatePrime":343,"./lib/primes.json":334,"./lib/dh":344,"buffer":25}],389:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 var bn = require('bn.js');
 var randomBytes = require('randombytes');
@@ -68672,7 +63127,7 @@ function getr(priv) {
   return r;
 }
 
-},{"bn.js":694,"randombytes":641,"buffer":25}],745:[function(require,module,exports) {
+},{"bn.js":365,"randombytes":302,"buffer":25}],390:[function(require,module,exports) {
 module.exports = {
   "_from": "elliptic@^6.0.0",
   "_id": "elliptic@6.4.0",
@@ -68761,7 +63216,7 @@ module.exports = {
   "version": "6.4.0"
 }
 ;
-},{}],827:[function(require,module,exports) {
+},{}],506:[function(require,module,exports) {
 'use strict';
 
 var utils = exports;
@@ -68821,7 +63276,7 @@ utils.encode = function encode(arr, enc) {
     return arr;
 };
 
-},{}],746:[function(require,module,exports) {
+},{}],450:[function(require,module,exports) {
 'use strict';
 
 var utils = exports;
@@ -68943,7 +63398,7 @@ function intFromLE(bytes) {
 utils.intFromLE = intFromLE;
 
 
-},{"bn.js":694,"minimalistic-assert":826,"minimalistic-crypto-utils":827}],828:[function(require,module,exports) {
+},{"bn.js":365,"minimalistic-assert":505,"minimalistic-crypto-utils":506}],573:[function(require,module,exports) {
 'use strict';
 
 var BN = require('bn.js');
@@ -69320,7 +63775,7 @@ BasePoint.prototype.dblp = function dblp(k) {
   return r;
 };
 
-},{"bn.js":694,"../../elliptic":693}],829:[function(require,module,exports) {
+},{"bn.js":365,"../../elliptic":366}],574:[function(require,module,exports) {
 'use strict';
 
 var curve = require('../curve');
@@ -70260,7 +64715,7 @@ JPoint.prototype.isInfinity = function isInfinity() {
   return this.z.cmpn(0) === 0;
 };
 
-},{"../curve":748,"../../elliptic":693,"bn.js":694,"inherits":289}],830:[function(require,module,exports) {
+},{"../curve":555,"../../elliptic":366,"bn.js":365,"inherits":289}],575:[function(require,module,exports) {
 'use strict';
 
 var curve = require('../curve');
@@ -70442,7 +64897,7 @@ Point.prototype.getX = function getX() {
   return this.x.fromRed();
 };
 
-},{"../curve":748,"bn.js":694,"inherits":289,"../../elliptic":693}],831:[function(require,module,exports) {
+},{"../curve":555,"bn.js":365,"inherits":289,"../../elliptic":366}],576:[function(require,module,exports) {
 'use strict';
 
 var curve = require('../curve');
@@ -70877,7 +65332,7 @@ Point.prototype.eqXToP = function eqXToP(x) {
 Point.prototype.toP = Point.prototype.normalize;
 Point.prototype.mixedAdd = Point.prototype.add;
 
-},{"../curve":748,"../../elliptic":693,"bn.js":694,"inherits":289}],748:[function(require,module,exports) {
+},{"../curve":555,"../../elliptic":366,"bn.js":365,"inherits":289}],555:[function(require,module,exports) {
 'use strict';
 
 var curve = exports;
@@ -70887,7 +65342,7 @@ curve.short = require('./short');
 curve.mont = require('./mont');
 curve.edwards = require('./edwards');
 
-},{"./base":828,"./short":829,"./mont":830,"./edwards":831}],866:[function(require,module,exports) {
+},{"./base":573,"./short":574,"./mont":575,"./edwards":576}],542:[function(require,module,exports) {
 'use strict';
 
 var assert = require('minimalistic-assert');
@@ -71142,7 +65597,7 @@ function shr64_lo(ah, al, num) {
 }
 exports.shr64_lo = shr64_lo;
 
-},{"minimalistic-assert":826,"inherits":289}],867:[function(require,module,exports) {
+},{"minimalistic-assert":505,"inherits":289}],543:[function(require,module,exports) {
 'use strict';
 
 var utils = require('./utils');
@@ -71236,7 +65691,7 @@ BlockHash.prototype._pad = function pad() {
   return res;
 };
 
-},{"./utils":866,"minimalistic-assert":826}],923:[function(require,module,exports) {
+},{"./utils":542,"minimalistic-assert":505}],579:[function(require,module,exports) {
 'use strict';
 
 var utils = require('../utils');
@@ -71287,7 +65742,7 @@ function g1_256(x) {
 }
 exports.g1_256 = g1_256;
 
-},{"../utils":866}],904:[function(require,module,exports) {
+},{"../utils":542}],564:[function(require,module,exports) {
 'use strict';
 
 var utils = require('../utils');
@@ -71363,7 +65818,7 @@ SHA1.prototype._digest = function digest(enc) {
     return utils.split32(this.h, 'big');
 };
 
-},{"../utils":866,"../common":867,"./common":923}],906:[function(require,module,exports) {
+},{"../utils":542,"../common":543,"./common":579}],566:[function(require,module,exports) {
 'use strict';
 
 var utils = require('../utils');
@@ -71470,7 +65925,7 @@ SHA256.prototype._digest = function digest(enc) {
     return utils.split32(this.h, 'big');
 };
 
-},{"../utils":866,"../common":867,"./common":923,"minimalistic-assert":826}],905:[function(require,module,exports) {
+},{"../utils":542,"../common":543,"./common":579,"minimalistic-assert":505}],565:[function(require,module,exports) {
 'use strict';
 
 var utils = require('../utils');
@@ -71502,7 +65957,7 @@ SHA224.prototype._digest = function digest(enc) {
 };
 
 
-},{"../utils":866,"./256":906}],908:[function(require,module,exports) {
+},{"../utils":542,"./256":566}],568:[function(require,module,exports) {
 'use strict';
 
 var utils = require('../utils');
@@ -71834,7 +66289,7 @@ function g1_512_lo(xh, xl) {
   return r;
 }
 
-},{"../utils":866,"../common":867,"minimalistic-assert":826}],907:[function(require,module,exports) {
+},{"../utils":542,"../common":543,"minimalistic-assert":505}],567:[function(require,module,exports) {
 'use strict';
 
 var utils = require('../utils');
@@ -71871,7 +66326,7 @@ SHA384.prototype._digest = function digest(enc) {
     return utils.split32(this.h.slice(0, 12), 'big');
 };
 
-},{"../utils":866,"./512":908}],868:[function(require,module,exports) {
+},{"../utils":542,"./512":568}],544:[function(require,module,exports) {
 'use strict';
 
 exports.sha1 = require('./sha/1');
@@ -71880,7 +66335,7 @@ exports.sha256 = require('./sha/256');
 exports.sha384 = require('./sha/384');
 exports.sha512 = require('./sha/512');
 
-},{"./sha/1":904,"./sha/224":905,"./sha/256":906,"./sha/384":907,"./sha/512":908}],869:[function(require,module,exports) {
+},{"./sha/1":564,"./sha/224":565,"./sha/256":566,"./sha/384":567,"./sha/512":568}],545:[function(require,module,exports) {
 'use strict';
 
 var utils = require('./utils');
@@ -72028,7 +66483,7 @@ var sh = [
   8, 5, 12, 9, 12, 5, 14, 6, 8, 13, 6, 5, 15, 13, 11, 11
 ];
 
-},{"./utils":866,"./common":867}],870:[function(require,module,exports) {
+},{"./utils":542,"./common":543}],546:[function(require,module,exports) {
 'use strict';
 
 var utils = require('./utils');
@@ -72077,7 +66532,7 @@ Hmac.prototype.digest = function digest(enc) {
   return this.outer.digest(enc);
 };
 
-},{"./utils":866,"minimalistic-assert":826}],832:[function(require,module,exports) {
+},{"./utils":542,"minimalistic-assert":505}],507:[function(require,module,exports) {
 var hash = exports;
 
 hash.utils = require('./hash/utils');
@@ -72094,7 +66549,7 @@ hash.sha384 = hash.sha.sha384;
 hash.sha512 = hash.sha.sha512;
 hash.ripemd160 = hash.ripemd.ripemd160;
 
-},{"./hash/utils":866,"./hash/common":867,"./hash/sha":868,"./hash/ripemd":869,"./hash/hmac":870}],833:[function(require,module,exports) {
+},{"./hash/utils":542,"./hash/common":543,"./hash/sha":544,"./hash/ripemd":545,"./hash/hmac":546}],500:[function(require,module,exports) {
 module.exports = {
   doubles: {
     step: 4,
@@ -72876,7 +67331,7 @@ module.exports = {
   }
 };
 
-},{}],749:[function(require,module,exports) {
+},{}],451:[function(require,module,exports) {
 'use strict';
 
 var curves = exports;
@@ -73083,7 +67538,7 @@ defineCurve('secp256k1', {
   ]
 });
 
-},{"hash.js":832,"../elliptic":693,"./precomputed/secp256k1":833}],834:[function(require,module,exports) {
+},{"hash.js":507,"../elliptic":366,"./precomputed/secp256k1":500}],578:[function(require,module,exports) {
 'use strict';
 
 var hash = require('hash.js');
@@ -73198,7 +67653,7 @@ HmacDRBG.prototype.generate = function generate(len, enc, add, addEnc) {
   return utils.encode(res, enc);
 };
 
-},{"hash.js":832,"minimalistic-crypto-utils":827,"minimalistic-assert":826}],835:[function(require,module,exports) {
+},{"hash.js":507,"minimalistic-crypto-utils":506,"minimalistic-assert":505}],569:[function(require,module,exports) {
 'use strict';
 
 var BN = require('bn.js');
@@ -73319,7 +67774,7 @@ KeyPair.prototype.inspect = function inspect() {
          ' pub: ' + (this.pub && this.pub.inspect()) + ' >';
 };
 
-},{"bn.js":694,"../../elliptic":693}],836:[function(require,module,exports) {
+},{"bn.js":365,"../../elliptic":366}],570:[function(require,module,exports) {
 'use strict';
 
 var BN = require('bn.js');
@@ -73456,7 +67911,7 @@ Signature.prototype.toDER = function toDER(enc) {
   return utils.encode(res, enc);
 };
 
-},{"bn.js":694,"../../elliptic":693}],750:[function(require,module,exports) {
+},{"bn.js":365,"../../elliptic":366}],556:[function(require,module,exports) {
 'use strict';
 
 var BN = require('bn.js');
@@ -73698,7 +68153,7 @@ EC.prototype.getKeyRecoveryParam = function(e, signature, Q, enc) {
   throw new Error('Unable to find valid recovery factor');
 };
 
-},{"bn.js":694,"hmac-drbg":834,"../../elliptic":693,"./key":835,"./signature":836}],837:[function(require,module,exports) {
+},{"bn.js":365,"hmac-drbg":578,"../../elliptic":366,"./key":569,"./signature":570}],571:[function(require,module,exports) {
 'use strict';
 
 var elliptic = require('../../elliptic');
@@ -73796,7 +68251,7 @@ KeyPair.prototype.getPublic = function getPublic(enc) {
 
 module.exports = KeyPair;
 
-},{"../../elliptic":693}],838:[function(require,module,exports) {
+},{"../../elliptic":366}],572:[function(require,module,exports) {
 'use strict';
 
 var BN = require('bn.js');
@@ -73864,7 +68319,7 @@ Signature.prototype.toHex = function toHex() {
 
 module.exports = Signature;
 
-},{"bn.js":694,"../../elliptic":693}],751:[function(require,module,exports) {
+},{"bn.js":365,"../../elliptic":366}],557:[function(require,module,exports) {
 'use strict';
 
 var hash = require('hash.js');
@@ -73984,7 +68439,7 @@ EDDSA.prototype.isPoint = function isPoint(val) {
   return val instanceof this.pointClass;
 };
 
-},{"hash.js":832,"../../elliptic":693,"./key":837,"./signature":838}],693:[function(require,module,exports) {
+},{"hash.js":507,"../../elliptic":366,"./key":571,"./signature":572}],366:[function(require,module,exports) {
 'use strict';
 
 var elliptic = exports;
@@ -73999,7 +68454,7 @@ elliptic.curves = require('./elliptic/curves');
 elliptic.ec = require('./elliptic/ec');
 elliptic.eddsa = require('./elliptic/eddsa');
 
-},{"../package.json":745,"./elliptic/utils":746,"brorand":747,"./elliptic/curve":748,"./elliptic/curves":749,"./elliptic/ec":750,"./elliptic/eddsa":751}],924:[function(require,module,exports) {
+},{"../package.json":390,"./elliptic/utils":450,"brorand":459,"./elliptic/curve":555,"./elliptic/curves":451,"./elliptic/ec":556,"./elliptic/eddsa":557}],580:[function(require,module,exports) {
 
 var indexOf = [].indexOf;
 
@@ -74010,7 +68465,7 @@ module.exports = function(arr, obj){
   }
   return -1;
 };
-},{}],914:[function(require,module,exports) {
+},{}],577:[function(require,module,exports) {
 var indexOf = require('indexof');
 
 var Object_keys = function (obj) {
@@ -74150,7 +68605,7 @@ exports.createContext = Script.createContext = function (context) {
     return copy;
 };
 
-},{"indexof":924}],899:[function(require,module,exports) {
+},{"indexof":580}],558:[function(require,module,exports) {
 var asn1 = require('../asn1');
 var inherits = require('inherits');
 
@@ -74213,7 +68668,7 @@ Entity.prototype.encode = function encode(data, enc, /* internal */ reporter) {
   return this._getEncoder(enc).encode(data, reporter);
 };
 
-},{"../asn1":864,"inherits":289,"vm":914}],915:[function(require,module,exports) {
+},{"../asn1":511,"inherits":289,"vm":577}],585:[function(require,module,exports) {
 var inherits = require('inherits');
 
 function Reporter(options) {
@@ -74336,7 +68791,7 @@ ReporterError.prototype.rethrow = function rethrow(msg) {
   return this;
 };
 
-},{"inherits":289}],916:[function(require,module,exports) {
+},{"inherits":289}],586:[function(require,module,exports) {
 
 var inherits = require('inherits');
 var Reporter = require('../base').Reporter;
@@ -74455,7 +68910,7 @@ EncoderBuffer.prototype.join = function join(out, offset) {
   return out;
 };
 
-},{"inherits":289,"../base":900,"buffer":25}],917:[function(require,module,exports) {
+},{"inherits":289,"../base":581,"buffer":25}],587:[function(require,module,exports) {
 var Reporter = require('../base').Reporter;
 var EncoderBuffer = require('../base').EncoderBuffer;
 var DecoderBuffer = require('../base').DecoderBuffer;
@@ -75091,7 +69546,7 @@ Node.prototype._isPrintstr = function isPrintstr(str) {
   return /^[A-Za-z0-9 '\(\)\+,\-\.\/:=\?]*$/.test(str);
 };
 
-},{"../base":900,"minimalistic-assert":826}],900:[function(require,module,exports) {
+},{"../base":581,"minimalistic-assert":505}],581:[function(require,module,exports) {
 var base = exports;
 
 base.Reporter = require('./reporter').Reporter;
@@ -75099,7 +69554,7 @@ base.DecoderBuffer = require('./buffer').DecoderBuffer;
 base.EncoderBuffer = require('./buffer').EncoderBuffer;
 base.Node = require('./node');
 
-},{"./reporter":915,"./buffer":916,"./node":917}],918:[function(require,module,exports) {
+},{"./reporter":585,"./buffer":586,"./node":587}],588:[function(require,module,exports) {
 var constants = require('../constants');
 
 exports.tagClass = {
@@ -75143,7 +69598,7 @@ exports.tag = {
 };
 exports.tagByName = constants._reverse(exports.tag);
 
-},{"../constants":901}],901:[function(require,module,exports) {
+},{"../constants":582}],582:[function(require,module,exports) {
 var constants = exports;
 
 // Helper
@@ -75164,7 +69619,7 @@ constants._reverse = function reverse(map) {
 
 constants.der = require('./der');
 
-},{"./der":918}],919:[function(require,module,exports) {
+},{"./der":588}],589:[function(require,module,exports) {
 var inherits = require('inherits');
 
 var asn1 = require('../../asn1');
@@ -75490,7 +69945,7 @@ function derDecodeLen(buf, primitive, fail) {
   return len;
 }
 
-},{"inherits":289,"../../asn1":864}],920:[function(require,module,exports) {
+},{"inherits":289,"../../asn1":511}],590:[function(require,module,exports) {
 
 var inherits = require('inherits');
 var Buffer = require('buffer').Buffer;
@@ -75542,13 +69997,13 @@ PEMDecoder.prototype.decode = function decode(data, options) {
   return DERDecoder.prototype.decode.call(this, input, options);
 };
 
-},{"inherits":289,"buffer":25,"./der":919}],902:[function(require,module,exports) {
+},{"inherits":289,"buffer":25,"./der":589}],583:[function(require,module,exports) {
 var decoders = exports;
 
 decoders.der = require('./der');
 decoders.pem = require('./pem');
 
-},{"./der":919,"./pem":920}],921:[function(require,module,exports) {
+},{"./der":589,"./pem":590}],591:[function(require,module,exports) {
 
 var inherits = require('inherits');
 var Buffer = require('buffer').Buffer;
@@ -75846,7 +70301,7 @@ function encodeTag(tag, primitive, cls, reporter) {
   return res;
 }
 
-},{"inherits":289,"buffer":25,"../../asn1":864}],922:[function(require,module,exports) {
+},{"inherits":289,"buffer":25,"../../asn1":511}],592:[function(require,module,exports) {
 var inherits = require('inherits');
 
 var DEREncoder = require('./der');
@@ -75869,13 +70324,13 @@ PEMEncoder.prototype.encode = function encode(data, options) {
   return out.join('\n');
 };
 
-},{"inherits":289,"./der":921}],903:[function(require,module,exports) {
+},{"inherits":289,"./der":591}],584:[function(require,module,exports) {
 var encoders = exports;
 
 encoders.der = require('./der');
 encoders.pem = require('./pem');
 
-},{"./der":921,"./pem":922}],864:[function(require,module,exports) {
+},{"./der":591,"./pem":592}],511:[function(require,module,exports) {
 var asn1 = exports;
 
 asn1.bignum = require('bn.js');
@@ -75886,7 +70341,7 @@ asn1.constants = require('./asn1/constants');
 asn1.decoders = require('./asn1/decoders');
 asn1.encoders = require('./asn1/encoders');
 
-},{"bn.js":694,"./asn1/api":899,"./asn1/base":900,"./asn1/constants":901,"./asn1/decoders":902,"./asn1/encoders":903}],865:[function(require,module,exports) {
+},{"bn.js":365,"./asn1/api":558,"./asn1/base":581,"./asn1/constants":582,"./asn1/decoders":583,"./asn1/encoders":584}],501:[function(require,module,exports) {
 // from https://github.com/Rantanen/node-dtls/blob/25a7dc861bda38cfeac93a723500eea4f0ac2e86/Certificate.js
 // thanks to @Rantanen
 
@@ -75976,7 +70431,7 @@ var X509Certificate = asn.define('X509Certificate', function () {
 
 module.exports = X509Certificate
 
-},{"asn1.js":864}],823:[function(require,module,exports) {
+},{"asn1.js":511}],465:[function(require,module,exports) {
 // from https://github.com/indutny/self-signed/blob/gh-pages/lib/asn1.js
 // Fedor, you are amazing.
 'use strict'
@@ -76100,7 +70555,7 @@ exports.signature = asn1.define('signature', function () {
   )
 })
 
-},{"asn1.js":864,"./certificate":865}],824:[function(require,module,exports) {
+},{"asn1.js":511,"./certificate":501}],461:[function(require,module,exports) {
 module.exports = {"2.16.840.1.101.3.4.1.1": "aes-128-ecb",
 "2.16.840.1.101.3.4.1.2": "aes-128-cbc",
 "2.16.840.1.101.3.4.1.3": "aes-128-ofb",
@@ -76114,7 +70569,7 @@ module.exports = {"2.16.840.1.101.3.4.1.1": "aes-128-ecb",
 "2.16.840.1.101.3.4.1.43": "aes-256-ofb",
 "2.16.840.1.101.3.4.1.44": "aes-256-cfb"
 };
-},{}],825:[function(require,module,exports) {
+},{}],466:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 // adapted from https://github.com/apatil/pemstrip
 var findProc = /Proc-Type: 4,ENCRYPTED[\n\r]+DEK-Info: AES-((?:128)|(?:192)|(?:256))-CBC,([0-9A-H]+)[\n\r]+([0-9A-z\n\r\+\/\=]+)[\n\r]+/m
@@ -76147,7 +70602,7 @@ module.exports = function (okey, password) {
   }
 }
 
-},{"evp_bytestokey":687,"browserify-aes":684,"buffer":25}],743:[function(require,module,exports) {
+},{"evp_bytestokey":364,"browserify-aes":370,"buffer":25}],388:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 var asn1 = require('./asn1')
 var aesid = require('./aesid.json')
@@ -76256,7 +70711,7 @@ function decrypt (data, password) {
   return Buffer.concat(out)
 }
 
-},{"./asn1":823,"./aesid.json":824,"./fixProc":825,"browserify-aes":684,"pbkdf2":645,"buffer":25}],744:[function(require,module,exports) {
+},{"./asn1":465,"./aesid.json":461,"./fixProc":466,"browserify-aes":370,"pbkdf2":305,"buffer":25}],386:[function(require,module,exports) {
 module.exports = {
   "1.3.132.0.10": "secp256k1",
   "1.3.132.0.33": "p224",
@@ -76266,7 +70721,7 @@ module.exports = {
   "1.3.132.0.35": "p521"
 }
 ;
-},{}],691:[function(require,module,exports) {
+},{}],347:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 // much of this based on https://github.com/indutny/self-signed/blob/gh-pages/lib/rsa.js
 var createHmac = require('create-hmac')
@@ -76414,7 +70869,7 @@ module.exports = sign
 module.exports.getKey = getKey
 module.exports.makeKey = makeKey
 
-},{"create-hmac":643,"browserify-rsa":742,"elliptic":693,"bn.js":694,"parse-asn1":743,"./curves.json":744,"buffer":25}],692:[function(require,module,exports) {
+},{"create-hmac":304,"browserify-rsa":389,"elliptic":366,"bn.js":365,"parse-asn1":388,"./curves.json":386,"buffer":25}],348:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 // much of this based on https://github.com/indutny/self-signed/blob/gh-pages/lib/rsa.js
 var BN = require('bn.js')
@@ -76500,7 +70955,7 @@ function checkValue (b, q) {
 
 module.exports = verify
 
-},{"bn.js":694,"elliptic":693,"parse-asn1":743,"./curves.json":744,"buffer":25}],648:[function(require,module,exports) {
+},{"bn.js":365,"elliptic":366,"parse-asn1":388,"./curves.json":386,"buffer":25}],308:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 var createHash = require('create-hash')
 var stream = require('stream')
@@ -76594,7 +71049,7 @@ module.exports = {
   createVerify: createVerify
 }
 
-},{"create-hash":642,"stream":613,"inherits":289,"./sign":691,"./verify":692,"./algorithms.json":680,"buffer":25}],649:[function(require,module,exports) {
+},{"create-hash":303,"stream":224,"inherits":289,"./sign":347,"./verify":348,"./algorithms.json":340,"buffer":25}],309:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 var elliptic = require('elliptic')
 var BN = require('bn.js')
@@ -76721,7 +71176,7 @@ function formatReturnValue (bn, enc, len) {
   }
 }
 
-},{"elliptic":693,"bn.js":694,"buffer":25}],752:[function(require,module,exports) {
+},{"elliptic":366,"bn.js":365,"buffer":25}],374:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 var createHash = require('create-hash');
 module.exports = function (seed, len) {
@@ -76739,7 +71194,7 @@ function i2ops(c) {
   out.writeUInt32BE(c,0);
   return out;
 }
-},{"create-hash":642,"buffer":25}],753:[function(require,module,exports) {
+},{"create-hash":303,"buffer":25}],375:[function(require,module,exports) {
 module.exports = function xor(a, b) {
   var len = a.length;
   var i = -1;
@@ -76748,7 +71203,7 @@ module.exports = function xor(a, b) {
   }
   return a
 };
-},{}],754:[function(require,module,exports) {
+},{}],376:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 var bn = require('bn.js');
 function withPublic(paddedMsg, key) {
@@ -76760,7 +71215,7 @@ function withPublic(paddedMsg, key) {
 }
 
 module.exports = withPublic;
-},{"bn.js":694,"buffer":25}],695:[function(require,module,exports) {
+},{"bn.js":365,"buffer":25}],335:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 var parseKeys = require('parse-asn1');
 var randomBytes = require('randombytes');
@@ -76857,7 +71312,7 @@ function nonZero(len, crypto) {
   }
   return out;
 }
-},{"parse-asn1":743,"randombytes":641,"create-hash":642,"./mgf":752,"./xor":753,"bn.js":694,"./withPublic":754,"browserify-rsa":742,"buffer":25}],696:[function(require,module,exports) {
+},{"parse-asn1":388,"randombytes":302,"create-hash":303,"./mgf":374,"./xor":375,"bn.js":365,"./withPublic":376,"browserify-rsa":389,"buffer":25}],336:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 var parseKeys = require('parse-asn1');
 var mgf = require('./mgf');
@@ -76967,7 +71422,7 @@ function compare(a, b){
   }
   return dif;
 }
-},{"parse-asn1":743,"./mgf":752,"./xor":753,"bn.js":694,"browserify-rsa":742,"create-hash":642,"./withPublic":754,"buffer":25}],650:[function(require,module,exports) {
+},{"parse-asn1":388,"./mgf":374,"./xor":375,"bn.js":365,"browserify-rsa":389,"create-hash":303,"./withPublic":376,"buffer":25}],310:[function(require,module,exports) {
 exports.publicEncrypt = require('./publicEncrypt');
 exports.privateDecrypt = require('./privateDecrypt');
 
@@ -76978,7 +71433,7 @@ exports.privateEncrypt = function privateEncrypt(key, buf) {
 exports.publicDecrypt = function publicDecrypt(key, buf) {
   return exports.privateDecrypt(key, buf, true);
 };
-},{"./publicEncrypt":695,"./privateDecrypt":696}],697:[function(require,module,exports) {
+},{"./publicEncrypt":335,"./privateDecrypt":336}],357:[function(require,module,exports) {
 
 /* eslint-disable node/no-deprecated-api */
 var buffer = require('buffer')
@@ -77043,7 +71498,7 @@ SafeBuffer.allocUnsafeSlow = function (size) {
   return buffer.SlowBuffer(size)
 }
 
-},{"buffer":25}],651:[function(require,module,exports) {
+},{"buffer":25}],311:[function(require,module,exports) {
 
 var global = arguments[3];
 var process = require("process");
@@ -77156,7 +71611,7 @@ function randomFillSync (buf, offset, size) {
   return actualFill(buf, offset, size)
 }
 
-},{"safe-buffer":697,"randombytes":641,"process":17}],611:[function(require,module,exports) {
+},{"safe-buffer":357,"randombytes":302,"process":17}],237:[function(require,module,exports) {
 'use strict'
 
 exports.randomBytes = exports.rng = exports.pseudoRandomBytes = exports.prng = require('randombytes')
@@ -77255,7 +71710,7 @@ exports.constants = {
   'POINT_CONVERSION_HYBRID': 6
 }
 
-},{"randombytes":641,"create-hash":642,"create-hmac":643,"browserify-sign/algos":644,"pbkdf2":645,"browserify-cipher":646,"diffie-hellman":647,"browserify-sign":648,"create-ecdh":649,"public-encrypt":650,"randomfill":651}],612:[function(require,module,exports) {
+},{"randombytes":302,"create-hash":303,"create-hmac":304,"browserify-sign/algos":314,"pbkdf2":305,"browserify-cipher":306,"diffie-hellman":307,"browserify-sign":308,"create-ecdh":309,"public-encrypt":310,"randomfill":311}],235:[function(require,module,exports) {
 
 /* eslint-disable node/no-deprecated-api */
 var buffer = require('buffer')
@@ -77320,7 +71775,7 @@ SafeBuffer.allocUnsafeSlow = function (size) {
   return buffer.SlowBuffer(size)
 }
 
-},{"buffer":25}],607:[function(require,module,exports) {
+},{"buffer":25}],157:[function(require,module,exports) {
 
 var process = require("process");
 'use strict';
@@ -77382,7 +71837,7 @@ exports.toBase64 = toBase64;
 exports.copy = copy;
 exports.version = version;
 exports.defer = defer;
-},{"json-stringify-safe":610,"crypto":611,"safe-buffer":612,"process":17}],319:[function(require,module,exports) {
+},{"json-stringify-safe":243,"crypto":237,"safe-buffer":235,"process":17}],320:[function(require,module,exports) {
 var global = arguments[3];
 exports.fetch = isFunction(global.fetch) && isFunction(global.ReadableStream)
 
@@ -78420,7 +72875,7 @@ Writable.prototype._destroy = function (err, cb) {
   this.end();
   cb(err);
 };
-},{"process-nextick-args":476,"core-util-is":400,"inherits":289,"util-deprecate":401,"./internal/streams/stream":462,"safe-buffer":477,"./internal/streams/destroy":464,"./_stream_duplex":379,"process":17}],379:[function(require,module,exports) {
+},{"process-nextick-args":476,"core-util-is":417,"inherits":289,"util-deprecate":419,"./internal/streams/stream":462,"safe-buffer":477,"./internal/streams/destroy":464,"./_stream_duplex":379,"process":17}],379:[function(require,module,exports) {
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -78552,7 +73007,7 @@ Duplex.prototype._destroy = function (err, cb) {
 
   pna.nextTick(cb, err);
 };
-},{"process-nextick-args":476,"core-util-is":400,"inherits":289,"./_stream_readable":377,"./_stream_writable":378}],478:[function(require,module,exports) {
+},{"process-nextick-args":476,"core-util-is":417,"inherits":289,"./_stream_readable":377,"./_stream_writable":378}],478:[function(require,module,exports) {
 
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -79873,7 +74328,7 @@ function indexOf(xs, x) {
   }
   return -1;
 }
-},{"process-nextick-args":476,"isarray":41,"events":267,"./internal/streams/stream":462,"safe-buffer":477,"core-util-is":400,"inherits":289,"util":24,"./internal/streams/BufferList":463,"./internal/streams/destroy":464,"./_stream_duplex":379,"string_decoder/":478,"process":17}],380:[function(require,module,exports) {
+},{"process-nextick-args":476,"isarray":41,"events":267,"./internal/streams/stream":462,"safe-buffer":477,"core-util-is":417,"inherits":289,"util":24,"./internal/streams/BufferList":463,"./internal/streams/destroy":464,"./_stream_duplex":379,"string_decoder/":478,"process":17}],380:[function(require,module,exports) {
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -80088,7 +74543,7 @@ function done(stream, er, data) {
 
   return stream.push(null);
 }
-},{"./_stream_duplex":379,"core-util-is":400,"inherits":289}],381:[function(require,module,exports) {
+},{"./_stream_duplex":379,"core-util-is":417,"inherits":289}],381:[function(require,module,exports) {
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -80136,7 +74591,7 @@ function PassThrough(options) {
 PassThrough.prototype._transform = function (chunk, encoding, cb) {
   cb(null, chunk);
 };
-},{"./_stream_transform":380,"core-util-is":400,"inherits":289}],338:[function(require,module,exports) {
+},{"./_stream_transform":380,"core-util-is":417,"inherits":289}],338:[function(require,module,exports) {
 exports = module.exports = require('./lib/_stream_readable.js');
 exports.Stream = exports;
 exports.Readable = exports;
@@ -80374,7 +74829,7 @@ IncomingMessage.prototype._onXHRProgress = function () {
 	}
 }
 
-},{"./capability":319,"inherits":289,"readable-stream":338,"process":17,"buffer":25}],345:[function(require,module,exports) {
+},{"./capability":320,"inherits":289,"readable-stream":338,"process":17,"buffer":25}],345:[function(require,module,exports) {
 
 var Buffer = require('buffer').Buffer
 
@@ -80737,7 +75192,7 @@ var unsafeHeaders = [
 	'via'
 ]
 
-},{"./capability":319,"inherits":289,"./response":254,"readable-stream":338,"to-arraybuffer":345,"buffer":25,"process":17}],296:[function(require,module,exports) {
+},{"./capability":320,"inherits":289,"./response":254,"readable-stream":338,"to-arraybuffer":345,"buffer":25,"process":17}],296:[function(require,module,exports) {
 module.exports = extend;
 
 var hasOwnProperty = Object.prototype.hasOwnProperty;
@@ -80943,7 +75398,7 @@ function validateParams (params) {
   return params
 }
 
-},{"http":220,"url":222}],658:[function(require,module,exports) {
+},{"http":220,"url":222}],295:[function(require,module,exports) {
 var global = arguments[3];
 'use strict';
 
@@ -81436,7 +75891,7 @@ var objectKeys = Object.keys || function (obj) {
   return keys;
 };
 
-},{"util/":223}],703:[function(require,module,exports) {
+},{"util/":223}],354:[function(require,module,exports) {
 'use strict';
 
 // (C) 1995-2013 Jean-loup Gailly and Mark Adler
@@ -81485,7 +75940,7 @@ function ZStream() {
 
 module.exports = ZStream;
 
-},{}],758:[function(require,module,exports) {
+},{}],435:[function(require,module,exports) {
 'use strict';
 
 
@@ -81592,7 +76047,7 @@ exports.setTyped = function (on) {
 
 exports.setTyped(TYPED_OK);
 
-},{}],759:[function(require,module,exports) {
+},{}],436:[function(require,module,exports) {
 'use strict';
 
 // (C) 1995-2013 Jean-loup Gailly and Mark Adler
@@ -82814,7 +77269,7 @@ exports._tr_flush_block  = _tr_flush_block;
 exports._tr_tally = _tr_tally;
 exports._tr_align = _tr_align;
 
-},{"../utils/common":758}],760:[function(require,module,exports) {
+},{"../utils/common":435}],437:[function(require,module,exports) {
 'use strict';
 
 // Note: adler32 takes 12% for level 0 and 2% for level 6.
@@ -82867,7 +77322,7 @@ function adler32(adler, buf, len, pos) {
 
 module.exports = adler32;
 
-},{}],761:[function(require,module,exports) {
+},{}],438:[function(require,module,exports) {
 'use strict';
 
 // Note: we can't get significant speed boost here.
@@ -82928,7 +77383,7 @@ function crc32(crc, buf, len, pos) {
 
 module.exports = crc32;
 
-},{}],762:[function(require,module,exports) {
+},{}],439:[function(require,module,exports) {
 'use strict';
 
 // (C) 1995-2013 Jean-loup Gailly and Mark Adler
@@ -82962,7 +77417,7 @@ module.exports = {
   '-6':   'incompatible version' /* Z_VERSION_ERROR (-6) */
 };
 
-},{}],704:[function(require,module,exports) {
+},{}],349:[function(require,module,exports) {
 'use strict';
 
 // (C) 1995-2013 Jean-loup Gailly and Mark Adler
@@ -84838,7 +79293,7 @@ exports.deflatePrime = deflatePrime;
 exports.deflateTune = deflateTune;
 */
 
-},{"../utils/common":758,"./trees":759,"./adler32":760,"./crc32":761,"./messages":762}],763:[function(require,module,exports) {
+},{"../utils/common":435,"./trees":436,"./adler32":437,"./crc32":438,"./messages":439}],440:[function(require,module,exports) {
 'use strict';
 
 // (C) 1995-2013 Jean-loup Gailly and Mark Adler
@@ -85185,7 +79640,7 @@ module.exports = function inflate_fast(strm, start) {
   return;
 };
 
-},{}],764:[function(require,module,exports) {
+},{}],441:[function(require,module,exports) {
 'use strict';
 
 // (C) 1995-2013 Jean-loup Gailly and Mark Adler
@@ -85530,7 +79985,7 @@ module.exports = function inflate_table(type, lens, lens_index, codes, table, ta
   return 0;
 };
 
-},{"../utils/common":758}],705:[function(require,module,exports) {
+},{"../utils/common":435}],350:[function(require,module,exports) {
 'use strict';
 
 // (C) 1995-2013 Jean-loup Gailly and Mark Adler
@@ -87088,7 +81543,7 @@ exports.inflateSyncPoint = inflateSyncPoint;
 exports.inflateUndermine = inflateUndermine;
 */
 
-},{"../utils/common":758,"./adler32":760,"./crc32":761,"./inffast":763,"./inftrees":764}],706:[function(require,module,exports) {
+},{"../utils/common":435,"./adler32":437,"./crc32":438,"./inffast":440,"./inftrees":441}],355:[function(require,module,exports) {
 'use strict';
 
 // (C) 1995-2013 Jean-loup Gailly and Mark Adler
@@ -87158,7 +81613,7 @@ module.exports = {
   //Z_NULL:                 null // Use -1 or null inline, depending on var type
 };
 
-},{}],657:[function(require,module,exports) {
+},{}],268:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 var process = require("process");
 'use strict';
@@ -87570,7 +82025,7 @@ Zlib.prototype._reset = function () {
 };
 
 exports.Zlib = Zlib;
-},{"assert":658,"pako/lib/zlib/zstream":703,"pako/lib/zlib/deflate.js":704,"pako/lib/zlib/inflate.js":705,"pako/lib/zlib/constants":706,"buffer":25,"process":17}],614:[function(require,module,exports) {
+},{"assert":295,"pako/lib/zlib/zstream":354,"pako/lib/zlib/deflate.js":349,"pako/lib/zlib/inflate.js":350,"pako/lib/zlib/constants":355,"buffer":25,"process":17}],236:[function(require,module,exports) {
 
 var process = require("process");
 'use strict';
@@ -88182,7 +82637,7 @@ util.inherits(Gunzip, Zlib);
 util.inherits(DeflateRaw, Zlib);
 util.inherits(InflateRaw, Zlib);
 util.inherits(Unzip, Zlib);
-},{"buffer":25,"stream":613,"./binding":657,"util":223,"assert":658,"process":17}],615:[function(require,module,exports) {
+},{"buffer":25,"stream":224,"./binding":268,"util":223,"assert":295,"process":17}],225:[function(require,module,exports) {
 'use strict';
 
 /*
@@ -88982,7 +83437,7 @@ if (typeof module !== 'undefined' && module.exports) {
 
 /* eslint-enable */
 // $lab:coverage:on$
-},{}],616:[function(require,module,exports) {
+},{}],226:[function(require,module,exports) {
 
 /*!
  *  Copyright 2010 LearnBoost <dev@learnboost.com>
@@ -89196,7 +83651,7 @@ function canonicalizeResource (resource) {
 }
 module.exports.canonicalizeResource = canonicalizeResource
 
-},{"crypto":611,"url":222}],659:[function(require,module,exports) {
+},{"crypto":237,"url":222}],252:[function(require,module,exports) {
 module.exports = function(size) {
   return new LruCache(size)
 }
@@ -89294,7 +83749,7 @@ function DoublyLinkedNode(key, val) {
   this.next = null
 }
 
-},{}],617:[function(require,module,exports) {
+},{}],227:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 var process = require("process");
 var aws4 = exports,
@@ -89630,7 +84085,7 @@ aws4.sign = function(request, credentials) {
   return new RequestSigner(request, credentials).sign()
 }
 
-},{"url":222,"querystring":261,"crypto":611,"./lru":659,"buffer":25,"process":17}],707:[function(require,module,exports) {
+},{"url":222,"querystring":261,"crypto":237,"./lru":252,"buffer":25,"process":17}],351:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 // Copyright (c) 2012, Mark Cavage. All rights reserved.
 // Copyright 2015 Joyent, Inc.
@@ -89856,7 +84311,7 @@ function _setExports(ndebug) {
 }
 
 module.exports = _setExports(undefined);
-},{"assert":658,"stream":613,"util":223,"buffer":25}],839:[function(require,module,exports) {
+},{"assert":295,"stream":224,"util":223,"buffer":25}],471:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 // Copyright 2015 Joyent, Inc.
 
@@ -89949,7 +84404,7 @@ module.exports = {
 	hashAlgs: hashAlgs,
 	curves: curves
 };
-},{"buffer":25}],771:[function(require,module,exports) {
+},{"buffer":25}],397:[function(require,module,exports) {
 // Copyright 2015 Joyent, Inc.
 
 var assert = require('assert-plus');
@@ -90021,7 +84476,7 @@ module.exports = {
 	KeyEncryptedError: KeyEncryptedError,
 	CertificateParseError: CertificateParseError
 };
-},{"assert-plus":707,"util":223}],873:[function(require,module,exports) {
+},{"assert-plus":351,"util":223}],514:[function(require,module,exports) {
 (function(){
 
     // Copyright (c) 2005  Tom Wu
@@ -91380,7 +85835,7 @@ module.exports = {
 
 }).call(this);
 
-},{}],872:[function(require,module,exports) {
+},{}],515:[function(require,module,exports) {
 // Basic Javascript Elliptic Curve implementation
 // Ported loosely from BouncyCastle's Java EC code
 // Only Fp curves implemented for now
@@ -91943,7 +86398,7 @@ var exports = {
 
 module.exports = exports
 
-},{"jsbn":873}],909:[function(require,module,exports) {
+},{"jsbn":514}],559:[function(require,module,exports) {
 // Named EC curves
 
 // Requires ec.js, jsbn.js, and jsbn2.js
@@ -92115,7 +86570,7 @@ module.exports = {
   "secp256r1":secp256r1
 }
 
-},{"jsbn":873,"./ec.js":872}],871:[function(require,module,exports) {
+},{"jsbn":514,"./ec.js":515}],513:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 var crypto = require("crypto");
 var BigInteger = require("jsbn").BigInteger;
@@ -92175,7 +86630,7 @@ exports.ECKey = function(curve, key, isPublic)
 }
 
 
-},{"crypto":611,"jsbn":873,"./lib/ec.js":872,"./lib/sec.js":909,"buffer":25}],852:[function(require,module,exports) {
+},{"crypto":237,"jsbn":514,"./lib/ec.js":515,"./lib/sec.js":559,"buffer":25}],494:[function(require,module,exports) {
 (function(nacl) {
 'use strict';
 
@@ -94565,7 +89020,7 @@ nacl.setPRNG = function(fn) {
 
 })(typeof module !== 'undefined' && module.exports ? module.exports : (self.nacl = self.nacl || {}));
 
-},{"crypto":24}],840:[function(require,module,exports) {
+},{"crypto":24}],472:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 // Copyright 2017 Joyent, Inc.
 
@@ -94937,7 +89392,7 @@ function generateECDSA(curve) {
 		return key;
 	}
 }
-},{"assert-plus":707,"crypto":611,"./algs":839,"./utils":841,"./key":765,"./private-key":768,"ecc-jsbn":871,"ecc-jsbn/lib/ec":872,"jsbn":873,"tweetnacl":852,"buffer":25}],842:[function(require,module,exports) {
+},{"assert-plus":351,"crypto":237,"./algs":471,"./utils":473,"./key":391,"./private-key":394,"ecc-jsbn":513,"ecc-jsbn/lib/ec":515,"jsbn":514,"tweetnacl":494,"buffer":25}],474:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 // Copyright 2015 Joyent, Inc.
 
@@ -95018,7 +89473,7 @@ Signer.prototype.sign = function () {
 	sigObj.hashAlgorithm = 'sha512';
 	return sigObj;
 };
-},{"stream":613,"util":223,"assert-plus":707,"./signature":767,"tweetnacl":852,"buffer":25}],910:[function(require,module,exports) {
+},{"stream":224,"util":223,"assert-plus":351,"./signature":393,"tweetnacl":494,"buffer":25}],560:[function(require,module,exports) {
 // Copyright 2011 Mark Cavage <mcavage@gmail.com> All rights reserved.
 
 
@@ -95033,7 +89488,7 @@ module.exports = {
 
 };
 
-},{}],911:[function(require,module,exports) {
+},{}],561:[function(require,module,exports) {
 // Copyright 2011 Mark Cavage <mcavage@gmail.com> All rights reserved.
 
 
@@ -95071,7 +89526,7 @@ module.exports = {
   Context: 128
 };
 
-},{}],912:[function(require,module,exports) {
+},{}],562:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 // Copyright 2011 Mark Cavage <mcavage@gmail.com> All rights reserved.
 
@@ -95335,7 +89790,7 @@ Reader.prototype._readTag = function(tag) {
 
 module.exports = Reader;
 
-},{"assert":658,"./types":911,"./errors":910,"buffer":25}],913:[function(require,module,exports) {
+},{"assert":295,"./types":561,"./errors":560,"buffer":25}],563:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 // Copyright 2011 Mark Cavage <mcavage@gmail.com> All rights reserved.
 
@@ -95654,7 +90109,7 @@ Writer.prototype._ensure = function(len) {
 
 module.exports = Writer;
 
-},{"assert":658,"./types":911,"./errors":910,"buffer":25}],875:[function(require,module,exports) {
+},{"assert":295,"./types":561,"./errors":560,"buffer":25}],516:[function(require,module,exports) {
 // Copyright 2011 Mark Cavage <mcavage@gmail.com> All rights reserved.
 
 var errors = require('./errors');
@@ -95683,7 +90138,7 @@ for (var e in errors) {
     module.exports[e] = errors[e];
 }
 
-},{"./errors":910,"./types":911,"./reader":912,"./writer":913}],850:[function(require,module,exports) {
+},{"./errors":560,"./types":561,"./reader":562,"./writer":563}],493:[function(require,module,exports) {
 // Copyright 2011 Mark Cavage <mcavage@gmail.com> All rights reserved.
 
 // If you have no idea what ASN.1 or BER is, see this:
@@ -95705,7 +90160,7 @@ module.exports = {
 
 };
 
-},{"./ber/index":875}],846:[function(require,module,exports) {
+},{"./ber/index":516}],482:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 // Copyright 2015 Joyent, Inc.
 
@@ -96146,7 +90601,7 @@ function writePkcs8ECDSAPrivate(key, der) {
 	der.endSequence();
 	der.endSequence();
 }
-},{"assert-plus":707,"asn1":850,"../algs":839,"../utils":841,"../key":765,"../private-key":768,"./pem":844,"buffer":25}],845:[function(require,module,exports) {
+},{"assert-plus":351,"asn1":493,"../algs":471,"../utils":473,"../key":391,"../private-key":394,"./pem":480,"buffer":25}],481:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 // Copyright 2015 Joyent, Inc.
 
@@ -96418,7 +90873,7 @@ function writePkcs1ECDSAPrivate(der, key) {
 	der.writeBuffer(Q, asn1.Ber.BitString);
 	der.endSequence();
 }
-},{"assert-plus":707,"asn1":850,"../algs":839,"../utils":841,"../key":765,"../private-key":768,"./pem":844,"./pkcs8":846,"buffer":25}],851:[function(require,module,exports) {
+},{"assert-plus":351,"asn1":493,"../algs":471,"../utils":473,"../key":391,"../private-key":394,"./pem":480,"./pkcs8":482,"buffer":25}],475:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 // Copyright 2015 Joyent, Inc.
 
@@ -96555,7 +91010,7 @@ SSHBuffer.prototype.write = function (buf) {
 	buf.copy(this._buffer, this._offset);
 	this._offset += buf.length;
 };
-},{"assert-plus":707,"buffer":25}],847:[function(require,module,exports) {
+},{"assert-plus":351,"buffer":25}],483:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 // Copyright 2015 Joyent, Inc.
 
@@ -96671,7 +91126,7 @@ function write(key, options) {
 
 	return buf.toBuffer();
 }
-},{"assert-plus":707,"../algs":839,"../utils":841,"../key":765,"../private-key":768,"../ssh-buffer":851,"buffer":25}],874:[function(require,module,exports) {
+},{"assert-plus":351,"../algs":471,"../utils":473,"../key":391,"../private-key":394,"../ssh-buffer":475,"buffer":25}],539:[function(require,module,exports) {
 'use strict';
 
 var crypto_hash_sha512 = require('tweetnacl').lowlevel.crypto_hash;
@@ -97229,7 +91684,7 @@ module.exports = {
       pbkdf: bcrypt_pbkdf
 };
 
-},{"tweetnacl":852}],849:[function(require,module,exports) {
+},{"tweetnacl":494}],485:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 // Copyright 2015 Joyent, Inc.
 
@@ -97467,7 +91922,7 @@ function write(key, options) {
 
 	return buf.slice(0, o);
 }
-},{"assert-plus":707,"asn1":850,"../algs":839,"../utils":841,"crypto":611,"../key":765,"../private-key":768,"./pem":844,"./rfc4253":847,"../ssh-buffer":851,"../errors":771,"bcrypt-pbkdf":874,"buffer":25}],844:[function(require,module,exports) {
+},{"assert-plus":351,"asn1":493,"../algs":471,"../utils":473,"crypto":237,"../key":391,"../private-key":394,"./pem":480,"./rfc4253":483,"../ssh-buffer":475,"../errors":397,"bcrypt-pbkdf":539,"buffer":25}],480:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 // Copyright 2015 Joyent, Inc.
 
@@ -97640,7 +92095,7 @@ function write(key, options, type) {
 
 	return buf.slice(0, o);
 }
-},{"assert-plus":707,"asn1":850,"crypto":611,"../algs":839,"../utils":841,"../key":765,"../private-key":768,"./pkcs1":845,"./pkcs8":846,"./ssh-private":849,"./rfc4253":847,"../errors":771,"buffer":25}],848:[function(require,module,exports) {
+},{"assert-plus":351,"asn1":493,"crypto":237,"../algs":471,"../utils":473,"../key":391,"../private-key":394,"./pkcs1":481,"./pkcs8":482,"./ssh-private":485,"./rfc4253":483,"../errors":397,"buffer":25}],484:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 // Copyright 2015 Joyent, Inc.
 
@@ -97745,7 +92200,7 @@ function write(key, options) {
 
 	return new Buffer(parts.join(' '));
 }
-},{"assert-plus":707,"./rfc4253":847,"../utils":841,"../key":765,"../private-key":768,"./ssh-private":849,"buffer":25}],843:[function(require,module,exports) {
+},{"assert-plus":351,"./rfc4253":483,"../utils":473,"../key":391,"../private-key":394,"./ssh-private":485,"buffer":25}],479:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 // Copyright 2015 Joyent, Inc.
 
@@ -97799,7 +92254,7 @@ function findPEMHeader(buf) {
 function write(key, options) {
 	throw new Error('"auto" format cannot be used for writing');
 }
-},{"assert-plus":707,"../utils":841,"../key":765,"../private-key":768,"./pem":844,"./ssh":848,"./rfc4253":847,"buffer":25}],768:[function(require,module,exports) {
+},{"assert-plus":351,"../utils":473,"../key":391,"../private-key":394,"./pem":480,"./ssh":484,"./rfc4253":483,"buffer":25}],394:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 // Copyright 2017 Joyent, Inc.
 
@@ -98022,7 +92477,7 @@ PrivateKey._oldVersionDetect = function (obj) {
 	if (obj.formats['auto']) return [1, 1];
 	return [1, 0];
 };
-},{"assert-plus":707,"./algs":839,"crypto":611,"./fingerprint":766,"./signature":767,"./errors":771,"util":223,"./utils":841,"./dhe":840,"./ed-compat":842,"./key":765,"./formats/auto":843,"./formats/pem":844,"./formats/pkcs1":845,"./formats/pkcs8":846,"./formats/rfc4253":847,"./formats/ssh-private":849,"tweetnacl":852,"buffer":25}],841:[function(require,module,exports) {
+},{"assert-plus":351,"./algs":471,"crypto":237,"./fingerprint":392,"./signature":393,"./errors":397,"util":223,"./utils":473,"./dhe":472,"./ed-compat":474,"./key":391,"./formats/auto":479,"./formats/pem":480,"./formats/pkcs1":481,"./formats/pkcs8":482,"./formats/rfc4253":483,"./formats/ssh-private":485,"tweetnacl":494,"buffer":25}],473:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 // Copyright 2015 Joyent, Inc.
 
@@ -98276,7 +92731,7 @@ function opensshCipherInfo(cipher) {
 	}
 	return inf;
 }
-},{"assert-plus":707,"./private-key":768,"crypto":611,"jsbn":873,"buffer":25}],767:[function(require,module,exports) {
+},{"assert-plus":351,"./private-key":394,"crypto":237,"jsbn":514,"buffer":25}],393:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 // Copyright 2015 Joyent, Inc.
 
@@ -98564,7 +93019,7 @@ Signature._oldVersionDetect = function (obj) {
 	if (obj.hasOwnProperty('hashAlgorithm')) return [2, 0];
 	return [1, 0];
 };
-},{"assert-plus":707,"./algs":839,"crypto":611,"./errors":771,"./utils":841,"asn1":850,"./ssh-buffer":851,"buffer":25}],770:[function(require,module,exports) {
+},{"assert-plus":351,"./algs":471,"crypto":237,"./errors":397,"./utils":473,"asn1":493,"./ssh-buffer":475,"buffer":25}],396:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 // Copyright 2017 Joyent, Inc.
 
@@ -98806,7 +93261,7 @@ Identity.prototype._sshpkApiVersion = [1, 0];
 Identity._oldVersionDetect = function (obj) {
 	return [1, 0];
 };
-},{"assert-plus":707,"./algs":839,"crypto":611,"./fingerprint":766,"./signature":767,"./errors":771,"util":223,"./utils":841,"asn1":850,"buffer":25}],853:[function(require,module,exports) {
+},{"assert-plus":351,"./algs":471,"crypto":237,"./fingerprint":392,"./signature":393,"./errors":397,"util":223,"./utils":473,"asn1":493,"buffer":25}],486:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 // Copyright 2017 Joyent, Inc.
 
@@ -99097,7 +93552,7 @@ function getCertType(key) {
 	if (key.type === 'ed25519') return 'ssh-ed25519-cert-v01@openssh.com';
 	throw new Error('Unsupported key type ' + key.type);
 }
-},{"assert-plus":707,"../ssh-buffer":851,"crypto":611,"../algs":839,"../key":765,"../private-key":768,"../identity":770,"./rfc4253":847,"../signature":767,"../utils":841,"../certificate":769,"buffer":25}],854:[function(require,module,exports) {
+},{"assert-plus":351,"../ssh-buffer":475,"crypto":237,"../algs":471,"../key":391,"../private-key":394,"../identity":396,"./rfc4253":483,"../signature":393,"../utils":473,"../certificate":395,"buffer":25}],487:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 // Copyright 2017 Joyent, Inc.
 
@@ -99760,7 +94215,7 @@ function writeBitField(setBits, bitIndex) {
 	}
 	return bits;
 }
-},{"assert-plus":707,"asn1":850,"../algs":839,"../utils":841,"../key":765,"../private-key":768,"./pem":844,"../identity":770,"../signature":767,"../certificate":769,"./pkcs8":846,"buffer":25}],855:[function(require,module,exports) {
+},{"assert-plus":351,"asn1":493,"../algs":471,"../utils":473,"../key":391,"../private-key":394,"./pem":480,"../identity":396,"../signature":393,"../certificate":395,"./pkcs8":482,"buffer":25}],488:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 // Copyright 2016 Joyent, Inc.
 
@@ -99836,7 +94291,7 @@ function write(cert, options) {
 
 	return buf.slice(0, o);
 }
-},{"./x509":854,"assert-plus":707,"asn1":850,"../algs":839,"../utils":841,"../key":765,"../private-key":768,"./pem":844,"../identity":770,"../signature":767,"../certificate":769,"buffer":25}],769:[function(require,module,exports) {
+},{"./x509":487,"assert-plus":351,"asn1":493,"../algs":471,"../utils":473,"../key":391,"../private-key":394,"./pem":480,"../identity":396,"../signature":393,"../certificate":395,"buffer":25}],395:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 // Copyright 2016 Joyent, Inc.
 
@@ -100159,7 +94614,7 @@ Certificate.prototype._sshpkApiVersion = [1, 0];
 Certificate._oldVersionDetect = function (obj) {
 	return [1, 0];
 };
-},{"assert-plus":707,"./algs":839,"crypto":611,"./fingerprint":766,"./signature":767,"./errors":771,"util":223,"./utils":841,"./key":765,"./private-key":768,"./identity":770,"./formats/openssh-cert":853,"./formats/x509":854,"./formats/x509-pem":855,"buffer":25}],766:[function(require,module,exports) {
+},{"assert-plus":351,"./algs":471,"crypto":237,"./fingerprint":392,"./signature":393,"./errors":397,"util":223,"./utils":473,"./key":391,"./private-key":394,"./identity":396,"./formats/openssh-cert":486,"./formats/x509":487,"./formats/x509-pem":488,"buffer":25}],392:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 // Copyright 2015 Joyent, Inc.
 
@@ -100307,7 +94762,7 @@ Fingerprint._oldVersionDetect = function (obj) {
 	assert.func(obj.matches);
 	return [1, 0];
 };
-},{"assert-plus":707,"./algs":839,"crypto":611,"./errors":771,"./key":765,"./certificate":769,"./utils":841,"buffer":25}],765:[function(require,module,exports) {
+},{"assert-plus":351,"./algs":471,"crypto":237,"./errors":397,"./key":391,"./certificate":395,"./utils":473,"buffer":25}],391:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 // Copyright 2017 Joyent, Inc.
 
@@ -100540,7 +94995,7 @@ Key._oldVersionDetect = function (obj) {
 	if (obj.formats['pkcs1']) return [1, 1];
 	return [1, 0];
 };
-},{"assert-plus":707,"./algs":839,"crypto":611,"./fingerprint":766,"./signature":767,"./dhe":840,"./errors":771,"./utils":841,"./private-key":768,"./ed-compat":842,"./formats/auto":843,"./formats/pem":844,"./formats/pkcs1":845,"./formats/pkcs8":846,"./formats/rfc4253":847,"./formats/ssh":848,"./formats/ssh-private":849,"buffer":25}],708:[function(require,module,exports) {
+},{"assert-plus":351,"./algs":471,"crypto":237,"./fingerprint":392,"./signature":393,"./dhe":472,"./errors":397,"./utils":473,"./private-key":394,"./ed-compat":474,"./formats/auto":479,"./formats/pem":480,"./formats/pkcs1":481,"./formats/pkcs8":482,"./formats/rfc4253":483,"./formats/ssh":484,"./formats/ssh-private":485,"buffer":25}],352:[function(require,module,exports) {
 // Copyright 2015 Joyent, Inc.
 
 var Key = require('./key');
@@ -100580,7 +95035,7 @@ module.exports = {
 	KeyEncryptedError: errs.KeyEncryptedError,
 	CertificateParseError: errs.CertificateParseError
 };
-},{"./key":765,"./fingerprint":766,"./signature":767,"./private-key":768,"./certificate":769,"./identity":770,"./errors":771}],663:[function(require,module,exports) {
+},{"./key":391,"./fingerprint":392,"./signature":393,"./private-key":394,"./certificate":395,"./identity":396,"./errors":397}],265:[function(require,module,exports) {
 // Copyright 2012 Joyent, Inc.  All rights reserved.
 
 var assert = require('assert-plus');
@@ -100688,7 +95143,7 @@ module.exports = {
     return k.toString('ssh');
   }
 };
-},{"assert-plus":707,"sshpk":708,"util":223}],660:[function(require,module,exports) {
+},{"assert-plus":351,"sshpk":352,"util":223}],262:[function(require,module,exports) {
 // Copyright 2012 Joyent, Inc.  All rights reserved.
 
 var assert = require('assert-plus');
@@ -100974,7 +95429,7 @@ module.exports = {
   }
 
 };
-},{"assert-plus":707,"util":223,"./utils":663}],772:[function(require,module,exports) {
+},{"assert-plus":351,"util":223,"./utils":265}],455:[function(require,module,exports) {
 var process = require("process");
 /*
  * extsprintf.js: extended POSIX-style sprintf
@@ -101160,7 +95615,7 @@ function dumpException(ex)
 	return (ret);
 }
 
-},{"assert":658,"util":223,"process":17}],773:[function(require,module,exports) {
+},{"assert":295,"util":223,"process":17}],456:[function(require,module,exports) {
 /*
  * verror.js: richer JavaScript errors
  */
@@ -101613,7 +96068,7 @@ WError.prototype.cause = function we_cause(c)
 	return (this.jse_cause);
 };
 
-},{"assert-plus":707,"util":223,"extsprintf":772,"core-util-is":400}],774:[function(require,module,exports) {
+},{"assert-plus":351,"util":223,"extsprintf":455,"core-util-is":417}],457:[function(require,module,exports) {
 var define;
 /**
  * JSONSchema Validator - Validates JavaScript objects using JSON Schemas
@@ -101889,7 +96344,7 @@ exports.mustBeValid = function(result){
 return exports;
 }));
 
-},{}],709:[function(require,module,exports) {
+},{}],353:[function(require,module,exports) {
 /*
  * lib/jsprim.js: utilities for primitive JavaScript types
  */
@@ -102626,7 +97081,7 @@ function mergeObjects(provided, overrides, defaults)
 	return (rv);
 }
 
-},{"assert-plus":707,"util":223,"extsprintf":772,"verror":773,"json-schema":774}],661:[function(require,module,exports) {
+},{"assert-plus":351,"util":223,"extsprintf":455,"verror":456,"json-schema":457}],263:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 // Copyright 2012 Joyent, Inc.  All rights reserved.
 
@@ -102986,7 +97441,7 @@ module.exports = {
   }
 
 };
-},{"assert-plus":707,"crypto":611,"http":220,"util":223,"sshpk":708,"jsprim":709,"./utils":663,"buffer":25}],662:[function(require,module,exports) {
+},{"assert-plus":351,"crypto":237,"http":220,"util":223,"sshpk":352,"jsprim":353,"./utils":265,"buffer":25}],264:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 // Copyright 2015 Joyent, Inc.
 
@@ -103071,7 +97526,7 @@ module.exports = {
     return h1.equals(h2);
   }
 };
-},{"assert-plus":707,"crypto":611,"sshpk":708,"./utils":663,"buffer":25}],618:[function(require,module,exports) {
+},{"assert-plus":351,"crypto":237,"sshpk":352,"./utils":265,"buffer":25}],228:[function(require,module,exports) {
 // Copyright 2015 Joyent, Inc.
 
 var parser = require('./parser');
@@ -103099,7 +97554,7 @@ module.exports = {
   verifySignature: verify.verifySignature,
   verifyHMAC: verify.verifyHMAC
 };
-},{"./parser":660,"./signer":661,"./verify":662,"./utils":663}],710:[function(require,module,exports) {
+},{"./parser":262,"./signer":263,"./verify":264,"./utils":265}],337:[function(require,module,exports) {
 module.exports = {
   "application/1d-interleaved-parityfec": {
     "source": "iana"
@@ -110067,7 +104522,7 @@ module.exports = {
   }
 }
 ;
-},{}],664:[function(require,module,exports) {
+},{}],315:[function(require,module,exports) {
 /*!
  * mime-db
  * Copyright(c) 2014 Jonathan Ong
@@ -110079,7 +104534,7 @@ module.exports = {
  */
 
 module.exports = require('./db.json');
-},{"./db.json":710}],619:[function(require,module,exports) {
+},{"./db.json":337}],238:[function(require,module,exports) {
 /*!
  * mime-types
  * Copyright(c) 2014 Jonathan Ong
@@ -110263,7 +104718,7 @@ function populateMaps(extensions, types) {
     }
   });
 }
-},{"mime-db":664,"path":7}],620:[function(require,module,exports) {
+},{"mime-db":315,"path":7}],229:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 var util = require('util')
 var Stream = require('stream')
@@ -110368,7 +104823,7 @@ function alignedWrite(buffer) {
   return returnBuffer.toString(this.encoding)
 }
 
-},{"util":223,"stream":613,"string_decoder":665,"buffer":25}],621:[function(require,module,exports) {
+},{"util":223,"stream":224,"string_decoder":285,"buffer":25}],230:[function(require,module,exports) {
 function Caseless (dict) {
   this.dict = dict || {}
 }
@@ -110437,7 +104892,7 @@ module.exports.httpify = function (resp, headers) {
   return c
 }
 
-},{}],622:[function(require,module,exports) {
+},{}],231:[function(require,module,exports) {
 module.exports = ForeverAgent
 ForeverAgent.SSL = ForeverAgentSSL
 
@@ -110577,12 +105032,12 @@ function createConnectionSSL (port, host, options) {
   return tls.connect(options);
 }
 
-},{"util":223,"http":220,"net":24,"tls":24,"https":221}],623:[function(require,module,exports) {
+},{"util":223,"http":220,"net":24,"tls":24,"https":221}],239:[function(require,module,exports) {
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 /* eslint-env browser */
 module.exports = (typeof self === 'undefined' ? 'undefined' : _typeof(self)) == 'object' ? self.FormData : window.FormData;
-},{}],624:[function(require,module,exports) {
+},{}],232:[function(require,module,exports) {
 var stream = require('stream')
 
 
@@ -110611,7 +105066,7 @@ module.exports.isReadable = isReadable
 module.exports.isWritable = isWritable
 module.exports.isDuplex   = isDuplex
 
-},{"stream":613}],625:[function(require,module,exports) {
+},{"stream":224}],233:[function(require,module,exports) {
 module.exports      = isTypedArray
 isTypedArray.strict = isStrictTypedArray
 isTypedArray.loose  = isLooseTypedArray
@@ -110654,7 +105109,7 @@ function isLooseTypedArray(arr) {
   return names[toString.call(arr)]
 }
 
-},{}],626:[function(require,module,exports) {
+},{}],199:[function(require,module,exports) {
 'use strict';
 
 function formatHostname(hostname) {
@@ -110727,7 +105182,7 @@ function getProxyFromURI(uri) {
 }
 
 module.exports = getProxyFromURI;
-},{}],775:[function(require,module,exports) {
+},{}],382:[function(require,module,exports) {
 'use strict';
 
 var has = Object.prototype.hasOwnProperty;
@@ -110926,7 +105381,7 @@ exports.isBuffer = function isBuffer(obj) {
 
     return !!(obj.constructor && obj.constructor.isBuffer && obj.constructor.isBuffer(obj));
 };
-},{}],713:[function(require,module,exports) {
+},{}],331:[function(require,module,exports) {
 'use strict';
 
 var replace = String.prototype.replace;
@@ -110945,7 +105400,7 @@ module.exports = {
     RFC1738: 'RFC1738',
     RFC3986: 'RFC3986'
 };
-},{}],711:[function(require,module,exports) {
+},{}],329:[function(require,module,exports) {
 'use strict';
 
 var utils = require('./utils');
@@ -111109,7 +105564,7 @@ module.exports = function (object, opts) {
 
     return joined.length > 0 ? prefix + joined : '';
 };
-},{"./utils":775,"./formats":713}],712:[function(require,module,exports) {
+},{"./utils":382,"./formats":331}],330:[function(require,module,exports) {
 'use strict';
 
 var utils = require('./utils');
@@ -111278,7 +105733,7 @@ module.exports = function (str, opts) {
 
     return utils.compact(obj);
 };
-},{"./utils":775}],666:[function(require,module,exports) {
+},{"./utils":382}],279:[function(require,module,exports) {
 'use strict';
 
 var stringify = require('./stringify');
@@ -111290,7 +105745,7 @@ module.exports = {
     parse: parse,
     stringify: stringify
 };
-},{"./stringify":711,"./parse":712,"./formats":713}],627:[function(require,module,exports) {
+},{"./stringify":329,"./parse":330,"./formats":331}],200:[function(require,module,exports) {
 'use strict';
 
 var qs = require('qs');
@@ -111333,7 +105788,7 @@ Querystring.prototype.rfc3986 = function (str) {
 Querystring.prototype.unescape = querystring.unescape;
 
 exports.Querystring = Querystring;
-},{"qs":666,"querystring":261}],857:[function(require,module,exports) {
+},{"qs":279,"querystring":261}],508:[function(require,module,exports) {
 'use strict';
 
 module.exports = function equal(a, b) {
@@ -111378,7 +105833,7 @@ module.exports = function equal(a, b) {
   return false;
 };
 
-},{}],861:[function(require,module,exports) {
+},{}],492:[function(require,module,exports) {
 'use strict';
 
 // https://mathiasbynens.be/notes/javascript-encoding
@@ -111400,7 +105855,7 @@ module.exports = function ucs2length(str) {
   return length;
 };
 
-},{}],785:[function(require,module,exports) {
+},{}],446:[function(require,module,exports) {
 'use strict';
 
 
@@ -111669,7 +106124,7 @@ function unescapeJsonPointer(str) {
   return str.replace(/~1/g, '/').replace(/~0/g, '~');
 }
 
-},{"fast-deep-equal":857,"./ucs2length":861}],779:[function(require,module,exports) {
+},{"fast-deep-equal":508,"./ucs2length":492}],443:[function(require,module,exports) {
 'use strict';
 
 var util = require('./util');
@@ -111680,7 +106135,7 @@ function SchemaObject(obj) {
   util.copy(obj, this);
 }
 
-},{"./util":785}],858:[function(require,module,exports) {
+},{"./util":446}],509:[function(require,module,exports) {
 'use strict';
 
 var traverse = module.exports = function (schema, opts, cb) {
@@ -111763,7 +106218,7 @@ function escapeJsonPtr(str) {
   return str.replace(/~/g, '~0').replace(/\//g, '~1');
 }
 
-},{}],777:[function(require,module,exports) {
+},{}],442:[function(require,module,exports) {
 'use strict';
 
 var url = require('url')
@@ -112036,7 +106491,7 @@ function resolveIds(schema) {
   return localRefs;
 }
 
-},{"url":222,"fast-deep-equal":857,"./util":785,"./schema_obj":779,"json-schema-traverse":858}],789:[function(require,module,exports) {
+},{"url":222,"fast-deep-equal":508,"./util":446,"./schema_obj":443,"json-schema-traverse":509}],448:[function(require,module,exports) {
 'use strict';
 
 var resolve = require('./resolve');
@@ -112072,7 +106527,7 @@ function errorSubclass(Subclass) {
   return Subclass;
 }
 
-},{"./resolve":777}],876:[function(require,module,exports) {
+},{"./resolve":442}],541:[function(require,module,exports) {
 var at, // The index of the current character
     ch, // The current character
     escapee = {
@@ -112347,7 +106802,7 @@ module.exports = function (source, reviver) {
     }({'': result}, '')) : result;
 };
 
-},{}],877:[function(require,module,exports) {
+},{}],540:[function(require,module,exports) {
 var cx = /[\u0000\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,
     escapable = /[\\\"\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,
     gap,
@@ -112503,11 +106958,11 @@ module.exports = function (value, replacer, space) {
     return str('', {'': value});
 };
 
-},{}],859:[function(require,module,exports) {
+},{}],502:[function(require,module,exports) {
 exports.parse = require('./lib/parse');
 exports.stringify = require('./lib/stringify');
 
-},{"./lib/parse":876,"./lib/stringify":877}],780:[function(require,module,exports) {
+},{"./lib/parse":541,"./lib/stringify":540}],458:[function(require,module,exports) {
 var json = typeof JSON !== 'undefined' ? JSON : require('jsonify');
 
 module.exports = function (obj, opts) {
@@ -112593,7 +107048,7 @@ var objectKeys = Object.keys || function (obj) {
     return keys;
 };
 
-},{"jsonify":859}],856:[function(require,module,exports) {
+},{"jsonify":502}],538:[function(require,module,exports) {
 'use strict';
 module.exports = function generate_validate(it, $keyword, $ruleType) {
   var out = '';
@@ -113053,7 +107508,7 @@ module.exports = function generate_validate(it, $keyword, $ruleType) {
   return out;
 }
 
-},{}],786:[function(require,module,exports) {
+},{}],460:[function(require,module,exports) {
 
 /**
  * slice() reference.
@@ -113289,7 +107744,7 @@ function isGeneratorFunction(obj) {
 function isObject(val) {
   return Object == val.constructor;
 }
-},{}],776:[function(require,module,exports) {
+},{}],547:[function(require,module,exports) {
 'use strict';
 
 var resolve = require('./resolve')
@@ -113670,7 +108125,7 @@ function vars(arr, statement) {
   return code;
 }
 
-},{"./resolve":777,"./util":785,"./error_classes":789,"json-stable-stringify":780,"../dotjs/validate":856,"co":786,"fast-deep-equal":857}],778:[function(require,module,exports) {
+},{"./resolve":442,"./util":446,"./error_classes":448,"json-stable-stringify":458,"../dotjs/validate":538,"co":460,"fast-deep-equal":508}],429:[function(require,module,exports) {
 'use strict';
 
 
@@ -113698,7 +108153,7 @@ Cache.prototype.clear = function Cache_clear() {
   this._cache = {};
 };
 
-},{}],781:[function(require,module,exports) {
+},{}],444:[function(require,module,exports) {
 'use strict';
 
 var util = require('./util');
@@ -113835,7 +108290,7 @@ function regex(str) {
   }
 }
 
-},{"./util":785}],878:[function(require,module,exports) {
+},{"./util":446}],517:[function(require,module,exports) {
 'use strict';
 module.exports = function generate_ref(it, $keyword, $ruleType) {
   var out = ' ';
@@ -113960,7 +108415,7 @@ module.exports = function generate_ref(it, $keyword, $ruleType) {
   return out;
 }
 
-},{}],879:[function(require,module,exports) {
+},{}],518:[function(require,module,exports) {
 'use strict';
 module.exports = function generate_allOf(it, $keyword, $ruleType) {
   var out = ' ';
@@ -114005,7 +108460,7 @@ module.exports = function generate_allOf(it, $keyword, $ruleType) {
   return out;
 }
 
-},{}],880:[function(require,module,exports) {
+},{}],519:[function(require,module,exports) {
 'use strict';
 module.exports = function generate_anyOf(it, $keyword, $ruleType) {
   var out = ' ';
@@ -114080,7 +108535,7 @@ module.exports = function generate_anyOf(it, $keyword, $ruleType) {
   return out;
 }
 
-},{}],881:[function(require,module,exports) {
+},{}],520:[function(require,module,exports) {
 'use strict';
 module.exports = function generate_const(it, $keyword, $ruleType) {
   var out = ' ';
@@ -114137,7 +108592,7 @@ module.exports = function generate_const(it, $keyword, $ruleType) {
   return out;
 }
 
-},{}],882:[function(require,module,exports) {
+},{}],521:[function(require,module,exports) {
 'use strict';
 module.exports = function generate_contains(it, $keyword, $ruleType) {
   var out = ' ';
@@ -114220,7 +108675,7 @@ module.exports = function generate_contains(it, $keyword, $ruleType) {
   return out;
 }
 
-},{}],883:[function(require,module,exports) {
+},{}],522:[function(require,module,exports) {
 'use strict';
 module.exports = function generate_dependencies(it, $keyword, $ruleType) {
   var out = ' ';
@@ -114389,7 +108844,7 @@ module.exports = function generate_dependencies(it, $keyword, $ruleType) {
   return out;
 }
 
-},{}],884:[function(require,module,exports) {
+},{}],523:[function(require,module,exports) {
 'use strict';
 module.exports = function generate_enum(it, $keyword, $ruleType) {
   var out = ' ';
@@ -114456,7 +108911,7 @@ module.exports = function generate_enum(it, $keyword, $ruleType) {
   return out;
 }
 
-},{}],885:[function(require,module,exports) {
+},{}],534:[function(require,module,exports) {
 'use strict';
 module.exports = function generate_format(it, $keyword, $ruleType) {
   var out = ' ';
@@ -114607,7 +109062,7 @@ module.exports = function generate_format(it, $keyword, $ruleType) {
   return out;
 }
 
-},{}],886:[function(require,module,exports) {
+},{}],524:[function(require,module,exports) {
 'use strict';
 module.exports = function generate_items(it, $keyword, $ruleType) {
   var out = ' ';
@@ -114749,7 +109204,7 @@ module.exports = function generate_items(it, $keyword, $ruleType) {
   return out;
 }
 
-},{}],887:[function(require,module,exports) {
+},{}],525:[function(require,module,exports) {
 'use strict';
 module.exports = function generate__limit(it, $keyword, $ruleType) {
   var out = ' ';
@@ -114900,7 +109355,7 @@ module.exports = function generate__limit(it, $keyword, $ruleType) {
   return out;
 }
 
-},{}],888:[function(require,module,exports) {
+},{}],526:[function(require,module,exports) {
 'use strict';
 module.exports = function generate__limitItems(it, $keyword, $ruleType) {
   var out = ' ';
@@ -114978,7 +109433,7 @@ module.exports = function generate__limitItems(it, $keyword, $ruleType) {
   return out;
 }
 
-},{}],889:[function(require,module,exports) {
+},{}],527:[function(require,module,exports) {
 'use strict';
 module.exports = function generate__limitLength(it, $keyword, $ruleType) {
   var out = ' ';
@@ -115061,7 +109516,7 @@ module.exports = function generate__limitLength(it, $keyword, $ruleType) {
   return out;
 }
 
-},{}],890:[function(require,module,exports) {
+},{}],528:[function(require,module,exports) {
 'use strict';
 module.exports = function generate__limitProperties(it, $keyword, $ruleType) {
   var out = ' ';
@@ -115139,7 +109594,7 @@ module.exports = function generate__limitProperties(it, $keyword, $ruleType) {
   return out;
 }
 
-},{}],891:[function(require,module,exports) {
+},{}],529:[function(require,module,exports) {
 'use strict';
 module.exports = function generate_multipleOf(it, $keyword, $ruleType) {
   var out = ' ';
@@ -115217,7 +109672,7 @@ module.exports = function generate_multipleOf(it, $keyword, $ruleType) {
   return out;
 }
 
-},{}],892:[function(require,module,exports) {
+},{}],530:[function(require,module,exports) {
 'use strict';
 module.exports = function generate_not(it, $keyword, $ruleType) {
   var out = ' ';
@@ -115302,7 +109757,7 @@ module.exports = function generate_not(it, $keyword, $ruleType) {
   return out;
 }
 
-},{}],893:[function(require,module,exports) {
+},{}],531:[function(require,module,exports) {
 'use strict';
 module.exports = function generate_oneOf(it, $keyword, $ruleType) {
   var out = ' ';
@@ -115374,7 +109829,7 @@ module.exports = function generate_oneOf(it, $keyword, $ruleType) {
   return out;
 }
 
-},{}],894:[function(require,module,exports) {
+},{}],532:[function(require,module,exports) {
 'use strict';
 module.exports = function generate_pattern(it, $keyword, $ruleType) {
   var out = ' ';
@@ -115450,7 +109905,7 @@ module.exports = function generate_pattern(it, $keyword, $ruleType) {
   return out;
 }
 
-},{}],895:[function(require,module,exports) {
+},{}],533:[function(require,module,exports) {
 'use strict';
 module.exports = function generate_properties(it, $keyword, $ruleType) {
   var out = ' ';
@@ -115920,7 +110375,7 @@ module.exports = function generate_properties(it, $keyword, $ruleType) {
   return out;
 }
 
-},{}],896:[function(require,module,exports) {
+},{}],535:[function(require,module,exports) {
 'use strict';
 module.exports = function generate_propertyNames(it, $keyword, $ruleType) {
   var out = ' ';
@@ -116003,7 +110458,7 @@ module.exports = function generate_propertyNames(it, $keyword, $ruleType) {
   return out;
 }
 
-},{}],897:[function(require,module,exports) {
+},{}],536:[function(require,module,exports) {
 'use strict';
 module.exports = function generate_required(it, $keyword, $ruleType) {
   var out = ' ';
@@ -116273,7 +110728,7 @@ module.exports = function generate_required(it, $keyword, $ruleType) {
   return out;
 }
 
-},{}],898:[function(require,module,exports) {
+},{}],537:[function(require,module,exports) {
 'use strict';
 module.exports = function generate_uniqueItems(it, $keyword, $ruleType) {
   var out = ' ';
@@ -116346,7 +110801,7 @@ module.exports = function generate_uniqueItems(it, $keyword, $ruleType) {
   return out;
 }
 
-},{}],860:[function(require,module,exports) {
+},{}],491:[function(require,module,exports) {
 'use strict';
 
 //all requires must be explicit because browserify won't work with dynamic requires
@@ -116379,7 +110834,7 @@ module.exports = {
   validate: require('../dotjs/validate')
 };
 
-},{"../dotjs/ref":878,"../dotjs/allOf":879,"../dotjs/anyOf":880,"../dotjs/const":881,"../dotjs/contains":882,"../dotjs/dependencies":883,"../dotjs/enum":884,"../dotjs/format":885,"../dotjs/items":886,"../dotjs/_limit":887,"../dotjs/_limitItems":888,"../dotjs/_limitLength":889,"../dotjs/_limitProperties":890,"../dotjs/multipleOf":891,"../dotjs/not":892,"../dotjs/oneOf":893,"../dotjs/pattern":894,"../dotjs/properties":895,"../dotjs/propertyNames":896,"../dotjs/required":897,"../dotjs/uniqueItems":898,"../dotjs/validate":856}],782:[function(require,module,exports) {
+},{"../dotjs/ref":517,"../dotjs/allOf":518,"../dotjs/anyOf":519,"../dotjs/const":520,"../dotjs/contains":521,"../dotjs/dependencies":522,"../dotjs/enum":523,"../dotjs/format":534,"../dotjs/items":524,"../dotjs/_limit":525,"../dotjs/_limitItems":526,"../dotjs/_limitLength":527,"../dotjs/_limitProperties":528,"../dotjs/multipleOf":529,"../dotjs/not":530,"../dotjs/oneOf":531,"../dotjs/pattern":532,"../dotjs/properties":533,"../dotjs/propertyNames":535,"../dotjs/required":536,"../dotjs/uniqueItems":537,"../dotjs/validate":538}],445:[function(require,module,exports) {
 'use strict';
 
 var ruleModules = require('./_rules')
@@ -116439,7 +110894,7 @@ module.exports = function rules() {
   return RULES;
 };
 
-},{"./_rules":860,"./util":785}],783:[function(require,module,exports) {
+},{"./_rules":491,"./util":446}],430:[function(require,module,exports) {
 'use strict';
 
 var KEYWORDS = [
@@ -116490,7 +110945,7 @@ module.exports = function (metaSchema, keywordsJsonPointers) {
   return metaSchema;
 };
 
-},{}],784:[function(require,module,exports) {
+},{}],431:[function(require,module,exports) {
 'use strict';
 
 var META_SCHEMA_ID = 'http://json-schema.org/draft-06/schema';
@@ -116528,7 +110983,7 @@ module.exports = function (ajv) {
   ajv.RULES.all.properties.implements.push('patternGroups');
 };
 
-},{}],787:[function(require,module,exports) {
+},{}],447:[function(require,module,exports) {
 'use strict';
 
 var MissingRefError = require('./error_classes').MissingRef;
@@ -116620,7 +111075,7 @@ function compileAsync(schema, meta, callback) {
   }
 }
 
-},{"./error_classes":789}],862:[function(require,module,exports) {
+},{"./error_classes":448}],490:[function(require,module,exports) {
 'use strict';
 module.exports = function generate_custom(it, $keyword, $ruleType) {
   var out = ' ';
@@ -116848,7 +111303,7 @@ module.exports = function generate_custom(it, $keyword, $ruleType) {
   return out;
 }
 
-},{}],788:[function(require,module,exports) {
+},{}],432:[function(require,module,exports) {
 'use strict';
 
 var IDENTIFIER = /^[a-z_$][a-z0-9_$-]*$/i;
@@ -116980,7 +111435,7 @@ function removeKeyword(keyword) {
   }
 }
 
-},{"./dotjs/custom":862}],790:[function(require,module,exports) {
+},{"./dotjs/custom":490}],433:[function(require,module,exports) {
 module.exports = {
     "$schema": "http://json-schema.org/draft-06/schema#",
     "$id": "https://raw.githubusercontent.com/epoberezkin/ajv/master/lib/refs/$data.json#",
@@ -116999,7 +111454,7 @@ module.exports = {
     "additionalProperties": false
 }
 ;
-},{}],791:[function(require,module,exports) {
+},{}],434:[function(require,module,exports) {
 module.exports = {
     "$schema": "http://json-schema.org/draft-06/schema#",
     "$id": "http://json-schema.org/draft-06/schema#",
@@ -117151,7 +111606,7 @@ module.exports = {
     "default": {}
 }
 ;
-},{}],714:[function(require,module,exports) {
+},{}],358:[function(require,module,exports) {
 'use strict';
 
 var compileSchema = require('./compile')
@@ -117630,7 +112085,7 @@ function getMetaSchemaOptions(self) {
   return metaOpts;
 }
 
-},{"./compile":776,"./compile/resolve":777,"./cache":778,"./compile/schema_obj":779,"json-stable-stringify":780,"./compile/formats":781,"./compile/rules":782,"./$data":783,"./patternGroups":784,"./compile/util":785,"co":786,"./compile/async":787,"./keyword":788,"./compile/error_classes":789,"./refs/$data.json":790,"./refs/json-schema-draft-06.json":791}],715:[function(require,module,exports) {
+},{"./compile":547,"./compile/resolve":442,"./cache":429,"./compile/schema_obj":443,"json-stable-stringify":458,"./compile/formats":444,"./compile/rules":445,"./$data":430,"./patternGroups":431,"./compile/util":446,"co":460,"./compile/async":447,"./keyword":432,"./compile/error_classes":448,"./refs/$data.json":433,"./refs/json-schema-draft-06.json":434}],332:[function(require,module,exports) {
 function HARError(errors) {
   var message = 'validation failed';
 
@@ -117648,7 +112103,7 @@ function HARError(errors) {
 HARError.prototype = Error.prototype;
 
 module.exports = HARError;
-},{}],792:[function(require,module,exports) {
+},{}],398:[function(require,module,exports) {
 module.exports = {
   "$id": "afterRequest.json#",
   "$schema": "http://json-schema.org/draft-06/schema#",
@@ -117680,7 +112135,7 @@ module.exports = {
   }
 }
 ;
-},{}],793:[function(require,module,exports) {
+},{}],399:[function(require,module,exports) {
 module.exports = {
   "$id": "beforeRequest.json#",
   "$schema": "http://json-schema.org/draft-06/schema#",
@@ -117712,7 +112167,7 @@ module.exports = {
   }
 }
 ;
-},{}],794:[function(require,module,exports) {
+},{}],400:[function(require,module,exports) {
 module.exports = {
   "$id": "browser.json#",
   "$schema": "http://json-schema.org/draft-06/schema#",
@@ -117734,7 +112189,7 @@ module.exports = {
   }
 }
 ;
-},{}],795:[function(require,module,exports) {
+},{}],401:[function(require,module,exports) {
 module.exports = {
   "$id": "cache.json#",
   "$schema": "http://json-schema.org/draft-06/schema#",
@@ -117757,7 +112212,7 @@ module.exports = {
   }
 }
 ;
-},{}],796:[function(require,module,exports) {
+},{}],402:[function(require,module,exports) {
 module.exports = {
   "$id": "content.json#",
   "$schema": "http://json-schema.org/draft-06/schema#",
@@ -117788,7 +112243,7 @@ module.exports = {
   }
 }
 ;
-},{}],797:[function(require,module,exports) {
+},{}],403:[function(require,module,exports) {
 module.exports = {
   "$id": "cookie.json#",
   "$schema": "http://json-schema.org/draft-06/schema#",
@@ -117826,7 +112281,7 @@ module.exports = {
   }
 }
 ;
-},{}],798:[function(require,module,exports) {
+},{}],404:[function(require,module,exports) {
 module.exports = {
   "$id": "creator.json#",
   "$schema": "http://json-schema.org/draft-06/schema#",
@@ -117848,7 +112303,7 @@ module.exports = {
   }
 }
 ;
-},{}],799:[function(require,module,exports) {
+},{}],405:[function(require,module,exports) {
 module.exports = {
   "$id": "entry.json#",
   "$schema": "http://json-schema.org/draft-06/schema#",
@@ -117903,7 +112358,7 @@ module.exports = {
   }
 }
 ;
-},{}],800:[function(require,module,exports) {
+},{}],406:[function(require,module,exports) {
 module.exports = {
   "$id": "har.json#",
   "$schema": "http://json-schema.org/draft-06/schema#",
@@ -117918,7 +112373,7 @@ module.exports = {
   }
 }
 ;
-},{}],801:[function(require,module,exports) {
+},{}],407:[function(require,module,exports) {
 module.exports = {
   "$id": "header.json#",
   "$schema": "http://json-schema.org/draft-06/schema#",
@@ -117940,7 +112395,7 @@ module.exports = {
   }
 }
 ;
-},{}],802:[function(require,module,exports) {
+},{}],408:[function(require,module,exports) {
 module.exports = {
   "$id": "log.json#",
   "$schema": "http://json-schema.org/draft-06/schema#",
@@ -117978,7 +112433,7 @@ module.exports = {
   }
 }
 ;
-},{}],803:[function(require,module,exports) {
+},{}],409:[function(require,module,exports) {
 module.exports = {
   "$id": "page.json#",
   "$schema": "http://json-schema.org/draft-06/schema#",
@@ -118012,7 +112467,7 @@ module.exports = {
   }
 }
 ;
-},{}],804:[function(require,module,exports) {
+},{}],410:[function(require,module,exports) {
 module.exports = {
   "$id": "pageTimings.json#",
   "$schema": "http://json-schema.org/draft-06/schema#",
@@ -118032,7 +112487,7 @@ module.exports = {
   }
 }
 ;
-},{}],805:[function(require,module,exports) {
+},{}],411:[function(require,module,exports) {
 module.exports = {
   "$id": "postData.json#",
   "$schema": "http://json-schema.org/draft-06/schema#",
@@ -118077,7 +112532,7 @@ module.exports = {
   }
 }
 ;
-},{}],806:[function(require,module,exports) {
+},{}],412:[function(require,module,exports) {
 module.exports = {
   "$id": "query.json#",
   "$schema": "http://json-schema.org/draft-06/schema#",
@@ -118099,7 +112554,7 @@ module.exports = {
   }
 }
 ;
-},{}],807:[function(require,module,exports) {
+},{}],413:[function(require,module,exports) {
 module.exports = {
   "$id": "request.json#",
   "$schema": "http://json-schema.org/draft-06/schema#",
@@ -118158,7 +112613,7 @@ module.exports = {
   }
 }
 ;
-},{}],808:[function(require,module,exports) {
+},{}],414:[function(require,module,exports) {
 module.exports = {
   "$id": "response.json#",
   "$schema": "http://json-schema.org/draft-06/schema#",
@@ -118214,7 +112669,7 @@ module.exports = {
   }
 }
 ;
-},{}],809:[function(require,module,exports) {
+},{}],415:[function(require,module,exports) {
 module.exports = {
   "$id": "timings.json#",
   "$schema": "http://json-schema.org/draft-06/schema#",
@@ -118258,7 +112713,7 @@ module.exports = {
   }
 }
 ;
-},{}],716:[function(require,module,exports) {
+},{}],359:[function(require,module,exports) {
 'use strict';
 
 module.exports = {
@@ -118281,7 +112736,7 @@ module.exports = {
   response: require('./response.json'),
   timings: require('./timings.json')
 };
-},{"./afterRequest.json":792,"./beforeRequest.json":793,"./browser.json":794,"./cache.json":795,"./content.json":796,"./cookie.json":797,"./creator.json":798,"./entry.json":799,"./har.json":800,"./header.json":801,"./log.json":802,"./page.json":803,"./pageTimings.json":804,"./postData.json":805,"./query.json":806,"./request.json":807,"./response.json":808,"./timings.json":809}],667:[function(require,module,exports) {
+},{"./afterRequest.json":398,"./beforeRequest.json":399,"./browser.json":400,"./cache.json":401,"./content.json":402,"./cookie.json":403,"./creator.json":404,"./entry.json":405,"./har.json":406,"./header.json":407,"./log.json":408,"./page.json":409,"./pageTimings.json":410,"./postData.json":411,"./query.json":412,"./request.json":413,"./response.json":414,"./timings.json":415}],280:[function(require,module,exports) {
 var Ajv = require('ajv');
 var HARError = require('./error');
 var schemas = require('har-schema');
@@ -118377,7 +112832,7 @@ exports.response = function (data) {
 exports.timings = function (data) {
   return validate('timings', data);
 };
-},{"ajv":714,"./error":715,"har-schema":716}],628:[function(require,module,exports) {
+},{"ajv":358,"./error":332,"har-schema":359}],201:[function(require,module,exports) {
 'use strict';
 
 var fs = require('fs');
@@ -118571,7 +113026,7 @@ Har.prototype.options = function (options) {
 };
 
 exports.Har = Har;
-},{"fs":24,"querystring":261,"har-validator":667,"extend":605}],810:[function(require,module,exports) {
+},{"fs":24,"querystring":261,"har-validator":280,"extend":181}],372:[function(require,module,exports) {
 var global = arguments[3];
 // Unique ID creation requires a high quality random # generator.  In the
 // browser this is a little complicated due to unknown quality of Math.random()
@@ -118607,7 +113062,7 @@ if (!rng) {
 
 module.exports = rng;
 
-},{}],811:[function(require,module,exports) {
+},{}],373:[function(require,module,exports) {
 /**
  * Convert array of 16 byte values to UUID string format of the form:
  * XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
@@ -118632,7 +113087,7 @@ function bytesToUuid(buf, offset) {
 
 module.exports = bytesToUuid;
 
-},{}],717:[function(require,module,exports) {
+},{}],322:[function(require,module,exports) {
 var rng = require('./lib/rng');
 var bytesToUuid = require('./lib/bytesToUuid');
 
@@ -118734,7 +113189,7 @@ function v1(options, buf, offset) {
 
 module.exports = v1;
 
-},{"./lib/rng":810,"./lib/bytesToUuid":811}],718:[function(require,module,exports) {
+},{"./lib/rng":372,"./lib/bytesToUuid":373}],323:[function(require,module,exports) {
 var rng = require('./lib/rng');
 var bytesToUuid = require('./lib/bytesToUuid');
 
@@ -118765,7 +113220,7 @@ function v4(options, buf, offset) {
 
 module.exports = v4;
 
-},{"./lib/rng":810,"./lib/bytesToUuid":811}],668:[function(require,module,exports) {
+},{"./lib/rng":372,"./lib/bytesToUuid":373}],286:[function(require,module,exports) {
 var v1 = require('./v1');
 var v4 = require('./v4');
 
@@ -118775,7 +113230,7 @@ uuid.v4 = v4;
 
 module.exports = uuid;
 
-},{"./v1":717,"./v4":718}],629:[function(require,module,exports) {
+},{"./v1":322,"./v4":323}],202:[function(require,module,exports) {
 'use strict';
 
 var caseless = require('caseless');
@@ -118943,7 +113398,7 @@ Auth.prototype.onResponse = function (response) {
 };
 
 exports.Auth = Auth;
-},{"caseless":621,"uuid":668,"./helpers":607}],669:[function(require,module,exports) {
+},{"caseless":230,"uuid":286,"./helpers":157}],281:[function(require,module,exports) {
 var crypto = require('crypto')
   , qs = require('querystring')
   ;
@@ -119081,7 +113536,7 @@ exports.rfc3986 = rfc3986
 exports.generateBase = generateBase
 
 
-},{"crypto":611,"querystring":261}],630:[function(require,module,exports) {
+},{"crypto":237,"querystring":261}],203:[function(require,module,exports) {
 
 'use strict';
 
@@ -119224,7 +113679,7 @@ OAuth.prototype.onRequest = function (_oauth) {
 };
 
 exports.OAuth = OAuth;
-},{"url":222,"qs":666,"caseless":621,"uuid":668,"oauth-sign":669,"crypto":611,"safe-buffer":612}],719:[function(require,module,exports) {
+},{"url":222,"qs":279,"caseless":230,"uuid":286,"oauth-sign":281,"crypto":237,"safe-buffer":235}],371:[function(require,module,exports) {
 var Stream = require('stream').Stream;
 var util = require('util');
 
@@ -119331,7 +113786,7 @@ DelayedStream.prototype._checkIfMaxDataSizeExceeded = function () {
   var message = 'DelayedStream#maxDataSize of ' + this.maxDataSize + ' bytes exceeded.';
   this.emit('error', new Error(message));
 };
-},{"stream":613,"util":223}],670:[function(require,module,exports) {
+},{"stream":224,"util":223}],287:[function(require,module,exports) {
 var Buffer = require("buffer").Buffer;
 var util = require('util');
 var Stream = require('stream').Stream;
@@ -119515,7 +113970,7 @@ CombinedStream.prototype._emitError = function (err) {
   this._reset();
   this.emit('error', err);
 };
-},{"util":223,"stream":613,"delayed-stream":719,"buffer":25}],631:[function(require,module,exports) {
+},{"util":223,"stream":224,"delayed-stream":371,"buffer":25}],204:[function(require,module,exports) {
 
 'use strict';
 
@@ -119631,7 +114086,7 @@ Multipart.prototype.onRequest = function (options) {
 };
 
 exports.Multipart = Multipart;
-},{"uuid":668,"combined-stream":670,"isstream":624,"safe-buffer":612}],632:[function(require,module,exports) {
+},{"uuid":286,"combined-stream":287,"isstream":232,"safe-buffer":235}],205:[function(require,module,exports) {
 'use strict';
 
 var url = require('url');
@@ -119787,7 +114242,7 @@ Redirect.prototype.onResponse = function (response) {
 };
 
 exports.Redirect = Redirect;
-},{"url":222}],671:[function(require,module,exports) {
+},{"url":222}],282:[function(require,module,exports) {
 
 var process = require("process");
 'use strict';
@@ -120024,7 +114479,7 @@ if (undefined && /\btunnel\b/.test(undefined)) {
   debug = function () {};
 }
 exports.debug = debug; // for test
-},{"net":24,"tls":24,"http":220,"https":221,"events":267,"assert":658,"util":223,"safe-buffer":612,"process":17}],633:[function(require,module,exports) {
+},{"net":24,"tls":24,"http":220,"https":221,"events":267,"assert":295,"util":223,"safe-buffer":235,"process":17}],206:[function(require,module,exports) {
 'use strict';
 
 var url = require('url');
@@ -120173,7 +114628,7 @@ Tunnel.prototype.setup = function (options) {
 Tunnel.defaultProxyHeaderWhiteList = defaultProxyHeaderWhiteList;
 Tunnel.defaultProxyHeaderExclusiveList = defaultProxyHeaderExclusiveList;
 exports.Tunnel = Tunnel;
-},{"url":222,"tunnel-agent":671}],634:[function(require,module,exports) {
+},{"url":222,"tunnel-agent":282}],234:[function(require,module,exports) {
 var process = require("process");
 // Generated by CoffeeScript 1.12.2
 (function() {
@@ -120212,7 +114667,7 @@ var process = require("process");
 
 //# sourceMappingURL=performance-now.js.map
 
-},{"process":17}],608:[function(require,module,exports) {
+},{"process":17}],148:[function(require,module,exports) {
 
 'use strict';
 
@@ -121772,7 +116227,7 @@ Request.defaultProxyHeaderExclusiveList = Tunnel.defaultProxyHeaderExclusiveList
 
 Request.prototype.toJSON = requestToJSON;
 module.exports = Request;
-},{"http":220,"https":221,"url":222,"util":223,"stream":613,"zlib":614,"hawk":615,"aws-sign2":616,"aws4":617,"http-signature":618,"mime-types":619,"stringstream":620,"caseless":621,"forever-agent":622,"form-data":623,"extend":605,"isstream":624,"is-typedarray":625,"./lib/helpers":607,"./lib/cookies":606,"./lib/getProxyFromURI":626,"./lib/querystring":627,"./lib/har":628,"./lib/auth":629,"./lib/oauth":630,"./lib/multipart":631,"./lib/redirect":632,"./lib/tunnel":633,"performance-now":634,"safe-buffer":612}],603:[function(require,module,exports) {
+},{"http":220,"https":221,"url":222,"util":223,"stream":224,"zlib":236,"hawk":225,"aws-sign2":226,"aws4":227,"http-signature":228,"mime-types":238,"stringstream":229,"caseless":230,"forever-agent":231,"form-data":239,"extend":181,"isstream":232,"is-typedarray":233,"./lib/helpers":157,"./lib/cookies":156,"./lib/getProxyFromURI":199,"./lib/querystring":200,"./lib/har":201,"./lib/auth":202,"./lib/oauth":203,"./lib/multipart":204,"./lib/redirect":205,"./lib/tunnel":206,"performance-now":234,"safe-buffer":235}],121:[function(require,module,exports) {
 // Copyright 2010-2012 Mikeal Rogers
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
@@ -121930,7 +116385,7 @@ Object.defineProperty(request, 'debug', {
     request.Request.debug = debug;
   }
 });
-},{"extend":605,"./lib/cookies":606,"./lib/helpers":607,"./request":608}],595:[function(require,module,exports) {
+},{"extend":181,"./lib/cookies":156,"./lib/helpers":157,"./request":148}],60:[function(require,module,exports) {
 var request = require('request');
 
 var Request = {
@@ -121960,7 +116415,7 @@ var Request = {
 };
 
 module.exports = Request;
-},{"request":603}],596:[function(require,module,exports) {
+},{"request":121}],61:[function(require,module,exports) {
 'use strict';
 
 var _slicedToArray2 = require('babel-runtime/helpers/slicedToArray');
@@ -122017,7 +116472,7 @@ var Users = {
 };
 
 module.exports = Users;
-},{"babel-runtime/helpers/slicedToArray":92,"lodash":8}],597:[function(require,module,exports) {
+},{"babel-runtime/helpers/slicedToArray":92,"lodash":8}],62:[function(require,module,exports) {
 var _ = require('lodash');
 
 var Array = {
@@ -122046,11 +116501,11 @@ var Array = {
 };
 
 module.exports = Array;
-},{"lodash":8}],598:[function(require,module,exports) {
+},{"lodash":8}],63:[function(require,module,exports) {
 var _ = require('lodash');
 
 module.exports = _;
-},{"lodash":8}],599:[function(require,module,exports) {
+},{"lodash":8}],64:[function(require,module,exports) {
 var LANG_NAMES = {
     fr_FR: ['Français', 'French'],
     en_EN: ['English', 'English']
@@ -122072,7 +116527,7 @@ var Lang = {
 };
 
 module.exports = Lang;
-},{}],600:[function(require,module,exports) {
+},{}],65:[function(require,module,exports) {
 var Utils = {
     uniqid: function uniqid() {
         return new Date().valueOf().toString(36) + Math.random().toString(36).substr(2);
@@ -122080,7 +116535,7 @@ var Utils = {
 };
 
 module.exports = Utils;
-},{}],601:[function(require,module,exports) {
+},{}],66:[function(require,module,exports) {
 var Interpreter = require('../interpreter');
 
 var Eval = {
@@ -122105,7 +116560,7 @@ var Eval = {
 };
 
 module.exports = Eval;
-},{"../interpreter":4}],604:[function(require,module,exports) {
+},{"../interpreter":4}],122:[function(require,module,exports) {
 var define;
 var global = arguments[3];
 //! moment.js
@@ -126644,7 +121099,7 @@ return hooks;
 
 })));
 
-},{}],602:[function(require,module,exports) {
+},{}],67:[function(require,module,exports) {
 var moment = require('moment');
 
 var DateFormat = {
@@ -126660,7 +121115,7 @@ var DateFormat = {
 };
 
 module.exports = DateFormat;
-},{"moment":604}],44:[function(require,module,exports) {
+},{"moment":122}],44:[function(require,module,exports) {
 var Request = require('./request');
 var Users = require('./users');
 var Array = require('./array');
@@ -126671,7 +121126,7 @@ var Eval = require('./eval');
 var DateFormat = require('./date-format');
 
 module.exports = { Request: Request, Users: Users, Array: Array, String: String, Lang: Lang, Utils: Utils, Eval: Eval, DateFormat: DateFormat };
-},{"./request":595,"./users":596,"./array":597,"./string":598,"./lang":599,"./utils":600,"./eval":601,"./date-format":602}],149:[function(require,module,exports) {
+},{"./request":60,"./users":61,"./array":62,"./string":63,"./lang":64,"./utils":65,"./eval":66,"./date-format":67}],158:[function(require,module,exports) {
 'use strict';
 
 var _funcs;
@@ -126705,7 +121160,7 @@ var Logger = function Logger(lvl) {
 };
 
 module.exports = { Logger: Logger, DEBUG: DEBUG, INFO: INFO, WARN: WARN, ERROR: ERROR };
-},{}],209:[function(require,module,exports) {
+},{}],212:[function(require,module,exports) {
 'use strict';
 
 module.exports = {
@@ -127176,7 +121631,7 @@ module.exports = {
   self.fetch.polyfill = true
 })(typeof self !== 'undefined' ? self : this);
 
-},{}],244:[function(require,module,exports) {
+},{}],245:[function(require,module,exports) {
 // the whatwg-fetch polyfill installs the fetch() function
 // on the global object (window or self)
 //
@@ -127184,7 +121639,7 @@ module.exports = {
 require('whatwg-fetch');
 module.exports = self.fetch.bind(self);
 
-},{"whatwg-fetch":316}],150:[function(require,module,exports) {
+},{"whatwg-fetch":316}],159:[function(require,module,exports) {
 'use strict';
 
 var _typeof2 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -127493,7 +121948,7 @@ var clone = function clone(obj) {
 };
 
 module.exports = Wit;
-},{"./config":209,"isomorphic-fetch":244,"./log":149}],207:[function(require,module,exports) {
+},{"./config":212,"isomorphic-fetch":245,"./log":158}],207:[function(require,module,exports) {
 var global = arguments[3];
 // Unique ID creation requires a high quality random # generator.  In the
 // browser this is a little complicated due to unknown quality of Math.random()
@@ -127554,7 +122009,7 @@ function bytesToUuid(buf, offset) {
 
 module.exports = bytesToUuid;
 
-},{}],153:[function(require,module,exports) {
+},{}],162:[function(require,module,exports) {
 // Unique ID creation requires a high quality random # generator.  We feature
 // detect to determine the best RNG source, normalizing to a function that
 // returns 128-bits of randomness, since that's what's usually required
@@ -127659,7 +122114,7 @@ function v1(options, buf, offset) {
 
 module.exports = v1;
 
-},{"./lib/rng":207,"./lib/bytesToUuid":208}],154:[function(require,module,exports) {
+},{"./lib/rng":207,"./lib/bytesToUuid":208}],163:[function(require,module,exports) {
 var rng = require('./lib/rng');
 var bytesToUuid = require('./lib/bytesToUuid');
 
@@ -127700,7 +122155,7 @@ uuid.v4 = v4;
 
 module.exports = uuid;
 
-},{"./v1":153,"./v4":154}],151:[function(require,module,exports) {
+},{"./v1":162,"./v4":163}],160:[function(require,module,exports) {
 var process = require("process");
 'use strict';
 
@@ -127747,7 +122202,7 @@ module.exports = function (wit, initContext, maxSteps) {
     });
   });
 };
-},{"./config":209,"./log.js":149,"readline":24,"uuid":125,"process":17}],121:[function(require,module,exports) {
+},{"./config":212,"./log.js":158,"readline":24,"uuid":125,"process":17}],123:[function(require,module,exports) {
 'use strict';
 
 module.exports = {
@@ -127755,7 +122210,7 @@ module.exports = {
   Wit: require('./lib/wit'),
   interactive: require('./lib/interactive')
 };
-},{"./lib/log":149,"./lib/wit":150,"./lib/interactive":151}],60:[function(require,module,exports) {
+},{"./lib/log":158,"./lib/wit":159,"./lib/interactive":160}],68:[function(require,module,exports) {
 var _require = require('node-wit'),
     Wit = _require.Wit,
     log = _require.log;
@@ -127766,7 +122221,7 @@ module.exports = function (config, input, nlp) {
         return console.log(err);
     });
 };
-},{"node-wit":121}],258:[function(require,module,exports) {
+},{"node-wit":123}],260:[function(require,module,exports) {
 /*!
  * apiai
  * Copyright(c) 2015 http://api.ai/
@@ -127871,7 +122326,7 @@ function ServerError (statusCode, responseBody, message) {
     ServerError.super_.apply(this, []);
 }
 
-},{"util":223}],256:[function(require,module,exports) {
+},{"util":223}],258:[function(require,module,exports) {
 /*!
  * apiai
  * Copyright(c) 2015 http://api.ai/
@@ -127925,7 +122380,7 @@ JSONApiRequest.prototype._handleResponse = function(response) {
     });
 };
 
-},{"./request":258,"util":223,"./exceptions":321}],210:[function(require,module,exports) {
+},{"./request":260,"util":223,"./exceptions":321}],213:[function(require,module,exports) {
 /*!
  * apiai
  * Copyright(c) 2015 http://api.ai/
@@ -127974,7 +122429,7 @@ ContextsRequest.prototype.end = function() {
 
     ContextsRequest.super_.prototype.end.apply(this, arguments);
 };
-},{"./json_api_request":256,"util":223}],211:[function(require,module,exports) {
+},{"./json_api_request":258,"util":223}],214:[function(require,module,exports) {
 /*!
  * apiai
  * Copyright(c) 2015 http://api.ai/
@@ -128015,7 +122470,7 @@ DeleteContextsRequest.prototype._requestOptions = function() {
     return request_options;
 };
 
-},{"./json_api_request":256,"util":223}],257:[function(require,module,exports) {
+},{"./json_api_request":258,"util":223}],259:[function(require,module,exports) {
 /*!
  * apiai
  * Copyright(c) 2015 http://api.ai/
@@ -128127,7 +122582,7 @@ QueryRequest.prototype._jsonRequestParameters = function() {
     return json;
 };
 
-},{"./json_api_request":256,"util":223}],212:[function(require,module,exports) {
+},{"./json_api_request":258,"util":223}],215:[function(require,module,exports) {
 /*!
  * apiai
  * Copyright(c) 2015 http://api.ai/
@@ -128176,7 +122631,7 @@ TextRequest.prototype.end = function() {
     TextRequest.super_.prototype.end.apply(this, arguments);
 };
 
-},{"./query_request":257,"util":223}],213:[function(require,module,exports) {
+},{"./query_request":259,"util":223}],216:[function(require,module,exports) {
 /*!
  * apiai
  * Copyright(c) 2015 http://api.ai/
@@ -128225,7 +122680,7 @@ EventRequest.prototype.end = function() {
     EventRequest.super_.prototype.end.apply(this, arguments);
 };
 
-},{"./query_request":257,"util":223}],214:[function(require,module,exports) {
+},{"./query_request":259,"util":223}],217:[function(require,module,exports) {
 /*!
  * apiai
  * Copyright(c) 2015 http://api.ai/
@@ -128293,7 +122748,7 @@ VoiceRequest.prototype.end = function() {
     VoiceRequest.super_.prototype.end.apply(this, arguments);
 };
 
-},{"./query_request":257,"util":223}],215:[function(require,module,exports) {
+},{"./query_request":259,"util":223}],218:[function(require,module,exports) {
 /*!
  * apiai
  * Copyright(c) 2015 http://api.ai/
@@ -128354,7 +122809,7 @@ UserEntitiesRequest.prototype.end = function() {
     UserEntitiesRequest.super_.prototype.end.apply(this, arguments);
 };
 
-},{"./json_api_request":256,"util":223}],216:[function(require,module,exports) {
+},{"./json_api_request":258,"util":223}],219:[function(require,module,exports) {
 /*!
  * apiai
  * Copyright(c) 2015 http://api.ai/
@@ -128411,7 +122866,7 @@ TTSRequest.prototype._handleResponse = function(response) {
 };
 
 
-},{"./request":258,"util":223}],152:[function(require,module,exports) {
+},{"./request":260,"util":223}],161:[function(require,module,exports) {
 /*!
  * apiai
  * Copyright(c) 2015 http://api.ai/
@@ -128648,7 +123103,7 @@ Application.prototype.ttsRequest = function(text, options) {
     return new TTSRequest(self, text, opt);
 };
 
-},{"https":221,"http":220,"./contexts_request":210,"./delete_contexts_request":211,"./text_request":212,"./event_request":213,"./voice_request":214,"./user_entities_request":215,"./tts_request":216}],122:[function(require,module,exports) {
+},{"https":221,"http":220,"./contexts_request":213,"./delete_contexts_request":214,"./text_request":215,"./event_request":216,"./voice_request":217,"./user_entities_request":218,"./tts_request":219}],124:[function(require,module,exports) {
 /*!
  * apiai
  * Copyright(c) 2015 http://api.ai/
@@ -128658,7 +123113,7 @@ Application.prototype.ttsRequest = function(text, options) {
 'use strict';
 
 module.exports = require("./module/apiai");
-},{"./module/apiai":152}],61:[function(require,module,exports) {
+},{"./module/apiai":161}],69:[function(require,module,exports) {
 var apiai = require('apiai');
 var uuid = require('uuid');
 
@@ -128675,7 +123130,7 @@ module.exports = function (config, input, userId, nlp) {
         request.end();
     });
 };
-},{"apiai":122,"uuid":125}],45:[function(require,module,exports) {
+},{"apiai":124,"uuid":125}],45:[function(require,module,exports) {
 'use strict';
 
 var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
@@ -128771,7 +123226,7 @@ var Nlp = function () {
 }();
 
 module.exports = Nlp;
-},{"babel-runtime/helpers/classCallCheck":12,"babel-runtime/helpers/createClass":13,"lodash":8,"./wit.ai":60,"./api.ai":61}],2:[function(require,module,exports) {
+},{"babel-runtime/helpers/classCallCheck":12,"babel-runtime/helpers/createClass":13,"lodash":8,"./wit.ai":68,"./api.ai":69}],2:[function(require,module,exports) {
 var __dirname = "/home/samuel/www/newbot.io/conversescript/src";
 'use strict';
 
@@ -128872,6 +123327,7 @@ var Converse = function () {
                             case 6:
                                 this._transpiler = new Transpiler(this.script);
                                 this._obj = this._transpiler.run();
+                                //console.log(JSON.stringify(this._obj, null, 2))
                                 this._interpreter = new Interpreter(this._obj, this.users, this);
                                 return _context.abrupt('return', this);
 
@@ -129336,7 +123792,14 @@ var Converse = function () {
                     while (1) {
                         switch (_context4.prev = _context4.next) {
                             case 0:
-                                _context4.next = 2;
+                                config = void 0;
+
+                                if (!(typeof window == 'undefined')) {
+                                    _context4.next = 5;
+                                    break;
+                                }
+
+                                _context4.next = 4;
                                 return new Promise(function () {
                                     var _ref5 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee3(resolve, reject) {
                                         var data;
@@ -129387,15 +123850,16 @@ var Converse = function () {
                                     };
                                 }());
 
-                            case 2:
+                            case 4:
                                 config = _context4.sent;
 
+                            case 5:
                                 if (config && config.converse && config.converse.dependencies) {
                                     this.setSkills(config.converse.dependencies);
                                     if (done) done();
                                 }
 
-                            case 4:
+                            case 6:
                             case 'end':
                                 return _context4.stop();
                         }
@@ -129501,7 +123965,7 @@ var _converse2 = _interopRequireDefault(_converse);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 window.Converse = _converse2.default;
-},{"./src/converse":2}],593:[function(require,module,exports) {
+},{"./src/converse":2}],595:[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 
@@ -129530,7 +123994,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '39122' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '33355' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
@@ -129671,5 +124135,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},[593,1], null)
+},{}]},{},[595,1], null)
 //# sourceMappingURL=/converse.map

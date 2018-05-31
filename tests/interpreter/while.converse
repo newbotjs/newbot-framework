@@ -1,6 +1,5 @@
 @Event('start')
 start() {
-    
     val = 0
 
     while (val < 3) {

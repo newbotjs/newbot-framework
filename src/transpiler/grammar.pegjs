@@ -160,7 +160,7 @@ RightAssign
     }
 
 Value =  
-    StringBackQuote / String / ExecuteFunction / Null / Array / obj:Object { 
+    RegExp / StringBackQuote / String / ExecuteFunction / Null / Array / obj:Object { 
         // Clean __deepIndex
         const index = obj[DEEP_NAME]
         if (!index) return obj
@@ -431,6 +431,11 @@ StringBackQuote 'string not parsed'
       return t.join('')
   }
 
+RegExp 'Regular Expression'
+    = Slash _  regexp: NotSlash* _ Slash flags:[gimuy]* {
+        return { regexp: regexp.join(''), flags }
+    }
+
 Boolean = bool:('true' / 'false') { 
     return bool == 'true' ? true : false
 }
@@ -461,6 +466,9 @@ NotQuote
   = !Quote char:(VariableString / .) { return char }
 
 Quote = [']
+
+Slash = [/]
+NotSlash = !Slash char:(.) { return char }
 
 BackQuote = '`'
 

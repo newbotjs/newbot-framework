@@ -4,7 +4,7 @@ const User = require('./user')
 const md5 = require('md5')
 const evaluate = require('static-eval')
 const { parse } = require('esprima')
-const async = require('async')
+const async = require('./utils/async')
 const asyncReplace = require('async-replace')
 
 const Decorators = require('./decorators/decorators')
@@ -387,16 +387,13 @@ class Execution {
         return new Promise(async (resolve, reject) => {
             let scope = this.getScope(level)
             let value = obj
+            console.log(value)
             if (value === null) {
                 return resolve(value)
             }
-            if (_.isArray(obj)) {
-                async.map(obj, async val => {
-                    return await this.getValue(val, level)
-                }, (err, value) => {
-                    if (err) return reject(err)
-                    resolve(value)
-                })
+            if (_.isArray(value)) {
+                value = await async.map(obj, val => this.getValue(val, level))
+                resolve(value)
                 return
             }
             if (obj.expression) {
@@ -582,14 +579,10 @@ class Execution {
     }
 
     execParams(params, level, done) {
-        return new Promise((resolve, reject) => {
-            async.map(params, async val => {
-                return await this.getValue(val, level, done)
-            }, (err, result) => {
-                if (err) return reject(err)
-                resolve(result)
-            })
-        })
+        if (!params) {
+            return Promise.resolve([])
+        }
+        return async.map(params, val => this.getValue(val, level, done))
     }
 
     async execApiFn(ins, level, done, more) {

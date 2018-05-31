@@ -19,6 +19,12 @@ class IntentEvent extends Decorator {
             }
             const intentName = this.params[0]
             const intent = intents[intentName]
+            if (intentName.regexp) {
+                const regexp = new RegExp(intentName.regexp, intentName.flags.join(''))
+                if (regexp.test(execution.input)) {
+                    return resolve(true)
+                }
+            }
             if (intent) {
                 execution.setMagicVar(`intent`, intent)
                 return resolve(true)

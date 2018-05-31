@@ -11,15 +11,7 @@
 
 <script>
     const converse = new Converse()
-    converse.code(`
-        @Event('start')
-        start() {
-            > Welcome ! what's your name ?
-            Prompt()
-            > Nice to meet you, {:text}
-        }
-    `)
-    
+    converse.file('index.converse')
 
     var app = new Vue({
         el: '#app',

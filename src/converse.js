@@ -54,6 +54,7 @@ class Converse {
         }
         this._transpiler = new Transpiler(this.script)
         this._obj = this._transpiler.run()
+        //console.log(JSON.stringify(this._obj, null, 2))
         this._interpreter = new Interpreter(this._obj, this.users, this)
         return this
     }
@@ -349,18 +350,21 @@ class Converse {
     }
 
     async openSkills(done) {
-        const config = await new Promise(async (resolve, reject) => {
-            try {
-                const data = await fs.readFile(`${this.parentPath}/package.json`, { encoding: 'utf-8' })
-                resolve(JSON.parse(data))
-            }
-            catch (err) {
-                if (err) {
-                    if (err.code == 'ENOENT') return resolve()
-                    return reject(err)
+        let config
+        if (typeof window == 'undefined') {
+            config = await new Promise(async (resolve, reject) => {
+                try {
+                    const data = await fs.readFile(`${this.parentPath}/package.json`, { encoding: 'utf-8' })
+                    resolve(JSON.parse(data))
                 }
-            }
-        })
+                catch (err) {
+                    if (err) {
+                        if (err.code == 'ENOENT') return resolve()
+                        return reject(err)
+                    }
+                }
+            })
+        }
         if (config && config.converse && config.converse.dependencies) {
             this.setSkills(config.converse.dependencies)
             if (done) done()

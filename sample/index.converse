@@ -1,7 +1,4 @@
 @Intent(/hello/)
 hello() {
-    --- 
-    > Salut !
-    > Bonjour
-    ---
+    a = /a/
 }

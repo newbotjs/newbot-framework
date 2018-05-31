@@ -14,7 +14,10 @@ describe('RegExp Test', () => {
         code(`
             @Intent(/hello/)
             intent() {
-                > Hello
+                a = {
+                    b: /a/
+                }
+                if (a.b.test('a')) > Hello
             }
         `)
         user

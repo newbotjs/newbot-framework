@@ -315,7 +315,20 @@ class Execution {
                     execFn(skill._interpreter.execution, ins, true)
                 }
                 else {
-                    this.error.throw(ins, 'function.not.defined')
+                    const deep = ins.deep.slice(0, -1)
+                    const val = await this.getValue({
+                        variable: ins.name,
+                        deep,
+                        type: 'object'
+                    }, level)
+                    const fnName = _.last(ins.deep)
+                    const jsFn = val[fnName]
+                    if (jsFn) {
+                        resolve(jsFn.apply(val, ins.params))
+                    }
+                    else {
+                        this.error.throw(ins, 'function.not.defined')
+                    }     
                 }
             }
 
@@ -387,16 +400,16 @@ class Execution {
         return new Promise(async (resolve, reject) => {
             let scope = this.getScope(level)
             let value = obj
-            console.log(value)
             if (value === null) {
                 return resolve(value)
             }
-            if (_.isArray(value)) {
-                value = await async.map(obj, val => this.getValue(val, level))
-                resolve(value)
-                return
+            if (obj.regexp) {
+                value = new RegExp(obj.regexp, obj.flags.join(''))
             }
-            if (obj.expression) {
+            else if (_.isArray(obj)) {
+                value = await async.map(obj, val => this.getValue(val, level))
+            }
+            else if (obj.expression) {
                 value = await this.execExpression(obj.expression, obj.variables, level)
             }
             else if (obj.variable) {

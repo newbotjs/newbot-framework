@@ -47073,7 +47073,7 @@ var Execution = function () {
 
             return new Promise(function () {
                 var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee3(resolve, reject) {
-                    var _ins$name, variable, type, deep, execFn, skill;
+                    var _ins$name, variable, type, deep, execFn, skill, _deep, val, fnName, jsFn;
 
                     return _regenerator2.default.wrap(function _callee3$(_context3) {
                         while (1) {
@@ -47180,19 +47180,45 @@ var Execution = function () {
                                         return false;
                                     };
 
-                                    if (!execFn(_this4, ins)) {
-                                        skill = _this4.converse.skills().get(ins.name);
-
-                                        if (skill) {
-                                            ins.name = ins.deep[0];
-                                            ins.deep.splice(0, 1);
-                                            execFn(skill._interpreter.execution, ins, true);
-                                        } else {
-                                            _this4.error.throw(ins, 'function.not.defined');
-                                        }
+                                    if (execFn(_this4, ins)) {
+                                        _context3.next = 17;
+                                        break;
                                     }
 
-                                case 3:
+                                    skill = _this4.converse.skills().get(ins.name);
+
+                                    if (!skill) {
+                                        _context3.next = 10;
+                                        break;
+                                    }
+
+                                    ins.name = ins.deep[0];
+                                    ins.deep.splice(0, 1);
+                                    execFn(skill._interpreter.execution, ins, true);
+                                    _context3.next = 17;
+                                    break;
+
+                                case 10:
+                                    _deep = ins.deep.slice(0, -1);
+                                    _context3.next = 13;
+                                    return _this4.getValue({
+                                        variable: ins.name,
+                                        deep: _deep,
+                                        type: 'object'
+                                    }, level);
+
+                                case 13:
+                                    val = _context3.sent;
+                                    fnName = _.last(ins.deep);
+                                    jsFn = val[fnName];
+
+                                    if (jsFn) {
+                                        resolve(jsFn.apply(val, ins.params));
+                                    } else {
+                                        _this4.error.throw(ins, 'function.not.defined');
+                                    }
+
+                                case 17:
                                 case 'end':
                                     return _context3.stop();
                             }
@@ -47310,81 +47336,88 @@ var Execution = function () {
                                     scope = _this5.getScope(level);
                                     value = obj;
 
-                                    console.log(value);
-
                                     if (!(value === null)) {
-                                        _context6.next = 5;
+                                        _context6.next = 4;
                                         break;
                                     }
 
                                     return _context6.abrupt('return', resolve(value));
 
-                                case 5:
-                                    if (!_.isArray(value)) {
-                                        _context6.next = 11;
+                                case 4:
+                                    if (!obj.regexp) {
+                                        _context6.next = 8;
                                         break;
                                     }
 
-                                    _context6.next = 8;
+                                    value = new RegExp(obj.regexp, obj.flags.join(''));
+                                    _context6.next = 72;
+                                    break;
+
+                                case 8:
+                                    if (!_.isArray(obj)) {
+                                        _context6.next = 14;
+                                        break;
+                                    }
+
+                                    _context6.next = 11;
                                     return async.map(obj, function (val) {
                                         return _this5.getValue(val, level);
                                     });
 
-                                case 8:
-                                    value = _context6.sent;
-
-                                    resolve(value);
-                                    return _context6.abrupt('return');
-
                                 case 11:
+                                    value = _context6.sent;
+                                    _context6.next = 72;
+                                    break;
+
+                                case 14:
                                     if (!obj.expression) {
-                                        _context6.next = 17;
+                                        _context6.next = 20;
                                         break;
                                     }
 
-                                    _context6.next = 14;
+                                    _context6.next = 17;
                                     return _this5.execExpression(obj.expression, obj.variables, level);
 
-                                case 14:
+                                case 17:
                                     value = _context6.sent;
-                                    _context6.next = 69;
+                                    _context6.next = 72;
                                     break;
 
-                                case 17:
+                                case 20:
                                     if (!obj.variable) {
-                                        _context6.next = 28;
+                                        _context6.next = 31;
                                         break;
                                     }
 
                                     if (!/^:/.test(obj.variable)) {
-                                        _context6.next = 23;
+                                        _context6.next = 26;
                                         break;
                                     }
 
                                     name = value.variable;
 
                                     value = _this5.getMagicVar(name, value, level);
-                                    _context6.next = 26;
+                                    _context6.next = 29;
                                     break;
-
-                                case 23:
-                                    _context6.next = 25;
-                                    return _this5.getVariable(obj, level);
-
-                                case 25:
-                                    value = _context6.sent;
 
                                 case 26:
-                                    _context6.next = 69;
-                                    break;
+                                    _context6.next = 28;
+                                    return _this5.getVariable(obj, level);
 
                                 case 28:
+                                    value = _context6.sent;
+
+                                case 29:
+                                    _context6.next = 72;
+                                    break;
+
+                                case 31:
                                     if (!(obj.text && !obj.__deepIndex)) {
-                                        _context6.next = 34;
+                                        _context6.next = 37;
                                         break;
                                     }
 
-                                    _context6.next = 31;
+                                    _context6.next = 34;
                                     return new Promise(function (resolve, reject) {
                                         asyncReplace(obj.text, /\{([^\}]+)\}/g, function () {
                                             var _ref6 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee5(match, sub, offset, string, done) {
@@ -47416,113 +47449,113 @@ var Execution = function () {
                                         });
                                     });
 
-                                case 31:
+                                case 34:
                                     value = _context6.sent;
-                                    _context6.next = 69;
+                                    _context6.next = 72;
                                     break;
 
-                                case 34:
+                                case 37:
                                     if (!(obj.type == 'executeFn')) {
-                                        _context6.next = 40;
+                                        _context6.next = 43;
                                         break;
                                     }
 
-                                    _context6.next = 37;
+                                    _context6.next = 40;
                                     return _this5.findFunctionAndExec(obj, level);
 
-                                case 37:
+                                case 40:
                                     value = _context6.sent;
-                                    _context6.next = 69;
+                                    _context6.next = 72;
                                     break;
 
-                                case 40:
+                                case 43:
                                     if (!value.__deepIndex) {
-                                        _context6.next = 69;
+                                        _context6.next = 72;
                                         break;
                                     }
 
                                     _iteratorNormalCompletion = true;
                                     _didIteratorError = false;
                                     _iteratorError = undefined;
-                                    _context6.prev = 44;
+                                    _context6.prev = 47;
                                     _iterator = value.__deepIndex[Symbol.iterator]();
 
-                                case 46:
+                                case 49:
                                     if (_iteratorNormalCompletion = (_step = _iterator.next()).done) {
-                                        _context6.next = 55;
+                                        _context6.next = 58;
                                         break;
                                     }
 
                                     address = _step.value;
-                                    _context6.next = 50;
+                                    _context6.next = 53;
                                     return _this5.getValue(_.get(value, address), level, next);
 
-                                case 50:
+                                case 53:
                                     valueObj = _context6.sent;
 
                                     _.set(value, address, valueObj);
 
-                                case 52:
-                                    _iteratorNormalCompletion = true;
-                                    _context6.next = 46;
-                                    break;
-
                                 case 55:
-                                    _context6.next = 61;
+                                    _iteratorNormalCompletion = true;
+                                    _context6.next = 49;
                                     break;
 
-                                case 57:
-                                    _context6.prev = 57;
-                                    _context6.t0 = _context6['catch'](44);
+                                case 58:
+                                    _context6.next = 64;
+                                    break;
+
+                                case 60:
+                                    _context6.prev = 60;
+                                    _context6.t0 = _context6['catch'](47);
                                     _didIteratorError = true;
                                     _iteratorError = _context6.t0;
 
-                                case 61:
-                                    _context6.prev = 61;
-                                    _context6.prev = 62;
+                                case 64:
+                                    _context6.prev = 64;
+                                    _context6.prev = 65;
 
                                     if (!_iteratorNormalCompletion && _iterator.return) {
                                         _iterator.return();
                                     }
 
-                                case 64:
-                                    _context6.prev = 64;
+                                case 67:
+                                    _context6.prev = 67;
 
                                     if (!_didIteratorError) {
-                                        _context6.next = 67;
+                                        _context6.next = 70;
                                         break;
                                     }
 
                                     throw _iteratorError;
 
-                                case 67:
+                                case 70:
+                                    return _context6.finish(67);
+
+                                case 71:
                                     return _context6.finish(64);
 
-                                case 68:
-                                    return _context6.finish(61);
-
-                                case 69:
+                                case 72:
                                     if (!(_.isString(value) && value[0] === '#')) {
-                                        _context6.next = 73;
+                                        _context6.next = 76;
                                         break;
                                     }
 
-                                    _context6.next = 72;
+                                    _context6.next = 75;
                                     return _this5.translate(value.substr(1), level);
 
-                                case 72:
+                                case 75:
                                     value = _context6.sent;
 
-                                case 73:
+                                case 76:
 
                                     resolve(value);
 
-                                case 74:
+                                case 77:
                                 case 'end':
                                     return _context6.stop();
                             }
                         }
-                    }, _callee6, _this5, [[44, 57, 61, 69], [62,, 64, 68]]);
+                    }, _callee6, _this5, [[47, 60, 64, 72], [65,, 67, 71]]);
                 }));
 
                 return function (_x12, _x13) {

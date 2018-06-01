@@ -3,6 +3,7 @@
   "plugins": [
     [
       "transform-runtime",
+      "dynamic-import-node",
       {
         "polyfill": false,
         "regenerator": true

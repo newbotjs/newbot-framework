@@ -1,4 +1,4 @@
-@Intent(/hello/)
+@Event('start')
 hello() {
-    a = /a/
+    > hello
 }

@@ -10,24 +10,42 @@
 </div>
 
 <script>
-    const converse = new Converse()
-    converse.file('index.converse')
+    (async function () {
+        const converse = new Converse()
+        converse.file('index.converse')
 
-    var app = new Vue({
-        el: '#app',
-        data: {
-            messages: [],
-            msg: ''
-        },
-        methods: {
-            send() {
-                this.messages.push(this.msg)
-                converse.exec(this.msg, 'user id', (output, done) => {
-                    this.messages.push(output)
-                    done()
-                })
-                this.msg = ''
+        converse.configure({
+            languages: {
+                path: './languages',
+                packages: ['fr_FR']
             }
-        }
-    })
+        }).loadLanguage()
+
+        await converse.setSkills({
+            hey: 'skills/hey/hey'
+        })
+
+        converse.exec('hello', (output, done) => {
+            console.log(output) // display Hey !
+            done()
+        })
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                messages: [],
+                msg: ''
+            },
+            methods: {
+                send() {
+                    this.messages.push(this.msg)
+                    converse.exec(this.msg, 'user id', (output, done) => {
+                        this.messages.push(output)
+                        done()
+                    })
+                    this.msg = ''
+                }
+            }
+        })
+    })()
 </script>

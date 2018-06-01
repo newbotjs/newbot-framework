@@ -1,0 +1,4 @@
+@Intent(/hello/i)
+hey() {
+    > Hey !
+}

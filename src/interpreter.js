@@ -316,11 +316,14 @@ class Execution {
                 }
                 else {
                     const deep = ins.deep.slice(0, -1)
-                    const val = await this.getValue({
+                    const params = {
                         variable: ins.name,
-                        deep,
-                        type: 'object'
-                    }, level)
+                        deep
+                    }
+                    if (ins.deep.length > 1) {
+                        params.type = 'object'
+                    }
+                    const val = await this.getValue(params, level)
                     const fnName = _.last(ins.deep)
                     const jsFn = val[fnName]
                     if (jsFn) {

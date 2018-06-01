@@ -1,4 +1,3 @@
-const fs = require('./utils/fs')
 const _ = require('lodash')
 const path = require('path')
 const Languages = require('languages-js')
@@ -9,6 +8,9 @@ const Transpiler = require('./transpiler/lexer')
 const Interpreter = require('./interpreter')
 const Functions = require('./api')
 const Nlp = require('./nlp')
+
+const fs = require('./utils/fs')
+const Browser = require('./utils/browser')
 
 class Converse {
 
@@ -61,7 +63,18 @@ class Converse {
 
     exec(input, userId, output, propagate = {}) {
         return new Promise(async (resolve, reject) => {
+            
             await this.open()
+
+            if (!output) {
+                if (Browser.is()) {
+                    output = userId
+                    userId = 'conversescript-user'
+                }
+                else {
+                    throw 'On NodeJS, you must give an identifier to the user. `.exec(input, userId, output)`'
+                }
+            }
 
             if (!_.isObjectLike(input)) {
                 input = { text: input }
@@ -374,12 +387,22 @@ class Converse {
     async skill(skillName, skillPath = skillName) {
         let _path = skillPath.skill || skillPath
         let dir = _path
+        let skill
         if (!/\//.test(_path)) {
             dir = this.config.pathSkills || 'converse_skills'
             dir += `/${_path}`
         }
-        let skill = require(`${this.parentPath}/${dir}`)
-        if (skillPath.skill) {
+
+        if (Browser.is()) {
+            SystemJS.set('conversescript', SystemJS.newModule({ Converse }))
+            if (!dir.endsWith('.js')) dir += '.js'
+            skill = await SystemJS.import(dir)
+        }
+        else {
+            skill = require(`${this.parentPath}/${dir}`)
+        }
+
+        if (_.isFunction(skill)) {
             skill = skill(skillPath.params)
             if (skill.then) {
                 skill = await skill
@@ -391,9 +414,9 @@ class Converse {
         return this
     }
 
-    setSkills(obj) {
+    async setSkills(obj) {
         for (let name in obj) {
-            this.skill(name, obj[name])
+           await this.skill(name, obj[name])
         }
         return this
     }

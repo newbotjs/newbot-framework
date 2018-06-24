@@ -1,4 +1,4 @@
 @Event('start')
 hello() {
-    > hello
+    > { hey.hello() }
 }

@@ -14,7 +14,7 @@ const Browser = require('./utils/browser')
 
 class Converse {
 
-    constructor(done) {
+    constructor(options = {}) {
         this._nlp = {}
         this.config = {}
         this._format = {}
@@ -28,7 +28,46 @@ class Converse {
         this._functions = Functions
         this.lang = Languages.instance()
         this.parentPath = this._findParentPath()
-        this.openSkills(done)
+        this.openSkills(options.done)
+        if (_.isString(options)) {
+            options = {
+                file: options
+            }
+        }
+        if (options.file) {
+            this.loadOptions(options)
+        }
+    }
+
+    loadOptions(options) {
+        if (options.file) {
+            this.file(options.file)
+        }
+        if (options.code) {
+            this.code(options.code)
+        }
+        if (options.skills) {
+            this.setSkills(options.skills)
+        }
+        if (options.languages) {
+            this.configure({
+                languages: options.languages
+            })
+        }
+        if (options.nlp) {
+            for (let key in options.nlp) {
+                this.nlp(key, options.nlp[key])
+            }
+        }
+        if (options.functions) {
+            this.functions(options.functions)
+        }
+        if (options.formats) {
+            for (let key in options.formats) {
+                this.format(key, options.formats[key])
+            }
+        }
+        this.load()
     }
 
     get users() {
@@ -36,7 +75,7 @@ class Converse {
     }
 
     configure(config) {
-        this.config = config
+        this.config = _.merge(this.config, config)
         return this
     }
 
@@ -364,7 +403,7 @@ class Converse {
 
     async openSkills(done) {
         let config
-        if (typeof window == 'undefined') {
+        if (!Browser.is()) {
             config = await new Promise(async (resolve, reject) => {
                 try {
                     const data = await fs.readFile(`${this.parentPath}/package.json`, { encoding: 'utf-8' })
@@ -388,26 +427,37 @@ class Converse {
         let _path = skillPath.skill || skillPath
         let dir = _path
         let skill
-        if (!/\//.test(_path)) {
-            dir = this.config.pathSkills || 'converse_skills'
-            dir += `/${_path}`
-        }
 
-        if (Browser.is()) {
-            SystemJS.set('conversescript', SystemJS.newModule({ Converse }))
-            if (!dir.endsWith('.js')) dir += '.js'
-            skill = await SystemJS.import(dir)
+        if (_.isString(_path)) {
+            if (!/\//.test(_path)) {
+                dir = this.config.pathSkills || 'converse_skills'
+                dir += `/${_path}`
+            }
+
+            if (Browser.is()) {
+                SystemJS.set('conversescript', SystemJS.newModule({ Converse }))
+                if (!dir.endsWith('.js')) dir += '.js'
+                skill = await SystemJS.import(dir)
+            }
+            else {
+                skill = require(`${this.parentPath}/${dir}`)
+            }
         }
         else {
-            skill = require(`${this.parentPath}/${dir}`)
+           skill = _path
         }
-
+        
         if (_.isFunction(skill)) {
             skill = skill(skillPath.params)
             if (skill.then) {
                 skill = await skill
             }
         }
+
+        if (_.isPlainObject(skill)) {
+            skill = new Converse(skill)
+        }
+
         skill.namespace = (this.namespace ? this.namespace + '-' : '') + skillName
         skill.parent = this
         this._skills.set(skillName, skill)

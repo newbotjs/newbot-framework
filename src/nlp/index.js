@@ -8,7 +8,7 @@ class Nlp {
         this.name = name
         this.converse = converse
         this.options = options
-        this.priority = this.options.priority
+        this.priority = this.options.priority ? this.options.priority : 0
         this.intents = {}
     }
 

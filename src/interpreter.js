@@ -312,7 +312,10 @@ class Execution {
                 if (skill) {
                     ins.name = ins.deep[0]
                     ins.deep.splice(0, 1)
-                    execFn(skill._interpreter.execution, ins, true)
+                    const hasExecChildFn = execFn(skill._interpreter.execution, ins, true)
+                    if (!hasExecChildFn) {
+                        this.error.throw(ins, 'function.not.defined')
+                    }
                 }
                 else {
                     const deep = ins.deep.slice(0, -1)

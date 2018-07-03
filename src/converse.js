@@ -27,14 +27,13 @@ class Converse {
         this.namespace = 'default'
         this._functions = Functions
         this.lang = Languages.instance()
-        this.parentPath = this._findParentPath()
-        this.openSkills(options.done)
+        this.parentPath = options._parentPath || this._findParentPath()
         if (_.isString(options)) {
             options = {
                 file: options
             }
         }
-        if (options.file) {
+        if (options.file || options.code) {
             this.loadOptions(options)
         }
     }
@@ -102,7 +101,7 @@ class Converse {
 
     exec(input, userId, output, propagate = {}) {
         return new Promise(async (resolve, reject) => {
-            
+
             await this.open()
 
             if (!output) {
@@ -182,12 +181,9 @@ class Converse {
     }
 
     execNlp(input, userId) {
-        const promises = []
         input.intents = {}
         let p = Promise.resolve()
-        let nlpArray = Object.keys(this._nlp).map(name => {
-            return this._nlp[name]
-        })
+        let nlpArray = Object.keys(this._nlp).map(name => this._nlp[name])
         nlpArray = nlpArray.sort((a, b) => {
             return b.priority - a.priority
         })
@@ -198,7 +194,7 @@ class Converse {
             }).then((intents) => {
                 if (!intents) return
                 const nbIntents = Object.keys(intents).length
-                if (nlp.priority && nbIntents > 0) {
+                if (!_.isUndefined(nlp.priority) && nbIntents > 0) {
                     input.intents = intents 
                     return 'break'
                 }
@@ -396,11 +392,13 @@ class Converse {
             let filename = site.getFileName()
             let _path = path.dirname(filename)
             if (_path !== current && !/testing$/.test(_path)) {
+
                 return _path
             }
         }
     }
 
+    // deprecated
     async openSkills(done) {
         let config
         if (!Browser.is()) {
@@ -448,13 +446,15 @@ class Converse {
         }
         
         if (_.isFunction(skill)) {
-            skill = skill(skillPath.params)
+            const params = skillPath.params || []
+            skill = skill.apply(skill, params)
             if (skill.then) {
                 skill = await skill
             }
         }
 
         if (_.isPlainObject(skill)) {
+            skill._parentPath = this.parentPath
             skill = new Converse(skill)
         }
 
@@ -469,6 +469,10 @@ class Converse {
            await this.skill(name, obj[name])
         }
         return this
+    }
+
+    getSkill(name) {
+        return this._skills.get(name)
     }
 
     shareFormats() {

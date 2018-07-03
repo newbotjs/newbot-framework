@@ -5,7 +5,7 @@ describe('Module Test', () => {
     let converse, user
 
     beforeEach((done) => {
-        converse = new ConverseTesting(done)
+        converse = new ConverseTesting()
         converse.code(`
             @Event('start')
             start() {
@@ -20,7 +20,11 @@ describe('Module Test', () => {
                 > event works
             }
         `)
+        converse.setSkills({
+            child: 'skills/child'
+        })
         user = converse.createUser()
+        done()
     })
 
     it('module test', () => {

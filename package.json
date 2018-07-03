@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --timeout 0 tests/*.spec.js tests/modules/*.spec.js tests/interpreter2/*.spec.js",
+    "test": "mocha tests/*.spec.js tests/modules/*.spec.js tests/interpreter2/*.spec.js",
     "postinstall": "cd addons/converse_skills/botframework && npm install",
     "build": "parcel converse.js"
   },

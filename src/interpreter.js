@@ -169,10 +169,12 @@ class Execution {
 
         function execFinish() {
             if (deepFn === 0) {
-                self._noExec = true
-                if (self.propagate.childrenNotExec && decorator.nothing.length) {
+                if (decorator.nothing.length) {
                     self.decorators.exec(decorator.nothing, self)
                     return
+                }
+                else {
+                    self._noExec = true
                 }
             }
             self.end()
@@ -187,6 +189,7 @@ class Execution {
     }
 
     end() {
+        if (this.options.finish) this.options.finish.call(this)
         this.user.clearAddress(this.namespace)
         if (!this.parent) {
             this._triggerHook('finished', {
@@ -194,7 +197,6 @@ class Execution {
                 data: this.options.data
             })
         }
-        if (this.options.finish) this.options.finish.call(this)
         this._finishScript({
             noExec: this._noExec
         })
@@ -216,7 +218,7 @@ class Execution {
         if ((!ins) || (ins && ins.return)) {
             if (!isBlock) {
                 this.unlockParent(level)
-                if (this.options.finishFn) this.options.finishFn(level)
+                if (this.options.finishFn) this.options.finishFn.call(this, level)
             }
             if (finish) {
                 finish(level)

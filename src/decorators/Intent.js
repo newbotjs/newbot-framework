@@ -10,7 +10,7 @@ class IntentEvent extends Decorator {
                 execution.execBlock({
                     instructions: this.instructions
                 }, 0, 'test', () => {
-                    resolve(false)
+                    resolve(true)
                 })
                 return
             }

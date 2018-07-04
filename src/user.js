@@ -56,6 +56,10 @@ class User {
         delete this.varFn[namespace][level]
     }
 
+    hasLockAddressStack(namespace) {
+        return !!this._infoAddress.lock[namespace]
+    }
+
     lockAddressStack(namespace, fnName) {
         this._infoAddress.lock[namespace] = fnName
     }

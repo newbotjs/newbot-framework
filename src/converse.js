@@ -102,6 +102,8 @@ class Converse {
     exec(input, userId, output, propagate = {}) {
         return new Promise(async (resolve, reject) => {
 
+            let noExecChildren
+
             await this.open()
 
             if (!output) {
@@ -119,6 +121,7 @@ class Converse {
             }
     
             let user = this._users.get(userId)
+
             if (_.isFunction(output)) {
                 output = { output }
             }
@@ -142,15 +145,28 @@ class Converse {
                     }
                 })
                 .then(() => this.propagateExec(input, userId, output, propagate))
-                .then(noExec => propagate.childrenNotExec = !!noExec)
+                .then(noExec => {
+                    noExecChildren = !!noExec
+                    noExecChildren = noExecChildren || (!noExecChildren && user.getAddress(this.namespace))
+                })
             if (input.type !== 'event') {
-                p = p.then(() => this.execNlp(input, userId))
+                p = p.then(() => {
+                    if (noExecChildren) {
+                        return this.execNlp(input, userId)
+                    }
+                })
             }
             else {
                 p = p.then(() => input)
             }
             p.then(input => {
-                resolve(this._interpreter.exec(user, input, output, propagate))
+
+                if (noExecChildren) {
+                    resolve(this._interpreter.exec(user, input, output, propagate))
+                }
+                else {
+                    resolve()
+                }
             }).catch((err) => {
                 console.log(err)
                 reject(err)
@@ -162,8 +178,8 @@ class Converse {
         const promises = []
         let options = _.clone(output)
         let noExec = true
-        delete options.finish
-        delete options.finishFn
+       /* delete options.finish
+        delete options.finishFn*/
         this._skills.forEach((skill) => {
             if (skill._shareFormat) {
                 this._format = _.merge(skill._format, this._format)

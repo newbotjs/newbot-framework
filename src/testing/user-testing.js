@@ -1,4 +1,5 @@
 const _ = require('lodash')
+const assert = require('assert')
 const User = require('../user')
 const Assert = require('./assert')
 
@@ -68,6 +69,50 @@ class UserTesting {
         return this
     }
 
+    conversation(...array) {
+        let testArray = []
+
+        for (let dialog of array) {
+            if (dialog.type == 'user') { 
+                testArray.push({
+                    str: dialog.str,
+                    responses: []
+                })
+            }
+            else {
+                let last = _.last(testArray)
+                if (!last) {
+                    testArray.push({
+                        start: true,
+                        responses: []
+                    })
+                    last = _.last(testArray)
+                } 
+                last.responses.push({
+                    str: dialog.str
+                })
+            }
+        }
+
+        const _assert = (testing, dialog) => {
+            assert.deepEqual(testing.output(), dialog.responses.map(res => res.str))
+        }
+
+        if (testArray[0].start) {
+            this.start(testing => _assert(testing, testArray[0]))
+        }
+        else {
+            this.start()
+        }
+
+        for (let dialog of testArray) {
+            if (dialog.start) continue
+            this.prompt(dialog.str, testing => _assert(testing, dialog))
+        }
+
+        return this.end()
+    }
+
     end() {
         return new Promise((resolve, reject) => {
             Promise.resolve()
@@ -75,7 +120,7 @@ class UserTesting {
                     this._run(0, resolve)
                 })
                 .catch((error) => reject(error))
-        }).then(() => {
+        }).then((error) => {
             this.throwSpy()
         })
     }
@@ -123,7 +168,13 @@ class UserTesting {
 
     _converse(input, done) {
         this._output = []
-        this.currentLevel = ''
+       // this.currentLevel = ''
+        const self = this
+
+        const commonFinish = function(cb, name) {
+            const hasAddress = this.parent && !!this.user.getAddress(this.parent.namespace)
+            if (!this._noExec && !hasAddress) cb.call(self, name)
+        }
 
         const exec = (input, options = {}) => {
             options = _.merge({
@@ -136,10 +187,10 @@ class UserTesting {
                     done()
                 },
                 finish() {
-                    done()
+                    commonFinish.call(this, done)
                 },
-                finishFn: (name) => {
-                    this.execSpy(name)
+                finishFn(name) {
+                    commonFinish.call(this, self.execSpy, name)
                 }
             }, options)
             this.converse.exec(input, this.id, options)

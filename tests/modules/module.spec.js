@@ -1,8 +1,12 @@
 const assert = require('assert')
-const { ConverseTesting } = require('../../index')
+const {
+    ConverseTesting,
+    bot,
+    user
+} = require('../../testing')
 
 describe('Module Test', () => {
-    let converse, user
+    let converse, u
 
     beforeEach((done) => {
         converse = new ConverseTesting()
@@ -23,30 +27,71 @@ describe('Module Test', () => {
         converse.setSkills({
             child: 'skills/child'
         })
-        user = converse.createUser()
+        u = converse.createUser()
         done()
     })
 
     it('module test', () => {
-        return user
-            .start(testing => {
-               assert.deepEqual(testing.output(), ['Lazy 1'])
-            })
-            .prompt('test', testing => {
-                assert.deepEqual(testing.output(), ['Lazy 2', 'Lazy 3'])
-            })
-            .prompt('test2', testing => {
-                assert.deepEqual(testing.output(), ['Lazy 4', 'Ok', 'js'])
+        return u
+            .conversation(
+                bot `Lazy 1`,
+                user `test`,
+                bot `Lazy 2`,
+                bot `Lazy 3`,
+                user `test2`,
+                bot `Lazy 4`,
+                bot `Ok`,
+                bot `js`
+            )
+    })
+
+    it('module event', () => {
+        return u
+            .event('parent', testing => {
+                assert.equal(testing.output(0), ['event works'])
             })
             .end()
     })
 
-    it('module event', () => {
-        return user
-            .event('parent', testing => {
-               assert.equal(testing.output(0), ['event works'])
+    describe('Module relation', () => {
+        beforeEach((done) => {
+
+            const hey = {
+                code: `
+                    @Intent(/hello/i)
+                    hello() {
+                        > Hey Child
+                    }
+                `
+            }
+
+            converse = new ConverseTesting()
+            converse.code(`
+                @Event('start')
+                start() {
+                   > Go !
+                }
+    
+                @Intent(/hello/i)
+                hello() {
+                    > Hey Parent
+                }
+            `)
+            converse.setSkills({
+                hey
             })
-            .end()
+            u = converse.createUser()
+            done()
+        })
+
+        it('only hello() child is executed', () => {
+            return u
+                .conversation(
+                    bot `Go !`,
+                    user `hello`,
+                    bot `Hey Child`
+                )
+        })
     })
-   
+
 })

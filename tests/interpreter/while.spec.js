@@ -15,8 +15,8 @@ module.exports = function(user, assert, converse) {
            assert.deepEqual(this.output(), [ '2' ])
            assert.equal(this.variable('val'), 2)
         })
-        .input('three', function() {
-           assert.equal(this.variable('val'), 3)
+        .input('three', testing => {
+           assert.equal(testing.variable('val'), 3)
         })
         .end()
 }

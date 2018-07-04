@@ -54,8 +54,7 @@ describe('Module Test', () => {
     })
 
     describe('Module relation', () => {
-        beforeEach((done) => {
-
+        it('only hello() child is executed', () => {
             const hey = {
                 code: `
                     @Intent(/hello/i)
@@ -81,10 +80,6 @@ describe('Module Test', () => {
                 hey
             })
             u = converse.createUser()
-            done()
-        })
-
-        it('only hello() child is executed', () => {
             return u
                 .conversation(
                     bot `Go !`,
@@ -92,6 +87,45 @@ describe('Module Test', () => {
                     bot `Hey Child`
                 )
         })
-    })
+        it('nothing function is executed after totality execution', () => {
+            const hey = {
+                code: `
+                    @Event('start')
+                    start() {
+                        > Welcome
+                    }
 
+                    @Event('nothing')
+                    nothing() {
+                        > Noop
+                    }
+                `
+            }
+
+            converse = new ConverseTesting()
+            converse.code(`
+                @Event('start')
+                start() {
+                   > Go !
+                }
+    
+                @Intent(/hello/i)
+                hello() {
+                    > Hey
+                }
+            `)
+            converse.setSkills({
+                hey
+            })
+            return converse.createUser()
+                .conversation(
+                    bot `Welcome`,
+                    user `helloa`,
+                    bot `Hey`,
+                    user `Yo`,
+                    bot `Noop`
+                )
+        })
+    })
+    
 })

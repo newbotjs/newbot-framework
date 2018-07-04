@@ -9,6 +9,9 @@ const asyncReplace = require('async-replace')
 
 const Decorators = require('./decorators/decorators')
 const ExecutionError = require('./error')
+const Converse = require('./converse')
+
+var a= {}
 
 class Execution {
 
@@ -167,14 +170,19 @@ class Execution {
             exec = true
         }
 
-        function execFinish() {
+        async function execFinish() {
             if (deepFn === 0) {
+                self._noExec = true
                 if (decorator.nothing.length) {
-                    self.decorators.exec(decorator.nothing, self)
+                    self._nothing = true
+                    if (!a.nothingSkill) Converse.nothingSkill = self
+                    self.stopScript()
                     return
                 }
-                else {
-                    self._noExec = true
+                else if (self.namespace == 'default' && Converse.nothingSkill) {
+                    await Converse.nothingSkill.execNothing()
+                    Converse.nothingSkill = null
+                    return 
                 }
             }
             self.end()
@@ -184,8 +192,18 @@ class Execution {
 
     }
 
+    execNothing() {
+        const decorator = this.decorators.get('Event', 'nothing')
+        this._noExec = false
+        return this.decorators.exec(decorator, this)
+    }
+    
+
     stopScript() {
-        this._finishScript()
+        this._finishScript({
+            noExec: this._noExec,
+            nothing: this._nothing
+        })
     }
 
     end() {
@@ -197,9 +215,7 @@ class Execution {
                 data: this.options.data
             })
         }
-        this._finishScript({
-            noExec: this._noExec
-        })
+        this.stopScript()
     }
 
     unlockParent(level) {

@@ -159,14 +159,12 @@ class Converse {
             else {
                 p = p.then(() => input)
             }
-            p.then(input => {
-
+            p.then(async input => {
+                let ret = {}
                 if (noExecChildren) {
-                    resolve(this._interpreter.exec(user, input, output, propagate))
+                    ret = await this._interpreter.exec(user, input, output, propagate)
                 }
-                else {
-                    resolve()
-                }
+                resolve(ret)
             }).catch((err) => {
                 console.log(err)
                 reject(err)

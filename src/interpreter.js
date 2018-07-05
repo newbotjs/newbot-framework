@@ -14,6 +14,7 @@ const Converse = require('./converse')
 class Execution {
 
     constructor(user, input, options, propagate, interpreter) {
+        this._nothing = false
         this.user = user
         this._input = input
         this.input = '' + input.text
@@ -171,8 +172,8 @@ class Execution {
         async function execFinish() {
             if (deepFn === 0) {
                 self._noExec = true
+                self._nothing = true
                 if (decorator.nothing.length) {
-                    self._nothing = true
                     if (!Converse.nothingSkill) Converse.nothingSkill = self
                 }
                 if (!self.parent && Converse.nothingSkill) {
@@ -199,7 +200,7 @@ class Execution {
             noExec: this._noExec,
             nothing: this._nothing
         })
-    }
+    } 
 
     end() {
         if (this.options.finish) this.options.finish.call(this)

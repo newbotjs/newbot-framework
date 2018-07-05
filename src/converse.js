@@ -166,7 +166,7 @@ class Converse {
                 let ret = {}
                 if (noExecChildren) {
                     ret = await this._interpreter.exec(user, input, output, propagate) 
-                    if (ret) propagate.globalNoExec &= ret.noExec
+                    if (ret) propagate.globalNoExec &= ret.nothing
                 }
                 resolve(ret)
             }).catch((err) => {

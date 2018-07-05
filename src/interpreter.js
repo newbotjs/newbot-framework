@@ -11,8 +11,6 @@ const Decorators = require('./decorators/decorators')
 const ExecutionError = require('./error')
 const Converse = require('./converse')
 
-var a= {}
-
 class Execution {
 
     constructor(user, input, options, propagate, interpreter) {
@@ -175,14 +173,11 @@ class Execution {
                 self._noExec = true
                 if (decorator.nothing.length) {
                     self._nothing = true
-                    if (!a.nothingSkill) Converse.nothingSkill = self
-                    self.stopScript()
-                    return
+                    if (!Converse.nothingSkill) Converse.nothingSkill = self
                 }
-                else if (self.namespace == 'default' && Converse.nothingSkill) {
+                if (!self.parent && Converse.nothingSkill) {
                     await Converse.nothingSkill.execNothing()
-                    Converse.nothingSkill = null
-                    return 
+                    Converse.nothingSkill = null 
                 }
             }
             self.end()

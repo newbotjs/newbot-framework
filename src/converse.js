@@ -99,7 +99,10 @@ class Converse {
         return this
     }
 
-    exec(input, userId, output, propagate = {}) {
+    exec(input, userId, output, propagate = {
+        globalNoExec: true
+    }) {
+        let user
         return new Promise(async (resolve, reject) => {
 
             let noExecChildren
@@ -120,7 +123,7 @@ class Converse {
                 input = { text: input }
             }
     
-            let user = this._users.get(userId)
+            user = this._users.get(userId)
 
             if (_.isFunction(output)) {
                 output = { output }
@@ -162,13 +165,19 @@ class Converse {
             p.then(async input => {
                 let ret = {}
                 if (noExecChildren) {
-                    ret = await this._interpreter.exec(user, input, output, propagate)
+                    ret = await this._interpreter.exec(user, input, output, propagate) 
+                    if (ret) propagate.globalNoExec &= ret.noExec
                 }
                 resolve(ret)
             }).catch((err) => {
                 console.log(err)
                 reject(err)
             })
+        }).then((ret) => {
+            if (!this.parent && propagate.globalNoExec) {
+                if (this._hooks.nothing) this._hooks.nothing(input.text, { user }, output.data)
+            }
+            return ret 
         })
     }
 
@@ -176,8 +185,6 @@ class Converse {
         const promises = []
         let options = _.clone(output)
         let noExec = true
-       /* delete options.finish
-        delete options.finishFn*/
         this._skills.forEach((skill) => {
             if (skill._shareFormat) {
                 this._format = _.merge(skill._format, this._format)
@@ -192,7 +199,7 @@ class Converse {
 
     skills() {
         return this._skills
-    }
+    } 
 
     execNlp(input, userId) {
         input.intents = {}

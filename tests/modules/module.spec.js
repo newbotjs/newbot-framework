@@ -113,6 +113,11 @@ describe('Module Test', () => {
                 hello() {
                     > Hey
                 }
+
+                @Event('nothing')
+                nothing() {
+                    > ?
+                }
             `)
             converse.setSkills({
                 hey

@@ -28,6 +28,10 @@ function heroCard(session, card, user) {
                 .filter(b => b)
                 .map(b => {
                     b = Utils.toByLang(b, user)
+                    if (b.event) {
+                        b.type = 'webview'
+                        b.url = 'https://example.com'
+                    }
                     if (!b.type && !b.url) b.type = 'postback'
                     else if (!b.type) b.type = 'web_url'
                     switch (b.type) {

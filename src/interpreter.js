@@ -205,12 +205,6 @@ class Execution {
     end() {
         if (this.options.finish) this.options.finish.call(this)
         this.user.clearAddress(this.namespace)
-        if (!this.parent) {
-            this._triggerHook('finished', {
-                user: this.user,
-                data: this.options.data
-            })
-        }
         this.stopScript()
     }
 
@@ -226,17 +220,42 @@ class Execution {
     instructions(instructions, pointer, level = 'root', finish, options = {}) {
         let ins = instructions[pointer]
         const { isBlock } = options
-        const next = () => this.instructions(instructions, pointer + 1, level, finish, options)
-        if ((!ins) || (ins && ins.return)) {
+
+        const next = ({ stop } = {}) => {
+            if (stop) {
+                pointer = instructions.length
+                options.stop = stop
+            }
+            return this.instructions(instructions, pointer + 1, level, finish, options)
+        }
+
+        if (!ins) {
             if (!isBlock) {
                 this.unlockParent(level)
                 if (this.options.finishFn) this.options.finishFn.call(this, level)
             }
             if (finish) {
-                finish(level)
+                finish({
+                    stop: options.stop,
+                    level
+                })
             }
             if (!isBlock) {
                 this.user.garbage(level, this.namespace)
+            }
+            return
+        }
+
+        if (!_.isUndefined(ins.return)) {
+            if (!isBlock) {
+                next({
+                    stop: true
+                })
+            }
+            else {
+                finish({
+                    stop: true
+                })
             }
             return
         }
@@ -269,6 +288,7 @@ class Execution {
                     break
             }
         }
+
     }
 
     findFunctionAndExec(ins, level, next) {
@@ -478,12 +498,12 @@ class Execution {
     }
 
     execBlock(ins, pointer = 0, level, finish) {
-        this.instructions(ins.instructions, pointer, level, () => {
+        this.instructions(ins.instructions, pointer, level, (options) => {
             if (ins.loop) {
                 this.execCondition(ins, level, finish)
             }
             else {
-                finish()
+                finish(options)
             }
         }, {
                 isBlock: true
@@ -649,13 +669,13 @@ class Execution {
             ._functions[name] || ['Prompt', 'Input'].indexOf(name) != -1
     }
 
-    _triggerHook(name, params, data, cb) {
+    _triggerHook(name, params, data, cb, callParent = true) {
         let triggerFound = false
         if (this.hooks[name]) {
             triggerFound = true
             this.hooks[name](this.input, params, data, cb)
         }
-        if (this.parent && this.parent._hooks[name]) {
+        if (callParent && this.parent && this.parent._hooks[name]) {
             triggerFound = true
             this.parent._hooks[name](this.input, params, data, cb)
         }

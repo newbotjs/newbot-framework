@@ -1,8 +1,11 @@
 const builder = require('botbuilder')
+const Utils = require('../utils')
 const _ = require('lodash')
 
 module.exports = (converse) => {
-    converse.format('image', (text, [contentUrl, contentType, name], { session }) => {
+    converse.format('image', (text, [contentUrl, contentType, name], {
+        session
+    }) => {
         if (!name) {
             name = _.last(contentUrl.split('/'))
         }
@@ -13,12 +16,23 @@ module.exports = (converse) => {
                 contentType = 'image/' + ext
             }
         }
-        if (session.source === 'website') {
+        if (Utils.isWebSite(session)) {
             return {
                 text,
                 image: contentUrl
             }
+        } else if (Utils.isFacebook(session) && !Utils.isBotBuilderFacebook(session)) {
+            return {
+                text,
+                attachment: {
+                    type: 'image',
+                    payload: {
+                        url: contentUrl
+                    }
+                }
+            }
         }
+
         return new builder.Message(session)
             .text(text)
             .addAttachment({

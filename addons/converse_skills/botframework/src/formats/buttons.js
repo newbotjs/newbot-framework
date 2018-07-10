@@ -1,32 +1,40 @@
 const builder = require('botbuilder')
-const { isFacebook, isWebSite } = require('../utils')
+const Utils = require('../utils')
 const { heroCard } = require('./hero-card')
 
 function buttons(session, text, buttons, user) {
     const card = heroCard(session, {
         buttons
     }, user)
-    if (isWebSite(session)) {
+
+    if (Utils.isWebSite(session)) {
         return {
             text,
             buttons
         }
     }
-    if (isFacebook(session)) {
+
+    const facebook = {
+        attachment: {
+            type: 'template',
+            payload: {
+                template_type: 'button',
+                text,
+                buttons: card.buttons
+            }
+        }
+    }
+
+    if (Utils.isBotBuilderFacebook(session)) {
         return new builder.Message(session)
             .sourceEvent({
-                facebook: {
-                    attachment: {
-                        type: 'template',
-                        payload: {
-                            template_type: 'button',
-                            text,
-                            buttons: card.buttons
-                        }
-                    }
-                }
+                facebook
             })
     }
+    else if (Utils.isFacebook(session)) {
+        return facebook
+    }
+
     return new builder.Message(session)
         .text(text)
         .addAttachment(card)

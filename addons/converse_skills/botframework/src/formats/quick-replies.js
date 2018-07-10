@@ -52,14 +52,19 @@ module.exports = {
                 return { text, actions }
             }
 
-            if (Utils.isFacebook(session)) {
+            const facebook = {
+                text,
+                quick_replies: actions
+            }
+
+            if (Utils.isBotBuilderFacebook(session)) {
                 return new builder.Message(session)
                     .sourceEvent({
-                        facebook: {
-                            text,
-                            quick_replies: actions
-                        }
+                        facebook
                     })
+            }
+            else if (Utils.isFacebook(session)) {
+                return facebook
             }
 
             return new builder.Message(session)

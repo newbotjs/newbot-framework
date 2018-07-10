@@ -157,6 +157,7 @@ class Converse {
                     if (noExecChildren) {
                         return this.execNlp(input, userId)
                     }
+                    return input
                 })
             }
             else {
@@ -174,8 +175,11 @@ class Converse {
                 reject(err)
             })
         }).then((ret) => {
-            if (!this.parent && propagate.globalNoExec) {
-                if (this._hooks.nothing) this._hooks.nothing(input.text, { user }, output.data)
+            if (!this.parent) {
+                if (propagate.globalNoExec) {
+                    if (this._hooks.nothing) this._hooks.nothing(input.text, { user }, output.data)
+                }
+                if (this._hooks.finished) this._hooks.finished(input.text, { user, data: output.data })
             }
             return ret 
         })

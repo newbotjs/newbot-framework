@@ -56,7 +56,7 @@ class Decorators {
             }
             if (ret instanceof Promise) {
                 promises.push(ret.then(bool => {
-                    if (bool) execFn(item)
+                    if (bool && !hasExec) execFn(item)
                 }))
             }
             else {

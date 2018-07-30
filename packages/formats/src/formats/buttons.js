@@ -42,9 +42,7 @@ function buttons(session, text, buttons, user) {
 
 module.exports = {
     buttons,
-    format(converse) {
-        converse.format('buttons', (text, [_buttons], { session }, user) => {
-            return buttons(session, text, _buttons, user)
-        })        
-    }
+    format(text, [_buttons], { session }, user) {
+        return buttons(session, text, _buttons, user)
+    }    
 }

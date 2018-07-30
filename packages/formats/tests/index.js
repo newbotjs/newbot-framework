@@ -1,8 +1,9 @@
 const builder = require('botbuilder')
-const { ConverseTesting } = require('../../../../index')
+const mainSkill = require('../index')
+const { ConverseTesting } = require('newbot/testing')
 
 module.exports = () => {
-    const converse = new ConverseTesting()
+    const converse = new ConverseTesting(mainSkill('en_EN'))
     converse.testingWrapper((input, testingExec) => {
         connector = new builder.ConsoleConnector()
         bot = new builder.UniversalBot(connector, (session) => {

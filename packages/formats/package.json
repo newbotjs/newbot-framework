@@ -1,5 +1,5 @@
 {
-  "name": "botframework",
+  "name": "@newbot/formats",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",

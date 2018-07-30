@@ -33,7 +33,10 @@ class Converse {
                 file: options
             }
         }
-        if (options.file || options.code) {
+
+        const hasOptions = Object.keys(options)
+
+        if (hasOptions.length > 0) {
             this.loadOptions(options)
         }
     }
@@ -65,6 +68,9 @@ class Converse {
             for (let key in options.formats) {
                 this.format(key, options.formats[key])
             }
+        }
+        if (options.shareFormats) {
+            this.shareFormats()
         }
         this.load()
     }

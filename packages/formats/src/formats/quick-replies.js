@@ -43,34 +43,31 @@ function quickReplies(session, actions) {
 
 module.exports = {
     quickReplies,
-    format(converse) {
-        converse.format('quickReplies', (text, [actions], { session }) => {
+    format(text, [actions], { session }) {
 
-            actions = quickReplies(session, actions)
+        actions = quickReplies(session, actions)
 
-            if (Utils.isWebSite(session)) {
-                return { text, actions }
-            }
+        if (Utils.isWebSite(session)) {
+            return { text, actions }
+        }
 
-            const facebook = {
-                text,
-                quick_replies: actions
-            }
+        const facebook = {
+            text,
+            quick_replies: actions
+        }
 
-            if (Utils.isBotBuilderFacebook(session)) {
-                return new builder.Message(session)
-                    .sourceEvent({
-                        facebook
-                    })
-            }
-            else if (Utils.isFacebook(session)) {
-                return facebook
-            }
-
+        if (Utils.isBotBuilderFacebook(session)) {
             return new builder.Message(session)
-                .text(text)
-                .suggestedActions(builder.SuggestedActions.create(session, actions))
-        })
-        return converse
+                .sourceEvent({
+                    facebook
+                })
+        }
+        else if (Utils.isFacebook(session)) {
+            return facebook
+        }
+
+        return new builder.Message(session)
+            .text(text)
+            .suggestedActions(builder.SuggestedActions.create(session, actions))
     }
 }

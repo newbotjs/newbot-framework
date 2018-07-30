@@ -1,13 +1,11 @@
 const assert = require('assert')
 const BotFrameworkTesting = require('./index')
-const entry = require('../src/entry')
 
 describe('Module Test', () => {
     let converse, user
 
     beforeEach(() => {
         converse = BotFrameworkTesting()
-        entry(converse)
         user = converse.createUser()
     })
 

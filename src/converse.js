@@ -12,6 +12,16 @@ const Nlp = require('./nlp')
 const fs = require('./utils/fs')
 const Browser = require('./utils/browser')
 
+const SystemJS = require('systemjs')
+
+SystemJS.config({
+    meta: {
+        "*.converse": {
+            loader: __dirname + '/../loader/converse-loader.js'
+        }
+    }
+})
+
 class Converse {
 
     constructor(options = {}) {
@@ -96,7 +106,9 @@ class Converse {
 
     async open() {
         if (this._file) {
-            this.code(await fs.readFile(this._file, 'utf-8'))
+            //this.code(await fs.readFile(this._file, 'utf-8'))
+            //console.log(await System.import(`bot/${this._file}.`))
+            this.code(await SystemJS.import(this._file))
         }
         this._transpiler = new Transpiler(this.script)
         this._obj = this._transpiler.run()
@@ -119,20 +131,23 @@ class Converse {
                 if (Browser.is()) {
                     output = userId
                     userId = 'conversescript-user'
-                }
-                else {
+                } else {
                     throw 'On NodeJS, you must give an identifier to the user. `.exec(input, userId, output)`'
                 }
             }
 
             if (!_.isObjectLike(input)) {
-                input = { text: input }
+                input = {
+                    text: input
+                }
             }
-    
+
             user = this._users.get(userId)
 
             if (_.isFunction(output)) {
-                output = { output }
+                output = {
+                    output
+                }
             }
             if (!user) {
                 user = new User(userId)
@@ -144,9 +159,9 @@ class Converse {
                     user.setMagicVariable(variable, output.magicVariables[variable])
                 }
             }
-    
+
             user.setMagicVariable('userId', userId)
-    
+
             let p = Promise.resolve()
                 .then(() => {
                     if (output.preUser) {
@@ -165,29 +180,32 @@ class Converse {
                     }
                     return input
                 })
-            }
-            else {
+            } else {
                 p = p.then(() => input)
             }
             p.then(async input => {
                 let ret = {}
                 if (noExecChildren) {
-                    ret = await this._interpreter.exec(user, input, output, propagate) 
+                    ret = await this._interpreter.exec(user, input, output, propagate)
                     if (ret) propagate.globalNoExec &= ret.nothing
                 }
                 resolve(ret)
             }).catch((err) => {
-                console.log(err)
                 reject(err)
             })
         }).then((ret) => {
             if (!this.parent) {
                 if (propagate.globalNoExec) {
-                    if (this._hooks.nothing) this._hooks.nothing(input.text, { user }, output.data)
+                    if (this._hooks.nothing) this._hooks.nothing(input.text, {
+                        user
+                    }, output.data)
                 }
-                if (this._hooks.finished) this._hooks.finished(input.text, { user, data: output.data })
+                if (this._hooks.finished) this._hooks.finished(input.text, {
+                    user,
+                    data: output.data
+                })
             }
-            return ret 
+            return ret
         })
     }
 
@@ -209,7 +227,7 @@ class Converse {
 
     skills() {
         return this._skills
-    } 
+    }
 
     execNlp(input, userId) {
         input.intents = {}
@@ -226,10 +244,9 @@ class Converse {
                 if (!intents) return
                 const nbIntents = Object.keys(intents).length
                 if (!_.isUndefined(nlp.priority) && nbIntents > 0) {
-                    input.intents = intents 
+                    input.intents = intents
                     return 'break'
-                }
-                else {
+                } else {
                     input.intents = _.merge(input.intents, intents)
                 }
             })
@@ -244,8 +261,7 @@ class Converse {
             case 2:
                 if (_.isArray(more[0])) {
                     users = more[0]
-                }
-                else {
+                } else {
                     data = more[0]
                 }
                 output = more[1]
@@ -296,7 +312,13 @@ class Converse {
         return this
     }
 
-    execFunction(name, params, done, user, { deep, data, execution, level, ins }) {
+    execFunction(name, params, done, user, {
+        deep,
+        data,
+        execution,
+        level,
+        ins
+    }) {
         let mockName = name
         if (deep) {
             mockName += '.' + deep
@@ -304,7 +326,11 @@ class Converse {
 
         if (!this._functions[name]) throw `${deep.join('.') + '.' + name}() not exists`
 
-        let { $call, $mock, $params } = this._functions[name]
+        let {
+            $call,
+            $mock,
+            $params
+        } = this._functions[name]
         let ret
 
         this._functions[name].namespace = this.namespace
@@ -316,7 +342,7 @@ class Converse {
         if (deep && deep.length > 0) {
             $call = _.get($call, deep)
         }
-        
+
         if ($params) {
             $params = $params.map(p => {
                 switch (p) {
@@ -346,8 +372,7 @@ class Converse {
                 }
                 ret = $mock.call(this._mock[mockName], ...[ret, ...$params])
             }
-        }
-        else {
+        } else {
             ret = $call.call(this._functions[name], ...params)
         }
 
@@ -385,12 +410,20 @@ class Converse {
         return this._nlp[this.currentNlp]
     }
 
-    loadLanguage() {
+    async loadLanguage() {
         if (!this.config.languages) {
             return
         }
         const path = this.config.languages.path || './languages'
-        this.lang.init(this.config.languages.packages, path + '/')
+        let { packages, default: _default } = this.config.languages
+        if (_.isArray(packages)) {
+            this.lang.init(packages, path + '/')
+            return
+        }
+        if (!_default) {
+            _default = Object.keys(packages)[0]
+        }
+        this.lang.packages(packages).default(_default)
     }
 
     load() {
@@ -423,7 +456,6 @@ class Converse {
             let filename = site.getFileName()
             let _path = path.dirname(filename)
             if (_path !== current && !/testing$/.test(_path)) {
-
                 return _path
             }
         }
@@ -435,10 +467,11 @@ class Converse {
         if (!Browser.is()) {
             config = await new Promise(async (resolve, reject) => {
                 try {
-                    const data = await fs.readFile(`${this.parentPath}/package.json`, { encoding: 'utf-8' })
+                    const data = await fs.readFile(`${this.parentPath}/package.json`, {
+                        encoding: 'utf-8'
+                    })
                     resolve(JSON.parse(data))
-                }
-                catch (err) {
+                } catch (err) {
                     if (err) {
                         if (err.code == 'ENOENT') return resolve()
                         return reject(err)
@@ -454,28 +487,64 @@ class Converse {
 
     async skill(skillName, skillPath = skillName) {
         let _path = skillPath.skill || skillPath
+        
+        if (_path.hasOwnProperty('default')) _path = _path.default
+   
         let dir = _path
         let skill
 
+        if (_.isArray(_path)) {
+            for (let skillPath of _path) {
+                await this.skill(skillName, skillPath)
+            }
+            return
+        }
+
         if (_.isString(_path)) {
+
+            let prefix = _path.split(':')
+            if (prefix.length > 1) {
+                dir = _path = prefix[1]
+                prefix = prefix[0]
+            }
+            else {
+                prefix = null
+            }
+
+            if (Browser.is() && prefix == 'node') {
+                return this
+            }
+            if (!Browser.is() && prefix == 'browser') {
+                return this
+            }
+
             if (!/\//.test(_path)) {
-                dir = this.config.pathSkills || 'converse_skills'
+                dir = this.config.pathSkills || 'skills'
                 dir += `/${_path}`
             }
 
             if (Browser.is()) {
-                SystemJS.set('conversescript', SystemJS.newModule({ Converse }))
+                SystemJS.set('conversescript', SystemJS.newModule({
+                    Converse
+                }))
                 if (!dir.endsWith('.js')) dir += '.js'
                 skill = await SystemJS.import(dir)
+            } else {
+                if (dir[0] == '.') {
+                    dir = this.parentPath + '/' + dir
+                }
+                else {
+                    dir = '@node/' + dir
+                }
+                skill = await SystemJS.import(dir)
             }
-            else {
-                skill = require(`${this.parentPath}/${dir}`)
-            }
+
+        } else {
+            skill = _path
         }
-        else {
-           skill = _path
-        }
-        
+
+        if (skill.hasOwnProperty('default')) skill = skill.default
+
         if (_.isFunction(skill)) {
             const params = skillPath.params || []
             skill = skill.apply(skill, params)
@@ -497,7 +566,7 @@ class Converse {
 
     async setSkills(obj) {
         for (let name in obj) {
-           await this.skill(name, obj[name])
+            await this.skill(name, obj[name])
         }
         return this
     }

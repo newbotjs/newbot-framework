@@ -17,13 +17,17 @@ class IntentEvent extends Decorator {
             if (!intents) {
                 return resolve(false)
             }
+
             const intentName = this.params[0]
-            const intent = intents[intentName]
+            let intent = intents[intentName]
             if (intentName.regexp) {
                 const regexp = new RegExp(intentName.regexp, intentName.flags.join(''))
                 if (regexp.test(execution.input)) {
                     return resolve(true)
                 }
+            }
+            if (_.isFunction(intent)) {
+                intent = intent()
             }
             if (intent) {
                 execution.setMagicVar(`intent`, intent)

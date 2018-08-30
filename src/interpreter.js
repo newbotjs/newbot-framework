@@ -651,7 +651,7 @@ class Execution {
                 if (this.options.waintingInput) {
                     this.options.waintingInput.call(this, ins.params, level)
                 }
-                this._finishScript()
+                this.stopScript()
                 return
         }
         more.execution = this

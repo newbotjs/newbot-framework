@@ -36,7 +36,7 @@ class Decorators {
         return decoratorsFound
     }
 
-    _exec(decorators, execution, method) {
+    async _exec(decorators, execution, method) {
         let hasExec = false
         let promises = []
         const execFn = (item) => {
@@ -55,27 +55,29 @@ class Decorators {
                 ret = item[method](execution)
             }
             if (ret instanceof Promise) {
-                promises.push(ret.then(bool => {
+                let bool = await ret
+                if (bool && !hasExec) {
+                    execFn(item)
+                    break
+                }
+               /* promises.push(ret.then(bool => {
                     if (bool && !hasExec) execFn(item)
-                }))
+                }))*/
             }
             else {
                 execFn(item)
+                break
             }
         }
-        return promises.length > 0 ?
-            Promise.all(promises).then(() => {
-                return hasExec
-            })
-            : hasExec
+        return hasExec
     }
 
-    execMethod(decoratorName, method, execution) {
+    async execMethod(decoratorName, method, execution) {
         const decorators = this.decorators[decoratorName]
-        return this._exec(decorators, execution, method)
+        return await this._exec(decorators, execution, method)
     }
 
-    exec(decorators, execution, params) {
+    async exec(decorators, execution, params) {
         if (!_.isArray(decorators)) {
             decorators = this.get(decorators, params)
         }
@@ -83,7 +85,7 @@ class Decorators {
         if (!decorators) {
             return false
         }
-        return this._exec(decorators, execution)
+        return await this._exec(decorators, execution)
     }
 
 }

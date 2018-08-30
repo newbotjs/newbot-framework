@@ -17,8 +17,9 @@
     "chai": "^4.0.0",
     "colors": "^1.1.2",
     "dotenv-extended": "^2.0.1",
+    "fs-extra": "^7.0.0",
     "install": "^0.10.1",
-    "languages-js": "^2.2.5",
+    "languages-js": "^2.2.8",
     "lodash": "^4.17.4",
     "md5": "^2.2.1",
     "moment": "^2.20.1",
@@ -30,6 +31,7 @@
     "requirejs": "^2.3.5",
     "static-eval": "^2.0.0",
     "systemjs": "^0.21.4",
+    "systemjs-plugin-text": "0.0.11",
     "uuid": "^3.0.1"
   },
   "devDependencies": {

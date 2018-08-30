@@ -25,7 +25,7 @@ describe('Module Test', () => {
             }
         `)
         converse.setSkills({
-            child: 'skills/child'
+            child: './skills/child/index.js'
         })
         u = converse.createUser()
         done()

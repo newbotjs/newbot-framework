@@ -6,12 +6,12 @@ const {
 } = require('../../testing')
 
 describe('Params Test', () => {
-    let converse, user
+    let converse, userConverse
 
     function code(str) {
         converse = new ConverseTesting()
         converse.code(str)
-        user = converse.createUser()
+        userConverse = converse.createUser()
     }
 
     it('Test return level 1', () => {
@@ -23,7 +23,7 @@ describe('Params Test', () => {
                 > Hello
             }
         `)
-        return user.start()
+        return userConverse.start()
             .spy('start', testing => {
                 assert.deepEqual(testing.output(), ['Stop'])
             })
@@ -45,7 +45,7 @@ describe('Params Test', () => {
                 > Noop
             }
         `)
-        return user.start()
+        return userConverse.start()
             .spy('start', testing => {
                 assert.deepEqual(testing.output(), ['Stop'])
             })
@@ -69,11 +69,34 @@ describe('Params Test', () => {
                 > Hello
             }
         `)
-        return user.start()
+        return userConverse.start()
             .spy('start', testing => {
                 assert.deepEqual(testing.output(), ['A', 'B', 'Stop'])
             })
             .end()
+    })
+
+    it('Return value', () => {
+        code(`
+            @Event('start')
+            start() {
+                val = math(1) + 2
+                > { val }
+            }
+
+            math(a, b) {
+                return a + :text
+            }
+        `)
+        return userConverse.start()
+            .spy('start', testing => {
+                console.log(testing.output())
+            })
+            .end()
+        return userConverse.conversation(
+            user `2`,
+            bot `5`
+        )
     })
 
 })

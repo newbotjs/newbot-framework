@@ -1,0 +1,13 @@
+{
+  "name": "@newbot/dialogflow",
+  "version": "1.0.0",
+  "description": "DialogFlow in NewBot Framework",
+  "main": "index.js",
+  "scripts": {
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dialogflow": "^0.6.0"
+  }
+}

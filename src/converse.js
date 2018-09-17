@@ -7,6 +7,7 @@ const User = require('./user')
 const Transpiler = require('./transpiler/lexer')
 const Interpreter = require('./interpreter')
 const Functions = require('./api')
+const Debug = require('./debug')
 const Nlp = require('./nlp')
 
 const fs = require('./utils/fs')
@@ -81,6 +82,9 @@ class Converse {
         }
         if (options.shareFormats) {
             this.shareFormats()
+        }
+        if (options.shareNlp) {
+            this.shareNlp()
         }
         this.load()
     }
@@ -161,6 +165,7 @@ class Converse {
             }
 
             user.setMagicVariable('userId', userId)
+            user.resetHistory()
 
             let p = Promise.resolve()
                 .then(() => {
@@ -204,6 +209,10 @@ class Converse {
                     user,
                     data: output.data
                 })
+               /* if (this.debug) {
+                    const debug = new Debug(this.script, user._history)
+                    debug.display()
+                }*/
             }
             return ret
         })
@@ -547,7 +556,12 @@ class Converse {
 
         if (_.isFunction(skill)) {
             const params = skillPath.params || []
-            skill = skill.apply(skill, params)
+            if (_.isPlainObject(params)) {
+                skill = skill.call(skill, params)
+            }
+            else {
+                skill = skill.apply(skill, params)
+            }
             if (skill.then) {
                 skill = await skill
             }
@@ -560,6 +574,10 @@ class Converse {
 
         skill.namespace = (this.namespace ? this.namespace + '-' : '') + skillName
         skill.parent = this
+        if (skill._shareNlp) {
+            this._nlp = _.merge(this._nlp, skill._nlp)
+            skill._nlp = {}
+        }
         this._skills.set(skillName, skill)
         return this
     }
@@ -577,6 +595,10 @@ class Converse {
 
     shareFormats() {
         this._shareFormat = true
+    }
+
+    shareNlp() {
+        this._shareNlp = true
     }
 
 }

@@ -12,6 +12,7 @@ class User {
         this.variables = {}
         this.id = id
         this.lang = null
+        this._history = []
     }
 
     _createNamespace(namespace) {
@@ -132,6 +133,14 @@ class User {
 
     getLang() {
         return this.lang
+    }
+
+    addHistory(ins) {
+        this._history.push(ins)
+    }
+
+    resetHistory(ins) {
+        this._history = []
     }
 
     toJson() {

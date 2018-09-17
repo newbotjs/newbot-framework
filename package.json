@@ -1,6 +1,6 @@
 {
   "name": "newbot",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -21,7 +21,7 @@
     "lodash": "^4.17.4",
     "md5": "^2.2.1",
     "moment": "^2.20.1",
-    "node-wit": "^4.2.0",
+    "pegjs": "^0.10.0",
     "request": "^2.81.0",
     "static-eval": "^2.0.0",
     "systemjs": "^0.21.4",
@@ -32,6 +32,7 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-stage-2": "^6.24.1",
     "babel-runtime": "^6.26.0",
+    "chai": "^4.1.2",
     "parcel-bundler": "^1.8.1"
   }
 }

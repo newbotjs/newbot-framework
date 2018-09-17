@@ -2,3 +2,4 @@ node_modules
 _*
 .env.defaults
 .cache
+.build

@@ -217,13 +217,13 @@ class Execution {
         this.instructions(this.obj, 0, 'root', finish)
     }
 
-    instructions(instructions, pointer, level = 'root', finish, options = {}) {
+    async instructions(instructions, pointer, level = 'root', finish, options = {}) {
         let ins = instructions[pointer]
         const { isBlock } = options
-
-        const next = ({ stop } = {}) => {
+        const next = ({ stop, value } = {}) => {
             if (stop) {
                 pointer = instructions.length
+                options.value = value
                 options.stop = stop
             }
             return this.instructions(instructions, pointer + 1, level, finish, options)
@@ -237,6 +237,7 @@ class Execution {
             if (finish) {
                 finish({
                     stop: options.stop,
+                    value: options.value,
                     level
                 })
             }
@@ -245,16 +246,18 @@ class Execution {
             }
             return
         }
-
         if (!_.isUndefined(ins.return)) {
+            const value = await this.getValue(ins.return, level)
             if (!isBlock) {
                 next({
-                    stop: true
+                    stop: true,
+                    value
                 })
             }
             else {
                 finish({
-                    stop: true
+                    stop: true,
+                    value
                 })
             }
             return
@@ -262,6 +265,8 @@ class Execution {
 
         ins._pointer = pointer
         ins._instructions = instructions
+
+        this.user.addHistory(ins)
 
         if (ins.group) {
             let groupIns = ins.group[_.random(0, ins.group.length - 1)]
@@ -284,7 +289,7 @@ class Execution {
                     next()
                     break
                 case 'executeFn':
-                    this.findFunctionAndExec(ins, level, next)
+                    this.findFunctionAndExec(ins, level, next).then(next)
                     break
             }
         }
@@ -324,9 +329,9 @@ class Execution {
                         }
                     }
                     Promise.all(paramsPromises).then(() => {
-                        context.execFn(insFn, 0, () => {
+                        context.execFn(insFn, 0, (args) => {
                             this.user.popAddress(this.namespace)
-                            next()
+                            resolve(args.value)
                         })
                     })
                     return true

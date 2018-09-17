@@ -72,9 +72,9 @@ InstructionList
 
 Instruction
     = _ decorators:DecoratorList? _ ins:(Comment / Condition / Increment / Assign / AssignObject / Function / ExecuteFunction) Nl* _ {
-        const { start } = location()
+        const _location = location()
         if (ins) {
-            ins._file = start
+            ins._file = _location
             if (decorators) {
                 ins.decorators = decorators
             }
@@ -160,7 +160,7 @@ RightAssign
     }
 
 Value =  
-    RegExp / StringBackQuote / String / ExecuteFunction / Null / Array / obj:Object { 
+    RegExp / StringBackQuote / String / Null / Array / obj:Object { 
         // Clean __deepIndex
         const index = obj[DEEP_NAME]
         if (!index) return obj
@@ -358,7 +358,7 @@ FunctionParameters 'function parameters'
     }
 
 FunctionReturn 'function return'
-    = 'return' _ functionReturn:Value {
+    = 'return' _ functionReturn:Value? {
         return { 'return': functionReturn }
     }
 

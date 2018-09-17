@@ -1,6 +1,4 @@
 const _ = require('lodash')
-const Wit = require('./wit.ai')
-const ApiAi = require('./api.ai')
 
 class Nlp {
 
@@ -33,21 +31,7 @@ class Nlp {
                 })
                 return
             }
-            switch (this.name) {
-                case 'wit.ai':
-                    Wit(this.converse.config, input, this).then((ret) => {
-                        resolve({ structured: ret })
-                    })
-                    break;
-                case 'api.ai':
-                    ApiAi(this.converse.config, input, userId, this).then((ret) => {
-                        resolve({ structured: ret })
-                    })
-                    break;
-                default:
-                    resolve()
-                    break;
-            }
+            resolve()
         })
         .then(({ structured, intents } = {}) => {
             intents = intents || this.intents
@@ -58,9 +42,6 @@ class Nlp {
                 let ret = intent(input, structured, user)
                 if (ret) {
                     filterIntents[key] = ret
-                    if (this.name == 'api.ai') {
-                        filterIntents[key].speech = structured.result.fulfillment.speech
-                    }
                 }
             }
             return filterIntents

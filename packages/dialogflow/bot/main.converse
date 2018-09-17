@@ -1,0 +1,14 @@
+@Intent('input.searchUser') 
+searchUser() {
+    > hello { :intent['given-name'].value }
+} 
+
+@Intent('input.deleteUser') 
+deleteUser() {
+    > Je supprime { :intent['given-name'].value }
+} 
+
+@Intent('dialogflow.error')
+error() {
+    > { :intent.error }
+}

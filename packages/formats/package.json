@@ -1,6 +1,6 @@
 {
-  "name": "@newbot/formats",
-  "version": "1.0.0",
+  "name": "newbot-formats",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -9,7 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "botbuilder": "^3.8.4"
+    "botbuilder": "^3.8.4",
+    "lodash": "^4.17.11"
   },
   "devDependencies": {
     "mocha": "^3.4.2"

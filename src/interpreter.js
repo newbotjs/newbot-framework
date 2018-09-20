@@ -527,6 +527,9 @@ class Execution {
             if (bool) {
                 this.execBlock(ins, 0, level, next)
             }
+            else if (ins.conditionsElse) {
+                this.execBlock(ins.conditionsElse, 0, level, next)
+            }
             else {
                 next()
             }

@@ -181,8 +181,8 @@ ForLoop
 // Condition
 
 Condition 
-    = keyword:('while' / 'if'?) _ '(' _ special:SpecialKeyword? _ condition:Expression _ ')' _ instructions:ConditionInstruction {
-        let obj = { condition, instructions }
+    = keyword:('while' / 'if'?) _ '(' _ special:SpecialKeyword? _ condition:Expression _ ')' _ instructions:ConditionInstruction  _ conditionsElse:ConditionElse? {
+        let obj = { condition, instructions, conditionsElse }
         if (keyword == 'while') {
             obj.loop = true
         }
@@ -206,6 +206,13 @@ ConditionSign
         if (keyword == '||') keyword = 'or'
         if (_.isArray(keyword)) keyword = keyword.join('')
         return ' ' + keyword + ' '
+    }
+
+ConditionElse =
+    'else' _ ins:(instructions:ConditionInstruction / instructions:Condition*)  {
+        return {
+            instructions: ins[0]
+        }
     }
 
 SpecialKeyword

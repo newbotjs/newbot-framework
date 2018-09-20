@@ -116,7 +116,7 @@ class Converse {
         }
         this._transpiler = new Transpiler(this.script)
         this._obj = this._transpiler.run()
-        console.log(JSON.stringify(this._obj, null, 2))
+        //console.log(JSON.stringify(this._obj, null, 2))
         this._interpreter = new Interpreter(this._obj, this.users, this)
         return this
     }

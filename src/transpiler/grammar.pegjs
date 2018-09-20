@@ -211,7 +211,7 @@ ConditionSign
 ConditionElse =
     'else' _ ins:(instructions:ConditionInstruction / instructions:Condition*)  {
         return {
-            instructions: ins[0]
+            instructions: ins
         }
     }
 

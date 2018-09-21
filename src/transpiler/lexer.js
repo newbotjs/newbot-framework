@@ -1,6 +1,7 @@
 const peg = require('pegjs')
 const fs = require('fs')
 const _ = require('lodash')
+const ExecutionError = require('../error')
 
 if (typeof window != 'undefined') window._ = _
 
@@ -14,16 +15,13 @@ class Transpiler {
     }
 
     run() {
-        return parser.parse(this._script)
-        /*
-        const instructions = []
-        const str = this._script.split('\n')
-        for (let line of str) {
-            instructions.push(this.line(line))
+        try {
+            return parser.parse(this._script)
         }
-        console.log(instructions)
-        return instructions
-        */
+        catch (err) {
+            const error = new ExecutionError(this._script)
+            error.syntax(err)
+        }
     }
 
     line(str) {

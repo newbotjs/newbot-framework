@@ -6,7 +6,7 @@ Integrate the DialogFlow skill into NewBot
 
 Install with
 
-`npm install @newbot/dialogflow`
+`npm install newbot-dialogflow`
 
 # Use
 
@@ -14,14 +14,14 @@ Install with
 2. Add the skill in the `skills` property and configure
 
 ```js
-import dialogflowSkill from '@newbot/dialogflow'
+import dialogflow from 'newbot-dialogflow'
 import code from './main.converse'
 
 export default {
     code,
     skills: {
-        dialogflowSkill: dialogflowSkill({
-            projectId: 'ENTER_PROJECT_ID_HERE';  // https://dialogflow.com/docs/agents#settings,
+        dialogflow: dialogflowSkill({
+            projectId: 'ENTER_PROJECT_ID_HERE',  // https://dialogflow.com/docs/agents#settings,
             sessionId: 'quickstart-session-id',
             languageDefault: 'en-EN', // optionnal
             credentials: 'PATH_TO_JSON_FILE' // https://cloud.google.com/docs/authentication/production

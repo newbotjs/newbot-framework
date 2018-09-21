@@ -1,6 +1,6 @@
 {
-  "name": "@newbot/dialogflow",
-  "version": "1.0.0",
+  "name": "newbot-dialogflow",
+  "version": "1.0.1",
   "description": "DialogFlow in NewBot Framework",
   "main": "index.js",
   "scripts": {

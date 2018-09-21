@@ -31,7 +31,7 @@ module.exports = function ({
                     }
                     const responses = await sessionClient.detectIntent(request)
                     const intents = {}
-                    for (res of responses) {
+                    for (let res of responses) {
                         if (!res) continue
                         const result = res.queryResult
                         const { parameters, outputContexts } = result

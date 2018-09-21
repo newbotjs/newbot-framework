@@ -19,8 +19,7 @@ class ExecutionError {
       let { line, column } = ins._file
       error = this.makeError(code, msg, {
         line,
-        column,
-        src: this.script
+        column
       })
     }
     else {
@@ -29,11 +28,20 @@ class ExecutionError {
     throw error
   }
 
+  syntax(err) {
+    const { line, column } = err.location.start
+    const error = this.makeError('syntax', 'Syntax Error', {
+      line,
+      column
+    })
+    throw error
+  }
+
   makeError(code, message, options) {
     var line = options.line;
     var column = options.column;
     var filename = options.filename;
-    var src = options.src;
+    var src = this.script || options.src;
     var fullMessage;
     var location = line + (column ? ':' + column : '');
     if (src && line >= 1 && line <= src.split('\n').length) {

@@ -46,12 +46,35 @@ module.exports = (text, [cards, actions], {
             .sourceEvent({
                 facebook
             })
-    } else if (Utils.isFacebook(session)) {
+    }
+
+    if (Utils.isBottenderViber(session)) {
+        return {
+            method: 'sendCarouselContent',
+            params: [{
+                Type: 'rich_media',
+                Buttons: cards
+            }]
+        }
+    }
+
+    if (Utils.isBottenderLine(session)) {
+        return {
+            method: 'replyCarouselTemplate',
+            params: [text, cards]
+        }
+    }
+
+    if (Utils.isFacebook(session)) {
         return facebook
     }
 
-    return new builder.Message(session)
-        .attachmentLayout(builder.AttachmentLayout.carousel)
-        .suggestedActions(builder.SuggestedActions.create(session, actions))
-        .attachments(cards)
+    if (Utils.isBotBuilder(session)) {
+        return new builder.Message(session)
+            .attachmentLayout(builder.AttachmentLayout.carousel)
+            .suggestedActions(builder.SuggestedActions.create(session, actions))
+            .attachments(cards)
+    }
+
+    return text
 }

@@ -10,12 +10,15 @@ module.exports = (text, [url], {
             image
         }
     }
-    return new builder.Message(session)
-        .attachments([
-            new builder.AnimationCard(session)
-            .text(text)
-            .media([{
-                url
-            }])
-        ])
+    if (Utils.isBotBuilder(session)) {
+        return new builder.Message(session)
+            .attachments([
+                new builder.AnimationCard(session)
+                .text(text)
+                .media([{
+                    url
+                }])
+            ])
+    }
+    return text
 }

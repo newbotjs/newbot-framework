@@ -1,8 +1,34 @@
 const LANGS_ID = ['fr_FR', 'en_EN']
 
 class Utils {
+    
+    _is(session, platform) {
+        const { source } = session.message
+        return source === platform
+    }
+    
     isFacebook(session) {
-        return session.message.source === 'facebook'
+        return this._is(session, 'facebook') || this._is(session, 'messenger')
+    }
+
+    isViber(session) {
+        return this._is(session, 'viber')
+    }
+
+    isSlack(session) {
+        return this._is(session, 'slack')
+    }
+
+    isTelegram(session) {
+        return this._is(session, 'telegram')
+    }
+
+    isLine(session) {
+        return this._is(session, 'line')
+    }
+
+    isBottender(session) {
+        return session.message.agent === 'bottender'
     }
 
     isBotBuilder(session) {
@@ -12,6 +38,28 @@ class Utils {
     isBotBuilderFacebook(session) {
         return this.isFacebook(session) && this.isBotBuilder(session)
     }
+
+    /* Botrender */
+    isBottenderViber(session) {
+        return this.isViber(session) && this.isBottender(session)
+    }
+
+    isBottenderFacebook(session) {
+        return this.isFacebook(session) && this.isBottender(session)
+    }
+
+    isBottenderSlack(session) {
+        return this.isSlack(session) && this.isBottender(session)
+    }
+
+    isBottenderTelegram(session) {
+        return this.isTelegram(session) && this.isBottender(session)
+    }
+
+    isBottenderLine(session) {
+        return this.isLine(session) && this.isBottender(session)
+    }
+    /** */
 
     isWebSite(session) {
         return session.message.source === 'website'

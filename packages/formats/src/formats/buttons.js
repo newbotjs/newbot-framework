@@ -1,6 +1,8 @@
 const builder = require('botbuilder')
 const Utils = require('../utils')
-const { heroCard } = require('./hero-card')
+const {
+    heroCard
+} = require('./hero-card')
 
 function buttons(session, text, buttons, user) {
     const card = heroCard(session, {
@@ -31,18 +33,25 @@ function buttons(session, text, buttons, user) {
                 facebook
             })
     }
-    else if (Utils.isFacebook(session)) {
+
+    if (Utils.isFacebook(session)) {
         return facebook
     }
 
-    return new builder.Message(session)
-        .text(text)
-        .addAttachment(card)
+    if (Utils.isBotBuilder(session)) {
+        return new builder.Message(session)
+            .text(text)
+            .addAttachment(card)
+    }
+
+    return text
 }
 
 module.exports = {
     buttons,
-    format(text, [_buttons], { session }, user) {
+    format(text, [_buttons], {
+        session
+    }, user) {
         return buttons(session, text, _buttons, user)
-    }    
+    }
 }

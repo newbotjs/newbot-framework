@@ -6,7 +6,7 @@ const querystring = require('querystring')
 function quickReplies(session, actions) {
 
     if (!actions) return
-    
+
     if (Utils.isWebSite(session)) {
         return actions
     }
@@ -31,24 +31,36 @@ function quickReplies(session, actions) {
                 image_url: action.image
             }
         })
-       return actions
+        return actions
     }
 
-    actions = actions.map(action => {
-        return builder.CardAction.imBack(session, action, action)
-    })
+    if (Utils.isBotBuilder(session)) {
+        return actions.map(action => {
+            return builder.CardAction.imBack(session, action, action)
+        })
+    }
 
-    return actions
+    return actions.map(action => {
+        if (!_.isString(action)) {
+            return action.text
+        }
+        return action
+    })
 }
 
 module.exports = {
     quickReplies,
-    format(text, [actions], { session }) {
+    format(text, [actions], {
+        session
+    }) {
 
         actions = quickReplies(session, actions)
 
         if (Utils.isWebSite(session)) {
-            return { text, actions }
+            return {
+                text,
+                actions
+            }
         }
 
         const facebook = {
@@ -62,12 +74,29 @@ module.exports = {
                     facebook
                 })
         }
-        else if (Utils.isFacebook(session)) {
+
+        if (Utils.isBottenderFacebook(session)) {
+            return {
+                method: 'sendText',
+                params: [
+                    text,
+                    {
+                        quick_replies: actions
+                    }
+                ]
+            }
+        }
+
+        if (Utils.isFacebook(session)) {
             return facebook
         }
 
-        return new builder.Message(session)
-            .text(text)
-            .suggestedActions(builder.SuggestedActions.create(session, actions))
+        if (Utils.isBotBuilder(session)) {
+            return new builder.Message(session)
+                .text(text)
+                .suggestedActions(builder.SuggestedActions.create(session, actions))
+        }
+
+        return `${text} (${actions.reduce((a, b) => a + ', ' + b)})`
     }
 }

@@ -15,28 +15,63 @@ module.exports = (text, [contentUrl, contentType, name], {
             contentType = 'image/' + ext
         }
     }
+
+    const facebook = {
+        text,
+        attachment: {
+            type: 'image',
+            payload: {
+                url: contentUrl
+            }
+        }
+    }
+
     if (Utils.isWebSite(session)) {
         return {
             text,
             image: contentUrl
         }
-    } else if (Utils.isFacebook(session) && !Utils.isBotBuilderFacebook(session)) {
+    }
+
+    if (Utils.isBottenderViber(session)) {
         return {
-            text,
-            attachment: {
-                type: 'image',
-                payload: {
-                    url: contentUrl
-                }
-            }
+            method: 'sendPicture',
+            params: [{
+                text,
+                media: contentUrl
+            }]
         }
     }
 
-    return new builder.Message(session)
-        .text(text)
-        .addAttachment({
-            contentUrl,
-            contentType,
-            name
-        })
+    if (Utils.isBottenderFacebook(session)) {
+        return {
+            method: 'sendMessage',
+            params: [
+                facebook
+            ]
+        }
+    }
+
+    if (Utils.isBottenderLine(session)) {
+        return {
+            method: 'replyImage',
+            params: [contentUrl]
+        }
+    }
+
+    if (Utils.isFacebook(session) && !Utils.isBotBuilderFacebook(session)) {
+        return facebook
+    }
+
+    if (Utils.isBotBuilder(session)) {
+        return new builder.Message(session)
+            .text(text)
+            .addAttachment({
+                contentUrl,
+                contentType,
+                name
+            })
+    }
+
+    return text
 }

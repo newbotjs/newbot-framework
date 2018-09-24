@@ -209,10 +209,10 @@ class Converse {
                     user,
                     data: output.data
                 })
-               /* if (this.debug) {
-                    const debug = new Debug(this.script, user._history)
-                    debug.display()
-                }*/
+                /* if (this.debug) {
+                     const debug = new Debug(this.script, user._history)
+                     debug.display()
+                 }*/
             }
             return ret
         })
@@ -220,16 +220,44 @@ class Converse {
 
     propagateExec(input, userId, output, propagate) {
         const promises = []
+        const user = this._users.get(userId)
         let options = _.clone(output)
         let noExec = true
-        this._skills.forEach((skill) => {
-            if (skill._shareFormat) {
-                this._format = _.merge(skill._format, this._format)
+
+        function isPromise(obj) {
+            return !!obj && (typeof obj === 'object' || typeof obj === 'function') && typeof obj.then === 'function';
+        }
+
+        this._skills.forEach((skills) => {
+            if (!_.isArray(skills)) {
+                skills = [skills]
             }
-            skill._users = this.users
-            promises.push(skill.exec(input, userId, options, propagate).then((ret = {}) => {
-                noExec &= ret.noExec
-            }))
+            for (let skill of skills) {
+                promises.push(new Promise(resolve => {
+                    let skillPromise = Promise.resolve()
+                    if (skill._shareFormat) {
+                        this._format = _.merge(skill._format, this._format)
+                    }
+                    skill._users = this.users
+                    if (skill._condition) {
+                        skillPromise = skill._condition(options.data, user)
+                        if (!isPromise(skillPromise)) {
+                            skillPromise = Promise.resolve(skillPromise)
+                        }
+                    }
+                    skillPromise.then((mustExecute = true) => {
+                        if (mustExecute) {
+                            return skill.exec(input, userId, options, propagate).then((ret = {}) => {
+                                noExec &= ret.noExec
+                                resolve()
+                            })
+                        }
+                        else {
+                            resolve()
+                        }
+                    })
+                }))
+            }
         })
         return Promise.all(promises).then(() => noExec)
     }
@@ -424,7 +452,10 @@ class Converse {
             return
         }
         const path = this.config.languages.path || './languages'
-        let { packages, default: _default } = this.config.languages
+        let {
+            packages,
+            default: _default
+        } = this.config.languages
         if (_.isArray(packages)) {
             this.lang.init(packages, path + '/')
             return
@@ -496,15 +527,15 @@ class Converse {
 
     async skill(skillName, skillPath = skillName) {
         let _path = skillPath.skill || skillPath
-        
+
         if (_path.hasOwnProperty('default')) _path = _path.default
-   
+
         let dir = _path
         let skill
 
         if (_.isArray(_path)) {
-            for (let skillPath of _path) {
-                await this.skill(skillName, skillPath)
+            for (let skillObj of _path) {
+                await this.skill(skillName, skillObj)
             }
             return
         }
@@ -515,8 +546,7 @@ class Converse {
             if (prefix.length > 1) {
                 dir = _path = prefix[1]
                 prefix = prefix[0]
-            }
-            else {
+            } else {
                 prefix = null
             }
 
@@ -541,8 +571,7 @@ class Converse {
             } else {
                 if (dir[0] == '.') {
                     dir = this.parentPath + '/' + dir
-                }
-                else {
+                } else {
                     dir = '@node/' + dir
                 }
                 skill = await SystemJS.import(dir)
@@ -558,8 +587,7 @@ class Converse {
             const params = skillPath.params || []
             if (_.isPlainObject(params)) {
                 skill = skill.call(skill, params)
-            }
-            else {
+            } else {
                 skill = skill.apply(skill, params)
             }
             if (skill.then) {
@@ -574,9 +602,18 @@ class Converse {
 
         skill.namespace = (this.namespace ? this.namespace + '-' : '') + skillName
         skill.parent = this
+        skill._condition = skillPath.condition
         if (skill._shareNlp) {
             this._nlp = _.merge(this._nlp, skill._nlp)
             skill._nlp = {}
+        }
+        if (this._skills.has(skillName)) {
+            const currentSkills = this._skills.get(skillName)
+            if (_.isArray(currentSkills)) {
+                skill = [...currentSkills, skill]
+            } else {
+                skill = [currentSkills, skill]
+            }
         }
         this._skills.set(skillName, skill)
         return this

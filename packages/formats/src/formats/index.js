@@ -4,5 +4,16 @@ const gif = require('./gif')
 const image = require('./image')
 const { format: buttons } = require('./buttons')
 const markdown = require('./markdown')
+const video = require('./video')
+const contact = require('./contact')
 
-module.exports = { quickReplies, carousel, gif, buttons, markdown, image }
+module.exports = { 
+    quickReplies, 
+    carousel, 
+    gif, 
+    buttons, 
+    markdown, 
+    image, 
+    video, 
+    contact 
+}

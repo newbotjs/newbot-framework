@@ -2,7 +2,7 @@ const builder = require('botbuilder')
 const Utils = require('../utils')
 const _ = require('lodash')
 
-module.exports = (text, [contentUrl, contentType, name, thumbnail], {
+module.exports = (text, [contentUrl, contentType, name, thumbnail, duration, size], {
     session
 }) => {
     if (!name) {
@@ -11,34 +11,46 @@ module.exports = (text, [contentUrl, contentType, name, thumbnail], {
     if (!contentType) {
         let ext = _.last(name.split('.'))
         ext = ext.toLowerCase()
-        if (['gif', 'png', 'jpeg', 'jpg'].indexOf(ext)) {
+        if (['mp4'].indexOf(ext)) {
             contentType = 'image/' + ext
-        }
-    }
-
-    const facebook = {
-        attachment: {
-            type: 'image',
-            payload: {
-                url: contentUrl
-            }
         }
     }
 
     if (Utils.isWebSite(session)) {
         return {
             text,
-            image: contentUrl
+            video: contentUrl
         }
     }
 
     if (Utils.isBottenderViber(session)) {
         return {
-            method: 'sendPicture',
+            method: 'sendVideo',
             params: [{
-                text,
                 media: contentUrl,
-                thumbnail
+                thumbnail,
+                duration,
+                size
+            }]
+        }
+    }
+
+    if (Utils.isBottenderLine(session)) {
+        return {
+            method: 'replyVideo',
+            params: [contentUrl, thumbnail]
+        }
+    }
+
+    if (Utils.isBottenderTelegram(session)) {
+        return {
+            method: 'sendVideo',
+            params: [{
+                contentUrl
+            }, {
+                thumb: thumbnail,
+                duration,
+                caption: text
             }]
         }
     }
@@ -50,7 +62,7 @@ module.exports = (text, [contentUrl, contentType, name, thumbnail], {
                 text
             ]
         }, {
-            method: 'sendImage',
+            method: 'sendVideo',
             params: [
                 contentUrl
             ]

@@ -34,6 +34,16 @@ function buttons(session, text, buttons, user) {
             })
     }
 
+    if (Utils.isBottenderFacebook(session)) {
+        return {
+            method: 'sendButtonTemplate',
+            params: [
+                text,
+                card.buttons
+            ]
+        }
+    }
+
     if (Utils.isFacebook(session)) {
         return facebook
     }

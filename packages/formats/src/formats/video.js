@@ -23,6 +23,20 @@ module.exports = (text, [contentUrl, contentType, name, thumbnail, duration, siz
         }
     }
 
+    if (Utils.isGactions(session)) {
+        return [
+            text,
+            {
+                method: 'MediaObject',
+                params: [{
+                    name,
+                    url: contentUrl,
+                    icon: thumbnail
+                }]
+            }
+        ]
+    }
+
     if (Utils.isBottenderViber(session)) {
         return {
             method: 'sendVideo',

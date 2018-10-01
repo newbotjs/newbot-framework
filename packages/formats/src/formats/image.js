@@ -32,6 +32,19 @@ module.exports = (text, [contentUrl, contentType, name, thumbnail], {
         }
     }
 
+    if (Utils.isGactions(session)) {
+        return [
+            text,
+            {
+                method: 'Image',
+                params: [{
+                    url: contentUrl,
+                    alt: text
+                }]
+            }
+        ]
+    }
+
     if (Utils.isBottenderViber(session)) {
         return {
             method: 'sendPicture',

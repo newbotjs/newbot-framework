@@ -40,12 +40,21 @@ function quickReplies(session, actions) {
         })
     }
 
-    return actions.map(action => {
+    const inline = actions.map(action => {
         if (!_.isString(action)) {
             return action.text
         }
         return action
     })
+
+    if (Utils.isGactions(session)) {
+        return {
+            method: 'Suggestions',
+            params: inline
+        }
+    }
+
+    return inline
 }
 
 module.exports = {
@@ -61,6 +70,10 @@ module.exports = {
                 text,
                 actions
             }
+        }
+
+        if (Utils.isGactions(session)) {
+            return [text, actions]
         }
 
         const facebook = {

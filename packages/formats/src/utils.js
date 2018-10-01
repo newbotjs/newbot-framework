@@ -11,6 +11,10 @@ class Utils {
         return this._is(session, 'facebook') || this._is(session, 'messenger')
     }
 
+    isGactions(session) {
+        return this._is(session, 'gactions')
+    }
+
     isViber(session) {
         return this._is(session, 'viber')
     }

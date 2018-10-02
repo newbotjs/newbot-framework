@@ -6,6 +6,7 @@ const { format: buttons } = require('./buttons')
 const markdown = require('./markdown')
 const video = require('./video')
 const contact = require('./contact')
+const location = require('./location')
 
 module.exports = { 
     quickReplies, 
@@ -15,5 +16,6 @@ module.exports = {
     markdown, 
     image, 
     video, 
-    contact 
+    contact,
+    location
 }

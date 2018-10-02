@@ -5,6 +5,7 @@ const md5 = require('md5')
 const evaluate = require('static-eval')
 const { parse } = require('esprima')
 const async = require('./utils/async')
+const isPromise = require('./utils/is-promise')
 const asyncReplace = require('async-replace')
 
 const Decorators = require('./decorators/decorators')
@@ -608,6 +609,9 @@ class Execution {
                         if (converse._format[name]) {
                             params.splice(0, 1)
                             outputValue = converse._format[name].call(this.converse, outputValue, params, this.options.data, this.user)
+                            if (isPromise(outputValue)) {
+                                outputValue = await outputValue
+                            }
                         }
                     }
                 }

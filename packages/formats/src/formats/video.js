@@ -1,10 +1,15 @@
 const builder = require('botbuilder')
 const Utils = require('../utils')
 const _ = require('lodash')
+const rp = require('request-promise')
 
-module.exports = (text, [contentUrl, contentType, name, thumbnail, duration, size], {
+module.exports = async (text, [contentUrl, contentType, name, {
+    thumbnail,
+    duration,
+    size
+} = {}], {
     session
-}) => {
+}, user) => {
     if (!name) {
         name = _.last(contentUrl.split('/'))
     }
@@ -23,49 +28,68 @@ module.exports = (text, [contentUrl, contentType, name, thumbnail, duration, siz
         }
     }
 
-    if (Utils.isGactions(session)) {
+    if (Utils.isBottenderViber(session)) {
+        const {
+            headers
+        } = await rp({
+            url: contentUrl,
+            method: 'GET',
+            resolveWithFullResponse: true
+        })
         return [
             text,
             {
-                method: 'MediaObject',
+                method: 'sendVideo',
                 params: [{
-                    name,
-                    url: contentUrl,
-                    icon: thumbnail
+                    media: contentUrl,
+                    thumbnail,
+                    duration,
+                    size: size || headers['content-length']
                 }]
             }
         ]
     }
 
-    if (Utils.isBottenderViber(session)) {
-        return {
-            method: 'sendVideo',
-            params: [{
-                media: contentUrl,
-                thumbnail,
-                duration,
-                size
-            }]
-        }
+    if (Utils.isGactions(session)) {
+        return [
+            text,
+            {
+                method: 'BasicCard',
+                params: [{
+                    text: name,
+                    buttons: {
+                        title: Utils.toByLang({
+                            fr_FR: 'Voir la vidéo',
+                            en_EN: 'View video'
+                        }, user),
+                        url: contentUrl
+                    }
+                }]
+            }
+        ]
     }
 
     if (Utils.isBottenderLine(session)) {
-        return {
-            method: 'replyVideo',
-            params: [contentUrl, thumbnail]
-        }
+        return [
+            text,
+            {
+                method: 'replyVideo',
+                params: [contentUrl, thumbnail]
+            }
+        ]
     }
 
     if (Utils.isBottenderTelegram(session)) {
         return {
             method: 'sendVideo',
-            params: [{
-                contentUrl
-            }, {
-                thumb: thumbnail,
-                duration,
-                caption: text
-            }]
+            params: [
+                contentUrl,
+                {
+                    thumb: thumbnail,
+                    duration,
+                    caption: text
+                }
+            ]
         }
     }
 

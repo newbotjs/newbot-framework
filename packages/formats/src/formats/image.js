@@ -56,18 +56,30 @@ module.exports = (text, [contentUrl, contentType, name, thumbnail], {
         }
     }
 
+    if (Utils.isBottenderTelegram(session)) {
+        return [
+            text,
+            {
+                method: 'sendPhoto',
+                params: [
+                    contentUrl, 
+                {
+                    caption: name
+                }]
+            }
+        ]
+    }
+
     if (Utils.isBottenderFacebook(session)) {
-        return [{
-            method: 'sendText',
-            params: [
-                text
-            ]
-        }, {
-            method: 'sendImage',
-            params: [
-                contentUrl
-            ]
-        }]
+        return [
+            text,
+            {
+                method: 'sendImage',
+                params: [
+                    contentUrl
+                ]
+            }
+        ]
     }
 
     if (Utils.isBottenderLine(session)) {

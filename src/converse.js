@@ -11,6 +11,7 @@ const Debug = require('./debug')
 const Nlp = require('./nlp')
 
 const fs = require('./utils/fs')
+const isPromise = require('./utils/is-promise')
 const Browser = require('./utils/browser')
 
 const SystemJS = require('systemjs')
@@ -223,10 +224,6 @@ class Converse {
         const user = this._users.get(userId)
         let options = _.clone(output)
         let noExec = true
-
-        function isPromise(obj) {
-            return !!obj && (typeof obj === 'object' || typeof obj === 'function') && typeof obj.then === 'function';
-        }
 
         this._skills.forEach((skills) => {
             if (!_.isArray(skills)) {

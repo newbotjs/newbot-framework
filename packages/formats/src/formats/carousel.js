@@ -48,12 +48,26 @@ module.exports = (text, [cards, actions], {
             })
     }
 
+    if (Utils.isGactions(session)) {
+        return [
+            text,
+            {
+                method: 'Carousel',
+                items: [
+                    // todo
+                ]
+            }
+        ]
+    }
+
     if (Utils.isBottenderViber(session)) {
         return {
             method: 'sendCarouselContent',
             params: [{
                 Type: 'rich_media',
-                Buttons: cards
+                ButtonsGroupColumns: 6,
+                ButtonsGroupRows: 7,
+                Buttons: _.flatten(cards)
             }]
         }
     }

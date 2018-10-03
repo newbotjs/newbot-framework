@@ -69,7 +69,7 @@ class Utils {
         return session.message.source === 'website'
     }
 
-    getByLang(prop, user) {
+    getByLang(prop, user, _default) {
         const lang = user.getLang()
         if (prop && lang) {
             if (prop[lang]) {
@@ -84,6 +84,9 @@ class Utils {
                     return prop[lang]
                 }
             }
+        }
+        if (_default) {
+            return prop[_default]
         }
         return prop
     }

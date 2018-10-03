@@ -58,10 +58,10 @@ module.exports = async (text, [contentUrl, contentType, name, {
                 params: [{
                     text: name,
                     buttons: {
-                        title: Utils.toByLang({
+                        title: Utils.getByLang({
                             fr_FR: 'Voir la vidéo',
                             en_EN: 'View video'
-                        }, user),
+                        }, user, 'en_EN'),
                         url: contentUrl
                     }
                 }]

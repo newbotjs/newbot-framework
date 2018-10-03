@@ -16,6 +16,33 @@ function buttons(session, text, buttons, user) {
         }
     }
 
+    if (Utils.isGactions(session)) {
+        return [
+            text,
+            ...card.buttons.map(b => {
+                let method, param
+                switch (b.type) {
+                    case 'postback':
+                        method = 'Suggestions'
+                        param = b.msg || b.title
+                        break
+                    case 'url':
+                    case 'web_url':
+                        method = 'LinkOutSuggestion'
+                        param = {
+                            name: b.title,
+                            url: b.url
+                        }
+                        break
+                }
+                return {
+                    method,
+                    params: [param]
+                }
+            })
+        ]
+    }
+
     const facebook = {
         attachment: {
             type: 'template',

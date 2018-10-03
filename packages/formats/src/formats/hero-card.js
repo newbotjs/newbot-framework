@@ -17,27 +17,66 @@ function heroCard(session, card, user) {
 
     card = Utils.toByLang(card, user)
 
-    if (Utils.isWebSite(session)) {
+    if (Utils.isWebSite(session) || Utils.isGactions(session)) {
         if (card.buttons) {
-            card.buttons = card.buttons.map(b => Utils.toByLang(b, user))
+            card.buttons = card.buttons.map(b => mapButton(b))
         }
         return card
     }
 
     if (Utils.isBottenderViber(session)) {
-        const element = {
-            Columns: 6,
-            Rows: 2,
-            Text: `<font color=#323232><b>${card.title}</b></font>
-            <font color=#777777><br>${card.subtitle}</font>`,
-            Image: card.image
-        }
+        let url = ''
+        let buttons = []
+        let sizeButtons = 0
         if (card.buttons) {
-
+            const firstButton = card.buttons[0]
+            if (firstButton.url) url = firstButton.url
+            sizeButtons = card.buttons.length
+            buttons = card.buttons.map(b => {
+                b = mapButton(b)
+                let type, text
+                switch (b.type) {
+                    case 'url':
+                    case 'web_url':
+                        type = 'open-url'
+                        text = b.title
+                        break
+                    case 'postback':
+                        type = 'reply'
+                        text = b.msg || b.title
+                        break
+                    default:
+                        break;
+                }
+                return {
+                    Columns: 6,
+                    Rows: 1,
+                    ActionType: type,
+                    ActionBody: b.url || url,
+                    Text: text
+                }
+            })
         }
-        /* if (!b.type && !b.url) element.ActionType = 'none'
-         else if (!b.type) b.type = 'web_url'*/
-        return element
+        return _.flatten([{
+                Columns: 6,
+                Rows: 3 - (sizeButtons == 3 ? 1 : 0),
+                ActionType: 'open-url',
+                ActionBody: url,
+                Image: card.image
+            },
+            {
+                Columns: 6,
+                Rows: 2,
+                ActionType: 'open-url',
+                ActionBody: url,
+                Text: `<font color=#323232><b>${card.title}</b></font>
+                <font color=#777777><br>${card.subtitle}</font>`,
+                TextSize: "medium",
+                TextVAlign: "middle",
+                TextHAlign: "left"
+            },
+            ...buttons
+        ])
     }
 
     if (Utils.isBottenderLine(session)) {

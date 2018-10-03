@@ -8,19 +8,17 @@ class Session {
     }
 
     send(params) {
-        let preText
         if (!_.isArray(params)) {
             params = [params]
         }
         params = params.map(obj => {
-            if (obj.text) preText = obj.text
             if (obj.method) {
                 obj.params = obj.params.map(param => {
                     if (param.buttons) {
-                        return new this.gactions.Button(param.buttons)
+                        param.buttons = new this.gactions.Button(param.buttons)
                     }
                     if (param.image) {
-                        return new this.gactions.Image(param.image)
+                        param.image = new this.gactions.Image(param.image)
                     }
                     return param
                 })
@@ -28,9 +26,6 @@ class Session {
             }
             return obj
         })
-        if (preText) {
-            this.conv.ask(preText)
-        }
         this.conv.ask(...params)
     }
 

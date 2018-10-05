@@ -10,7 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "botbuilder": "^3.8.4",
-    "lodash": "^4.17.11"
+    "lodash": "^4.17.11",
+    "request-promise": "^4.2.2"
   },
   "devDependencies": {
     "mocha": "^3.4.2"

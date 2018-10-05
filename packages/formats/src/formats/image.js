@@ -2,7 +2,7 @@ const builder = require('botbuilder')
 const Utils = require('../utils')
 const _ = require('lodash')
 
-module.exports = (text, [contentUrl, contentType, name, thumbnail], {
+module.exports = async (text, [contentUrl, contentType, name, thumbnail], {
     session
 }) => {
     if (!name) {
@@ -29,6 +29,21 @@ module.exports = (text, [contentUrl, contentType, name, thumbnail], {
         return {
             text,
             image: contentUrl
+        }
+    }
+
+    if (Utils.isTwitter(session)) {
+        return {
+            text,
+            attachment: {
+                type: 'media'
+            },
+            _data: {
+                url: contentUrl,
+                size: await Utils.sizeFile(contentUrl),
+                type: contentType,
+                category: 'dm_image'
+            }
         }
     }
 

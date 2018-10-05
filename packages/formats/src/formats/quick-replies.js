@@ -40,6 +40,20 @@ function quickReplies(session, actions) {
         })
     }
 
+    if (Utils.isTwitter(session)) {
+        return actions.map(action => {
+            if (_.isString(action)) {
+                return {
+                    label: action
+                }
+            }
+            return {
+                label: action.text,
+                metadata: action.payload
+            }
+        })
+    }
+
     const inline = actions.map(action => {
         if (!_.isString(action)) {
             return action.text
@@ -74,6 +88,16 @@ module.exports = {
 
         if (Utils.isGactions(session)) {
             return [text, actions]
+        }
+
+        if (Utils.isTwitter(session)) {
+            return {
+                text,
+                quick_reply: {
+                    type: 'options',
+                    options: actions
+                }
+            }
         }
 
         const facebook = {

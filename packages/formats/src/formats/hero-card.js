@@ -24,6 +24,50 @@ function heroCard(session, card, user) {
         return card
     }
 
+    if (Utils.isTwitter(session)) {
+        if (card.buttons) {
+            card.buttons = card.buttons.map(b => {
+                b = mapButton(b)
+                switch (b.type) {
+                    case 'url':
+                    case 'web_url':
+                        return {
+                            type: 'web_url',
+                            url: b.url,
+                            label: b.title
+                        }
+                    case 'share':
+                        if (!b.tweet) {
+                            console.warn('Specify "tweet" property to use shared button on twitter platform')
+                            return 
+                        }
+                        let { url, text, via, hashtags } = b.tweet
+                        if (text) {
+                            text = `text=${text}`
+                        }
+                        if (url) {
+                            url = `&url=${url}`
+                        }
+                        if (via) {
+                            via = `&via=${via}`
+                        }
+                        if (hashtags) {
+                            hashtags = `&hashtags=${hashtags.split(',')}`
+                        }
+                        return {
+                            type: 'web_url',
+                            url: `https://twitter.com/intent/tweet?${url}${via}${text}${hashtags}`,
+                            label: b.title || Utils.getByLang({
+                                fr_FR: 'Partager',
+                                en_EN: 'Share'
+                            }, user, 'en_EN')
+                        }
+                }
+            })
+        }
+        return card
+    }
+
     if (Utils.isBottenderViber(session)) {
         let url = ''
         let buttons = []

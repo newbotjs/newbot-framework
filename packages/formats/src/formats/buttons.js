@@ -43,6 +43,13 @@ function buttons(session, text, buttons, user) {
         ]
     }
 
+    if (Utils.isTwitter(session)) {
+        return {
+            text,
+            ctas: card.buttons
+        }
+    }
+
     const facebook = {
         attachment: {
             type: 'template',

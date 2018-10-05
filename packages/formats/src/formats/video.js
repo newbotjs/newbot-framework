@@ -28,14 +28,9 @@ module.exports = async (text, [contentUrl, contentType, name, {
         }
     }
 
+
     if (Utils.isBottenderViber(session)) {
-        const {
-            headers
-        } = await rp({
-            url: contentUrl,
-            method: 'GET',
-            resolveWithFullResponse: true
-        })
+        const sizeFile = await Utils.sizeFile(contentUrl)
         return [
             text,
             {
@@ -44,7 +39,7 @@ module.exports = async (text, [contentUrl, contentType, name, {
                     media: contentUrl,
                     thumbnail,
                     duration,
-                    size: size || headers['content-length']
+                    size: size || sizeFile
                 }]
             }
         ]

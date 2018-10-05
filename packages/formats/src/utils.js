@@ -1,3 +1,4 @@
+const rp = require('request-promise')
 const LANGS_ID = ['fr_FR', 'en_EN']
 
 class Utils {
@@ -25,6 +26,10 @@ class Utils {
 
     isTelegram(session) {
         return this._is(session, 'telegram')
+    }
+
+    isTwitter(session) {
+        return this._is(session, 'twitter')
     }
 
     isLine(session) {
@@ -96,6 +101,17 @@ class Utils {
             obj[prop] = this.getByLang(obj[prop], user)
         }
         return obj
+    }
+
+    async sizeFile(url) {
+        const {
+            headers
+        } = await rp({
+            url,
+            method: 'GET',
+            resolveWithFullResponse: true
+        })
+        return headers['content-length']
     }
 }
 

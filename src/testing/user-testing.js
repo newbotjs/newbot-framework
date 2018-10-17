@@ -101,9 +101,6 @@ class UserTesting {
         if (testArray[0].start) {
             this.start(testing => _assert(testing, testArray[0]))
         }
-        else {
-            this.start()
-        }
 
         for (let dialog of testArray) {
             if (dialog.start) continue

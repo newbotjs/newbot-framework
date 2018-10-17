@@ -1,9 +1,9 @@
 {
-    "name": "converse",
-    "displayName": "converse",
+    "name": "conversescript",
+    "displayName": "ConverseScript",
     "description": "",
     "version": "0.0.1",
-    "publisher": "ConverseScript",
+    "publisher": "sam0552",
     "engines": {
         "vscode": "^1.13.0"
     },

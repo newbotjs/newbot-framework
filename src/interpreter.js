@@ -590,6 +590,7 @@ class Execution {
         return new Promise(async (resolve, reject) => {
             const { converse } = this.interpreter
             let outputValue = ins.output
+
             if (!this.output) {
                 return
             }
@@ -597,6 +598,8 @@ class Execution {
             if (ins.output.variables) {
                 outputValue = await this.getValue(ins.output, level)
             }
+
+            outputValue = outputValue.replace(/\r$/, '')
 
             outputValue = await this.translate(outputValue, level, ins.params)
 

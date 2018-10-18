@@ -358,19 +358,24 @@ class Execution {
                     }
                 }
                 else {
-                    const deep = ins.deep.slice(0, -1)
-                    const params = {
-                        variable: ins.name,
-                        deep
-                    }
-                    if (ins.deep.length > 1) {
-                        params.type = 'object'
-                    }
-                    const val = await this.getValue(params, level)
-                    const fnName = _.last(ins.deep)
-                    const jsFn = val[fnName]
-                    if (jsFn) {
-                        resolve(jsFn.apply(val, ins.params))
+                    if (ins.deep) {
+                        const deep = ins.deep.slice(0, -1)
+                        const params = {
+                            variable: ins.name,
+                            deep
+                        }
+                        if (ins.deep.length > 1) {
+                            params.type = 'object'
+                        }
+                        const val = await this.getValue(params, level)
+                        const fnName = _.last(ins.deep)
+                        const jsFn = val[fnName]
+                        if (jsFn) {
+                            resolve(jsFn.apply(val, ins.params))
+                        }
+                        else {
+                            this.error.throw(ins, 'function.not.defined')
+                        } 
                     }
                     else {
                         this.error.throw(ins, 'function.not.defined')

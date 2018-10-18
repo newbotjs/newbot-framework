@@ -16,7 +16,7 @@ class ExecutionError {
     let [code, msg] = ID[id]
     msg = msg(ins)
     if (ins._file) {
-      let { line, column } = ins._file
+      let { line, column } = ins._file.start
       error = this.makeError(code, msg, {
         line,
         column

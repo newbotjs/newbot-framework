@@ -6,12 +6,14 @@ function heroCard(session, card, user) {
 
     const mapButton = (b) => {
         b = Utils.toByLang(b, user)
-        if (b.event) {
+        /*if (b.event) {
             b.type = 'webview'
             b.url = 'https://example.com'
+        }*/
+        if (!b.event) {
+            if (!b.type && !b.url) b.type = 'postback'
+            else if (!b.type) b.type = 'web_url'
         }
-        if (!b.type && !b.url) b.type = 'postback'
-        else if (!b.type) b.type = 'web_url'
         return b
     }
 

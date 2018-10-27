@@ -11,7 +11,10 @@ class Session {
             methods = [methods]
         }
         for (let obj of methods) {
-            if (_.isString(obj)) {
+            if (_.isString(obj) || !obj.method) {
+                if (obj.text) {
+                    obj = obj.text
+                }
                 obj = {
                     method: 'sendText',
                     params: [obj]

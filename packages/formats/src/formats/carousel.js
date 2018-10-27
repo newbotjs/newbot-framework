@@ -79,6 +79,16 @@ module.exports = (text, [cards, actions], {
         }
     }
 
+    if (Utils.isBottenderFacebook(session)) {
+        return [
+            text,
+            {
+                method: 'sendGenericTemplate',
+                params: [cards]
+            }
+        ]
+    }
+
     if (Utils.isFacebook(session)) {
         return facebook
     }

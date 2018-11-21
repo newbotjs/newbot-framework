@@ -302,6 +302,8 @@ describe('Test Transpiler', () => {
         it('increment ' + sign + sign + ' object', () => {
             const [obj] = t(`test.foo${sign}${sign}`)
             const [obj2] = t(`test.foo = test.foo ${sign} 1`)
+            delete obj2._file
+            delete obj._file
             expect(obj).to.have.deep.equal(obj2)
             expect(obj).to.have.property('variable', 'test')
             expect(obj).to.have.deep.property('deep', ['foo'])
@@ -312,6 +314,8 @@ describe('Test Transpiler', () => {
         it('increment ' + sign + '= object', () => {
             const [obj] = t(`test.foo ${sign}= 2`)
             const [obj2] = t(`test.foo = test.foo ${sign} 2`)
+            delete obj2._file
+            delete obj._file
             expect(obj).to.have.deep.equal(obj2)
         })
 

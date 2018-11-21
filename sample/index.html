@@ -1,4 +1,4 @@
-<script src="../dist/converse.js"></script>
+<script src="../dist/newbot.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 
 <div id="app">
@@ -11,36 +11,15 @@
 
 <script>
     (async function () {
-        const converse = new Converse()
-        converse.file('index.converse')
-
-        converse.configure({
-            languages: {
-                path: './languages',
-                packages: ['fr_FR']
+        const converse = new NewBot()
+        converse.code(`
+            @Event('start')
+            start() {
+                > Ok
             }
-        }).loadLanguage()
-
-        await converse.setSkills({
-            hey: 'skills/hey/hey'
-        })
-
-        var app = new Vue({
-            el: '#app',
-            data: {
-                messages: [],
-                msg: ''
-            },
-            methods: {
-                send() {
-                    this.messages.push(this.msg)
-                    converse.exec(this.msg, 'user id', (output, done) => {
-                        this.messages.push(output)
-                        done()
-                    })
-                    this.msg = ''
-                }
-            }
+        `)
+        converse.exec('yo', (output) => {
+            console.log(output)
         })
     })()
 </script>

@@ -175,11 +175,10 @@ class Execution {
                 self._noExec = true
                 self._nothing = true
                 if (decorator.nothing.length) {
-                    if (!Converse.nothingSkill) Converse.nothingSkill = self
+                    if (!self.user.nothingSkill) self.user.nothingSkill = self
                 }
-                if (!self.parent && Converse.nothingSkill) {
-                    await Converse.nothingSkill.execNothing()
-                    Converse.nothingSkill = null 
+                if (!self.parent && self.user.nothingSkill) {
+                    await self.user.nothingSkill.execNothing()
                 }
             }
             self.end()
@@ -197,6 +196,9 @@ class Execution {
     
 
     stopScript() {
+        if (!this.parent) {
+            this.user.nothingSkill = null 
+        }
         this._finishScript({
             noExec: this._noExec,
             nothing: this._nothing

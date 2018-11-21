@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha tests/*.spec.js tests/modules/*.spec.js tests/interpreter2/*.spec.js",
-    "build": "parcel converse.js"
+    "build": "parcel build converse.js --out-file newbot.min.js --no-source-maps",
+    "prepublish": "npm run build"
   },
   "author": "",
   "license": "ISC",
@@ -28,11 +29,13 @@
     "systemjs-plugin-text": "0.0.11"
   },
   "devDependencies": {
+    "babel-core": "^6.26.3",
     "babel-plugin-dynamic-import-node": "^1.2.0",
     "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.7.0",
     "babel-preset-stage-2": "^6.24.1",
     "babel-runtime": "^6.26.0",
     "chai": "^4.1.2",
-    "parcel-bundler": "^1.8.1"
+    "parcel-bundler": "^1.10.3"
   }
 }

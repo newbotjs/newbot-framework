@@ -9,6 +9,34 @@ describe('Module Test', () => {
     let converse, u
 
     beforeEach((done) => {
+        const child = {
+            code: `
+                @Intent(/hello/i)
+                hello() {
+                    > Child
+                    Prompt()
+                    > Test
+                }
+        
+                foo() {
+                    > Lazy 3
+                }
+        
+                lazy(b) {
+                    > Lazy {b}
+                    Prompt()
+                    > Lazy 2
+                    foo()
+                    Prompt()
+                    > Lazy 4
+                }
+        `,
+            functions: {
+                jsFunction() {
+                    return 'js'
+                }
+            }
+        }
         converse = new ConverseTesting()
         converse.code(`
             @Event('start')
@@ -25,7 +53,7 @@ describe('Module Test', () => {
             }
         `)
         converse.setSkills({
-            child: './skills/child/index.js'
+            child
         })
         u = converse.createUser()
         done()

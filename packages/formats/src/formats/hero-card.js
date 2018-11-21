@@ -206,7 +206,7 @@ function heroCard(session, card, user) {
                                 payload: b.phone_number
                             }
                         default:
-                            break
+                            return b
                     }
                 })
         }

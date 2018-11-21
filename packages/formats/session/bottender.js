@@ -1,9 +1,13 @@
 const _ = require('lodash')
 
 class Session {
-    constructor(context, platform) {
+    constructor(context, {
+        platform,
+        userId
+    }) {
         this.context = context
         this.platform = platform
+        this.userId = userId
     }
 
     send(methods) {
@@ -31,8 +35,12 @@ class Session {
                         break;
                 }
             }
-            this.context[obj.method].apply(this.context, obj.params)
-        } 
+            let params = obj.params
+            if (this.userId) {
+                params = [this.userId, ...params]
+            }
+            this.context[obj.method].apply(this.context, params)
+        }
     }
 
     get message() {

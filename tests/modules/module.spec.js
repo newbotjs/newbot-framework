@@ -388,20 +388,16 @@ describe('Module Test', () => {
                         > Hey
                     }
                 `,
-                nlp
+                nlp,
+                propagateNlp: true
             })
             return converse.createUser()
                 .conversation(
                     user `hey`,
-                    bot `Hey`
+                    bot `Hey`,
+                    user `bye`,
+                    bot `Bye`
                 ).then(() => {
-                    const converseChild = new ConverseTesting(child)
-                    return converseChild.createUser()
-                        .conversation(
-                            user `bye`,
-                            bot `Bye`
-                        )
-                }).then(() => {
                     assert.equal(i, 2)
                 })
         })

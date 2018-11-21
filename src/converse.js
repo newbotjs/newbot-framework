@@ -40,6 +40,7 @@ class Converse {
         this.namespace = 'default'
         this._functions = Functions
         this.lang = Languages.instance()
+        this.options = options
         this.parentPath = options._parentPath || this._findParentPath()
         if (_.isString(options)) {
             options = {
@@ -60,9 +61,6 @@ class Converse {
         }
         if (options.code) {
             this.code(options.code)
-        }
-        if (options.skills) {
-            this.setSkills(options.skills)
         }
         if (options.languages) {
             this.configure({
@@ -87,6 +85,12 @@ class Converse {
         }
         if (options.shareNlp) {
             this.shareNlp()
+        }
+        if (options.propagateNlp) {
+            this.propagateNlp()
+        }
+        if (options.skills) {
+            this.setSkills(options.skills)
         }
         this.load()
     }
@@ -611,6 +615,9 @@ class Converse {
 
         if (_.isPlainObject(skill)) {
             skill._parentPath = this.parentPath
+            if (this._propagateNlp) {
+                skill._propagateNlp = true
+            }
             skill = new Converse(skill)
         }
 
@@ -620,6 +627,10 @@ class Converse {
         if (skill._shareNlp) {
             this._nlp = _.merge(this._nlp, skill._nlp)
             skill._nlp = {}
+        }
+        if (this._propagateNlp) {
+            skill._nlp = _.merge(this._nlp, skill._nlp)
+            skill._originNlpObject = this._originNlpObject
         }
         if (this._skills.has(skillName)) {
             const currentSkills = this._skills.get(skillName)
@@ -650,6 +661,10 @@ class Converse {
 
     shareNlp() {
         this._shareNlp = true
+    }
+
+    propagateNlp() {
+        this._propagateNlp = true
     }
 
 }

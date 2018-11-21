@@ -32,6 +32,7 @@ class Converse {
         this._format = {}
         this._dbHook = {}
         this._hooks = {}
+        this._originNlpObject = {}
         this.script = ''
         this._obj = []
         this._skills = new Map()
@@ -214,6 +215,7 @@ class Converse {
                      const debug = new Debug(this.script, user._history)
                      debug.display()
                  }*/
+                 user._nlpCache = {}
             }
             return ret
         })
@@ -265,17 +267,27 @@ class Converse {
 
     execNlp(input, userId) {
         input.intents = {}
+        const user = this._users.get(userId)
         let p = Promise.resolve()
         let nlpArray = Object.keys(this._nlp).map(name => this._nlp[name])
         nlpArray = nlpArray.sort((a, b) => {
             return b.priority - a.priority
         })
         for (let nlp of nlpArray) {
+            const originNlpName = nlp.uuid
             p = p.then((state) => {
                 if (state == 'break') return
+                const nlpCache = user._nlpCache[nlp.name]
+                if (nlpCache && Object.is(nlpCache.object, this._originNlpObject[originNlpName])) {
+                    return nlpCache.result
+                }
                 return nlp.exec(input.text, userId)
             }).then((intents) => {
                 if (!intents) return
+                user._nlpCache[nlp.name] = {
+                    object: this._originNlpObject[originNlpName],
+                    result: intents
+                }
                 const nbIntents = Object.keys(intents).length
                 if (!_.isUndefined(nlp.priority) && nbIntents > 0) {
                     input.intents = intents
@@ -428,8 +440,13 @@ class Converse {
     }
 
     nlp(name, intents, options) {
+        const uuid = Symbol()
+        this._originNlpObject[uuid] = intents
         if (!this._nlp[name]) {
-            this._nlp[name] = new Nlp(name, this, options)
+            this._nlp[name] = new Nlp(name, this, {
+                ...options,
+                uuid
+            })
         }
         if (intents) this._nlp[name].add(intents)
         return this._nlp[name]

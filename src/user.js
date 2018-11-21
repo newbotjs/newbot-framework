@@ -13,6 +13,7 @@ class User {
         this.id = id
         this.lang = null
         this._history = []
+        this._nlpCache = {}
     }
 
     _createNamespace(namespace) {

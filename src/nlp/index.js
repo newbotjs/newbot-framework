@@ -6,6 +6,7 @@ class Nlp {
         this.name = name
         this.converse = converse
         this.options = options
+        this.uuid = options.uuid
         this.priority = this.options.priority ? this.options.priority : 0
         this.intents = {}
     }

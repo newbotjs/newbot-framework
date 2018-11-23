@@ -6,7 +6,6 @@ const Request = {
 
     $call(url, user) {
         return new Promise((resolve, reject) => {
-            console.log(url)
             request(url, (error, response, body) => {
                 if (/json/.test(response.headers['content-type'])) {
                     body = JSON.parse(body)

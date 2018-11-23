@@ -230,13 +230,14 @@ class Converse {
         const user = this._users.get(userId)
         let options = _.clone(output)
         let noExec = true
+        let p = Promise.resolve()
 
         this._skills.forEach((skills) => {
             if (!_.isArray(skills)) {
                 skills = [skills]
             }
             for (let skill of skills) {
-                promises.push(new Promise(resolve => {
+                p = p.then(() => new Promise(resolve => {
                     let skillPromise = Promise.resolve()
                     if (skill._shareFormat) {
                         this._format = _.merge(skill._format, this._format)
@@ -262,7 +263,7 @@ class Converse {
                 }))
             }
         })
-        return Promise.all(promises).then(() => noExec)
+        return p.then(() => noExec)
     }
 
     skills() {
@@ -616,7 +617,7 @@ class Converse {
         if (_.isPlainObject(skill)) {
             skill._parentPath = this.parentPath
             if (this._propagateNlp) {
-                skill._propagateNlp = true
+                skill.propagateNlp = true
             }
             skill = new Converse(skill)
         }
@@ -630,7 +631,7 @@ class Converse {
         }
         if (this._propagateNlp) {
             skill._nlp = _.merge(this._nlp, skill._nlp)
-            skill._originNlpObject = this._originNlpObject
+            skill._originNlpObject = _.merge(this._originNlpObject, skill._originNlpObject)
         }
         if (this._skills.has(skillName)) {
             const currentSkills = this._skills.get(skillName)

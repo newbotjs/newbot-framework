@@ -1,7 +1,6 @@
-const _ = require('lodash')
+const _ = require('./utils/lodash')
 const md5 = require('md5')
-const evaluate = require('static-eval')
-const { parse } = require('esprima')
+const jsep = require('jsep')
 const async = require('./utils/async')
 const isPromise = require('./utils/is-promise')
 const asyncReplace = require('async-replace')
@@ -42,8 +41,7 @@ class Execution {
         this.instructionsRoot(() => {
             if (this.event) {
                 this.triggerEvent()
-            }
-            else {
+            } else {
                 this.go()
             }
         })
@@ -51,9 +49,14 @@ class Execution {
 
     deepBlock(insParent, deep, pointer = 0) {
         const address = deep[pointer]
-        const { index, level } = this.interpreter.index[address]
+        const {
+            index,
+            level
+        } = this.interpreter.index[address]
         const ins = insParent.instructions[index]
-        const ret = _.merge(ins, { indexBlock: index })
+        const ret = _.merge(ins, {
+            indexBlock: index
+        })
         if (deep[pointer + 1]) {
             return [ret, ...this.deepBlock(ins, deep, pointer + 1)]
         }
@@ -67,8 +70,7 @@ class Execution {
                 this.user.setMagicVariable('event', this.event.data)
             }
             this.decorators.exec(decorators, this)
-        }
-        else {
+        } else {
             this._noExec = true
             this.end()
         }
@@ -125,7 +127,11 @@ class Execution {
         }
 
         if (!execIntent && address) {
-            let { index, level, deep } = address
+            let {
+                index,
+                level,
+                deep
+            } = address
             let fn = this.interpreter.fn[level]
 
             this.user.popAddress(this.namespace)
@@ -152,17 +158,14 @@ class Execution {
                 recursiveExecBloc(blocks, index, blocks.length - 1, (block) => {
                     fnBlock(block.indexBlock)
                 })
-            }
-            else {
+            } else {
                 fnBlock(index)
             }
             exec = true
-        }
-        else if (!execIntent && this.start && decorator.start.length) {
+        } else if (!execIntent && this.start && decorator.start.length) {
             this.decorators.exec(decorator.start, this)
             exec = true
-        }
-        else if (execIntent && this.start && decorator.startAndIntent.length) {
+        } else if (execIntent && this.start && decorator.startAndIntent.length) {
             this.decorators.exec(decorator.startAndIntent, this)
             exec = true
         }
@@ -190,17 +193,17 @@ class Execution {
         this._noExec = false
         return this.decorators.exec(decorator, this)
     }
-    
+
 
     stopScript() {
         if (!this.parent) {
-            this.user.nothingSkill = null 
+            this.user.nothingSkill = null
         }
         this._finishScript({
             noExec: this._noExec,
             nothing: this._nothing
         })
-    } 
+    }
 
     end() {
         if (this.options.finish) this.options.finish.call(this)
@@ -219,79 +222,85 @@ class Execution {
 
     async instructions(instructions, pointer, level = 'root', finish, options = {}) {
         let ins = instructions[pointer]
-        const { isBlock } = options
-        const next = ({ stop, value } = {}) => {
-            if (stop) {
-                pointer = instructions.length
-                options.value = value
-                options.stop = stop
+        try {
+            const {
+                isBlock
+            } = options
+            const next = ({
+                stop,
+                value
+            } = {}) => {
+                if (stop) {
+                    pointer = instructions.length
+                    options.value = value
+                    options.stop = stop
+                }
+                return this.instructions(instructions, pointer + 1, level, finish, options)
             }
-            return this.instructions(instructions, pointer + 1, level, finish, options)
-        }
 
-        if (!ins) {
-            if (!isBlock) {
-                this.unlockParent(level)
-                if (this.options.finishFn) this.options.finishFn.call(this, level)
+            if (!ins) {
+                if (!isBlock) {
+                    this.unlockParent(level)
+                    if (this.options.finishFn) this.options.finishFn.call(this, level)
+                }
+                if (finish) {
+                    finish({
+                        stop: options.stop,
+                        value: options.value,
+                        level
+                    })
+                }
+                if (!isBlock) {
+                    this.user.garbage(level, this.namespace)
+                }
+                return
             }
-            if (finish) {
-                finish({
-                    stop: options.stop,
-                    value: options.value,
-                    level
-                })
+            if (!_.isUndefined(ins.return)) {
+                const value = await this.getValue(ins.return, level)
+                if (!isBlock) {
+                    next({
+                        stop: true,
+                        value
+                    })
+                } else {
+                    finish({
+                        stop: true,
+                        value
+                    })
+                }
+                return
             }
-            if (!isBlock) {
-                this.user.garbage(level, this.namespace)
-            }
-            return
-        }
-        if (!_.isUndefined(ins.return)) {
-            const value = await this.getValue(ins.return, level)
-            if (!isBlock) {
-                next({
-                    stop: true,
-                    value
-                })
-            }
-            else {
-                finish({
-                    stop: true,
-                    value
-                })
-            }
-            return
-        }
 
-        ins._pointer = pointer
-        ins._instructions = instructions
+            ins._pointer = pointer
+            ins._instructions = instructions
 
-        this.user.addHistory(ins)
+            this.user.addHistory(ins)
 
-        if (ins.group) {
-            let groupIns = ins.group[_.random(0, ins.group.length - 1)]
-            groupIns.decorators = ins.decorators
-            ins = groupIns
-        }
-
-        if (ins.condition) {
-            this.execCondition(ins, level, next)
-        }
-        else if (ins.variable) {
-            this.execVariable(ins, level, next)
-        }
-        else if (ins.output && level != 'root') {
-            this.execOutput(ins, level, next)
-        }
-        else if (ins.type && !options.refresh) {
-            switch (ins.type) {
-                case 'function':
-                    next()
-                    break
-                case 'executeFn':
-                    this.findFunctionAndExec(ins, level, next).then(next)
-                    break
+            if (ins.group) {
+                let groupIns = ins.group[_.random(0, ins.group.length - 1)]
+                groupIns.decorators = ins.decorators
+                ins = groupIns
             }
+
+            if (ins.condition) {
+                await this.execCondition(ins, level, next)
+            } else if (ins.variable) {
+                await this.execVariable(ins, level, next)
+            } else if (ins.output && level != 'root') {
+                this.execOutput(ins, level, next)
+            } else if (ins.type && !options.refresh) {
+                switch (ins.type) {
+                    case 'function':
+                        next()
+                        break
+                    case 'executeFn':
+                        this.findFunctionAndExec(ins, level, next).then(next)
+                        break
+                }
+            }
+        } catch (err) {
+            const error = new ExecutionError(this.converse.script)
+            error.throw(ins, err.id, err)
         }
 
     }
@@ -299,7 +308,11 @@ class Execution {
     findFunctionAndExec(ins, level, next) {
         return new Promise(async (resolve, reject) => {
             if (!_.isString(ins.name)) {
-                const { variable, type, deep } = ins.name
+                const {
+                    variable,
+                    type,
+                    deep
+                } = ins.name
                 if (variable) {
                     ins.name = variable
                 }
@@ -335,9 +348,12 @@ class Execution {
                         })
                     })
                     return true
-                }
-                else if (context.hasApiFn(ins.name)) {
-                    let ret = this.execApiFn(ins, level, next, { deep: ins.deep, data: this.options.data, context })
+                } else if (context.hasApiFn(ins.name)) {
+                    let ret = this.execApiFn(ins, level, next, {
+                        deep: ins.deep,
+                        data: this.options.data,
+                        context
+                    })
                     if (!next) {
                         resolve(ret)
                     }
@@ -355,8 +371,7 @@ class Execution {
                     if (!hasExecChildFn) {
                         this.error.throw(ins, 'function.not.defined')
                     }
-                }
-                else {
+                } else {
                     if (ins.deep) {
                         const deep = ins.deep.slice(0, -1)
                         const params = {
@@ -371,14 +386,12 @@ class Execution {
                         const jsFn = val[fnName]
                         if (jsFn) {
                             resolve(jsFn.apply(val, ins.params))
-                        }
-                        else {
+                        } else {
                             this.error.throw(ins, 'function.not.defined')
-                        } 
-                    }
-                    else {
+                        }
+                    } else {
                         this.error.throw(ins, 'function.not.defined')
-                    }     
+                    }
                 }
             }
 
@@ -448,62 +461,59 @@ class Execution {
 
     getValue(obj, level, next) {
         return new Promise(async (resolve, reject) => {
-            let scope = this.getScope(level)
-            let value = obj
-            if (value === null) {
-                return resolve(value)
-            }
-            if (obj.regexp) {
-                value = new RegExp(obj.regexp, obj.flags.join(''))
-            }
-            else if (_.isArray(obj)) {
-                value = await async.map(obj, val => this.getValue(val, level))
-            }
-            else if (obj.expression) {
-                value = await this.execExpression(obj.expression, obj.variables, level)
-            }
-            else if (obj.variable) {
-                if (/^:/.test(obj.variable)) {
-                    let name = value.variable
-                    value = this.getMagicVar(name, value, level)
+            try {
+                let scope = this.getScope(level)
+                let value = obj
+                if (value === null) {
+                    return resolve(value)
                 }
-                else {
-                    /*new ExecutionError('variable.not.exists', {
-                        user: this.user,
-                        name: obj.variable
+                if (obj.regexp) {
+                    value = new RegExp(obj.regexp, obj.flags.join(''))
+                } else if (_.isArray(obj)) {
+                    value = await async.map(obj, val => this.getValue(val, level))
+                } else if (obj.expression) {
+                    value = await this.execExpression(obj.expression, obj.variables, level)
+                } else if (obj.variable) {
+                    if (/^:/.test(obj.variable)) {
+                        let name = value.variable
+                        value = this.getMagicVar(name, value, level)
+                    } else {
+                        /*new ExecutionError('variable.not.exists', {
+                            user: this.user,
+                            name: obj.variable
+                        })
+                        */
+                        value = await this.getVariable(obj, level)
+
+                        /*if (_.isUndefined(value)) {
+                            this.error.throw(obj, 'variable.not.defined')
+                        }*/
+                    }
+                } else if (obj.text && !obj.__deepIndex) {
+                    value = await new Promise((resolve, reject) => {
+                        asyncReplace(obj.text, /\{([^\}]+)\}/g, async (match, sub, offset, string, done) => {
+                            done(null, await this.getValue(obj.variables[sub].value, level))
+                        }, (err, result) => {
+                            resolve(result)
+                        })
                     })
-                    */
-                    value = await this.getVariable(obj, level)
-
-                    /*if (_.isUndefined(value)) {
-                        this.error.throw(obj, 'variable.not.defined')
-                    }*/
+                } else if (obj.type == 'executeFn') {
+                    value = await this.findFunctionAndExec(obj, level)
+                } else if (value.__deepIndex) {
+                    for (let address of value.__deepIndex) {
+                        let valueObj = await this.getValue(_.get(value, address), level, next)
+                        _.set(value, address, valueObj)
+                    }
                 }
-            }
-            else if (obj.text && !obj.__deepIndex) {
-                value = await new Promise((resolve, reject) => {
-                    asyncReplace(obj.text, /\{([^\}]+)\}/g, async (match, sub, offset, string, done) => {
-                        done(null, await this.getValue(obj.variables[sub].value, level))
-                    }, (err, result) => {
-                        resolve(result)
-                    })
-                })
-            }
-            else if (obj.type == 'executeFn') {
-                value = await this.findFunctionAndExec(obj, level)
-            }
-            else if (value.__deepIndex) {
-                for (let address of value.__deepIndex) {
-                    let valueObj = await this.getValue(_.get(value, address), level, next)
-                    _.set(value, address, valueObj)
+
+                if (_.isString(value) && value[0] === '#') {
+                    value = await this.translate(value.substr(1), level)
                 }
-            }
 
-            if (_.isString(value) && value[0] === '#') {
-                value = await this.translate(value.substr(1), level)
+                resolve(value)
+            } catch (err) {
+                reject(err)
             }
-
-            resolve(value)
         })
     }
 
@@ -511,18 +521,19 @@ class Execution {
         this.instructions(ins.instructions, pointer, level, (options) => {
             if (ins.loop) {
                 this.execCondition(ins, level, finish)
-            }
-            else {
+            } else {
                 finish(options)
             }
         }, {
-                isBlock: true
-            })
+            isBlock: true
+        })
     }
 
     execCondition(ins, level, next) {
         return new Promise((resolve, reject) => {
-            this.getValue(ins.condition, level).then(resolve)
+            this.getValue(ins.condition, level)
+                .then(resolve)
+                .catch(reject)
         }).then((bool) => {
             switch (ins.keyword) {
                 case 'unknown':
@@ -531,11 +542,9 @@ class Execution {
             }
             if (bool) {
                 this.execBlock(ins, 0, level, next)
-            }
-            else if (ins.conditionsElse) {
+            } else if (ins.conditionsElse) {
                 this.execBlock(ins.conditionsElse, 0, level, next)
-            }
-            else {
+            } else {
                 next()
             }
         })
@@ -558,14 +567,84 @@ class Execution {
             expr = expr.replace(/not/g, '!')
             expr = expr.replace(/and/g, '&&')
             expr = expr.replace(/or/g, '||')
-            const ast = parse(expr).body[0].expression
-            resolve(evaluate(ast))
+            try {
+                const tree = jsep(expr)
+                const result = this.arithmetic(tree)
+                resolve(result)
+            } catch (err) {
+                err.id = 'arithmetic.error'
+                reject(err)
+            }
         })
+    }
+
+    arithmetic(tree) {
+        let left, right
+        if (tree.left) {
+            left = this.arithmetic(tree.left)
+        }
+        if (tree.right) {
+            right = this.arithmetic(tree.right)
+        }
+        switch (tree.type) {
+            case 'BinaryExpression':
+                switch (tree.operator) {
+                    case '+':
+                        return left + right
+                        break;
+                    case '-':
+                        return left - right
+                        break;
+                    case '*':
+                        return left * right
+                        break;
+                    case '/':
+                        return left / right
+                        break;
+                    case '==':
+                        return left == right
+                        break;
+                    case '>=':
+                        return left >= right
+                        break;
+                    case '<=':
+                        return left <= right
+                        break;
+                    case '>':
+                        return left > right
+                        break;
+                    case '<':
+                        return left < right
+                        break;
+                }
+                break
+            case 'LogicalExpression':
+                switch (tree.operator) {
+                    case '&&':
+                        return left && right
+                        break;
+                    case '||':
+                        return left || right
+                        break;
+                }
+                break
+            case 'UnaryExpression':
+                switch (tree.operator) {
+                    case '!':
+                        return !this.arithmetic(tree.argument)
+                        break;
+                }
+                break
+            default:
+                return tree.value
+        }
     }
 
     execVariable(ins, level, next) {
         return new Promise((resolve, reject) => {
-            this.getValue(ins.value, level).then(resolve)
+            this.getValue(ins.value, level)
+                .then(resolve)
+                .catch(reject)
         }).then((value) => {
             let scope = this.getScope(level)
             if (!_.isUndefined(scope[ins.variable.replace('$', '')]) && level == 'root' && !this.start) {
@@ -578,7 +657,9 @@ class Execution {
     }
 
     async translate(str, level, params = []) {
-        const { converse } = this.interpreter
+        const {
+            converse
+        } = this.interpreter
         const lang = this.user.getLang() || converse.lang.current
         const hasTranslate =
             converse.lang.data[lang] &&
@@ -592,7 +673,9 @@ class Execution {
 
     execOutput(ins, level, done) {
         return new Promise(async (resolve, reject) => {
-            const { converse } = this.interpreter
+            const {
+                converse
+            } = this.interpreter
             let outputValue = ins.output
 
             if (!this.output) {
@@ -726,8 +809,7 @@ class Interpreter {
                 this.decorators.add(o)
                 this.organize(o.instructions, o.name)
                 continue
-            }
-            else if (o.condition) {
+            } else if (o.condition) {
                 this.organize(o.instructions, level, deepBlock.concat(o.id))
             }
 

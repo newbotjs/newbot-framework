@@ -1,4 +1,4 @@
-const _ = require('lodash')
+const _ = require('./utils/lodash')
 const path = require('path')
 const Languages = require('languages-js')
 const stack = require('callsite')
@@ -13,16 +13,6 @@ const Nlp = require('./nlp')
 const fs = require('./utils/fs')
 const isPromise = require('./utils/is-promise')
 const Browser = require('./utils/browser')
-
-const SystemJS = require('systemjs')
-
-SystemJS.config({
-    meta: {
-        "*.converse": {
-            loader: __dirname + '/../loader/converse-loader.js'
-        }
-    }
-})
 
 class Converse {
 
@@ -53,6 +43,22 @@ class Converse {
         if (hasOptions.length > 0) {
             this.loadOptions(options)
         }
+    }
+
+    /**
+     * Newbot.loader({
+     *      systemjs: 
+     * })
+     */
+    static loader({ systemjs }) {
+        systemjs.config({
+            meta: {
+                "*.converse": {
+                    loader: __dirname + '/../loader/converse-loader.js'
+                }
+            }
+        })
+        Converse.SystemJS = systemjs
     }
 
     loadOptions(options) {
@@ -118,7 +124,7 @@ class Converse {
         if (this._file) {
             //this.code(await fs.readFile(this._file, 'utf-8'))
             //console.log(await System.import(`bot/${this._file}.`))
-            this.code(await SystemJS.import(this._file))
+            if (Converse.SystemJS) this.code(await Converse.SystemJS.import(this._file))
         }
         this._transpiler = new Transpiler(this.script)
         this._obj = this._transpiler.run()
@@ -581,19 +587,21 @@ class Converse {
                 dir += `/${_path}`
             }
 
-            if (Browser.is()) {
-                SystemJS.set('conversescript', SystemJS.newModule({
-                    Converse
-                }))
-                if (!dir.endsWith('.js')) dir += '.js'
-                skill = await SystemJS.import(dir)
-            } else {
-                if (dir[0] == '.') {
-                    dir = this.parentPath + '/' + dir
+            if (Converse.SystemJS) {
+                if (Browser.is()) {
+                    SystemJS.set('conversescript', SystemJS.newModule({
+                        Converse
+                    }))
+                    if (!dir.endsWith('.js')) dir += '.js'
+                    skill = await SystemJS.import(dir)
                 } else {
-                    dir = '@node/' + dir
+                    if (dir[0] == '.') {
+                        dir = this.parentPath + '/' + dir
+                    } else {
+                        dir = '@node/' + dir
+                    }
+                    skill = await SystemJS.import(dir)
                 }
-                skill = await SystemJS.import(dir)
             }
 
         } else {

@@ -1,11 +1,5 @@
-const peg = require('pegjs')
-const fs = require('../utils/fs')
-const _ = require('lodash')
+const _ = require('../utils/lodash')
 const ExecutionError = require('../error')
-
-const grammar = require('./grammar')
-
-const parser = peg.generate(grammar)
 
 if (typeof window != 'undefined') window._ = _
 
@@ -14,7 +8,7 @@ class Transpiler {
     constructor(script) {
         this.variables = {}
         this._script = script
-        this.parser = parser
+        this.parser = global.parser
     }
 
     run() {

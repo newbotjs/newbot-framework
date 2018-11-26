@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha tests/*.spec.js tests/modules/*.spec.js tests/interpreter2/*.spec.js",
-    "build": "parcel build converse.js --out-file newbot.min.js --no-source-maps",
+    "build": "webpack",
     "prepublish": "npm run build"
   },
   "author": "",
@@ -13,18 +13,17 @@
   "dependencies": {
     "async-replace": "^1.0.1",
     "callsite": "^1.0.0",
-    "fs-extra": "^7.0.0",
-    "install": "^0.10.1",
+    "jsep": "^0.3.4",
     "languages-js": "^2.2.8",
     "lodash": "^4.17.4",
     "md5": "^2.2.1",
     "pegjs": "^0.10.0",
-    "static-eval": "^2.0.0",
-    "systemjs": "^0.21.4",
-    "systemjs-plugin-text": "0.0.11"
+    "static-eval": "^2.0.0"
   },
   "devDependencies": {
     "chai": "^4.1.2",
+    "compression-webpack-plugin": "^2.0.0",
+    "systemjs": "^0.21.4",
     "webpack": "^4.26.1",
     "webpack-cli": "^3.1.2"
   }

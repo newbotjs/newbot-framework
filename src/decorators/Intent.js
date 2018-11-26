@@ -1,5 +1,5 @@
 const Decorator = require('./decorator')
-const _ = require('lodash')
+const _ = require('../utils/lodash')
 
 class IntentEvent extends Decorator {
 

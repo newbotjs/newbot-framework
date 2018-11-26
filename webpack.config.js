@@ -1,4 +1,5 @@
 const path = require('path')
+const CompressionPlugin = require('compression-webpack-plugin')
 
 module.exports = {
     entry: './converse.js',
@@ -10,6 +11,9 @@ module.exports = {
         fs: 'empty'
     },
     optimization: {
-        minimize: false
-      }
+        minimize: true
+    },
+    plugins: [
+        new CompressionPlugin()
+    ]
 }

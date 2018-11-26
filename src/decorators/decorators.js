@@ -1,5 +1,5 @@
 const DecoratorsList = require('./index')
-const _ = require('lodash')
+const _ = require('../utils/lodash')
 
 class Decorators {
     constructor(interpreter) {

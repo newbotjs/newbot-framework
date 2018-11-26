@@ -1,5 +1,3 @@
-const _ = require('lodash')
-
 const Array = {
 
     length(array) {
@@ -15,15 +13,7 @@ const Array = {
             return this.push(array, value)
         }
         return array
-    },
-
-    remove: _.remove,
-
-    find: _.find,
-
-    sortBy: _.sortBy,
-
-    filter: _.filter
+    }
 
 }
 

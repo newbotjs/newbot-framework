@@ -1,6 +1,11 @@
 const fs = require('fs')
 const { assert } = require('chai')
+const SystemJs = require('systemjs')
 const { ConverseTesting } = require('../testing')
+
+ConverseTesting.loader({
+    systemjs: SystemJs
+})
 
 describe('Test Converse Testing', () => {
 

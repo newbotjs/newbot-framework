@@ -1,6 +1,7 @@
 const ID = {
   'variable.not.defined': ['ReferenceError', ins => `${ins.variable} is not defined`],
-  'function.not.defined': ['ReferenceError', ins => `${ins.name}(...) function is not defined`] 
+  'function.not.defined': ['ReferenceError', ins => `${ins.name}(...) function is not defined`],
+  'arithmetic.error': ['ArithmeticError', (ins, err) => 'Expression is not correct. ' + err.message]
 }
 
 class ExecutionError {
@@ -9,10 +10,10 @@ class ExecutionError {
     this.script = script
   }
 
-  throw(ins, id) {
+  throw(ins, id, err) {
     let error
     let [code, msg] = ID[id]
-    msg = msg(ins)
+    msg = msg(ins, err)
     if (ins._file) {
       let { line, column } = ins._file.start
       error = this.makeError(code, msg, {

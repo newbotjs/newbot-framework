@@ -301,7 +301,7 @@ Text
     = '>' _ text:(CharText)* _ params:Array? {
         text = stringParser(text)
         if (_.isString(text)) {
-            text = _.trim(text)
+            text = text.trim()
         }
         return { output: text, params }
     }

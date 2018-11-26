@@ -10,8 +10,8 @@ class ConverseTesting extends Converse {
         this._mockNlp = {}
     }
 
-    createUser() {
-        return new UserTesting(this)
+    createUser(data) {
+        return new UserTesting(this, data)
     }
 
     mock(fnName, callback) {

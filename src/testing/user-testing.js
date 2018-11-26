@@ -5,12 +5,13 @@ const Assert = require('./assert')
 
 class UserTesting {
 
-    constructor(converse) {
+    constructor(converse, data) {
         this.converse = converse
         this.id = _.uniqueId()
         this._output = []
         this.testing = []
         this.spyFn = {}
+        this._data = data
         this.assert = new Assert(this)
     }
 
@@ -188,7 +189,8 @@ class UserTesting {
                 },
                 finishFn(name) {
                     commonFinish.call(this, self.execSpy, name)
-                }
+                },
+                data: this._data
             }, options)
             this.converse.exec(input, this.id, options)
         }

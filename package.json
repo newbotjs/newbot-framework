@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "async-replace": "^1.0.1",
+    "axios": "^0.18.0",
     "callsite": "^1.0.0",
     "jsep": "^0.3.4",
     "languages-js": "^2.2.8",

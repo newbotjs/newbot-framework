@@ -1,4 +1,10 @@
+const Request = require('../../functions/request')
+
 module.exports = function(user, assert, converse) {
+
+    converse.functions({
+        Request
+    })
 
     converse.mock('Request', function(url) {
         return {

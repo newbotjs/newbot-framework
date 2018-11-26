@@ -1,23 +1,27 @@
-const request = require('request')
+const _ = require('../src/utils/lodash')
+const request = require('axios')
 
 const Request = {
    
     $params: ['user'],
 
-    $call(url, user) {
+    $call(options, user) {
         return new Promise((resolve, reject) => {
-            request(url, (error, response, body) => {
-                if (/json/.test(response.headers['content-type'])) {
-                    body = JSON.parse(body)
+            if (_.isString(options)) {
+                options = {
+                    method: 'get',
+                    url: options
                 }
+            }
+            request(options).then((response) => {
                 const ret = {
-                    data: body,
+                    data: response.data,
                     headers: response.headers,
-                    statusCode: response.statusCode
+                    statusCode: response.status
                 }
                 user.setMagicVariable('response', ret)
                 resolve(ret)
-            });
+            })
         })
     },
 

@@ -1,5 +1,3 @@
-require('dotenv-extended').load()
-
 const fs = require('fs')
 const { assert } = require('chai')
 const { ConverseTesting } = require('../testing')

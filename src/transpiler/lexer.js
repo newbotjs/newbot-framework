@@ -1,22 +1,25 @@
 const peg = require('pegjs')
-const fs = require('fs')
+const fs = require('../utils/fs')
 const _ = require('lodash')
 const ExecutionError = require('../error')
 
-if (typeof window != 'undefined') window._ = _
+const grammar = require('./grammar')
 
-const grammar = fs.readFileSync(`${__dirname}/grammar.pegjs`,'utf-8')
 const parser = peg.generate(grammar)
 
+if (typeof window != 'undefined') window._ = _
+
 class Transpiler {
+    
     constructor(script) {
         this.variables = {}
         this._script = script
+        this.parser = parser
     }
 
     run() {
         try {
-            return parser.parse(this._script)
+            return this.parser.parse(this._script)
         }
         catch (err) {
             const error = new ExecutionError(this._script)
@@ -26,7 +29,7 @@ class Transpiler {
 
     line(str) {
         str = str.trim()
-        return parser.parse(str)
+        return this.parser.parse(str)
     }
 
     isVariable() {

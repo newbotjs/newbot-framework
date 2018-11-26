@@ -1,5 +1,3 @@
-const colors = require('colors')
-
 const ID = {
   'variable.not.defined': ['ReferenceError', ins => `${ins.variable} is not defined`],
   'function.not.defined': ['ReferenceError', ins => `${ins.name}(...) function is not defined`] 
@@ -29,6 +27,9 @@ class ExecutionError {
   }
 
   syntax(err) {
+    if (!err.location) {
+      throw err
+    }
     const { line, column } = err.location.start
     const error = this.makeError('syntax', 'Syntax Error', {
       line,
@@ -61,7 +62,7 @@ class ExecutionError {
         }
         return out;
       }).join('\n');
-      fullMessage = (filename || 'ConverseScript') + ':' + location + '\n\n' + context + '\n\n' + message.red;
+      fullMessage = (filename || 'ConverseScript') + ':' + location + '\n\n' + context + '\n\n' + message
     } else {
       fullMessage = (filename || 'ConverseScript') + ':' + location + '\n\n' + message;
     }

@@ -1,6 +1,4 @@
 const _ = require('lodash')
-const colors = require('colors')
-const User = require('./user')
 const md5 = require('md5')
 const evaluate = require('static-eval')
 const { parse } = require('esprima')
@@ -10,7 +8,6 @@ const asyncReplace = require('async-replace')
 
 const Decorators = require('./decorators/decorators')
 const ExecutionError = require('./error')
-const Converse = require('./converse')
 
 class Execution {
 

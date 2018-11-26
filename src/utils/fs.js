@@ -1,9 +1,9 @@
 const fs = require('fs')
-const isBrowser = typeof window != 'undefined'
+const browser = require('./browser')
 
 class FileSystem {
     readFile(file, encode) {
-        if (isBrowser) {
+        if (browser.is()) {
             return new Promise((resolve, reject) => {
                 const xmlhttp = new XMLHttpRequest();
                 xmlhttp.onreadystatechange = function() {

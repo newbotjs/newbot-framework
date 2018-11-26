@@ -1,3 +1,4 @@
+module.exports = `
 {
     var _
 
@@ -22,7 +23,7 @@
 
         const value = {
             variables: [_var, ...variables],
-            expression: `{0}${sign.charAt(0)}${expression}`
+            expression: \`{0}\${sign.charAt(0)}\${expression}\`
         }
 
         if (variable.variable) {
@@ -127,8 +128,8 @@ IncrementExpression
         let { variables, expression } = expr
         if (!variables) variables = []
         if (expression) {
-            expression = expression.replace(/\{([0-9]+)\}/g, (match, index) => {
-                return `{${+index+1}}`
+            expression = expression.replace(/\\{([0-9]+)\\}/g, (match, index) => {
+                return \`{\${+index+1}}\`
             })
         }
         else if (expr.variable) {
@@ -165,7 +166,7 @@ Value =
         const index = obj[DEEP_NAME]
         if (!index) return obj
         for (let address of index) {
-            let subobj = _.get(obj, address.replace(/\.[^.]+$/, ''))
+            let subobj = _.get(obj, address.replace(/\\.[^.]+$/, ''))
             delete subobj[DEEP_NAME]
         }
         return obj
@@ -305,7 +306,7 @@ Text
         return { output: text, params }
     }
 
-Variable "variable" = name:([\$:]? [a-zA-Z_0-9]+) { 
+Variable "variable" = name:([\\$:]? [a-zA-Z_0-9]+) { 
         return text() 
     }
 
@@ -317,7 +318,7 @@ VariableName
 // Execute Fonction
 
 ExecuteFunction
-    = name:(GetObject / Variable) "\n"* '(' _ params:Params* _ ')' {
+    = name:(GetObject / Variable) "\\n"* '(' _ params:Params* _ ')' {
         return { type: 'executeFn', name, params }
     }
 
@@ -421,7 +422,7 @@ VariableString
 
 StringInExpression 'string in expression'
     = str: String {
-        const withQuote = text => `"${text}"`
+        const withQuote = text => \`"\${text}"\`
         if (str.variables) {
             return withQuote(str.text)
         }
@@ -461,14 +462,14 @@ MultiComment
         return 
     }
 
-SingleComment = '//' [^\n]* {
+SingleComment = '//' [^\\n]* {
         return 
     }
 
 // Characters
 
 CharText
-  = char:(VariableString / [^\n\[]) { return char }
+  = char:(VariableString / [^\\n\\[]) { return char }
 NotQuote
   = !Quote char:(VariableString / .) { return char }
 
@@ -477,14 +478,15 @@ Quote = [']
 Slash = [/]
 NotSlash = !Slash char:(.) { return char }
 
-BackQuote = '`'
+BackQuote = '\`'
 
 NotBackQuote = !BackQuote char:. { return char }
 
 Dot = '.'
 
-Nl = "\n"
+Nl = "\\n"
 
-S = [ \t]*
+S = [ \\t]*
 
-_ 'whitespace' = [ \t\n\r]*
+_ 'whitespace' = [ \\t\\n\\r]*
+`

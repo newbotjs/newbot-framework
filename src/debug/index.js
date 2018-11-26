@@ -1,5 +1,3 @@
-const colors = require('colors')
-
 class Debug {
 
     constructor(script, history) {

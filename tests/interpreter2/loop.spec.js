@@ -1,7 +1,8 @@
 const assert = require('assert')
 const {
     ConverseTesting,
-    bot
+    bot,
+    user
 } = require('../../testing')
 
 describe('Loop', () => {
@@ -57,6 +58,25 @@ describe('Loop', () => {
         return userConverse.conversation(
             bot `sam`,
             bot `jim`
+        )
+    })
+
+    it('for of with prompt', () => {
+        code(`
+            @Event('start')
+            start() {
+                names = ['sam', 'jim']
+                for (name of names) {
+                    > { name }
+                    Prompt()
+                }
+            }
+        `)
+        return userConverse.conversation(
+            bot `sam`,
+            user `test`,
+            bot `jim`,
+            user `test`
         )
     })
 

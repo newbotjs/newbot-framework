@@ -522,10 +522,40 @@ class Execution {
         })
     }
 
-    execBlock(ins, pointer = 0, level, finish) {
-        this.instructions(ins.instructions, pointer, level, (options) => {
+    async execBlock(ins, pointer = 0, level, finish) {
+        let i
+        if (ins.varLocal) {
+            let array = await this.getValue(ins.array, level)
+            if (_.isNumber(array)) {
+                array = new Array(array+1).fill(0).map((_, i) => i)
+            }
+            else if (_.isPlainObject(array)) {
+                delete array.__deepIndex
+                array = Object.values(array)
+            }
+            else if (!_.isString(array) && !_.isArray(array)) {
+                const err = new Error('Number, Object, String and Array are only accepted for this loop')
+                err.id = 'type.error'
+                throw err
+            }
+            ins.array = array
+            i = this.getVariable({ variable: '__' + ins.varLocal.variable }, level)
+            this.setVariable(ins.varLocal, ins.array[i], level)
+        }
+        await this.instructions(ins.instructions, pointer, level, async (options) => {
             if (ins.loop) {
-                this.execCondition(ins, level, finish)
+                if (ins.varLocal) {
+                    if (i < ins.array.length - 1) {
+                        this.setVariable({ variable: '__' + ins.varLocal.variable }, i + 1, level)
+                        await this.execBlock(ins, 0, level, finish)
+                    }
+                    else {
+                        finish(options)
+                    }
+                }
+                else {
+                    this.execCondition(ins, level, finish)
+                }
             } else {
                 finish(options)
             }
@@ -535,35 +565,8 @@ class Execution {
     }
 
     async execLoop(ins, level, finish) {
-        let array = await this.getValue(ins.array, level)
-        if (_.isNumber(array)) {
-            array = new Array(array+1).fill(0).map((_, i) => i)
-        }
-        else if (_.isPlainObject(array)) {
-            delete array.__deepIndex
-            array = Object.values(array)
-        }
-        else if (!_.isString(array) && !_.isArray(array)) {
-            const err = new Error('Number, Object, String and Array are only accepted for this loop')
-            err.id = 'type.error'
-            throw err
-        }
-        const loop = async (i) => {
-            if (ins.varLocal) {
-                this.setVariable(ins.varLocal, array[i], level)
-            }
-            await this.instructions(ins.instructions, 0, level, async (options) => {
-                if (i < array.length - 1) {
-                    await loop(i+1)
-                }
-                else {
-                    finish(options)
-                }
-            }, {
-                isBlock: true
-            })
-        }
-        await loop(0)
+        this.setVariable({ variable: '__' + ins.varLocal.variable }, 0, level)
+        await this.execBlock(ins, 0, level, finish)
     }
 
     execCondition(ins, level, next) {
@@ -669,6 +672,9 @@ class Execution {
                 switch (tree.operator) {
                     case '!':
                         return !this.arithmetic(tree.argument)
+                        break;
+                    case '-':
+                        return -this.arithmetic(tree.argument)
                         break;
                 }
                 break
@@ -846,7 +852,7 @@ class Interpreter {
                 this.decorators.add(o)
                 this.organize(o.instructions, o.name)
                 continue
-            } else if (o.condition) {
+            } else if (o.condition || o.loop) {
                 this.organize(o.instructions, level, deepBlock.concat(o.id))
             }
 

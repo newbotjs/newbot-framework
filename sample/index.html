@@ -12,12 +12,7 @@
 <script>
     (async function () {
         const converse = new NewBot()
-        converse.code(`
-            @Event('start')
-            start() {
-                > Test
-            }
-        `)
+        converse.code([{"name":"start","params":null,"type":"function","instructions":[{"output":"Hey, je te propose de jouer avec moi à un quizz !","params":null,"decorators":[{"name":"Format","params":["quickReplies",["play"]]}]}],"_file":{"start":{"offset":0,"line":1,"column":1},"end":{"offset":121,"line":5,"column":2}},"decorators":[{"name":"Event","params":["start"]}]}])
         converse.exec('yo', (output) => {
             console.log(output)
         })

@@ -122,13 +122,15 @@ class Converse {
 
     async open(reject) {
         if (this._file) {
-            //this.code(await fs.readFile(this._file, 'utf-8'))
-            //console.log(await System.import(`bot/${this._file}.`))
             if (Converse.SystemJS) this.code(await Converse.SystemJS.import(this._file))
         }
-        this._transpiler = new Transpiler(this.script, this.namespace)
-        this._obj = this._transpiler.run(reject)
-        //console.log(JSON.stringify(this._obj, null, 2))
+        if (_.isArray(this.script)) {
+            this._obj = this.script
+        }
+        else {
+            this._transpiler = new Transpiler(this.script, this.namespace)
+            this._obj = this._transpiler.run(reject)
+        }
         this._interpreter = new Interpreter(this._obj, this.users, this)
         return this
     }

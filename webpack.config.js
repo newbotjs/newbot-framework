@@ -16,6 +16,6 @@ module.exports = {
     },
     plugins: [
         new CompressionPlugin(),
-        new webpack.IgnorePlugin(/pretty-error/)
+        new webpack.IgnorePlugin(/pretty-error|pegjs|grammar/)
     ]
 }

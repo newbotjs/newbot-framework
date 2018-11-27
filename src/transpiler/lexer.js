@@ -1,5 +1,13 @@
 const _ = require('../utils/lodash')
+const browser = require('../utils/browser')
 const ExecutionError = require('../error')
+let parser
+
+if (!browser.is()) {
+    const peg = require('pegjs')
+    const grammar = require('./grammar')
+    parser = peg.generate(grammar)
+}
 
 if (typeof window != 'undefined') window._ = _
 
@@ -9,7 +17,7 @@ class Transpiler {
         this.variables = {}
         this._script = script
         this.namespace = namespace
-        this.parser = global.parser
+        this.parser = parser
     }
 
     run(reject) {

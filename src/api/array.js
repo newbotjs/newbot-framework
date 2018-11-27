@@ -13,6 +13,10 @@ const Array = {
             return this.push(array, value)
         }
         return array
+    },
+
+    indexOf(array, value) {
+        return array.indexOf(value)
     }
 }
 

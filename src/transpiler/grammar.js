@@ -72,7 +72,7 @@ InstructionList
     }
 
 Instruction
-    = _ decorators:DecoratorList? _ ins:(Comment / Condition / Increment / Assign / AssignObject / Function / ExecuteFunction) Nl* _ {
+    = _ decorators:DecoratorList? _ ins:(Comment / Condition / ForOfLoop / Increment / Assign / AssignObject / Function / ExecuteFunction) Nl* _ {
         const _location = location()
         if (ins) {
             ins._file = _location
@@ -178,6 +178,13 @@ ForLoop
     = 'for' _ '(' _ assign:Assign _ ';' _ condition:Expression _ ';' _ increment:Increment _ ')' _ instructions:ConditionInstruction {
    
     } 
+
+ForOfLoop
+    = 'for' _ '(' _  varLocal:VariableName _ 'of' _ array:Value _ ')' _ instructions:ConditionInstruction {
+        let obj = { varLocal, array, instructions }
+        obj.loop = true
+        return obj
+    }
 
 // Condition
 

@@ -1,7 +1,8 @@
 const ID = {
   'variable.not.defined': ['ReferenceError', ins => `${ins.variable} is not defined`],
   'function.not.defined': ['ReferenceError', ins => `${ins.name}(...) function is not defined`],
-  'arithmetic.error': ['ArithmeticError', (ins, err) => 'Expression is not correct. ' + err.message]
+  'arithmetic.error': ['ArithmeticError', (ins, err) => 'Expression is not correct. ' + err.message],
+  'type.error': ['TypeError', (ins, err) => 'Type is not correct. ' + err.message]
 }
 
 class ExecutionError {
@@ -11,8 +12,18 @@ class ExecutionError {
   }
 
   throw(ins, id, err) {
-    let error
-    let [code, msg] = ID[id]
+    let error, code, msg
+    if (!ins) {
+      throw err
+    }
+    if (ID[id]) {
+      code =  ID[id][0]
+      msg = ID[id][1]
+    }
+    else {
+      code = 'InternalError'
+      msg = () => err.message
+    }
     msg = msg(ins, err)
     if (ins._file) {
       let { line, column } = ins._file.start

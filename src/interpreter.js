@@ -286,6 +286,8 @@ class Execution {
                 await this.execCondition(ins, level, next)
             } else if (ins.variable) {
                 await this.execVariable(ins, level, next)
+            } else if (ins.loop) {
+                await this.execLoop(ins, level, next)
             } else if (ins.output && level != 'root') {
                 this.execOutput(ins, level, next)
             } else if (ins.type && !options.refresh) {
@@ -527,6 +529,38 @@ class Execution {
         }, {
             isBlock: true
         })
+    }
+
+    async execLoop(ins, level, finish) {
+        let array = await this.getValue(ins.array, level)
+        if (_.isNumber(array)) {
+            array = new Array(array+1).fill(0).map((_, i) => i)
+        }
+        else if (_.isPlainObject(array)) {
+            delete array.__deepIndex
+            array = Object.values(array)
+        }
+        else if (!_.isString(array) && !_.isArray(array)) {
+            const err = new Error('Number, Object, String and Array are only accepted for this loop')
+            err.id = 'type.error'
+            throw err
+        }
+        const loop = async (i) => {
+            if (ins.varLocal) {
+                this.setVariable(ins.varLocal, array[i], level)
+            }
+            await this.instructions(ins.instructions, 0, level, async (options) => {
+                if (i < array.length - 1) {
+                    await loop(i+1)
+                }
+                else {
+                    finish(options)
+                }
+            }, {
+                isBlock: true
+            })
+        }
+        await loop(0)
     }
 
     execCondition(ins, level, next) {

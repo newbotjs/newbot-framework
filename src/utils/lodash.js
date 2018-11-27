@@ -14,6 +14,7 @@ const isNaN = require('lodash/isNaN')
 const flatten = require('lodash/flatten')
 const difference = require('lodash/difference')
 const isPlainObject = require('lodash/isPlainObject')
+const isNumber = require('lodash/isNumber')
 
 module.exports = {
     merge,
@@ -27,6 +28,7 @@ module.exports = {
     set,
     isUndefined,
     isBoolean,
+    isNumber,
     random,
     last,
     flatten,

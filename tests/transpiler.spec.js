@@ -742,6 +742,20 @@ describe('Test Transpiler', () => {
         expect(obj.instructions[0]).to.have.property('loop', true)
     })
 
+    it('for ... of', () => {
+        const [{ instructions }] = t(`
+            start() {
+                name = ['sam', 'jim']
+                for (name of names) {
+                    > { name }
+                }
+            }
+        `)
+        const ins = instructions[1]
+        expect(ins.varLocal).to.have.property('variable', 'name')
+        expect(ins.array).to.have.property('variable', 'names')
+    })
+
     // Intent
 
     it('Intent decorator with instructions', () => {

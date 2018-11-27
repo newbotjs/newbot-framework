@@ -120,14 +120,14 @@ class Converse {
         return this
     }
 
-    async open() {
+    async open(reject) {
         if (this._file) {
             //this.code(await fs.readFile(this._file, 'utf-8'))
             //console.log(await System.import(`bot/${this._file}.`))
             if (Converse.SystemJS) this.code(await Converse.SystemJS.import(this._file))
         }
-        this._transpiler = new Transpiler(this.script)
-        this._obj = this._transpiler.run()
+        this._transpiler = new Transpiler(this.script, this.namespace)
+        this._obj = this._transpiler.run(reject)
         //console.log(JSON.stringify(this._obj, null, 2))
         this._interpreter = new Interpreter(this._obj, this.users, this)
         return this
@@ -141,7 +141,7 @@ class Converse {
 
             let noExecChildren
 
-            await this.open()
+            await this.open(reject)
 
             if (!output) {
                 if (Browser.is()) {
@@ -243,7 +243,7 @@ class Converse {
                 skills = [skills]
             }
             for (let skill of skills) {
-                p = p.then(() => new Promise(resolve => {
+                p = p.then(() => new Promise((resolve, reject) => {
                     let skillPromise = Promise.resolve()
                     if (skill._shareFormat) {
                         this._format = _.merge(skill._format, this._format)
@@ -260,7 +260,7 @@ class Converse {
                             return skill.exec(input, userId, options, propagate).then((ret = {}) => {
                                 noExec &= ret.noExec
                                 resolve()
-                            })
+                            }).catch(reject)
                         }
                         else {
                             resolve()

@@ -7,8 +7,10 @@ const ID = {
 
 class ExecutionError {
 
-  constructor(script) {
+  constructor(script, namespace, reject) {
     this.script = script
+    this.namespace = namespace
+    this.reject = reject
   }
 
   throw(ins, id, err) {
@@ -35,7 +37,12 @@ class ExecutionError {
     else {
       error = new Error(msg);
     }
-    throw error
+    if (this.reject) {
+      this.reject(error)
+    }
+    else {
+      throw error
+    }
   }
 
   syntax(err) {
@@ -47,7 +54,12 @@ class ExecutionError {
       line,
       column
     })
-    throw error
+    if (this.reject) {
+      this.reject(error)
+    }
+    else {
+      throw error
+    }
   }
 
   makeError(code, message, options) {
@@ -57,6 +69,12 @@ class ExecutionError {
     var src = this.script || options.src;
     var fullMessage;
     var location = line + (column ? ':' + column : '');
+
+    const skillPath = this.namespace
+      .split('-')
+      .join(' / ')
+    const strSkill = `Skill : ${skillPath}. Line ${line}`
+
     if (src && line >= 1 && line <= src.split('\n').length) {
       var lines = src.split('\n');
       var start = Math.max(line - 3, 0);
@@ -74,16 +92,15 @@ class ExecutionError {
         }
         return out;
       }).join('\n');
-      fullMessage = (filename || 'ConverseScript') + ':' + location + '\n\n' + context + '\n\n' + message
+      fullMessage = strSkill + '\n\n' + context + '\n\n' + message
     } else {
-      fullMessage = (filename || 'ConverseScript') + ':' + location + '\n\n' + message;
+      fullMessage = strSkill + ':' + location + '\n\n' + message;
     }
-    var err = new Error(fullMessage);
-    err.code = 'ConverseScript:' + code;
-    err.msg = message;
-    err.line = line;
-    err.column = column;
-    err.filename = filename;
+
+    const err = new Error(fullMessage);
+    err.skill = skillPath
+    err.line = line
+    err.column = column
     return err;
   }
 }

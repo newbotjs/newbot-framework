@@ -5,18 +5,19 @@ if (typeof window != 'undefined') window._ = _
 
 class Transpiler {
     
-    constructor(script) {
+    constructor(script, namespace) {
         this.variables = {}
         this._script = script
+        this.namespace = namespace
         this.parser = global.parser
     }
 
-    run() {
+    run(reject) {
         try {
             return this.parser.parse(this._script)
         }
         catch (err) {
-            const error = new ExecutionError(this._script)
+            const error = new ExecutionError(this._script, this.namespace, reject)
             error.syntax(err)
         }
     }

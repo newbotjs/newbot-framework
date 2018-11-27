@@ -34,9 +34,10 @@ class Execution {
         this.decorators = interpreter.decorators
         this.hooks = interpreter.converse._hooks
         this.obj = interpreter._obj
-        this.error = new ExecutionError(interpreter.converse.script)
         this.namespace = interpreter.namespace
         this._finishScript = this.options._finishScript
+        this._errorScript = this.options._errorScript
+        this.error = new ExecutionError(interpreter.converse.script, this.namespace, this._errorScript)
         this.user.setMagicVariable('text', this.input)
         this.instructionsRoot(() => {
             if (this.event) {
@@ -301,102 +302,104 @@ class Execution {
                 }
             }
         } catch (err) {
-            const error = new ExecutionError(this.converse.script)
-            error.throw(ins, err.id, err)
+            this.error.throw(ins, err.id, err)
         }
-
     }
 
     findFunctionAndExec(ins, level, next) {
         return new Promise(async (resolve, reject) => {
-            if (!_.isString(ins.name)) {
-                const {
-                    variable,
-                    type,
-                    deep
-                } = ins.name
-                if (variable) {
-                    ins.name = variable
+            try {
+                if (!_.isString(ins.name)) {
+                    const {
+                        variable,
+                        type,
+                        deep
+                    } = ins.name
+                    if (variable) {
+                        ins.name = variable
+                    }
+                    ins.deep = deep
                 }
-                ins.deep = deep
-            }
-            const execFn = (context, ins, isChild) => {
-                if (context.interpreter.fn[ins.name]) {
-                    const params = ins.params
-                    const insFn = context.interpreter.fn[ins.name]
-                    const paramsFn = insFn.params
-
-                    if (isChild) {
-                        this.user.lockAddressStack(this.namespace, ins.name)
-                    }
-
-                    this.user.addAddress(ins.id, this.namespace)
-
-                    let paramsPromises = []
-                    if (paramsFn) {
-                        for (let i = 0; i < paramsFn.length; i++) {
-                            paramsPromises.push(new Promise(async (resolve) => {
-                                await context.execVariable({
-                                    variable: paramsFn[i],
-                                    value: _.isUndefined(params[i]) ? null : await this.getValue(params[i], level)
-                                }, ins.name, resolve)
-                            }))
+                const execFn = (context, ins, isChild) => {
+                    if (context.interpreter.fn[ins.name]) {
+                        const params = ins.params
+                        const insFn = context.interpreter.fn[ins.name]
+                        const paramsFn = insFn.params
+    
+                        if (isChild) {
+                            this.user.lockAddressStack(this.namespace, ins.name)
                         }
-                    }
-                    Promise.all(paramsPromises).then(() => {
-                        context.execFn(insFn, 0, (args) => {
-                            this.user.popAddress(this.namespace)
-                            resolve(args.value)
+    
+                        this.user.addAddress(ins.id, this.namespace)
+    
+                        let paramsPromises = []
+                        if (paramsFn) {
+                            for (let i = 0; i < paramsFn.length; i++) {
+                                paramsPromises.push(new Promise(async (resolve) => {
+                                    await context.execVariable({
+                                        variable: paramsFn[i],
+                                        value: _.isUndefined(params[i]) ? null : await this.getValue(params[i], level)
+                                    }, ins.name, resolve)
+                                }))
+                            }
+                        }
+                        Promise.all(paramsPromises).then(() => {
+                            context.execFn(insFn, 0, (args) => {
+                                this.user.popAddress(this.namespace)
+                                resolve(args.value)
+                            })
                         })
-                    })
-                    return true
-                } else if (context.hasApiFn(ins.name)) {
-                    let ret = this.execApiFn(ins, level, next, {
-                        deep: ins.deep,
-                        data: this.options.data,
-                        context
-                    })
-                    if (!next) {
-                        resolve(ret)
+                        return true
+                    } else if (context.hasApiFn(ins.name)) {
+                        let ret = this.execApiFn(ins, level, next, {
+                            deep: ins.deep,
+                            data: this.options.data,
+                            context
+                        })
+                        if (!next) {
+                            resolve(ret)
+                        }
+                        return true
                     }
-                    return true
+                    return false
                 }
-                return false
-            }
-
-            if (!execFn(this, ins)) {
-                const skill = this.converse.skills().get(ins.name)
-                if (skill) {
-                    ins.name = ins.deep[0]
-                    ins.deep.splice(0, 1)
-                    const hasExecChildFn = execFn(skill._interpreter.execution, ins, true)
-                    if (!hasExecChildFn) {
-                        this.error.throw(ins, 'function.not.defined')
-                    }
-                } else {
-                    if (ins.deep) {
-                        const deep = ins.deep.slice(0, -1)
-                        const params = {
-                            variable: ins.name,
-                            deep
-                        }
-                        if (ins.deep.length > 1) {
-                            params.type = 'object'
-                        }
-                        const val = await this.getValue(params, level)
-                        const fnName = _.last(ins.deep)
-                        const jsFn = val[fnName]
-                        if (jsFn) {
-                            resolve(jsFn.apply(val, ins.params))
-                        } else {
+    
+                if (!execFn(this, ins)) {
+                    const skill = this.converse.skills().get(ins.name)
+                    if (skill) {
+                        ins.name = ins.deep[0]
+                        ins.deep.splice(0, 1)
+                        const hasExecChildFn = execFn(skill._interpreter.execution, ins, true)
+                        if (!hasExecChildFn) {
                             this.error.throw(ins, 'function.not.defined')
                         }
                     } else {
-                        this.error.throw(ins, 'function.not.defined')
+                        if (ins.deep) {
+                            const deep = ins.deep.slice(0, -1)
+                            const params = {
+                                variable: ins.name,
+                                deep
+                            }
+                            if (ins.deep.length > 1) {
+                                params.type = 'object'
+                            }
+                            const val = await this.getValue(params, level)
+                            const fnName = _.last(ins.deep)
+                            const jsFn = val[fnName]
+                            if (jsFn) {
+                                resolve(jsFn.apply(val, ins.params))
+                            } else {
+                                this.error.throw(ins, 'function.not.defined')
+                            }
+                        } else {
+                            this.error.throw(ins, 'function.not.defined')
+                        }
                     }
-                }
+                }    
             }
-
+            catch (err) {
+                reject(err)
+            }
         })
     }
 
@@ -869,7 +872,8 @@ class Interpreter {
     exec(user, input, options, propagate) {
         return new Promise((resolve, reject) => {
             this.execution = new Execution(user, input, _.merge({
-                _finishScript: resolve
+                _finishScript: resolve,
+                _errorScript: reject
             }, options), propagate, this)
         })
     }

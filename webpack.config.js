@@ -1,4 +1,5 @@
 const path = require('path')
+const webpack = require('webpack')
 const CompressionPlugin = require('compression-webpack-plugin')
 
 module.exports = {
@@ -14,6 +15,7 @@ module.exports = {
         minimize: true
     },
     plugins: [
-        new CompressionPlugin()
+        new CompressionPlugin(),
+        new webpack.IgnorePlugin(/pretty-error/)
     ]
 }

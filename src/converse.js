@@ -125,7 +125,7 @@ class Converse {
             if (Converse.SystemJS) this.code(await Converse.SystemJS.import(this._file))
         }
         if (_.isArray(this.script)) {
-            this._obj = this.script
+            this._obj = _.merge([], this.script)
         }
         else {
             this._transpiler = new Transpiler(this.script, this.namespace)

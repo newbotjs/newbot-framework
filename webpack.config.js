@@ -1,11 +1,13 @@
 const path = require('path')
-const webpack = require('webpack')
 const CompressionPlugin = require('compression-webpack-plugin')
 
 module.exports = {
-    entry: './converse.js',
+    entry: {
+        newbot: './converse.js',
+        'newbot.with-parser': './converse-with-parser.js'
+    },
     output: {
-        filename: 'newbot.min.js',
+        filename: '[name].min.js',
         path: path.resolve(__dirname, 'dist')
     },
     node: {
@@ -15,7 +17,6 @@ module.exports = {
         minimize: true
     },
     plugins: [
-        new CompressionPlugin(),
-        new webpack.IgnorePlugin(/pretty-error|pegjs|grammar/)
+        new CompressionPlugin()
     ]
 }

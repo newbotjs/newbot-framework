@@ -3,10 +3,11 @@ const browser = require('../utils/browser')
 const ExecutionError = require('../error')
 let parser
 
-if (!browser.is()) {
-    const peg = require('pegjs')
-    const grammar = require('./grammar')
-    parser = peg.generate(grammar)
+if (browser.is()) {
+    parser = window.newbotParser
+}
+else {
+    parser = global.newbotParser
 }
 
 if (typeof window != 'undefined') window._ = _
@@ -21,6 +22,9 @@ class Transpiler {
     }
 
     run(reject) {
+        if (browser.is() && !this.parser) {
+            throw 'You can not use the parser. Integrate rather the "newbot.with-parser.min.js" file'
+        }
         try {
             return this.parser.parse(this._script)
         }

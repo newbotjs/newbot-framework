@@ -1,9 +1,9 @@
 export default {
     formats: {
-        quickReplies(text, array) {
+        quickReplies(text, actions) {
             return {
                 text,
-                array
+                actions
             }
         }
     },

@@ -116,7 +116,15 @@ class Converse {
     }
 
     code(str) {
-        this.script = str
+        if (str.code) {
+            this.script = str.code
+        }
+        else {
+            this.script = str
+        }
+        if (str.compiled || _.isArray(this.script)) {
+            this._compiled = str.compiled || this.script
+        }
         return this
     }
 
@@ -124,8 +132,11 @@ class Converse {
         if (this._file) {
             if (Converse.SystemJS) this.code(await Converse.SystemJS.import(this._file))
         }
-        if (_.isArray(this.script)) {
-            this._obj = _.merge([], this.script)
+        if (!this.script) {
+            this._obj = []
+        }
+        else if (this._compiled) {
+            this._obj = _.merge([], this._compiled)
         }
         else {
             this._transpiler = new Transpiler(this.script, this.namespace)

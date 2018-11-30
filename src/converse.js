@@ -506,7 +506,7 @@ class Converse {
     */
     loadUsers(jsonCollections) {
         for (let json of jsonCollections) {
-            let id = json._id
+            let id = json.id || json._id
             let user = new User(id).fromJson(json)
             this.users.set(id, user)
         }

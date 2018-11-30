@@ -154,7 +154,8 @@ class User {
             },
             _session: this.session,
             data: this.variables,
-            lang: this.lang
+            lang: this.lang,
+            id: this.id
         }
     }
 
@@ -166,6 +167,7 @@ class User {
         this.session = json._session || {}
         this.variables = json.data || {}
         this.lang = json.lang
+        this.id = json.id
         return this
     }
 

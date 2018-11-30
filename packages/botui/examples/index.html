@@ -1,0 +1,64 @@
+<link rel="stylesheet" href="../node_modules/botui/build/botui.min.css">
+<link rel="stylesheet" href="../node_modules/botui/build/botui-theme-default.css">
+<script src="https://cdn.jsdelivr.net/vue/latest/vue.min.js"></script>
+<script src="../node_modules/botui/build/botui.min.js"></script>
+<script src="../../../dist/newbot.with-parser.min.js"></script>
+
+<div id="my-botui-app">
+    <bot-ui></bot-ui>
+    <input type="text" id="input">
+    <button id="send">Envoyer</button>
+</div>
+
+<script>
+const skill = {
+    code: `
+        $score = 0
+
+        @Event('start')
+        start() {
+            > Score { $score }
+        }
+
+        @Intent(/plop/i)
+        plop() {
+            > Haha !
+        }
+
+        @Event('nothing')
+        nothing() {
+            $score++
+            > Score { $score }
+            > :(
+        }
+    `
+}
+
+const converse = new NewBot(skill)
+
+converse.loadUsers([
+    JSON.parse(localStorage.getItem('progress'))
+])
+
+converse.use({
+    finished(input, { user }) {
+       const json = JSON.stringify(user.toJson())
+       localStorage.setItem('progress', json)
+    }
+})
+
+var botui = new BotUI('my-botui-app')
+
+document
+    .getElementById('send')
+    .addEventListener('click', () => {
+        const input = document.getElementById('input')
+        converse.exec(input.value, (output, done) => {
+            botui.message.add({
+                content: output
+            });
+            done()
+        })
+    })
+
+</script>

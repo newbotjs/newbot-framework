@@ -1,6 +1,6 @@
 {
   "name": "newbot",
-  "version": "0.10.1",
+  "version": "0.10.3",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -9,7 +9,7 @@
     "prepublish": "npm run build"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "async-replace": "^1.0.1",
     "axios": "^0.18.0",

@@ -40,6 +40,32 @@ function quickReplies(session, actions) {
         })
     }
 
+    if (Utils.isBottenderLine(session)) {
+        return actions.map(action => {
+            if (_.isString(action)) {
+                return {
+                    type: 'action',
+                    action: {
+                        type: 'message',
+                        label: action
+                    }
+                }
+            }
+            if (!action.type) action.type = 'message'
+            if (action.action) {
+                action.payload = `action?${querystring.stringify(action.action)}`
+            }
+            return {
+                type: 'action',
+                action: {
+                    type: action.type,
+                    label: action.text,
+                    text: action.payload
+                }
+            }
+        })
+    }
+
     if (Utils.isTwitter(session)) {
         return actions.map(action => {
             if (_.isString(action)) {
@@ -126,6 +152,18 @@ module.exports = {
 
         if (Utils.isFacebook(session)) {
             return facebook
+        }
+
+        if (Utils.isBottenderLine(session)) {
+            return {
+                method: 'replyText',
+                params: [
+                    text,
+                    {
+                        items: actions
+                    }
+                ]
+            }
         }
 
         if (Utils.isBotBuilder(session)) {

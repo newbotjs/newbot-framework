@@ -4,7 +4,7 @@ class Session {
     constructor(context, {
         platform,
         userId
-    }) {
+    } = {}) {
         this.context = context
         this.platform = platform
         this.userId = userId
@@ -39,6 +39,9 @@ class Session {
             if (this.userId) {
                 params = [this.userId, ...params]
             }
+
+            console.log(JSON.stringify(params, null, 2))
+
             this.context[obj.method].apply(this.context, params)
         }
     }

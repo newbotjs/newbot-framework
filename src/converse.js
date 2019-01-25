@@ -61,7 +61,7 @@ class Converse {
         Converse.SystemJS = systemjs
     }
 
-    loadOptions(options) {
+    async loadOptions(options) {
         if (options.file) {
             this.file(options.file)
         }
@@ -96,7 +96,7 @@ class Converse {
             this.propagateNlp()
         }
         if (options.skills) {
-            this.setSkills(options.skills)
+            await this.setSkills(options.skills)
         }
         this.load()
     }
@@ -689,6 +689,24 @@ class Converse {
         this._propagateNlp = true
     }
 
+    getAllIntents() {
+        let intents = []
+        let p = this.open()
+            .then(() => {
+                intents = this._interpreter.decorators.get('Intent')
+            })
+        this._skills.forEach((skills) => {
+            if (!_.isArray(skills)) {
+                skills = [skills]
+            }
+            for (let skill of skills) {
+                p = p
+                    .then(() => skill.getAllIntents())
+                    .then(skillIntents => intents = intents.concat(skillIntents))
+            }
+        })
+        return p.then(() => intents)
+    }
 }
 
 module.exports = Converse

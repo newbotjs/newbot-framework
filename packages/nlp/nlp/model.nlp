@@ -1,0 +1,150 @@
+{
+  "settings": {
+    "languages": [
+      "en"
+    ],
+    "fullSearchWhenGuessed": false,
+    "useNlg": true,
+    "useNeural": true,
+    "useLRC": true
+  },
+  "languages": [
+    "en"
+  ],
+  "intentDomains": {
+    "gretting": "default"
+  },
+  "nerManager": {
+    "settings": {},
+    "threshold": 0.8,
+    "builtins": [
+      "Number",
+      "Ordinal",
+      "Percentage",
+      "Age",
+      "Currency",
+      "Dimension",
+      "Temperature",
+      "DateTime",
+      "PhoneNumber",
+      "IpAddress",
+      "Boolean",
+      "Email",
+      "Hashtag",
+      "URL"
+    ],
+    "namedEntities": {}
+  },
+  "slotManager": {},
+  "classifiers": [
+    {
+      "language": "en",
+      "docs": [
+        {
+          "intent": "gretting",
+          "utterance": [
+            "hello"
+          ]
+        },
+        {
+          "intent": "gretting",
+          "utterance": [
+            "hi"
+          ]
+        },
+        {
+          "intent": "gretting",
+          "utterance": [
+            "hey"
+          ]
+        }
+      ],
+      "features": {
+        "hello": 1,
+        "hi": 1,
+        "hey": 1
+      },
+      "logistic": {
+        "observations": {
+          "gretting": [
+            [],
+            [
+              1
+            ],
+            [
+              2
+            ]
+          ]
+        },
+        "labels": [
+          "gretting"
+        ],
+        "observationCount": 3,
+        "theta": [
+          {
+            "elements": [
+              1.33295406237599,
+              1.33295406237599,
+              1.33295406237599
+            ]
+          }
+        ]
+      },
+      "useLRC": true,
+      "useNeural": true,
+      "neuralClassifier": {
+        "settings": {
+          "config": {
+            "activation": "leaky-relu",
+            "hiddenLayers": [],
+            "learningRate": 0.1,
+            "errorThresh": 0.0005,
+            "timeout": 120000
+          }
+        },
+        "classifierMap": {
+          "gretting": {
+            "sizes": [
+              3,
+              1
+            ],
+            "layers": [
+              {
+                "hello": {},
+                "hi": {},
+                "hey": {}
+              },
+              {
+                "0": {
+                  "bias": 71.38860321044922,
+                  "weights": {
+                    "hello": 26.34326171875,
+                    "hi": 26.345699310302734,
+                    "hey": 26.464658737182617
+                  }
+                }
+              }
+            ],
+            "outputLookup": false,
+            "inputLookup": true,
+            "activation": "leaky-relu",
+            "trainOpts": {
+              "iterations": 20000,
+              "errorThresh": 0.0005,
+              "log": false,
+              "logPeriod": 10,
+              "learningRate": 0.1,
+              "momentum": 0.1,
+              "callbackPeriod": 10,
+              "timeout": 120000,
+              "beta1": 0.9,
+              "beta2": 0.999,
+              "epsilon": 1e-8
+            }
+          }
+        }
+      }
+    }
+  ],
+  "responses": {}
+}

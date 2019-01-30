@@ -1,6 +1,8 @@
-NewBot.loadModel = async function(converse, path) {
+import processNlp from '../src/process'
+
+export default async function(path) {
     const manager = new window.NLPJS.NlpManager()
     const model = await fetch(path).then(res => res.json())
     manager.import(model)
-    converse._manager = manager
+    return processNlp(manager)
 }

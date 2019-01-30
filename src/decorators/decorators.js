@@ -11,7 +11,6 @@ class Decorators {
     }
     add(obj) {
         if (!obj.decorators) return
-
         const { decorators, name } = obj
         for (let decorator of decorators) {
             this.decorators[decorator.name]

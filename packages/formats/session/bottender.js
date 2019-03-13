@@ -40,8 +40,6 @@ class Session {
                 params = [this.userId, ...params]
             }
 
-            console.log(JSON.stringify(params, null, 2))
-
             this.context[obj.method].apply(this.context, params)
         }
     }

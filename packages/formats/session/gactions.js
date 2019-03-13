@@ -24,6 +24,9 @@ class Session {
                 })
                 return new this.gactions[obj.method](...obj.params)
             }
+            if (obj.text) {
+                return obj.text
+            }
             return obj
         })
         this.conv.ask(...params)

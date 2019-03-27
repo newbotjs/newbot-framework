@@ -19,15 +19,15 @@ class Nlp {
         this.intents = _.merge(this.intents, intents)
     }
 
-    exec(input, userId) {
+    exec(input, userId, converse = this.converse) {
         return new Promise((resolve, reject) => {
-            if (this.converse._mockNlp && this.converse._mockNlp[this.name]) {
+            if (converse._mockNlp && converse._mockNlp[this.name]) {
                 const ret = this.converse._mockNlp[this.name](input, userId)
                 resolve({ structured: ret })
                 return
             }
             if (_.isFunction(this.intents)) {
-                this.intents(input, userId, this.converse).then((intents) => {
+                this.intents(input, userId, converse).then((intents) => {
                     resolve({ intents })
                 })
                 return
@@ -39,7 +39,7 @@ class Nlp {
             let filterIntents = {}
             for (let key in intents) {
                 let intent = intents[key]
-                let user = this.converse._users.get(userId)
+                let user = typeof userId == 'string' ? converse._users.get(userId) : userId
                 let ret = intent(input, structured, user)
                 if (ret) {
                     filterIntents[key] = ret

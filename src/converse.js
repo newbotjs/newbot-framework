@@ -262,7 +262,7 @@ class Converse {
                     if (skill._shareFormat) {
                         this._format = _.merge(skill._format, this._format)
                     }
-                    skill._users = this.users
+                    skill._users = this._users
                     if (skill._condition) {
                         skillPromise = skill._condition(options.data, user)
                         if (!isPromise(skillPromise)) {
@@ -292,7 +292,7 @@ class Converse {
 
     execNlp(input, userId) {
         input.intents = {}
-        const user = this._users.get(userId)
+        const user = this.users.get(userId)
         let p = Promise.resolve()
         let nlpArray = Object.keys(this._nlp).map(name => this._nlp[name])
         nlpArray = nlpArray.sort((a, b) => {
@@ -306,7 +306,7 @@ class Converse {
                 if (nlpCache && Object.is(nlpCache.object, this._originNlpObject[originNlpName])) {
                     return nlpCache.result
                 }
-                return nlp.exec(input.text, userId)
+                return nlp.exec(input.text, userId, this)
             }).then((intents) => {
                 if (!intents) return
                 user._nlpCache[nlp.name] = {

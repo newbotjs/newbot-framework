@@ -7,6 +7,7 @@ const isArray = require('lodash/isArray')
 const set = require('lodash/set')
 const get = require('lodash/get')
 const isUndefined = require('lodash/isUndefined')
+const isNull = require('lodash/isNull')
 const isBoolean = require('lodash/isBoolean')
 const random = require('lodash/random')
 const last = require('lodash/last')
@@ -27,6 +28,7 @@ module.exports = {
     get,
     set,
     isUndefined,
+    isNull,
     isBoolean,
     isNumber,
     random,

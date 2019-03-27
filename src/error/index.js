@@ -70,9 +70,9 @@ class ExecutionError {
     var fullMessage;
     var location = line + (column ? ':' + column : '');
 
-    const skillPath = this.namespace
+    const skillPath = this.namespace ? this.namespace
       .split('-')
-      .join(' / ')
+      .join(' / ') : 'unknow'
     const strSkill = `Skill : ${skillPath}. Line ${line}`
 
     if (src && line >= 1 && line <= src.split('\n').length) {

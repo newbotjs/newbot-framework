@@ -43,7 +43,7 @@ class Execution {
             if (this.event) {
                 this.triggerEvent()
             } else {
-                this.go()
+                this.go().catch(this._errorScript)
             }
         })
     }
@@ -164,11 +164,9 @@ class Execution {
             }
             exec = true
         } else if (!execIntent && this.start && decorator.start.length) {
-            this.decorators.exec(decorator.start, this)
-            exec = true
+            exec = await this.decorators.exec(decorator.start, this)
         } else if (execIntent && this.start && decorator.startAndIntent.length) {
-            this.decorators.exec(decorator.startAndIntent, this)
-            exec = true
+            exec = await this.decorators.exec(decorator.startAndIntent, this)
         }
 
         async function execFinish() {
@@ -836,9 +834,9 @@ class Interpreter {
         this._users = users
         this.var = []
         this.fn = {}
-        this.decorators = new Decorators(this)
         this.converse = converse
         this.namespace = this.converse.namespace
+        this.decorators = new Decorators(this)
         this.organize(this._obj)
     }
     organize(ins, level = 'root', deepBlock = []) {

@@ -4,6 +4,8 @@ class Decorator {
 
     constructor(decorator, fnName) {
         this.decorator = decorator
+        this.otherDecorators = {}
+        this.name = this.decorator.name
         this.instructions = decorator.instructions
         this.params = decorator.params
         this.fnName = fnName

@@ -20,6 +20,7 @@ class Converse {
         this._nlp = {}
         this.config = {}
         this._format = {}
+        this._conditions = {}
         this._dbHook = {}
         this._hooks = {}
         this._originNlpObject = {}
@@ -78,6 +79,9 @@ class Converse {
             for (let key in options.nlp) {
                 this.nlp(key, options.nlp[key])
             }
+        }
+        if (options.conditions) {
+           this.conditions(options.conditions)
         }
         if (options.functions) {
             this.functions(options.functions)
@@ -688,6 +692,10 @@ class Converse {
 
     propagateNlp() {
         this._propagateNlp = true
+    }
+
+    conditions(obj) {
+        this._conditions = _.merge(this._conditions, obj)
     }
 
     getAllIntents() {

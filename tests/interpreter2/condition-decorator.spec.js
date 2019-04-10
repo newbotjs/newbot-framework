@@ -37,4 +37,35 @@ describe('condition decorator', () => {
             .end()
     })
 
+    it('test condition decorator ands intent', () => {
+        code(`
+            @Condition('fn')
+            @Event('start')
+            start() {
+                > Yo ?
+            }
+
+            @Intent(/hey/i)
+            hey() {
+                > hey
+            }
+
+            @Event('nothing')
+            nothing() {
+                > Nop
+            }
+        `)
+        converse.conditions({
+             fn(data, user) {
+                 return false
+             }
+        })
+        return user
+            .prompt('hey', testing => {
+                console.log(testing.output())
+                assert.equal(testing.output(0), 'hey')
+            })
+            .end()
+    })
+
 })

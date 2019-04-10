@@ -11,6 +11,8 @@ module.exports = `
     
     const DEEP_NAME = '__deepIndex'
 
+    var pushIns = []
+
     function increment(variable, sign, expression, variables=[]) {
         let _var
        
@@ -197,6 +199,7 @@ Condition
         if (special) {
             obj.keyword = special
         }
+        console.log(pushIns)
         return obj
     }
 
@@ -292,7 +295,16 @@ Factor
        }
        return '(' + expr + ')'
     }
-  / Integer / ExecuteFunction / StringInExpression / Boolean
+  / Integer / fn:ExecuteFunction {
+      let name = fn.name
+      pushIns.push(fn)
+      if (name.type == 'object') {
+        name = name.variable + '-' + name.deep.join('-')
+      }
+      return {
+          variable: '__return_' + name
+      }
+  } / StringInExpression / Boolean
   / GetObject / VariableName
 
 // Group
@@ -363,6 +375,7 @@ DecoratorInstruction
 
 Function 'function'
     = name:Variable _ '(' _ params:FunctionParameters? _ ')' _ '{' _  instructions:InstructionFunction* _ '}' {
+        instructions = instructions.reduce((acc, val) => acc.concat(val), [])
         instructions = instructions.filter(it => it)
         return { name, params, type: 'function', instructions }
     }
@@ -379,6 +392,11 @@ FunctionReturn 'function return'
 
 InstructionFunction
     = _ ins:(Instruction / InstructionText / FunctionReturn) Nl* _ {
+        if (pushIns.length > 0) {
+            let multiIns = [...pushIns, ins]
+            pushIns = []
+            return multiIns
+        }
         return ins
     }
 

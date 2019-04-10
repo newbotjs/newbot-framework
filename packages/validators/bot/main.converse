@@ -1,0 +1,5 @@
+@Event('start')
+start() {
+    email = prompts.email('What is your Email ?') 
+    > { email }
+}

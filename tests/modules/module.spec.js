@@ -401,6 +401,6 @@ describe('Module Test', () => {
                     assert.equal(i, 2)
                 })
         })
-    })
+    }) 
     
 })

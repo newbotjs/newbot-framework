@@ -14,7 +14,7 @@ describe('Params Test', () => {
         userConverse = converse.createUser()
     }
 
-    it('Test return level 1', () => {
+    /*it('Test return level 1', () => {
         code(`
             @Event('start')
             start() {
@@ -74,28 +74,73 @@ describe('Params Test', () => {
                 assert.deepEqual(testing.output(), ['A', 'B', 'Stop'])
             })
             .end()
-    })
+    })*/
 
-    it('Return value', () => {
+    /*it('Return value', () => {
         code(`
             @Event('start')
             start() {
-                val = math(1) + 2
+                val = math(1)
                 > { val }
             }
 
-            math(a, b) {
+            math(a) {
                 return a + :text
             }
         `)
-        return userConverse.start()
-            .spy('start', testing => {
-                console.log(testing.output())
-            })
-            .end()
         return userConverse.conversation(
             user `2`,
-            bot `5`
+            bot `3`
+        )
+    })*/
+
+     /*it('Return value with Prompt', () => {
+         code(`
+             @Event('start')
+             start() {
+                 val = math(1) + 2
+                 > { val }
+             }
+
+             math(a) {
+                 > enter a number
+                 Prompt()
+                 return a + :text
+             }
+         `)
+         return userConverse.conversation(
+             user `start`,
+             bot `enter a number`,
+             user `3`,
+             bot `6`
+         )
+     })*/
+
+     it('Return value with Prompt but parent-child relation', () => {
+        
+        code(`
+            @Event('start')
+            start() {
+                ret = child.test()
+                > { ret }
+            }
+        `)
+
+        converse.setSkills({
+            child: {
+                code: `
+                   test() {
+                       Prompt()
+                       return :text
+                   }
+                `
+            }
+        })
+        
+        return userConverse.conversation(
+            user `start`,
+            user `yo`,
+            bot `yo`
         )
     })
 

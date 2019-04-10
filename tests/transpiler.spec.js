@@ -492,10 +492,7 @@ describe('Test Transpiler', () => {
             `compare = Network.compare()`
         const [obj] = t(str)
         expect(obj).to.have.property('variable', 'compare')
-        expect(obj.value).to.have.property('type', 'executeFn')
-        expect(obj.value.name).to.have.property('variable', 'Network')
-        expect(obj.value.name).to.have.deep.property('deep', ['compare'])
-        expect(obj.value.name).to.have.property('type', 'object')
+        expect(obj.value).to.have.property('variable', '__return_Network-compare')
     })
 
     it('output with magic variable', () => {

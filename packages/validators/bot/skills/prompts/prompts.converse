@@ -1,0 +1,10 @@
+email() {
+    > what is your email
+    Prompt()
+    bool = isEmail(:text)
+    if (not bool) {
+        > Votre email est invalide !
+        email()
+    }
+    return :text
+}

@@ -3,6 +3,7 @@ const isString = require('lodash/isString')
 const isObjectLike = require('lodash/isObjectLike')
 const isFunction = require('lodash/isFunction')
 const clone = require('lodash/clone')
+const cloneDeep = require('lodash/cloneDeep')
 const isArray = require('lodash/isArray')
 const set = require('lodash/set')
 const get = require('lodash/get')
@@ -24,6 +25,7 @@ module.exports = {
     isPlainObject,
     isFunction,
     clone,
+    cloneDeep,
     isArray,
     get,
     set,

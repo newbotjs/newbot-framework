@@ -138,7 +138,20 @@ class Execution {
             this.user.popAddress(this.namespace)
 
             const fnBlock = (index) => {
-                this.execFn(fn, index + 1, () => {
+                this.execFn(fn, index + 1, (args) => {
+                    // todo
+                    if (this.parent) {
+                        const parentAdress = this.user.getAddress(this.parent.namespace)
+                        const fn = this.parent._interpreter.index[parentAdress]
+                        const skillName = _.last(this.namespace.split('-'))
+                        this.parent.bufferFunction = (skillExecution) => {
+                            skillExecution.setReturnVariable({
+                                name: skillName + '-' + args.level
+                            }, args.value, fn.level)
+                        }
+                    }
+                    
+                    this.setVariable({ variable: '__return_' + args.level }, args.value, 'start')
                     this.go(deepFn + 1)
                 })
             }
@@ -167,6 +180,9 @@ class Execution {
             exec = await this.decorators.exec(decorator.start, this)
         } else if (execIntent && this.start && decorator.startAndIntent.length) {
             exec = await this.decorators.exec(decorator.startAndIntent, this)
+            if (execIntent && !exec) {
+                exec = true
+            }
         }
 
         async function execFinish() {
@@ -216,6 +232,10 @@ class Execution {
     }
 
     instructionsRoot(finish) {
+        if (this.converse.bufferFunction) {
+            this.converse.bufferFunction(this)
+            this.converse.bufferFunction = null
+        }
         this.instructions(this.obj, 0, 'root', finish)
     }
 
@@ -255,7 +275,7 @@ class Execution {
                 return
             }
             if (!_.isUndefined(ins.return)) {
-                const value = await this.getValue(ins.return, level)
+                const value = await this.getValue(ins, ins.return, level)
                 if (!isBlock) {
                     next({
                         stop: true,
@@ -295,7 +315,9 @@ class Execution {
                         next()
                         break
                     case 'executeFn':
-                        this.findFunctionAndExec(ins, level, next).then(next)
+                        let value = await this.findFunctionAndExec(ins, level)
+                        this.setReturnVariable(ins, value, level)
+                        next()
                         break
                 }
             }
@@ -305,6 +327,7 @@ class Execution {
     }
 
     findFunctionAndExec(ins, level, next) {
+        ins = _.cloneDeep(ins)
         return new Promise(async (resolve, reject) => {
             try {
                 if (!_.isString(ins.name)) {
@@ -318,7 +341,7 @@ class Execution {
                     }
                     ins.deep = deep
                 }
-                const execFn = (context, ins, isChild) => {
+                const execFn = async (context, ins, isChild) => {
                     if (context.interpreter.fn[ins.name]) {
                         const params = ins.params
                         const insFn = context.interpreter.fn[ins.name]
@@ -336,25 +359,25 @@ class Execution {
                                 paramsPromises.push(new Promise(async (resolve) => {
                                     await context.execVariable({
                                         variable: paramsFn[i],
-                                        value: _.isUndefined(params[i]) ? null : await this.getValue(params[i], level)
+                                        value: _.isUndefined(params[i]) ? null : await this.getValue(ins, params[i], level)
                                     }, ins.name, resolve)
                                 }))
                             }
                         }
                         Promise.all(paramsPromises).then(() => {
-                            context.execFn(insFn, 0, (args) => {
+                            return context.execFn(insFn, 0, (args) => {
                                 this.user.popAddress(this.namespace)
                                 resolve(args.value)
                             })
                         })
                         return true
                     } else if (context.hasApiFn(ins.name)) {
-                        let ret = this.execApiFn(ins, level, next, {
+                        let ret = await this.execApiFn(ins, level, next, {
                             deep: ins.deep,
                             data: this.options.data,
                             context
                         })
-                        if (!next) {
+                        if (ins.name != 'Prompt' && ins.name != 'Input') {
                             resolve(ret)
                         }
                         return true
@@ -362,12 +385,12 @@ class Execution {
                     return false
                 }
     
-                if (!execFn(this, ins)) {
+                if (! await execFn(this, ins)) {
                     const skill = this.converse.skills().get(ins.name)
                     if (skill) {
                         ins.name = ins.deep[0]
                         ins.deep.splice(0, 1)
-                        const hasExecChildFn = execFn(skill._interpreter.execution, ins, true)
+                        const hasExecChildFn = await execFn(skill._interpreter.execution, ins, true)
                         if (!hasExecChildFn) {
                             this.error.throw(ins, 'function.not.defined')
                         }
@@ -381,7 +404,7 @@ class Execution {
                             if (ins.deep.length > 1) {
                                 params.type = 'object'
                             }
-                            const val = await this.getValue(params, level)
+                            const val = await this.getValue(ins, params, level)
                             const fnName = _.last(ins.deep)
                             const jsFn = val[fnName]
                             if (jsFn) {
@@ -437,6 +460,14 @@ class Execution {
         this.getVariable(object, level, value)
     }
 
+    setReturnVariable(ins, value, level) {
+        let name = ins.name
+        if (name.type == 'object') {
+            name = name.variable + '-' + name.deep.join('-')
+        }
+        this.setVariable({ variable: '__return_' + name }, value, level)
+    }
+
     setMagicVar(name, value) {
         this.user.magicVar[name] = value
     }
@@ -448,7 +479,7 @@ class Execution {
 
     async _deepObject(ins, object, level, value) {
         const set = !_.isUndefined(value)
-        let deep = await this.execParams(ins.deep, level)
+        let deep = await this.execParams(ins, ins.deep, level)
         return _[set ? 'set' : 'get'](object, deep, value)
     }
 
@@ -462,7 +493,7 @@ class Execution {
         return this._deepObject(ins, object, level, value)
     }
 
-    getValue(obj, level, next) {
+    getValue(ins, obj, level, next) {
         return new Promise(async (resolve, reject) => {
             try {
                 let scope = this.getScope(level)
@@ -473,9 +504,9 @@ class Execution {
                 if (obj.regexp) {
                     value = new RegExp(obj.regexp, obj.flags.join(''))
                 } else if (_.isArray(obj)) {
-                    value = await async.map(obj, val => this.getValue(val, level))
+                    value = await async.map(obj, val => this.getValue(ins, val, level))
                 } else if (obj.expression) {
-                    value = await this.execExpression(obj.expression, obj.variables, level)
+                    value = await this.execExpression(ins, obj.expression, obj.variables, level)
                 } else if (obj.variable) {
                     if (/^:/.test(obj.variable)) {
                         let name = value.variable
@@ -495,22 +526,23 @@ class Execution {
                 } else if (obj.text && !obj.__deepIndex) {
                     value = await new Promise((resolve, reject) => {
                         asyncReplace(obj.text, /\{([^\}]+)\}/g, async (match, sub, offset, string, done) => {
-                            done(null, await this.getValue(obj.variables[sub].value, level))
+                            done(null, await this.getValue(ins, obj.variables[sub].value, level))
                         }, (err, result) => {
                             resolve(result)
                         })
                     })
                 } else if (obj.type == 'executeFn') {
-                    value = await this.findFunctionAndExec(obj, level)
+                    // obsolete
+                    value = await this.findFunctionAndExec({ ...obj, id: ins.id }, level)
                 } else if (value.__deepIndex) {
                     for (let address of value.__deepIndex) {
-                        let valueObj = await this.getValue(_.get(value, address), level, next)
+                        let valueObj = await this.getValue(ins, _.get(value, address), level, next)
                         _.set(value, address, valueObj)
                     }
                 }
 
                 if (_.isString(value) && value[0] === '#') {
-                    value = await this.translate(value.substr(1), level)
+                    value = await this.translate(ins, value.substr(1), level)
                 }
 
                 resolve(value)
@@ -523,7 +555,7 @@ class Execution {
     async execBlock(ins, pointer = 0, level, finish) {
         let i
         if (ins.varLocal) {
-            let array = await this.getValue(ins.array, level)
+            let array = await this.getValue(ins, ins.array, level)
             if (_.isNumber(array)) {
                 array = new Array(array+1).fill(0).map((_, i) => i)
             }
@@ -569,7 +601,7 @@ class Execution {
 
     execCondition(ins, level, next) {
         return new Promise((resolve, reject) => {
-            this.getValue(ins.condition, level)
+            this.getValue(ins, ins.condition, level)
                 .then(resolve)
                 .catch(reject)
         }).then((bool) => {
@@ -588,11 +620,11 @@ class Execution {
         })
     }
 
-    execExpression(expr, variables, level) {
+    execExpression(ins, expr, variables, level) {
         return new Promise(async (resolve, reject) => {
             expr = await new Promise((resolve, reject) => {
                 asyncReplace(expr, /\{([0-9]+)\}/g, async (match, index, offset, string, done) => {
-                    let val = await this.getValue(variables[index], level)
+                    let val = await this.getValue(ins, variables[index], level)
                     if (!/^[0-9]+(\.[0-9]+)?$/.test(val) && !_.isBoolean(val) && val !== null) {
                         val = `"${val}"`
                     }
@@ -683,7 +715,7 @@ class Execution {
 
     execVariable(ins, level, next) {
         return new Promise((resolve, reject) => {
-            this.getValue(ins.value, level)
+            this.getValue(ins, ins.value, level)
                 .then(resolve)
                 .catch(reject)
         }).then((value) => {
@@ -697,7 +729,7 @@ class Execution {
         })
     }
 
-    async translate(str, level, params = []) {
+    async translate(ins, str, level, params = []) {
         const {
             converse
         } = this.interpreter
@@ -706,7 +738,7 @@ class Execution {
             converse.lang.data[lang] &&
             converse.lang.get(str, null, lang)
         if (hasTranslate) {
-            params = await this.execParams(params, level)
+            params = await this.execParams(ins, params, level)
             str = converse.lang.translate(str, ...[lang, ...params])
         }
         return str
@@ -724,18 +756,18 @@ class Execution {
             }
 
             if (ins.output.variables) {
-                outputValue = await this.getValue(ins.output, level)
+                outputValue = await this.getValue(ins, ins.output, level)
             }
 
             outputValue = outputValue.replace(/\r$/, '')
 
-            outputValue = await this.translate(outputValue, level, ins.params)
+            outputValue = await this.translate(ins, outputValue, level, ins.params)
 
             if (ins.decorators) {
                 for (let d of ins.decorators) {
                     if (d.name == 'Format') {
                         let params = [...d.params]
-                        params = await this.execParams(params, level)
+                        params = await this.execParams(ins, params, level)
                         let name = params[0]
                         if (converse._format[name]) {
                             params.splice(0, 1)
@@ -774,11 +806,11 @@ class Execution {
         this.instructions(ins.instructions, pointer, ins.name, done)
     }
 
-    execParams(params, level, done) {
+    execParams(ins, params, level, done) {
         if (!params) {
             return Promise.resolve([])
         }
-        return async.map(params, val => this.getValue(val, level, done))
+        return async.map(params, val => this.getValue(ins, val, level, done))
     }
 
     async execApiFn(ins, level, done, more) {
@@ -803,7 +835,7 @@ class Execution {
         return (more.context || this)
             .interpreter
             .converse
-            .execFunction(ins.name, await this.execParams(ins.params, level, done), done, this.user, more)
+            .execFunction(ins.name, await this.execParams(ins, ins.params, level, done), done, this.user, more)
     }
 
     hasApiFn(name) {
@@ -840,8 +872,13 @@ class Interpreter {
         this.organize(this._obj)
     }
     organize(ins, level = 'root', deepBlock = []) {
-        for (let i = 0; i < ins.length; i++) {
+
+        const loopIns = (i) => {
             let o = ins[i]
+
+            if (!o) {
+                return
+            }
 
             o.id = this.setId(o, level)
 
@@ -849,18 +886,26 @@ class Interpreter {
                 this.fn[o.name] = o
                 this.decorators.add(o)
                 this.organize(o.instructions, o.name)
-                continue
+                i++
+                loopIns(i)
+                return 
+                
             } else if (o.condition || o.loop) {
                 this.organize(o.instructions, level, deepBlock.concat(o.id))
             }
-
+            
             this.index[o.id] = {
                 level,
                 index: i,
                 namespace: this.namespace,
                 deep: deepBlock
             }
+            
+            i++
+            loopIns(i)
         }
+
+        loopIns(0)
     }
     setId(o, level) {
         let id = level + '-' + md5(JSON.stringify(o))

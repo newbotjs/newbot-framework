@@ -439,6 +439,15 @@ class Converse {
             params = params.concat($params)
         }
 
+        const converseParams = {
+            users: this.users,
+            user,
+            data,
+            execution,
+            level,
+            ins
+        }
+
         if (this.testing && this._mock[mockName]) {
             ret = this._mock[mockName].call(user, ...params)
             if ($mock) {
@@ -448,6 +457,7 @@ class Converse {
                 ret = $mock.call(this._mock[mockName], ...[ret, ...$params])
             }
         } else {
+            this._functions[name].converse = converseParams
             ret = $call.call(this._functions[name], ...params)
         }
 

@@ -1,6 +1,7 @@
 const builder = require('botbuilder')
 const Utils = require('../utils')
 const _ = require('lodash')
+const browser = require('../../browser').default
 const querystring = require('querystring')
 
 function quickReplies(session, actions) {
@@ -106,10 +107,7 @@ module.exports = {
         actions = quickReplies(session, actions)
 
         if (Utils.isWebSite(session)) {
-            return {
-                text,
-                actions
-            }
+            return browser.formats.quickReplies(text, actions)
         }
 
         if (Utils.isGactions(session)) {

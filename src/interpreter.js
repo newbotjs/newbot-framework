@@ -609,6 +609,9 @@ class Execution {
                 case 'unknown':
                     bool = _.isUndefined(bool) || _.isNull(bool)
                     break
+                case 'defined':
+                    bool = !_.isUndefined(bool) && !_.isNull(bool)
+                    break
             }
             if (bool) {
                 this.execBlock(ins, 0, level, next)

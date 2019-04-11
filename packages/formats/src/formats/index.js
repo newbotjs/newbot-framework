@@ -7,6 +7,7 @@ const markdown = require('./markdown')
 const video = require('./video')
 const contact = require('./contact')
 const location = require('./location')
+const specialReplies = require('././special-replies')
 
 module.exports = { 
     quickReplies, 
@@ -17,5 +18,7 @@ module.exports = {
     image, 
     video, 
     contact,
-    location
+    location,
+    email: specialReplies('email'),
+    phone: specialReplies('phone')
 }

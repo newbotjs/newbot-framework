@@ -4,3 +4,4 @@ _*
 .cache
 .build
 packages/**/dist
+newbot.config.js

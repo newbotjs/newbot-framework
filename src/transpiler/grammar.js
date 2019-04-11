@@ -199,7 +199,6 @@ Condition
         if (special) {
             obj.keyword = special
         }
-        console.log(pushIns)
         return obj
     }
 
@@ -227,7 +226,7 @@ ConditionElse =
     }
 
 SpecialKeyword
-    = 'unknown'
+    = 'unknown' / 'defined'
 
 Not
     = keyword:('!' / 'not') {

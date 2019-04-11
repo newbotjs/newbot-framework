@@ -1,0 +1,14 @@
+[
+    {
+        "what is your email": "quel est votre email ?",
+        "what is your phone": "quel est votre numéro de téléphone ?",
+        "your email is invalid": "votre email est invalide !",
+        "your phone is invalid": "votre numéro de téléphone est invalide !",
+        "give me date": "donnez-moi une date",
+        "yes": "oui",
+        "no": "non",
+        "not understand confirmation": "je n'ai pas compris la confirmation",
+        "number max": "Donnez-un nombre inférieur à %d",
+        "number min": "Donnez-un nombre supérieur à %d"
+    }
+]

@@ -1,0 +1,91 @@
+email() {
+    @Format('email')
+    > what is your email
+
+    Prompt()
+
+    bool = isEmail(:text)
+    if (not bool) {
+        > your email is invalid
+        email()
+    }
+    return :text
+}
+
+phone() {
+    @Format('phone')
+    > what is your phone
+
+     Prompt()
+
+     phone = parsePhone(:text)
+
+      if (unknown phone) {
+        > your phone is invalid
+        phone()
+    }
+
+    return phone
+}
+
+time(text) {
+    @Format('date')
+    > { text }
+
+    Prompt()
+
+    value = parseDate(:text)
+
+    if (not value) {
+        > give me date
+        time(text)
+    }
+
+    return value
+}
+
+confirm(text) {
+    @Format('quickReplies', ['#yes', '#no'])
+    > { text }
+
+    Prompt()
+
+    bool = parseChoice(:text)
+
+    if (unknown bool) {
+        > not understand confirmation
+        confirm(text)
+    }
+
+    return bool
+}
+
+number(text, options) {
+    min = options.min
+    max = options.max
+
+    @Format('number', min, max)
+    > { text }
+
+    Prompt()
+
+    number = parseNumber(:text)
+
+    if (unknown number) {
+        > not understand confirmation
+        number(text, options)
+    }
+    else {
+        if (defined min && number < min) {
+            > number min [min]
+            number(text, options)
+        }
+        else if (defined max && number > max) {
+            > number max [max]
+            number(text, options)
+        }
+    }
+
+    return number
+}
+

@@ -1,11 +1,11 @@
 {
   "name": "newbot",
-  "version": "0.11.0",
+  "version": "0.2.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "mocha tests/*.spec.js tests/modules/*.spec.js tests/interpreter2/*.spec.js",
-    "build": "webpack",
+    "build": "node ./bin/mergePackageJson && webpack",
     "prepublish": "npm run build"
   },
   "author": "",

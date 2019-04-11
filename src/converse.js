@@ -13,6 +13,7 @@ const Nlp = require('./nlp')
 const fs = require('./utils/fs')
 const isPromise = require('./utils/is-promise')
 const Browser = require('./utils/browser')
+const newbotPackage = require('../newbot.json')
 
 class Converse {
 
@@ -45,6 +46,10 @@ class Converse {
             this.loadOptions(options)
         }
         
+    }
+
+    static get version() {
+        return newbotPackage.version
     }
 
     /**

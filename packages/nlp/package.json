@@ -1,14 +1,11 @@
 {
   "name": "newbot-nlp",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.20.0",
+  "description": "Native NLP system for NewBot Framework",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "node-nlp": "^2.3.0"
   }

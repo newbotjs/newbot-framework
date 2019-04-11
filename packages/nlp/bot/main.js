@@ -2,9 +2,11 @@
 import code from './main.converse'
 import processNlp from '../index'
 
-export default {
-    code,
-    nlp: {
-        processNlp: processNlp('model/model.nlp')
+export default async () => {
+    return {
+        code,
+        nlp: {
+            processNlp: await processNlp(__dirname + '/model/model.nlp')
+        }
     }
 }

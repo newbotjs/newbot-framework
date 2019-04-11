@@ -1,6 +1,7 @@
 {
   "settings": {
     "languages": [
+      "0",
       "en"
     ],
     "fullSearchWhenGuessed": false,
@@ -9,6 +10,7 @@
     "useLRC": true
   },
   "languages": [
+    "0",
     "en"
   ],
   "intentDomains": {
@@ -38,6 +40,29 @@
   "slotManager": {},
   "classifiers": [
     {
+      "language": "0",
+      "docs": [],
+      "features": {},
+      "logistic": {
+        "observations": {},
+        "labels": [],
+        "observationCount": 0
+      },
+      "useLRC": true,
+      "useNeural": true,
+      "neuralClassifier": {
+        "settings": {
+          "config": {
+            "activation": "leaky-relu",
+            "hiddenLayers": [],
+            "learningRate": 0.1,
+            "errorThresh": 0.0005
+          }
+        },
+        "classifierMap": {}
+      }
+    },
+    {
       "language": "en",
       "docs": [
         {
@@ -57,12 +82,19 @@
           "utterance": [
             "hey"
           ]
+        },
+        {
+          "intent": "gretting",
+          "utterance": [
+            "test"
+          ]
         }
       ],
       "features": {
         "hello": 1,
         "hi": 1,
-        "hey": 1
+        "hey": 1,
+        "test": 1
       },
       "logistic": {
         "observations": {
@@ -73,19 +105,23 @@
             ],
             [
               2
+            ],
+            [
+              3
             ]
           ]
         },
         "labels": [
           "gretting"
         ],
-        "observationCount": 3,
+        "observationCount": 4,
         "theta": [
           {
             "elements": [
-              1.33295406237599,
-              1.33295406237599,
-              1.33295406237599
+              1.0605028273079797,
+              1.0605028273079797,
+              1.0605028273079797,
+              1.0605028273079797
             ]
           }
         ]
@@ -105,22 +141,24 @@
         "classifierMap": {
           "gretting": {
             "sizes": [
-              3,
+              4,
               1
             ],
             "layers": [
               {
                 "hello": {},
                 "hi": {},
-                "hey": {}
+                "hey": {},
+                "test": {}
               },
               {
                 "0": {
-                  "bias": 71.38860321044922,
+                  "bias": 76.4443130493164,
                   "weights": {
-                    "hello": 26.34326171875,
-                    "hi": 26.345699310302734,
-                    "hey": 26.464658737182617
+                    "hello": 21.370254516601562,
+                    "hi": 21.283124923706055,
+                    "hey": 21.302486419677734,
+                    "test": 21.38346290588379
                   }
                 }
               }

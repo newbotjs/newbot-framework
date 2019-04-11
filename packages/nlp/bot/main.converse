@@ -1,7 +1,8 @@
 @Intent('gretting', [
     'hello',
     'hi',
-    'hey'
+    'hey',
+    'test'
 ])
 hello() {
     > Hey !

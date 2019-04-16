@@ -78,9 +78,9 @@ export default {
         isEmail,
         parseDate(text) {
             const {
-                lang
+                langId
             } = getlang(this.converse)
-            return chrono[lang].parseDate(text)
+            return chrono[langId].parseDate(text)
         },
         parseChoice(text) {
             return commonParse('bool', text, this.converse)

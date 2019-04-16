@@ -139,19 +139,23 @@ class Execution {
 
             const fnBlock = (index) => {
                 this.execFn(fn, index + 1, (args) => {
-                    // todo
-                    if (this.parent) {
+                    const thisAdress = this.user.getAddress(this.namespace)
+                    if (thisAdress) {
+                        const fn = this.converse._interpreter.index[thisAdress]
+                        this.setReturnVariable({ name: args.level }, args.value, fn.level)
+                    }
+                    else if (this.parent) {
                         const parentAdress = this.user.getAddress(this.parent.namespace)
-                        const fn = this.parent._interpreter.index[parentAdress]
-                        const skillName = _.last(this.namespace.split('-'))
-                        this.parent.bufferFunction = (skillExecution) => {
-                            skillExecution.setReturnVariable({
-                                name: skillName + '-' + args.level
-                            }, args.value, fn.level)
+                        if (parentAdress) {
+                            const fn = this.parent._interpreter.index[parentAdress]
+                            const skillName = _.last(this.namespace.split('-'))
+                            this.parent.bufferFunction = (skillExecution) => {
+                                skillExecution.setReturnVariable({
+                                    name: skillName + '-' + args.level
+                                }, args.value, fn.level)
+                            }
                         }
                     }
-                    
-                    this.setVariable({ variable: '__return_' + args.level }, args.value, 'start')
                     this.go(deepFn + 1)
                 })
             }
@@ -322,7 +326,8 @@ class Execution {
                 }
             }
         } catch (err) {
-            this.error.throw(ins, err.id, err)
+            this._errorScript(err)
+            throw this.error.throw(ins, err.id, err)
         }
     }
 
@@ -434,6 +439,13 @@ class Execution {
         const set = !_.isUndefined(value)
 
         let name = ins.variable
+
+        if (this.converse._constants[name]) {
+            if (set) {
+                throw new Error('TypeError: Assignment to constant variable')
+            }
+            return this.converse._constants[name]
+        }
 
         const varFn = this.user.getVariableInFonction(this.namespace, level, name)
 
@@ -832,7 +844,7 @@ class Execution {
                 this.stopScript()
                 return
         }
-        more.execution = this
+        more.execution = (more.context || this)
         more.level = level
         more.ins = ins
         return (more.context || this)

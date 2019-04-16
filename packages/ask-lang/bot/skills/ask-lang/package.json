@@ -1,0 +1,15 @@
+{
+  "name": "newbot-ask-lang",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "newbot-formats": "*"
+  }
+}

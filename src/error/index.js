@@ -38,7 +38,7 @@ class ExecutionError {
       error = new Error(msg);
     }
     if (this.reject) {
-      this.reject(error)
+      return error
     }
     else {
       throw error

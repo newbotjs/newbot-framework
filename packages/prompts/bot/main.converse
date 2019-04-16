@@ -1,4 +1,4 @@
 @Event('start')
 start() {
-   phone = prompts.phone()
+   date = prompts.time('test')
 }

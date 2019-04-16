@@ -1,0 +1,5 @@
+@Intent(/start/i)
+start() {
+    lang.ask(['fr_FR', 'en_EN'])
+    > { lang.currentName() }
+}

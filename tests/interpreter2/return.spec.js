@@ -14,7 +14,7 @@ describe('Params Test', () => {
         userConverse = converse.createUser()
     }
 
-    /*it('Test return level 1', () => {
+    it('Test return level 1', () => {
         code(`
             @Event('start')
             start() {
@@ -74,9 +74,9 @@ describe('Params Test', () => {
                 assert.deepEqual(testing.output(), ['A', 'B', 'Stop'])
             })
             .end()
-    })*/
+    })
 
-    /*it('Return value', () => {
+    it('Return value', () => {
         code(`
             @Event('start')
             start() {
@@ -92,9 +92,11 @@ describe('Params Test', () => {
             user `2`,
             bot `3`
         )
-    })*/
+    })
 
-     /*it('Return value with Prompt', () => {
+   
+    
+    it('Return value with Prompt', () => {
          code(`
              @Event('start')
              start() {
@@ -114,7 +116,7 @@ describe('Params Test', () => {
              user `3`,
              bot `6`
          )
-     })*/
+     })
 
      it('Return value with Prompt but parent-child relation', () => {
         
@@ -143,5 +145,31 @@ describe('Params Test', () => {
             bot `yo`
         )
     })
+
+    
+
+   it('Return value other function', () => {
+    code(`
+        @Event('start')
+        start() {
+            val = foo(2)
+            > { val }
+        }
+
+        foo(a) {
+            return a + math(3)
+        }
+
+        math(b) {
+            Prompt()
+            return b + :text
+        }
+    `)
+    return userConverse.conversation(
+        user `go`,
+        user `2`,
+        bot `7`
+    )
+})
 
 })

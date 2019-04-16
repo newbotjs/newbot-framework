@@ -1,0 +1,11 @@
+[
+    {
+        "what language": "what is your language ?",
+        "i do not understand": "i don't understand",
+        "$lang": {
+            "fr_FR": "french",
+            "en_EN": "english",
+            "es_ES": "spanish"
+        }
+    }
+]

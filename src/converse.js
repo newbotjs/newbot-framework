@@ -21,6 +21,7 @@ class Converse {
         this._nlp = {}
         this.config = {}
         this._format = {}
+        this._constants = {}
         this._conditions = {}
         this._dbHook = {}
         this._hooks = {}
@@ -90,6 +91,9 @@ class Converse {
         }
         if (options.functions) {
             this.functions(options.functions)
+        }
+        if (options.constants) {
+            this.constants(options.constants)
         }
         if (options.formats) {
             for (let key in options.formats) {
@@ -463,7 +467,7 @@ class Converse {
             }
         } else {
             this._functions[name].converse = converseParams
-            ret = $call.call(this._functions[name], ...params)
+            ret = $call.call(this._functions[name], ...params)  
         }
 
         if (!done) {
@@ -711,6 +715,10 @@ class Converse {
 
     conditions(obj) {
         this._conditions = _.merge(this._conditions, obj)
+    }
+
+    constants(obj) {
+        this._constants = _.merge(this._constants, obj)
     }
 
     getAllIntents() {

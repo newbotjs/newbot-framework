@@ -1,0 +1,19 @@
+ask(replies, options) {
+    transform = _transformTo(replies)
+
+    @Format('quickReplies', transform)
+    > what language
+
+    Prompt()
+
+    lang = set(:text)
+
+    if (unknown lang) {
+        if (defined options.required) {
+             > i do not understand
+            ask(replies, options)
+        }
+    }
+
+    return lang
+}

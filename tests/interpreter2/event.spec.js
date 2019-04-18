@@ -23,4 +23,23 @@ describe('Event Test', () => {
             })
             .end()
     })
+
+    it('call event with intent', () => {
+        code(`
+            @Event('on', 'custom')
+            test() {
+                > Hello
+            }
+
+            @Intent(/custom/)
+            custom() {
+                > Other
+            }
+        `)
+        user
+            .event('custom', testing => {
+                assert.equal(testing.output(0), 'Hello')
+            })
+            .end()
+    })
 })

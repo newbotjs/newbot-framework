@@ -1,4 +1,5 @@
 @Event('start')
 start() {
    date = prompts.time('test')
+   > { date }
 }

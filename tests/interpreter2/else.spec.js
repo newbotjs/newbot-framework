@@ -55,4 +55,32 @@ describe('Else', () => {
             )
     })
 
+    it('Else with Prompt()', () => {
+        code(`
+            @Event('start')
+            start() {
+                if (2 == 1) {
+                    > a
+                }
+                else {
+                   if (1 == 1) {
+                       if (2 == 1) {
+                            > c
+                       }
+                       else {
+                            Prompt()
+                            > b
+                       }
+                   }
+                }
+            }
+        `)
+        return userConverse
+            .start()  
+            .prompt('test', testing => {
+                assert.equal(testing.output(0), 'b')
+            })
+            .end()
+    })
+
 })

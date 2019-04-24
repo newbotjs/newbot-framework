@@ -51,10 +51,12 @@ class Execution {
     deepBlock(insParent, deep, pointer = 0) {
         const address = deep[pointer]
         const {
-            index,
-            level
+            index
         } = this.interpreter.index[address]
-        const ins = insParent.instructions[index]
+        let ins = insParent.instructions[index]
+        if (ins.conditionsElse && address == ins.conditionsElse.id) {
+            ins = ins.conditionsElse
+        }
         const ret = _.merge(ins, {
             indexBlock: index
         })
@@ -170,9 +172,8 @@ class Execution {
                     return recursiveExecBloc(blocks, b.indexBlock, pointer - 1, finish)
                 })
             }
-
             if (deep.length > 0) {
-                const blocks = this.deepBlock(fn, deep)
+                let blocks = this.deepBlock(fn, deep)
                 recursiveExecBloc(blocks, index, blocks.length - 1, (block) => {
                     fnBlock(block.indexBlock)
                 })
@@ -907,6 +908,18 @@ class Interpreter {
                 
             } else if (o.condition || o.loop) {
                 this.organize(o.instructions, level, deepBlock.concat(o.id))
+            }
+
+            if (o.conditionsElse) {
+                o.conditionsElse.id = this.setId(o.conditionsElse, level)
+                this.organize(o.conditionsElse.instructions, level, deepBlock.concat(o.conditionsElse.id))
+                this.index[o.conditionsElse.id] = {
+                    level,
+                    index: i,
+                    namespace: this.namespace,
+                    deep: deepBlock
+                }
+                i++
             }
             
             this.index[o.id] = {

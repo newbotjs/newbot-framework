@@ -42,7 +42,6 @@ describe('Context Test', () => {
             })
             .prompt('sam', testing => {
                 const output = testing.output()
-                console.log(output)
             })
             .end()
     })

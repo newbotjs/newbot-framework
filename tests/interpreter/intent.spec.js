@@ -10,7 +10,6 @@ module.exports = function (user, assert, converse) {
 
     return user
         .prompt('i want to go', testing => {
-            console.log('----')
             assert.equal(testing.output(0), 'What is your city?')
         })
         .end()

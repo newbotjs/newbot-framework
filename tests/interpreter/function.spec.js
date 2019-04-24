@@ -5,7 +5,6 @@ module.exports = function(user, assert) {
             assert.equal(testing.output(1), 'hello')
         })
         .prompt('test', testing => {
-            console.log(testing.output())
             assert.equal(testing.output(0), '3')
         })
         .end()

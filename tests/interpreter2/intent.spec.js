@@ -45,7 +45,8 @@ describe('Get Intent Params', () => {
             }
         `)
         converse.getAllIntents().then((intents) => {
-            console.log(intents)
+            assert.equal(intents.length, 3)
+            assert.equal(intents[0].params[0], 'greetings')
         })
     })
 

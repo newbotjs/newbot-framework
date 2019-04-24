@@ -62,7 +62,6 @@ describe('condition decorator', () => {
         })
         return user
             .prompt('hey', testing => {
-                console.log(testing.output())
                 assert.equal(testing.output(0), 'hey')
             })
             .end()

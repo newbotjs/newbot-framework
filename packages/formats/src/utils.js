@@ -97,6 +97,7 @@ class Utils {
     }
 
     toByLang(obj, user) {
+        if (typeof obj == 'string') return obj
         for (let prop in obj) {
             obj[prop] = this.getByLang(obj[prop], user)
         }

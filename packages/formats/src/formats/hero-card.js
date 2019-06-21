@@ -125,6 +125,27 @@ function heroCard(session, card, user) {
         ])
     }
 
+    if (Utils.isBottenderTelegram(session)) {
+        const element = {}
+        if (card.buttons) {
+            element.buttons = card.buttons.map(b => {
+                b = mapButton(b)
+                let obj = {
+                    text: b.title,
+                    callback_data: b.msg || b.title
+                }
+                switch (b.type) {
+                    case 'url':
+                    case 'web_url':
+                        obj.url = b.url
+                        break
+                }
+                return [obj]
+            })
+        }
+        return element
+    }
+
     if (Utils.isBottenderLine(session)) {
         const element = {
             thumbnailImageUrl: card.image,
@@ -204,6 +225,11 @@ function heroCard(session, card, user) {
                                 type: 'phone_number',
                                 title: b.title,
                                 payload: b.phone_number
+                            }
+                        case 'account_link':
+                            return {
+                                type: 'account_link',
+                                url: b.url
                             }
                         default:
                             return b

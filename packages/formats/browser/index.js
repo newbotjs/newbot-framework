@@ -1,4 +1,4 @@
-export default {
+module.exports = {
     formats: {
         quickReplies(text, actions) {
             return {

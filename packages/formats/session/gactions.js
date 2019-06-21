@@ -1,10 +1,19 @@
 const _ = require('lodash')
+const uuid = require('uuid/v1')
 
 class Session {
     constructor(gactions, conv) {
         this.conv = conv
         this.gactions = gactions
         this.platform = 'gactions'
+    }
+
+    userId(id = uuid()) {
+        let { userId } = this.conv.user.storage
+        if (!userId) {
+            userId = this.conv.user.storage.userId = id
+        }
+        return userId
     }
 
     send(params) {

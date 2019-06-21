@@ -78,6 +78,20 @@ function buttons(session, text, buttons, user) {
         }
     }
 
+    if (Utils.isBottenderTelegram(session)) {
+        return {
+            method: 'sendMessage',
+            params: [
+                text,
+                {
+                    reply_markup: JSON.stringify({
+                        inline_keyboard: card.buttons
+                    })
+                }
+            ]
+        }
+    }
+
     if (Utils.isFacebook(session)) {
         return facebook
     }

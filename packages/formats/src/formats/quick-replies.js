@@ -1,15 +1,17 @@
 const builder = require('botbuilder')
 const Utils = require('../utils')
 const _ = require('lodash')
-const browser = require('../../browser').default
+const browser = require('../../browser')
 const querystring = require('querystring')
 
-function quickReplies(session, actions) {
+function quickReplies(session, actions, user) {
 
     if (!actions) return
 
+    const getToLang = action => Utils.toByLang(action, user)
+
     if (Utils.isWebSite(session)) {
-        return actions
+        return actions.map(getToLang)
     }
 
     if (Utils.isFacebook(session)) {
@@ -21,6 +23,7 @@ function quickReplies(session, actions) {
                     payload: action
                 }
             }
+            action = getToLang(action)
             if (!action.type) action.type = 'text'
             if (action.action) {
                 action.payload = `action?${querystring.stringify(action.action)}`
@@ -37,9 +40,14 @@ function quickReplies(session, actions) {
 
     if (Utils.isBotBuilder(session)) {
         return actions.map(action => {
+            action = getToLang(action)
             return builder.CardAction.imBack(session, action, action)
         })
     }
+
+    /*if (Utils.isBottenderSlack(session)) {
+        return actions
+    }*/
 
     if (Utils.isBottenderLine(session)) {
         return actions.map(action => {
@@ -52,6 +60,7 @@ function quickReplies(session, actions) {
                     }
                 }
             }
+            action = getToLang(action)
             if (!action.type) action.type = 'message'
             if (action.action) {
                 action.payload = `action?${querystring.stringify(action.action)}`
@@ -67,6 +76,20 @@ function quickReplies(session, actions) {
         })
     }
 
+    if (Utils.isBottenderTelegram(session)) {
+        return actions.map(action => {
+            if (_.isString(action)) {
+                return {
+                    text: action
+                }
+            }
+            action = getToLang(action)
+            return [{
+                text: action.text
+            }]
+        })
+    }
+
     if (Utils.isTwitter(session)) {
         return actions.map(action => {
             if (_.isString(action)) {
@@ -74,6 +97,7 @@ function quickReplies(session, actions) {
                     label: action
                 }
             }
+            action = getToLang(action)
             return {
                 label: action.text,
                 metadata: action.payload
@@ -82,6 +106,7 @@ function quickReplies(session, actions) {
     }
 
     const inline = actions.map(action => {
+        action = getToLang(action)
         if (!_.isString(action)) {
             return action.text
         }
@@ -102,9 +127,9 @@ module.exports = {
     quickReplies,
     format(text, [actions], {
         session
-    }) {
+    }, user) {
 
-        actions = quickReplies(session, actions)
+        actions = quickReplies(session, actions, user)
 
         if (Utils.isWebSite(session)) {
             return browser.formats.quickReplies(text, actions)
@@ -159,6 +184,21 @@ module.exports = {
                     text,
                     {
                         items: actions
+                    }
+                ]
+            }
+        }
+
+        if (Utils.isBottenderTelegram(session)) {
+            return {
+                method: 'sendMessage',
+                params: [
+                    text,
+                    {
+                        reply_markup: JSON.stringify({
+                            keyboard: actions,
+                            one_time_keyboard: true
+                        })
                     }
                 ]
             }

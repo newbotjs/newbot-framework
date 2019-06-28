@@ -17,7 +17,7 @@ const newbotPackage = require('../newbot.json')
 
 class Converse {
 
-    constructor(options = {}) {
+    constructor(options = {}, { loadSkills } = {}) {
         this._nlp = {}
         this.config = {}
         this._format = {}
@@ -44,7 +44,7 @@ class Converse {
 
         const hasOptions = Object.keys(options)
         if (hasOptions.length > 0) {
-            this.loadOptions(options)
+            this.loadOptions(options, loadSkills)
         }
         
     }
@@ -69,7 +69,7 @@ class Converse {
         Converse.SystemJS = systemjs
     }
 
-    async loadOptions(options) {
+    async loadOptions(options, loadSkills = true) {
         if (options.file) {
             this.file(options.file)
         }
@@ -109,7 +109,10 @@ class Converse {
         if (options.propagateNlp) {
             this.propagateNlp()
         }
-        if (options.skills) {
+        if (options.propagateFormats) {
+            this.propagateFormats()
+        }
+        if (loadSkills && options.skills) {
             await this.setSkills(options.skills)
         }
         this.load()
@@ -659,12 +662,19 @@ class Converse {
             }
         }
 
+        let childrenSkills = skill.skills
+
         if (_.isPlainObject(skill)) {
             skill._parentPath = this.parentPath
             if (this._propagateNlp) {
                 skill.propagateNlp = true
             }
-            skill = new Converse(skill)
+            if (this._propagateFormats) {
+                skill.propagateFormats = true
+            }
+            skill = new Converse(skill, {
+                loadSkills: false
+            })
         }
 
         skill.namespace = (this.namespace ? this.namespace + '-' : '') + skillName
@@ -678,6 +688,9 @@ class Converse {
             skill._nlp = _.merge(this._nlp, skill._nlp)
             skill._originNlpObject = _.merge(this._originNlpObject, skill._originNlpObject)
         }
+        if (this._propagateFormats) {
+            skill._format = _.merge(this._format, skill._format)
+        }
         if (this._skills.has(skillName)) {
             const currentSkills = this._skills.get(skillName)
             if (_.isArray(currentSkills)) {
@@ -687,6 +700,7 @@ class Converse {
             }
         }
         this._skills.set(skillName, skill)
+        if (childrenSkills) await skill.setSkills(childrenSkills)
         return this
     }
 
@@ -711,6 +725,10 @@ class Converse {
 
     propagateNlp() {
         this._propagateNlp = true
+    }
+
+    propagateFormats() {
+        this._propagateFormats = true
     }
 
     conditions(obj) {

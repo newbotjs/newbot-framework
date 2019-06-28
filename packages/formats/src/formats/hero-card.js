@@ -217,7 +217,7 @@ function heroCard(session, card, user) {
                                 type: "web_url",
                                 url: b.url,
                                 title: b.title,
-                                webview_height_ratio: 'full',
+                                webview_height_ratio: b.height || 'full',
                                 messenger_extensions: true
                             }
                         case 'phone':

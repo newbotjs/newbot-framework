@@ -1,0 +1,22 @@
+{
+  "name": "newbot-express",
+  "version": "0.1.0",
+  "description": "Easily create a server with Express and NewBot Framework",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "NewBot",
+  "license": "MIT",
+  "dependencies": {
+    "actions-on-google": "^2.8.0",
+    "body-parser": "^1.19.0",
+    "botbuilder": "^3.16.0",
+    "bottender": "^0.15.17",
+    "lodash": "^4.17.14",
+    "newbot": "*",
+    "newbot-formats": "*"
+  }
+}

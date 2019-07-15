@@ -9,6 +9,11 @@ const app = express()
 bot({
     botframework: {
         path: '/emulator'
+    },
+    output: {
+       debug(type, val) {
+            console.log(type, val)
+        }  
     }
 }, app)
 

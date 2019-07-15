@@ -6,6 +6,7 @@ const botbuilder = require('./connectors/botbuilder')
 const gactions = require('./connectors/gactions')
 const bottender = require('./connectors/bottender')
 const twitter = require('./connectors/twitter')
+const proactive = require('./proactive')
 
 module.exports = function(settings, app, converse) {
 
@@ -21,12 +22,20 @@ module.exports = function(settings, app, converse) {
         converse = new NewBot(mainSkill)
     }
     
-    const config = require(settings.botPath + '/newbot.config')
+    let config
+    if (settings.botConfigFile && !_.isString(settings.botConfigFile)) {
+        config = settings.botConfigFile
+    }
+    else {
+        config = require(settings.botPath + ('/' + settings.botConfigFile || '/newbot.config'))
+    }
 
     const getSettings = (platformName) => {
         const production = _.get(config, 'production.platforms.' + platformName)
         const dev = _.get(config, 'platforms.' + platformName)
-        return _.merge(process.env.NODE_ENV == 'production' ? production : dev, settings[platformName])
+        const obj = _.merge(process.env.NODE_ENV == 'production' ? production : dev, settings[platformName])
+        obj.output = settings.output || {}
+        return obj
     }
     
     app.use(
@@ -59,7 +68,7 @@ module.exports = function(settings, app, converse) {
             app,
             converse
         })
-    }
+    };
 
     ['messenger', 'viber', 'telegram', 'line', 'slack'].forEach(platform => {
         if (settings[platform]) {
@@ -72,7 +81,11 @@ module.exports = function(settings, app, converse) {
         }
     })
 
-    return converse
+    return {
+        converse,
+        config,
+        proActiveEvent: proactive(settings, getSettings)
+    }
 }
 
 

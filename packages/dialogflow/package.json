@@ -3,8 +3,7 @@
   "version": "1.1.0",
   "description": "DialogFlow in NewBot Framework",
   "main": "index.js",
-  "scripts": {
-  },
+  "scripts": {},
   "author": "",
   "license": "ISC",
   "dependencies": {

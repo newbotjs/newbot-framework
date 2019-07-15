@@ -16,6 +16,7 @@ module.exports = function ({
     return {
         nlp: {
             async dialogflow(text, userId, converse) {
+   
                 try {
                     const user = converse.users.get(userId)
                     const languageCode = user.getLang() || languageDefault || 'en-EN'
@@ -30,6 +31,7 @@ module.exports = function ({
                         }
                     }
                     const responses = await sessionClient.detectIntent(request)
+
                     const intents = {}
                     for (let res of responses) {
                         if (!res) continue

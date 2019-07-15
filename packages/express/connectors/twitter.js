@@ -2,6 +2,7 @@ const {
     TwitterSession,
     CRCToken
 } = require('newbot-formats/session/twitter')
+const _ = require('lodash')
 
 module.exports = function ({
     app,
@@ -21,7 +22,7 @@ module.exports = function ({
         const _converse = global.converse || converse
 
         if (session.userId) {
-            await _converse.exec(session.text, session.userId, {
+            await _converse.exec(session.text, session.userId, _.merge({
                 async output(str, next) {
                     await session.send(str)
                     next()
@@ -29,7 +30,7 @@ module.exports = function ({
                 data: {
                     session
                 }
-            })
+            }, settings.output))
         }
 
         res.status(204).end()

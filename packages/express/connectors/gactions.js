@@ -22,7 +22,7 @@ module.exports = function ({
         const _converse = global.converse || converse
         const session = new Session(gactions, conv)
         const userId = session.userId()
-        const options = {
+        const options = _.merge({
             output(str, next) {
                 session.send(str)
                 next()
@@ -30,7 +30,7 @@ module.exports = function ({
             data: {
                 session
             }
-        }
+        }, settings.output)
 
         if (type == 'exec') {
             return _converse.exec(input, userId, options)

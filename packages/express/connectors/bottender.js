@@ -8,6 +8,7 @@ const {
 } = require('bottender')
 const { registerRoutes } = require('bottender/express')
 const Session = require('newbot-formats/session/bottender')
+const _ = require('lodash')
 
 module.exports = ({
     app,
@@ -24,7 +25,7 @@ module.exports = ({
         if (!isText) return
         const _converse = global.converse || converse
         const session = new Session(context)
-        await _converse.exec(text, context.session.user.id, {
+        await _converse.exec(text, context.session.user.id, _.merge({
             output(str, next) {
                 session.send(str)
                 next()
@@ -32,7 +33,7 @@ module.exports = ({
             data: {
                 session
             }
-        })
+        }, settings.output))
     }
 
     const handler = new MessengerHandler()

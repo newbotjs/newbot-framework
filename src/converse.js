@@ -232,6 +232,12 @@ class Converse {
             }
             p.then(async input => {
                 let ret = {}
+                if (!this.parent && output.debug) {
+                    output.debug('begin', {
+                        user,
+                        data: output.data
+                    })
+                }
                 if (noExecChildren) {
                     ret = await this._interpreter.exec(user, input, output, propagate)
                     if (ret) propagate.globalNoExec &= ret.nothing
@@ -255,6 +261,13 @@ class Converse {
                      const debug = new Debug(this.script, user._history)
                      debug.display()
                  }*/
+                 if (output.debug) {
+                    output.debug('finish', {
+                        nothing: propagate.globalNoExec,
+                        user,
+                        data: output.data
+                    })
+                 }
                  user._nlpCache = {}
             }
             return ret

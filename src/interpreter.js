@@ -298,7 +298,10 @@ class Execution {
             ins._pointer = pointer
             ins._instructions = instructions
 
-            this.user.addHistory(ins)
+            this.debug('ins', {
+                level,
+                ...ins
+            })
 
             if (ins.group) {
                 let groupIns = ins.group[_.random(0, ins.group.length - 1)]
@@ -329,6 +332,17 @@ class Execution {
         } catch (err) {
             this._errorScript(err)
             throw this.error.throw(ins, err.id, err)
+        }
+    }
+
+    debug(type, val) {
+        if (this.options.debug) {
+            this.options.debug(type, {
+                namespace: this.namespace,
+                data: this.output.data,
+                user: this.user,
+                ...val
+            })
         }
     }
 

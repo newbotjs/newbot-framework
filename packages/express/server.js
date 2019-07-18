@@ -84,7 +84,7 @@ module.exports = function(settings, app, converse) {
     return {
         converse,
         config,
-        proActiveEvent: proactive(settings, getSettings)
+        proActiveEvent: proactive(settings, getSettings, converse)
     }
 }
 

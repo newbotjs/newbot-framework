@@ -16,6 +16,10 @@
     "botbuilder": "^3.16.0",
     "bottender": "^0.15.17",
     "lodash": "^4.17.14",
+    "messaging-api-line": "^0.8.0-alpha.7",
+    "messaging-api-messenger": "^0.7.16",
+    "messaging-api-slack": "^0.7.11",
+    "messaging-api-telegram": "^0.7.11",
     "messaging-api-viber": "^0.7.11",
     "newbot": "*",
     "newbot-formats": "*"

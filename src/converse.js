@@ -215,6 +215,14 @@ class Converse {
                         return output.preUser(user, this)
                     }
                 })
+                .then(() => {
+                    if (!this.parent && output.debug) {
+                        output.debug('begin', {
+                            user,
+                            data: output.data
+                        })
+                    }
+                })
                 .then(() => this.propagateExec(input, userId, output, propagate))
                 .then(noExec => {
                     noExecChildren = !!noExec
@@ -232,12 +240,6 @@ class Converse {
             }
             p.then(async input => {
                 let ret = {}
-                if (!this.parent && output.debug) {
-                    output.debug('begin', {
-                        user,
-                        data: output.data
-                    })
-                }
                 if (noExecChildren) {
                     ret = await this._interpreter.exec(user, input, output, propagate)
                     if (ret) propagate.globalNoExec &= ret.nothing

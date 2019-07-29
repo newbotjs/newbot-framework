@@ -17,6 +17,7 @@ Javascript Framework for creating conversational scripts :
 - your own chatbot
 - chatbot on external messaging
     - Facebook Messenger
+    - Amazon Alexa
     - Google Assistant
     - Slack
     - Viber

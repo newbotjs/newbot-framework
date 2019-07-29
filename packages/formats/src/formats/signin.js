@@ -16,6 +16,13 @@ module.exports = (text, params = {}, {
         ]
     }
 
+    if (Utils.isAlexa(session)) {
+        return {
+            type: 'LinkAccount',
+            text
+        }
+    }
+
     return buttons(session, text, [
         {
             type: 'account_link',

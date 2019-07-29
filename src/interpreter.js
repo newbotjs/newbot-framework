@@ -67,7 +67,12 @@ class Execution {
     }
 
     triggerEvent() {
-        const decorators = this.decorators.get('Event', ['on', this.event.name])
+        let decorators = this.decorators.get('Event', ['on', this.event.name])
+        if (this.event.name == 'start') {
+            decorators = decorators.concat(
+                this.decorators.get('Event', 'start')
+            )
+        }
         if (decorators.length > 0) {
             if (this.event.data) {
                 this.user.setMagicVariable('event', this.event.data)

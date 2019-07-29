@@ -29,7 +29,7 @@ class Transpiler {
             return this.parser.parse(this._script)
         }
         catch (err) {
-            const error = new ExecutionError(this._script, this.namespace, reject)
+            const error = new ExecutionError(this._script, this.namespace)
             error.syntax(err)
         }
     }

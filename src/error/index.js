@@ -50,7 +50,7 @@ class ExecutionError {
       throw err
     }
     const { line, column } = err.location.start
-    const error = this.makeError('syntax', 'Syntax Error', {
+    const error = this.makeError('syntax', 'Syntax Error:' + err.message, {
       line,
       column
     })

@@ -12,6 +12,10 @@ class Utils {
         return this._is(session, 'facebook') || this._is(session, 'messenger')
     }
 
+    isAlexa(session) {
+        return this._is(session, 'alexa')
+    }
+
     isGactions(session) {
         return this._is(session, 'gactions')
     }

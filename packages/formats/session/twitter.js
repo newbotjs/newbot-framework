@@ -77,6 +77,8 @@ class TwitterSession {
 
     _parse() {
 
+        console.log(JSON.stringify(this.body, null, 2))
+
         const {
             direct_message_events: dms
         } = this.body

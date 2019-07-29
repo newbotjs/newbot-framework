@@ -6,6 +6,7 @@ const botbuilder = require('./connectors/botbuilder')
 const gactions = require('./connectors/gactions')
 const bottender = require('./connectors/bottender')
 const twitter = require('./connectors/twitter')
+const alexa = require('./connectors/alexa')
 const proactive = require('./proactive')
 
 module.exports = function(settings, app, converse) {
@@ -27,7 +28,7 @@ module.exports = function(settings, app, converse) {
         config = settings.botConfigFile
     }
     else {
-        config = require(settings.botPath + ('/' + settings.botConfigFile || '/newbot.config'))
+        config = require(settings.botPath + '/' + (settings.botConfigFile || 'newbot.config'))
     }
 
     const getSettings = (platformName) => {
@@ -62,6 +63,14 @@ module.exports = function(settings, app, converse) {
         })
     }
 
+    if (settings.alexa) {
+        alexa({
+            settings: getSettings('alexa'),
+            app,
+            converse
+        })
+    };
+
     if (settings.twitter) {
         twitter({
             settings: getSettings('twitter'),
@@ -69,6 +78,7 @@ module.exports = function(settings, app, converse) {
             converse
         })
     };
+    
 
     ['messenger', 'viber', 'telegram', 'line', 'slack'].forEach(platform => {
         if (settings[platform]) {

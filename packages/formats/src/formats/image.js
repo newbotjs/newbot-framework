@@ -60,6 +60,17 @@ module.exports = async (text, [contentUrl, contentType, name, thumbnail], {
         ]
     }
 
+    if (Utils.isAlexa(session)) {
+        return {
+            type: 'Standard',
+            text,
+            image: {
+                smallImageUrl: contentUrl,
+                largeImageUrl: contentUrl
+            }
+        }
+    }
+
     if (Utils.isBottenderViber(session)) {
         return {
             method: 'sendPicture',

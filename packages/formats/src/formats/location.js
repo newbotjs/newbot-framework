@@ -60,6 +60,13 @@ module.exports = (text, [latitude, longitude, {
         ]
     }
 
+    if (Utils.isAlexa(session)) {
+        return {
+            type: 'AskForPermissionsConsent',
+            permissions: [ 'read::alexa:device:all:address' ]
+        }
+    }
+
     if (Utils.isBottenderFacebook(session)) {
         // todo
         return

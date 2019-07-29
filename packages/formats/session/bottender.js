@@ -47,8 +47,18 @@ class Session {
     get message() {
         return {
             source: this.platform || this.context.platform,
-            agent: 'bottender'
+            agent: 'bottender',
+            user: this.user
         }
+    }
+
+    get user() {
+        if (this.userId) {
+            return {
+                id: this.userId
+            }
+        }
+        return this.context.session.user
     }
 
     get source() {

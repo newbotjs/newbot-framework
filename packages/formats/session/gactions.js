@@ -44,7 +44,14 @@ class Session {
     get message() {
         return {
             source: this.platform,
-            agent: this.platform
+            agent: this.platform,
+            user: this.user
+        }
+    }
+
+    get user() {
+        return {
+            id: this.conv.user.storage.userId
         }
     }
 

@@ -1,4 +1,5 @@
 const bodyParser = require('body-parser')
+const express = require('express')
 const fs = require('fs')
 const _ = require('lodash')
 const { NewBot } = require('newbot')
@@ -20,7 +21,11 @@ module.exports = function(settings, app, converse) {
             process.exit()
         }
         mainSkill = require(botPath)
-        converse = new NewBot(mainSkill)
+        const converseOptions = {}
+        if (settings.modelPath) {
+            converseOptions.model = settings.modelPath
+        }
+        converse = new NewBot(mainSkill, converseOptions)
     }
     
     let config
@@ -90,6 +95,8 @@ module.exports = function(settings, app, converse) {
             })
         }
     })
+
+    app.use('/webview', express.static(settings.botPath + '/webviews'))
 
     return {
         converse,

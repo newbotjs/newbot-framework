@@ -1,6 +1,7 @@
 const gactions = require('actions-on-google')
 const _ = require('lodash')
 const Session = require('newbot-formats/session/gactions')
+const output = require('../output')
 
 module.exports = function ({
     app,
@@ -22,15 +23,7 @@ module.exports = function ({
         const _converse = global.converse || converse
         const session = new Session(gactions, conv)
         const userId = session.userId()
-        const options = _.merge({
-            output(str, next) {
-                session.send(str)
-                next()
-            },
-            data: {
-                session
-            }
-        }, settings.output)
+        const options = output(session, settings)
 
         if (type == 'exec') {
             return _converse.exec(input, userId, options)

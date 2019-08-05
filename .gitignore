@@ -5,3 +5,4 @@ _*
 .build
 packages/**/dist
 newbot.config.js
+editors

@@ -20,15 +20,14 @@
 ##
 ################################################################
 
-name                   = ConverseScript
-file_extensions []     = converse;
-
+name                   = mysample
+file_extensions []     = mysample;
 
 ################################################################
 ## Constants
 ################################################################
 
-__VAR \= (\b[a-zA-Z][a-zA-Z0-9]*)
+__MY_CONSTANT \= (\b[a-z][a-z0-9]*)
 
 ################################################################
 ## Styles
@@ -66,7 +65,7 @@ styles [] {
 }
 
 .text : style {
-   color                 = light_grey
+   color                 = brown
    ace_scope             = text
    textmate_scope        = text
    pygments_scope        = String
@@ -81,34 +80,6 @@ styles [] {
 
 .output : style {
    bold = true
-}
-
-.keywordStyle : style {
-   color = violet
-}
-
-.booleanStyle : style {
-   color = red
-}
-
-.fnStyle : style {
-   color = red
-}
-
-.magicVariableStyle: style {
-   color = light_blue
-}
-
-.globalVariableStyle: style {
-   color = brown
-}
-
-.intVariable: style {
-   color = light_blue
-}
-
-.decoratorStyle: style {
-   color = green
 }
 
 .illegal : style {
@@ -133,15 +104,15 @@ contexts [] {
 
 main : context {
 
-   : include "block";
-   : include "function";
-   : include "value" ;
+   : pattern {
+      regex          \= $${__MY_CONSTANT}
+      styles []       = .keyword;
+   }
+   
+   : include "numeric" ;
    : include "decorator";
    : include "output";
-   : include "executeFn" ;
-   : include "magicVariable" ;
-   : include "globalVariable";
-   : include "variable" ;
+   : include "string";
    
    : inline_push {
       regex          \= (\{)
@@ -151,6 +122,37 @@ main : context {
          styles []    = .punctuation;
       }
       : include "main" ;
+   }
+   
+   : pattern {
+      regex          \= (;)
+      styles []       = .punctuation;
+   }
+   
+   
+   
+   : inline_push {
+      regex          \= (\[)
+      styles []       = .punctuation;
+      default_style   = .text
+      : pop {
+         regex       \= (\])
+         styles []    = .punctuation;
+      }
+   }
+   
+   : inline_push {
+      regex          \= (\()
+      styles []       = .punctuation;
+      : pop {
+         regex       \= (\))
+         styles []    = .punctuation;
+      }
+      : include "numeric" ;
+      : pattern {
+         regex       \= (,)
+         styles []    = .punctuation;
+      }
    }
    
    : include "multi_line_comment" ;
@@ -175,63 +177,6 @@ main : context {
 ## Numeric Context
 ###########################################
 
-function: context {
-   : inline_push {
-      regex          \= $${__VAR}([ ]*)(\()
-      styles []       = .fnStyle, .punctuation, .punctuation;
-      : pop {
-         regex       \= (\))
-         styles []    = .punctuation;
-      }
-      : include "value";
-   }
-}
-
-executeFn: context {
-   : inline_push {
-      regex          \= $${__VAR}([ ]*)(\()
-      styles []       = .fnStyle, .punctuation, .punctuation;
-      : pop {
-         regex       \= (\))
-         styles []    = .punctuation;
-      }
-      : include "value";
-   }
-}
-
-variable: context {
-   : pattern {
-      regex          \= (\b[a-z][a-z0-9]*)
-      styles []       = .keyword;
-   }
-}
-
-integrationVariable: context {
-   : inline_push {
-      regex          \= (\{)
-      styles []       = .intVariable;
-      : pop {  
-         regex       \= (\})
-         styles []    = .intVariable;
-      }
-      : include "value" ;
-   }
-}
-
-magicVariable: context {
-   : pattern {
-      regex          \= (:$${__VAR})
-      styles []       = .magicVariableStyle;
-   }
-}
-
-globalVariable: context {
-   : pattern {
-      regex          \= (\$$${__VAR})
-      styles []       = .globalVariableStyle;
-   }
-}
-
 numeric : context {
    : pattern {
       regex          \= (\b\d+)
@@ -241,84 +186,30 @@ numeric : context {
 
 decorator: context {
   : inline_push {
-      regex          \= (@[^\(]+)(\()
-      styles []       = .decoratorStyle, .punctuation;
+      regex          \= (@.*\()
+      styles []       = .numeric;
       : pop {
          regex       \= (\))
-         styles []    = .punctuation;
+         styles []    = .numeric;
       }
-      : include "value" ;
-  }
-}
-
-block: context {
-   : inline_push {
-      regex          \= (for|if|else)([ ]*)(\()
-      styles []       = .keywordStyle, .punctuation, .punctuation;
-      : pop {
-         regex       \= (\))
-         styles []    = .punctuation;
-      }
+      : include "numeric" ;
+      : include "string" ;
+      : include "stringKey";
       : pattern {
-         regex       \= (of)
-         styles []    = .keywordStyle;
-      }
-      : include "value";
-   }
-}
-
-value: context {
-   : include "boolean";
-   : include "executeFn";
-   : include "numeric";
-   : include "string";
-   : include "array";
-   : include "magicVariable";
-   : include "globalVariable";
-   : include "variable";
-}
-
-array: context {
-   : inline_push {
-      regex          \= (\[)
-      styles []       = .punctuation;
-      : pop {
-         regex       \= (\])
+         regex       \= (,)
          styles []    = .punctuation;
       }
-      : include "value";
-   }
-}
-
-boolean: context {
-   : pattern {
-      regex          \= (true|false)
-      styles []       = .booleanStyle;
   }
 }
 
-/*output: context {
-
+output: context {
    : pattern {
       regex          \= (>.*)
       styles []       = .output;
   }
-}*/
-
-output: context {
-   : inline_push {
-      regex          \= (>)
-      styles []       = .output;
-      : eol_pop {}
-      :include "integrationVariable";
-      :pattern {
-         regex    \= ([^'{]+)
-         styles [] = .output;
-      }
-   }
 }
 
-/*stringKey: context {
+stringKey: context {
    : inline_push {
       regex          \= (\'#)
       styles []       = .punctuation;
@@ -328,36 +219,16 @@ output: context {
          styles []    = .punctuation;
       }
    }
-}*/
+}
 
 
 string: context {
    : inline_push {
       regex          \= (\')
-      styles []       = .text;
+      styles []       = .punctuation;
+      default_style   = .text
       : pop {
          regex       \= (\')
-         styles []    = .text;
-      }
-      :include "integrationVariable";
-      :pattern {
-         regex    \= ([^'{]+)
-         styles [] = .text;
-      }
-   }
-}
-
-scope: context {
-   : inline_push {
-      regex          \= (\()
-      styles []       = .punctuation;
-      : pop {
-         regex       \= (\))
-         styles []    = .punctuation;
-      }
-      : include "numeric" ;
-      : pattern {
-         regex       \= (,)
          styles []    = .punctuation;
       }
    }

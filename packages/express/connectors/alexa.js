@@ -1,6 +1,7 @@
 const alexa = require("alexa-app")
 const _ = require('lodash')
 const Session = require('newbot-formats/session/alexa')
+const output = require('../output')
 
 module.exports = function ({
     app,
@@ -20,15 +21,7 @@ module.exports = function ({
         const { userId } = req.data.session
         const text = req.slot('any')
         const _converse = global.converse || converse
-        return _converse.exec(text, userId, _.merge({
-            output(str, next) {
-                session.send(str)
-                next()
-            },
-            data: {
-                session
-            }
-        }, settings.output))
+        return _converse.exec(text, userId, output(session, settings))
     }
 
     alexaApp.launch(exec)

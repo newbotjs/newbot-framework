@@ -17,14 +17,16 @@ const newbotPackage = require('../newbot.json')
 
 class Converse {
 
-    constructor(options = {}, { loadSkills } = {}) {
+    constructor(options = {}, { loadSkills, model } = {}) {
         this._nlp = {}
         this.config = {}
         this._format = {}
         this._constants = {}
         this._conditions = {}
+        this._propagateNlp = null
         this._dbHook = {}
         this._hooks = {}
+        this.model = model
         this._originNlpObject = {}
         this.script = ''
         this._obj = []
@@ -69,6 +71,11 @@ class Converse {
         Converse.SystemJS = systemjs
     }
 
+    async loadNativeNlp() {
+        this.nlp('__native__', await Converse.nlpManager(this.model))
+        return this
+    }
+
     async loadOptions(options, loadSkills = true) {
         if (options.file) {
             this.file(options.file)
@@ -85,6 +92,10 @@ class Converse {
             for (let key in options.nlp) {
                 this.nlp(key, options.nlp[key])
             }
+        }
+        if (!this.parent && this.model) {
+            await this.loadNativeNlp()
+            this.propagateNlp('__native__')
         }
         if (options.conditions) {
            this.conditions(options.conditions)
@@ -107,7 +118,7 @@ class Converse {
             this.shareNlp()
         }
         if (options.propagateNlp) {
-            this.propagateNlp()
+            this.propagateNlp(options.propagateNlp)
         }
         if (options.propagateFormats) {
             this.propagateFormats()
@@ -682,7 +693,7 @@ class Converse {
         if (_.isPlainObject(skill)) {
             skill._parentPath = this.parentPath
             if (this._propagateNlp) {
-                skill.propagateNlp = true
+                skill.propagateNlp = this._propagateNlp
             }
             if (this._propagateFormats) {
                 skill.propagateFormats = true
@@ -700,7 +711,16 @@ class Converse {
             skill._nlp = {}
         }
         if (this._propagateNlp) {
-            skill._nlp = _.merge(this._nlp, skill._nlp)
+            if (!this.allPropagate) {
+                let obj = {}
+                for (let name of this._propagateNlp) {
+                    obj[name] = this._nlp[name]
+                }
+                skill._nlp = _.merge(obj, skill._nlp)
+            }
+            else {
+                skill._nlp = _.merge(this._nlp, skill._nlp)
+            }
             skill._originNlpObject = _.merge(this._originNlpObject, skill._originNlpObject)
         }
         if (this._propagateFormats) {
@@ -738,8 +758,20 @@ class Converse {
         this._shareNlp = true
     }
 
-    propagateNlp() {
-        this._propagateNlp = true
+    propagateNlp(nlpName) {
+        if (!this._propagateNlp) this._propagateNlp = []
+        if (_.isArray(nlpName)) {
+            this._propagateNlp = [...this._propagateNlp, ...nlpName]
+            return this
+        }
+        if (_.isString(nlpName)) {
+            this._propagateNlp.push(nlpName)
+        }
+        return this
+    }
+
+    get allPropagate() {
+        return this._propagateNlp.length == 0
     }
 
     propagateFormats() {

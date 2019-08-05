@@ -1,9 +1,9 @@
 const {
     NlpManager
 } = require('node-nlp')
-import processNlp from '../src/process'
+const processNlp = require('../src/process')
 
-export default async function(path) {
+module.exports = async function(path) {
     const manager = new NlpManager()
     manager.load(path)
     return processNlp(manager)

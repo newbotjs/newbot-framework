@@ -2,7 +2,7 @@ const {
     ChatConnector,
     UniversalBot
 } = require('botbuilder')
-const _ = require('lodash')
+const output = require('../output')
 
 const connector = new ChatConnector()
 const bot = new UniversalBot(connector)
@@ -19,15 +19,7 @@ bot.dialog('/', async (session, args = {}) => {
         user
     } = session.message
 
-    const options = _.merge({
-        output(str, next) {
-            session.send(str)
-            next()
-        },
-        data: {
-            session
-        }
-    }, settings.output)
+    const options = output(session, settings)
 
     if (event) {
         _converse.event(event.name, event.data, user.id, options).catch(console.log)

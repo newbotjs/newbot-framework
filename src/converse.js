@@ -1,7 +1,7 @@
 const _ = require('./utils/lodash')
 const path = require('path')
 const Languages = require('languages-js')
-const stack = require('callsite')
+//const stack = require('callsite')
 
 const User = require('./user')
 const Transpiler = require('./transpiler/lexer')
@@ -36,7 +36,7 @@ class Converse {
         this._functions = Functions
         this.lang = Languages.instance()
         this.options = options
-        this.parentPath = options._parentPath || this._findParentPath()
+        //this.parentPath = options._parentPath || this._findParentPath()
        
         if (_.isString(options)) {
             options = {
@@ -580,6 +580,7 @@ class Converse {
         this._hooks = hooks
     }
 
+    // deprecated
     _findParentPath() {
         const _stack = stack()
         const current = __dirname
@@ -653,7 +654,8 @@ class Converse {
                 dir += `/${_path}`
             }
 
-            if (Converse.SystemJS) {
+            // deprecated
+            /*if (Converse.SystemJS) {
                 if (Browser.is()) {
                     SystemJS.set('conversescript', SystemJS.newModule({
                         Converse
@@ -668,7 +670,7 @@ class Converse {
                     }
                     skill = await SystemJS.import(dir)
                 }
-            }
+            }*/
 
         } else {
             skill = _path
@@ -691,7 +693,7 @@ class Converse {
         let childrenSkills = skill.skills
 
         if (_.isPlainObject(skill)) {
-            skill._parentPath = this.parentPath
+            //skill._parentPath = this.parentPath
             if (this._propagateNlp) {
                 skill.propagateNlp = this._propagateNlp
             }

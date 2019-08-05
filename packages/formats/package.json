@@ -11,6 +11,7 @@
   "dependencies": {
     "botbuilder": "^3.8.4",
     "lodash": "^4.17.11",
+    "request": "^2.88.0",
     "request-promise": "^4.2.2",
     "uuid": "^3.3.2"
   },

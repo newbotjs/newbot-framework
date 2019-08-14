@@ -5,6 +5,14 @@ module.exports = function processNlp(manager) {
         for (let entity of result.entities) {
             taln[entity.entity] = entity.resolution
         }
+        if (taln.date) {
+            taln.date.value = taln.date.date
+            delete taln.date.date
+        }
+        if (taln.dimension) {
+            taln.distance = Object.assign({}, taln.dimension)
+            delete taln.dimension
+        }
         taln.sentiment = result.sentiment.vote
         return {
             [result.intent]() {

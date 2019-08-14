@@ -1,5 +1,6 @@
 const bodyParser = require('body-parser')
 const express = require('express')
+const socketIo = require('socket.io')
 const fs = require('fs')
 const _ = require('lodash')
 const { NewBot } = require('newbot')

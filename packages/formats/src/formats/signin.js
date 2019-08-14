@@ -1,7 +1,7 @@
 const builder = require('botbuilder')
 const Utils = require('../utils')
 const _ = require('lodash')
-const buttons = require('./buttons')
+const { buttons } = require('./buttons')
 
 module.exports = (text, params = {}, {
     session
@@ -28,5 +28,5 @@ module.exports = (text, params = {}, {
             type: 'account_link',
             url: params.url
         } 
-    ])
+    ], user)
 }

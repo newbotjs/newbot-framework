@@ -28,6 +28,9 @@ function quickReplies(session, actions, user) {
             if (action.action) {
                 action.payload = `action?${querystring.stringify(action.action)}`
             }
+            if (!action.payload) {
+                action.payload = action.text
+            }
             return {
                 content_type: action.type,
                 title: action.text,

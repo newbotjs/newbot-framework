@@ -8,6 +8,7 @@ const video = require('./video')
 const contact = require('./contact')
 const location = require('./location')
 const signin = require('./signin')
+const webview = require('./webview')
 const specialReplies = require('././special-replies')
 
 module.exports = { 
@@ -21,6 +22,7 @@ module.exports = {
     contact,
     location,
     signin,
+    webview,
     email: specialReplies('email'),
     phone: specialReplies('phone')
 }

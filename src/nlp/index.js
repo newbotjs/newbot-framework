@@ -7,7 +7,7 @@ class Nlp {
         this.converse = converse
         this.options = options
         this.uuid = options.uuid
-        this.priority = this.options.priority ? this.options.priority : 0
+        this.priority = this.options.priority ? this.options.priority : undefined
         this.intents = {}
     }
 

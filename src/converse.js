@@ -338,7 +338,7 @@ class Converse {
         let p = Promise.resolve()
         let nlpArray = Object.keys(this._nlp).map(name => this._nlp[name])
         nlpArray = nlpArray.sort((a, b) => {
-            return b.priority - a.priority
+            return (b.priority || 0) - (a.priority || 0)
         })
         for (let nlp of nlpArray) {
             const originNlpName = nlp.uuid

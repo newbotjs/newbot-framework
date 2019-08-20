@@ -2,7 +2,6 @@ const dialogflow = require('dialogflow')
 
 module.exports = function ({
     projectId,
-    sessionId,
     languageDefault,
     credentials
 }) {
@@ -11,7 +10,6 @@ module.exports = function ({
     }
 
     const sessionClient = new dialogflow.SessionsClient()
-    const sessionPath = sessionClient.sessionPath(projectId, sessionId)
 
     return {
         nlp: {
@@ -20,6 +18,7 @@ module.exports = function ({
                 try {
                     const user = converse.users.get(userId)
                     const languageCode = user.getLang() || languageDefault || 'en-EN'
+                    const sessionPath = sessionClient.sessionPath(projectId, userId)
 
                     const request = {
                         session: sessionPath,

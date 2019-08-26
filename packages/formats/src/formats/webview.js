@@ -14,6 +14,15 @@ module.exports = (text, [params = {}], {
     const btoa = str => Buffer.from(str).toString('base64')
     const pdata = encodeURIComponent(btoa(JSON.stringify(data || {})))
     url += `?data=${pdata}&webview=true`
+    if (Utils.isWebSite(session)) {
+        return {
+            text,
+            webview: {
+                url,
+                height: params.height
+            }
+        }
+    }
     return buttons(session, text, [
         {
             type: 'webview',

@@ -1,6 +1,6 @@
 {
   "name": "newbot",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -27,6 +27,6 @@
     "compression-webpack-plugin": "^2.0.0",
     "systemjs": "^0.21.4",
     "webpack": "^4.26.1",
-    "webpack-cli": "^3.1.2"
+    "webpack-cli": "^3.3.7"
   }
 }

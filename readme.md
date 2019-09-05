@@ -4,8 +4,6 @@
 
 **NewBot Framework is an open source Javascript framework for building chatbots, for 15 messaging platforms, with a modular and original dialogue system**
 
-This repository contains the core Botkit library, as well as a series of plugins and extensions for connecting Botkit to messaging and chat platforms and other tools in the bot building ecosystem.
-
 ## Website
 
 https://newbot.io

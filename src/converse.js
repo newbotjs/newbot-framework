@@ -17,7 +17,10 @@ const newbotPackage = require('../newbot.json')
 
 class Converse {
 
-    constructor(options = {}, { loadSkills, model } = {}) {
+    constructor(options = {}, {
+        loadSkills,
+        model
+    } = {}) {
         this._nlp = {}
         this.config = {}
         this._format = {}
@@ -37,7 +40,7 @@ class Converse {
         this.lang = Languages.instance()
         this.options = options
         //this.parentPath = options._parentPath || this._findParentPath()
-       
+
         if (_.isString(options)) {
             options = {
                 file: options
@@ -48,7 +51,7 @@ class Converse {
         if (hasOptions.length > 0) {
             this.loadOptions(options, loadSkills)
         }
-        
+
     }
 
     static get version() {
@@ -60,7 +63,9 @@ class Converse {
      *      systemjs: 
      * })
      */
-    static loader({ systemjs }) {
+    static loader({
+        systemjs
+    }) {
         systemjs.config({
             meta: {
                 "*.converse": {
@@ -98,7 +103,7 @@ class Converse {
             this.propagateNlp('__native__')
         }
         if (options.conditions) {
-           this.conditions(options.conditions)
+            this.conditions(options.conditions)
         }
         if (options.functions) {
             this.functions(options.functions)
@@ -146,8 +151,7 @@ class Converse {
     code(str) {
         if (str.code) {
             this.script = str.code
-        }
-        else {
+        } else {
             this.script = str
         }
         if (str.compiled || _.isArray(this.script)) {
@@ -162,11 +166,9 @@ class Converse {
         }
         if (!this.script) {
             this._obj = []
-        }
-        else if (this._compiled) {
+        } else if (this._compiled) {
             this._obj = _.merge([], this._compiled)
-        }
-        else {
+        } else {
             this._transpiler = new Transpiler(this.script, this.namespace)
             this._obj = this._transpiler.run(reject)
         }
@@ -274,14 +276,14 @@ class Converse {
                      const debug = new Debug(this.script, user._history)
                      debug.display()
                  }*/
-                 if (output.debug) {
+                if (output.debug) {
                     output.debug('finish', {
                         nothing: propagate.globalNoExec,
                         user,
                         data: output.data
                     })
-                 }
-                 user._nlpCache = {}
+                }
+                user._nlpCache = {}
             }
             return ret
         })
@@ -317,8 +319,7 @@ class Converse {
                                 noExec &= ret.noExec
                                 resolve()
                             }).catch(reject)
-                        }
-                        else {
+                        } else {
                             resolve()
                         }
                     })
@@ -496,7 +497,7 @@ class Converse {
             }
         } else {
             this._functions[name].converse = converseParams
-            ret = $call.call(this._functions[name], ...params)  
+            ret = $call.call(this._functions[name], ...params)
         }
 
         if (!done) {
@@ -719,8 +720,7 @@ class Converse {
                     obj[name] = this._nlp[name]
                 }
                 skill._nlp = _.merge(obj, skill._nlp)
-            }
-            else {
+            } else {
                 skill._nlp = _.merge(this._nlp, skill._nlp)
             }
             skill._originNlpObject = _.merge(this._originNlpObject, skill._originNlpObject)
@@ -801,7 +801,12 @@ class Converse {
             for (let skill of skills) {
                 p = p
                     .then(() => skill.getAllIntents())
-                    .then(skillIntents => intents = intents.concat(skillIntents))
+                    .then(skillIntents => {
+                        return intents = intents.concat(skillIntents.map(intent => {
+                            intent._skill = skill
+                            return intent
+                        }))
+                    })
             }
         })
         return p.then(() => intents)

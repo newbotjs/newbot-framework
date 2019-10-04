@@ -44,6 +44,14 @@ module.exports = function(settings, app, converse) {
         obj.output = settings.output || {}
         return obj
     }
+
+    if (settings.alexa) {
+        alexa({
+            settings: getSettings('alexa'),
+            app,
+            converse
+        })
+    }
     
     app.use(
         bodyParser.json({
@@ -68,14 +76,6 @@ module.exports = function(settings, app, converse) {
             converse
         })
     }
-
-    if (settings.alexa) {
-        alexa({
-            settings: getSettings('alexa'),
-            app,
-            converse
-        })
-    };
 
     if (settings.twitter) {
         twitter({

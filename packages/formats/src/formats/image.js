@@ -62,7 +62,7 @@ module.exports = async (text, [contentUrl, contentType, name, thumbnail], {
 
     if (Utils.isAlexa(session)) {
         return {
-            type: 'Standard',
+            type: 'image',
             text,
             image: {
                 smallImageUrl: contentUrl,

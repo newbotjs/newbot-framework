@@ -13,6 +13,9 @@
   "dependencies": {
     "actions-on-google": "^2.8.0",
     "alexa-app": "^4.2.3",
+    "ask-sdk": "^2.7.0",
+    "ask-sdk-core": "^2.7.0",
+    "ask-sdk-express-adapter": "^2.0.0",
     "body-parser": "^1.19.0",
     "botbuilder": "^3.16.0",
     "bottender": "^0.15.17",

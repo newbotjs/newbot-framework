@@ -3,7 +3,11 @@ const _ = require('lodash')
 module.exports = function(session, settings) {
     return options = _.merge({
         output(str, next) {
-            session.send(str)
+            const ret = session.send(str)
+            if (ret && ret.then) {
+                ret.then(next)
+                return
+            }
             next()
         },
         data: {

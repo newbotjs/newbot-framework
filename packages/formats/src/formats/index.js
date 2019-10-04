@@ -9,7 +9,8 @@ const contact = require('./contact')
 const location = require('./location')
 const signin = require('./signin')
 const webview = require('./webview')
-const specialReplies = require('././special-replies')
+const specialReplies = require('./special-replies')
+const purchase = require('./alexa/purchase')
 
 module.exports = { 
     quickReplies, 
@@ -23,6 +24,7 @@ module.exports = {
     location,
     signin,
     webview,
+    ...purchase,
     email: specialReplies('email'),
     phone: specialReplies('phone')
 }

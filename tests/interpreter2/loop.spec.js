@@ -80,4 +80,26 @@ describe('Loop', () => {
         )
     })
 
+    it('for of with function', () => {
+        code(`
+            @Event('start')
+            start() {
+                > Go
+                names = ['sam', 'jim']
+                for (name of names) {
+                    Prompt()
+                    index = Array.indexOf(names, :text)
+                    > { index }
+                }
+            }
+        `)
+        return userConverse.conversation(
+            bot `Go`,
+            user `sam`,
+            bot `0`,
+            user `jim`,
+            bot `1`
+        )
+    })
+
 })

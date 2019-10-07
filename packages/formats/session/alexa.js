@@ -69,6 +69,12 @@ class AlexaSession {
         }
     }
 
+    get user() {
+        return {
+            id: this.handlerInput.requestEnvelope.session.user.userId
+        }
+    }
+
     get message() {
         return {
             source: this.platform,

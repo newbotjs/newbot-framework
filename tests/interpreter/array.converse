@@ -2,5 +2,6 @@
 start() {
     array = [1, 2]
     > { Array.length(array) }
-    (Array.length(array) > 1) > ok
+    length = Array.length(array) > 1
+    (length) > ok
 }

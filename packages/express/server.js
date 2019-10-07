@@ -8,7 +8,7 @@ const botbuilder = require('./connectors/botbuilder')
 const gactions = require('./connectors/gactions')
 const bottender = require('./connectors/bottender')
 const twitter = require('./connectors/twitter')
-const alexa = require('./connectors/alexa')
+const alexa = require('./connectors/alexa/alexa')
 const proactive = require('./proactive')
 
 module.exports = function(settings, app, converse) {

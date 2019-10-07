@@ -62,6 +62,12 @@ module.exports = `
         }
     }
 
+    function normalizeIns(instructions) {
+        return instructions
+            .reduce((acc, val) => acc.concat(val), [])
+            .filter(it => it)
+    }
+
 }
 
     
@@ -204,7 +210,7 @@ Condition
 
 ConditionInstruction
     = '{' _  instructions:InstructionFunction* _ '}' {
-        return instructions
+        return normalizeIns(instructions)
     }
      / instruction:InstructionFunction {
         return [instruction]
@@ -374,8 +380,7 @@ DecoratorInstruction
 
 Function 'function'
     = name:Variable _ '(' _ params:FunctionParameters? _ ')' _ '{' _  instructions:InstructionFunction* _ '}' {
-        instructions = instructions.reduce((acc, val) => acc.concat(val), [])
-        instructions = instructions.filter(it => it)
+        instructions = normalizeIns(instructions)
         return { name, params, type: 'function', instructions }
     }
 

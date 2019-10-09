@@ -1,6 +1,6 @@
 {
   "name": "newbot-express",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "Easily create a server with Express and NewBot Framework",
   "main": "server.js",
   "scripts": {

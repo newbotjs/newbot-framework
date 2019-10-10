@@ -769,9 +769,16 @@ class Execution {
             converse
         } = this.interpreter
         const lang = this.user.getLang() || converse.lang.current
-        const hasTranslate =
+        let hasTranslate =
             converse.lang.data[lang] &&
             converse.lang.get(str, null, lang)
+        if (!hasTranslate) {
+            const group = converse.lang.getGroup(str)
+            if (group.length > 0) {
+                str = group[_.random(0, group.length - 1)]
+                hasTranslate = true
+            }
+        }
         if (hasTranslate) {
             params = await this.execParams(ins, params, level)
             str = converse.lang.translate(str, ...[lang, ...params])

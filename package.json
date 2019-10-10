@@ -15,7 +15,7 @@
     "axios": "^0.18.0",
     "callsite": "^1.0.0",
     "jsep": "^0.3.4",
-    "languages-js": "^2.2.8",
+    "languages-js": "^2.3.0",
     "lodash": "^4.17.4",
     "md5": "^2.2.1",
     "node-nlp": "^3.4.0",

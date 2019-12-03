@@ -433,6 +433,7 @@ class Execution {
                             const fnName = _.last(ins.deep)
                             const jsFn = val[fnName]
                             if (jsFn) {
+                                // todo, evaluate ins.params
                                 resolve(jsFn.apply(val, ins.params))
                             } else {
                                 this.error.throw(ins, 'function.not.defined')
@@ -772,7 +773,7 @@ class Execution {
         let hasTranslate =
             converse.lang.data[lang] &&
             converse.lang.get(str, null, lang)
-        if (!hasTranslate) {
+        if (!hasTranslate && converse.lang.data[lang]) {
             const group = converse.lang.getGroup(str)
             if (group.length > 0) {
                 str = group[_.random(0, group.length - 1)]

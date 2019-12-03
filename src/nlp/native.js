@@ -1,9 +1,18 @@
 module.exports = function processNlp(manager) {
     return async (text, userId, converse) => {
+        
         const result = await manager.process(text)
+
         const taln = {}
         for (let entity of result.entities) {
-            taln[entity.entity] = entity.resolution
+            let value
+            if (entity.resolution) {
+                value = entity.resolution
+            }
+            else if (entity.utteranceText) {
+                value  = { value: entity.utteranceText }
+            }
+            taln[entity.entity] = value
         }
         if (taln.date) {
             taln.date.value = taln.date.date

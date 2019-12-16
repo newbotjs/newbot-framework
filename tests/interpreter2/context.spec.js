@@ -2,6 +2,7 @@ const assert = require('assert')
 const { ConverseTesting } = require('../../index')
 
 describe('Context Test', () => {
+    
     let converse, user
 
     function code(str) {

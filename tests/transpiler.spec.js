@@ -502,7 +502,6 @@ describe('Test Transpiler', () => {
                 > { nb }
             }`
         const [obj] = t(str)
-        console.log(JSON.stringify(obj, null, 2))
         expect(obj.instructions).to.have.lengthOf(3)
         expect(obj.instructions[0]).to.have.property('type', 'executeFn')
         expect(obj.instructions[1]).to.have.property('variable', 'nb')

@@ -8,12 +8,12 @@ describe('Context Test', () => {
         converse = new ConverseTesting({
             code: str
         }, {
-            model: __dirname + '/bot/model/model.nlp'
+            model: __dirname + '/../model/model.nlp'
         })
         user = converse.createUser()
     }
 
-    it('if user change conversation', () => {
+    it('Test native NLP', () => {
         code(`
             @Intent('hello', [
                 'hello',

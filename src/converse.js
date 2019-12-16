@@ -40,7 +40,6 @@ class Converse {
         this.lang = Languages.instance()
         this.options = options
         //this.parentPath = options._parentPath || this._findParentPath()
-
         if (_.isString(options)) {
             options = {
                 file: options

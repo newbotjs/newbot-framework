@@ -8,7 +8,7 @@
     "build": "node ./bin/mergePackageJson && webpack",
     "prepublish": "npm run build"
   },
-  "author": "",
+  "author": "Samuel Ronce",
   "license": "MIT",
   "dependencies": {
     "async-replace": "^1.0.1",

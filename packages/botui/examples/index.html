@@ -35,6 +35,7 @@ const skill = {
 }
 
 const converse = new NewBot(skill)
+converse.use(Storage())
 
 converse.loadUsers([
     JSON.parse(localStorage.getItem('progress'))

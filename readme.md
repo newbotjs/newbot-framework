@@ -43,7 +43,7 @@ Special syntax script for dialog manager | Called ConverseScript, it simplifies 
 Tools with NewBot CLI | Create, Generate, Test, Deploy, etc. | [📝](https://newbot.io/en/docs/cli/cli.html)
 Unit tests | Create powerful unit tests | [📝](https://newbot.io/en/docs/unit-tests/test.html)
 NLP | Native NLP, external services (DialogFlow, NewBot Cloud, etc.) or your own NLP system | [📝](https://newbot.io/en/docs/nlp/native.html)
-Internationalisation | Easily integrate chatbot responses into multiple languages | [📝](https://newbot.io/en/docs/i18n/i18n.html)
+Internationalization | Easily integrate chatbot responses into multiple languages | [📝](https://newbot.io/en/docs/i18n/i18n.html)
 Save the user's progress in the scenario | -- | [📝](https://newbot.io/en/docs/avanced/save.html)
 
 ## Get Started
@@ -63,7 +63,7 @@ Save the user's progress in the scenario | -- | [📝](https://newbot.io/en/docs
 
 4. Go to `localhost:3000` and test
 
-## Script for dialog manager
+## Create sample chatbot
 
 When you create a skill, you use a special syntax to create dialogs. Why ? What are the benefits?
 

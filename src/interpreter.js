@@ -6,6 +6,7 @@ const isPromise = require('./utils/is-promise')
 const asyncReplace = require('async-replace')
 
 const Decorators = require('./decorators/decorators')
+const DecoratorEvent = require('./decorators/Event')
 const ExecutionError = require('./error')
 
 class Execution {
@@ -146,7 +147,36 @@ class Execution {
 
             const fnBlock = (index) => {
                 this.execFn(fn, index + 1, (args) => {
+
+                    if (args.hasActivateDecorator) {
+                        
+                        if (args.value !== true) {
+                            this.user.popAddress(this.parent.namespace)
+                        }
+                        else if (this.parent) {
+                            const indexActivate = this.parent._canActivated.indexOf(this.converse.name)
+                            if (indexActivate != -1 && this.parent._canActivated.length > indexActivate+1) {
+                               const nextSkillName = this.parent._canActivated[indexActivate+1]
+                               const nextSkill = this.parent._skills.get(nextSkillName)
+                               for (let ins in nextSkill._interpreter.index) {
+                                   const obj = nextSkill._interpreter.index[ins]
+                                   if (obj.hasActivateDecorator) {
+                                        this.user.addAddress(ins, obj.namespace)
+                                        break
+                                   }
+                               }
+                            }
+                            else {
+                                const fnName = this.user._infoAddress.actived[this.parent.namespace]
+                                this.unlockParent(fnName, {
+                                    activated: true
+                                })
+                            }
+                        }
+                    }
+
                     const thisAdress = this.user.getAddress(this.namespace)
+
                     if (thisAdress) {
                         const fn = this.converse._interpreter.index[thisAdress]
                         this.setReturnVariable({ name: args.level }, args.value, fn.level)
@@ -273,10 +303,18 @@ class Execution {
                     if (this.options.finishFn) this.options.finishFn.call(this, level)
                 }
                 if (finish) {
+                    const fn = this.interpreter.fn[level]
+                    let hasActivateDecorator = false
+                    if (fn) {
+                        hasActivateDecorator = fn
+                            .decorators
+                            .findIndex(d => d.name == 'Event' && d.params && d.params[0] == DecoratorEvent.CAN_ACTIVATE) != -1
+                    }
                     finish({
                         stop: options.stop,
                         value: options.value,
-                        level
+                        level,
+                        hasActivateDecorator
                     })
                 }
                 if (!isBlock) {
@@ -928,8 +966,17 @@ class Interpreter {
             if (o.type && o.type == 'function') {
                 this.fn[o.name] = o
                 this.decorators.add(o)
+                const hasActivateDecorator = o.decorators
+                    .findIndex(d => d.name == 'Event' && d.params && d.params[0] == DecoratorEvent.CAN_ACTIVATE) != -1
                 this.organize(o.instructions, o.name)
                 i++
+                this.index[o.id] = {
+                    level: o.name,
+                    namespace: this.namespace,
+                    index: -1,
+                    deep: deepBlock,
+                    hasActivateDecorator
+                }
                 loopIns(i)
                 return 
                 

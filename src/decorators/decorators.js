@@ -52,19 +52,64 @@ class Decorators {
         return decoratorsFound
     }
 
-    async _exec(decorators, execution, method) {
+    async _exec(decorators, execution, method, finish) {
         let hasExec = false
         let promises = []
         const execFn = async (item) => {
+            let canActivated = false
             if (item.otherDecorators.Condition) {
                 for (let condition of item.otherDecorators.Condition) {
                     const ret = await condition.run(execution)
                     if (!ret) return false
                 }
             }
+            const fn = this.interpreter.fn[item.fnName]
+            const { _canActivated, _skills } = execution.converse
+            const execFnActivacted = (index) => {
+                const skillName = _canActivated[index]
+                const skill = _skills.get(skillName)
+                const instanceDecorators = skill._interpreter.execution.decorators
+                const skilldecorators = instanceDecorators.get('Event', DecoratorsList.Event.CAN_ACTIVATE)
+                if (skilldecorators.length == 0) return false
+                instanceDecorators.exec(skilldecorators, skill._interpreter.execution, null, (args) => {
+                    index++
+                    if (args.value === true) {
+                        if (_canActivated[index]) {
+                            execFnActivacted(index)
+                        }
+                        else {
+                            execution.execFn(fn, 0, () => {
+                                return execution.end()
+                            })
+                        }
+                    }
+                    else {
+                        return execution.end()
+                    }
+                })
+                canActivated = true
+                return true
+            }
+            if (_canActivated.length > 0) {
+                if (execFnActivacted(0)) {
+                    execution.user.addAddress(fn.id, execution.namespace)
+                    execution.user.lockAddressStack(execution.namespace, fn.name, {
+                        activated: true
+                    })
+                }
+                else {
+                   execution.debug('warning', {
+                       message: 'You call skills in the canActivated property but are never triggered'
+                   })
+                }
+            }
             hasExec = true
-            let fn = this.interpreter.fn[item.fnName]
-            execution.execFn(fn, 0, () => execution.end())
+            if (!canActivated) {
+                execution.execFn(fn, 0, (args) => {
+                    if (finish) finish(args)
+                    else return execution.end()
+                })
+            }
             return true
         }
         for (let item of decorators) {
@@ -91,14 +136,14 @@ class Decorators {
         return await this._exec(decorators, execution, method)
     }
 
-    async exec(decorators, execution, params) {
+    async exec(decorators, execution, params, finish) {
         if (!_.isArray(decorators)) {
             decorators = this.get(decorators, params)
         }
         if (!decorators) {
             return false
         }
-        return await this._exec(decorators, execution)
+        return await this._exec(decorators, execution, null, finish)
     }
 
 }

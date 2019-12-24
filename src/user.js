@@ -5,7 +5,8 @@ class User {
     constructor(id) {
         this.address = {}
         this._infoAddress = {
-            lock: {}
+            lock: {},
+            actived: {}
         }
         this.varFn = {}
         this.magicVar = {}
@@ -62,13 +63,23 @@ class User {
         return !!this._infoAddress.lock[namespace]
     }
 
-    lockAddressStack(namespace, fnName) {
+    lockAddressStack(namespace, fnName, {
+        activated
+    } = {}) {
         this._infoAddress.lock[namespace] = fnName
+        if (activated) {
+            this._infoAddress.actived[namespace] = fnName
+        }
     }
 
-    unlockAddressStack(namespace, fnName) {
+    unlockAddressStack(namespace, fnName, {
+        activated
+    } = {}) {
         if (this._infoAddress.lock[namespace] === fnName) {
             delete this._infoAddress.lock[namespace]
+            if (activated) {
+                delete this._infoAddress.actived[namespace]
+            }
         }
     }
 

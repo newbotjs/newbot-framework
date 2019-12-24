@@ -26,6 +26,7 @@ class Converse {
         this._format = {}
         this._constants = {}
         this._conditions = {}
+        this._canActivated = []
         this._propagateNlp = null
         this._dbHook = {}
         this._hooks = {}
@@ -114,6 +115,9 @@ class Converse {
             for (let key in options.formats) {
                 this.format(key, options.formats[key])
             }
+        }
+        if (options.canActivated) {
+            this.canActivated(options.canActivated)
         }
         if (options.shareFormats) {
             this.shareFormats()
@@ -707,6 +711,7 @@ class Converse {
 
         skill.namespace = (this.namespace ? this.namespace + '-' : '') + skillName
         skill.parent = this
+        skill.name = skillName
         skill._condition = skillPath.condition
         if (skill._shareNlp) {
             this._nlp = _.merge(this._nlp, skill._nlp)
@@ -785,6 +790,13 @@ class Converse {
 
     constants(obj) {
         this._constants = _.merge(this._constants, obj)
+    }
+
+    /**
+     * @param {Array}
+     */
+    canActivated(array) {
+        this._canActivated = array
     }
 
     getAllIntents() {

@@ -2,7 +2,7 @@ const Decorator = require('./decorator')
 
 class DecoratorEvent extends Decorator {
 
-    static CAN_ACTIVATE() {
+    static get CAN_ACTIVATE() {
         return 'canActivate'
     }
 

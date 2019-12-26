@@ -306,6 +306,13 @@ class Converse {
             for (let skill of skills) {
                 p = p.then(() => new Promise((resolve, reject) => {
                     let skillPromise = Promise.resolve()
+                    if (this._canActivated.length > 0 && !this._canActivated.includes(skill.name)) {
+                        skill._canActivated = [...this._canActivated, ...skill._canActivated]
+                        for (let name of this._canActivated) {
+                            if (this.name == name) continue
+                            skill._skills.set(name, this._skills.get(name))
+                        }
+                    }
                     if (skill._shareFormat) {
                         this._format = _.merge(skill._format, this._format)
                     }

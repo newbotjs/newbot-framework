@@ -337,6 +337,47 @@ describe('Can Activated Spec', () => {
 
     })
 
+    describe('child', () => {
+        function code(str, subSkill) {
+
+            const childSkill = {
+                code: str
+            }
+            
+            const notAuthorizedSkill = {
+                code: subSkill
+            }
+    
+            converse = new ConverseTesting({
+                canActivated: ['notAuthorizedSkill'],
+                skills: {
+                    notAuthorizedSkill,
+                    childSkill
+                }
+            })
+            userConverse = converse.createUser()
+        }
+
+        it('Block child skills', () => {
+            code(`
+                @Intent(/test/)
+                start() {
+                    > Ok
+                }
+                `, `
+                @Event('canActivate')
+                auth() {
+                    > Forbidden
+                    return false
+                }`)
+            return userConverse
+                .conversation(
+                    user `test`,
+                    bot `Forbidden`
+                )
+        })
+    })
+
     describe('others situations', () => {
         function code(str, subSkill) {
             const notAuthorizedSkill = {

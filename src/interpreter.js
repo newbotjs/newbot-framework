@@ -1028,7 +1028,6 @@ class Interpreter {
             }, options), propagate, this)
         })
     }
-
 }
 
 module.exports = Interpreter

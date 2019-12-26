@@ -179,6 +179,13 @@ class Converse {
         return this
     }
 
+    continue(data, user, output) {
+        return this.exec({
+            type: 'continue',
+            data
+        }, user, output)
+    }
+
     exec(input, userId, output, propagate = {
         globalNoExec: true
     }) {
@@ -225,6 +232,10 @@ class Converse {
             user.setMagicVariable('userId', userId)
             user.resetHistory()
 
+            if (input.type == 'continue') {
+                user.setMagicVariable('event', input.data)
+            }
+
             let p = Promise.resolve()
                 .then(() => {
                     if (output.preUser) {
@@ -244,7 +255,7 @@ class Converse {
                     noExecChildren = !!noExec
                     noExecChildren = noExecChildren || (!noExecChildren && user.getAddress(this.namespace))
                 })
-            if (input.type !== 'event') {
+            if (input.type !== 'event' && input.type !== 'continue') {
                 p = p.then(() => {
                     if (noExecChildren) {
                         return this.execNlp(input, userId)

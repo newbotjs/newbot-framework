@@ -11,6 +11,10 @@ const ExecutionError = require('./error')
 
 class Execution {
 
+    static isSystemFunction(name) {
+       return['Input', 'Prompt', 'Pause'].findIndex(n => n == name) != -1
+    }
+
     constructor(user, input, options, propagate, interpreter) {
         this._nothing = false
         this.user = user
@@ -440,7 +444,7 @@ class Execution {
                             data: this.options.data,
                             context
                         })
-                        if (ins.name != 'Prompt' && ins.name != 'Input') {
+                        if (!Execution.isSystemFunction(ins.name)) {
                             resolve(ret)
                         }
                         return true
@@ -895,20 +899,18 @@ class Execution {
     }
 
     async execApiFn(ins, level, done, more) {
-        switch (ins.name) {
-            case 'Prompt':
-            case 'Input':
-                this.user.addAddress(ins.id, this.namespace)
-                this._triggerHook('prompt', ins.params, {
-                    user: this.user,
-                    data: this.options.data,
-                    level
-                })
-                if (this.options.waintingInput) {
-                    this.options.waintingInput.call(this, ins.params, level)
-                }
-                this.stopScript()
-                return
+        if (Execution.isSystemFunction(ins.name)) {
+            this.user.addAddress(ins.id, this.namespace)
+            this._triggerHook('prompt', ins.params, {
+                user: this.user,
+                data: this.options.data,
+                level
+            })
+            if (this.options.waintingInput) {
+                this.options.waintingInput.call(this, ins.params, level)
+            }
+            this.stopScript()
+            return
         }
         more.execution = (more.context || this)
         more.level = level
@@ -922,7 +924,7 @@ class Execution {
     hasApiFn(name) {
         return this
             .converse
-            ._functions[name] || ['Prompt', 'Input'].indexOf(name) != -1
+            ._functions[name] || Execution.isSystemFunction(name)
     }
 
     _triggerHook(name, params, data, cb, callParent = true) {

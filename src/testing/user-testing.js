@@ -34,6 +34,15 @@ class UserTesting {
         return this
     }
 
+    continue(value, callback) {
+        if (!callback) {
+            callback = value
+            value = undefined
+        }
+        this.testing.push({ type: 'continue', value, callback })
+        return this
+    }
+
     action(name, value, callback) {
         this.testing.push({ type: 'action', name, value, callback })
         return this
@@ -159,6 +168,12 @@ class UserTesting {
                 break
             case 'input':
                 converse(test.str)
+                break
+            case 'continue':
+                converse({
+                    type: 'continue',
+                    data: test.value
+                })
                 break
         }
 

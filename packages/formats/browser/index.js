@@ -17,6 +17,12 @@ module.exports = {
                 text,
                 phone: true
             } 
+        },
+        image(text, url) {
+            return {
+                text,
+                image: url
+            } 
         }
     },
     shareFormats: true

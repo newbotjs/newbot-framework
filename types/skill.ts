@@ -1,13 +1,4 @@
-type User = {
-  getMagicVariable(name: string): any;
-  setMagicVariable(name: string, value: any): void;
-  getVariable(name: string): any;
-  setVariable(name: string, value: any): void;
-  setLang(lang: string): void;
-  getLang(): string;
-  toJson(): any;
-  fromJson(): JSON;
-};
+import { User } from './user'
 
 type Converse = {};
 
@@ -79,4 +70,5 @@ export interface Skill {
     packages: { [key: string]: JSON };
   };
   nlp?: NlpFunction | { [key: string]: NlpFunction };
+  canActivated?: string[]
 }

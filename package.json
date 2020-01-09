@@ -11,7 +11,7 @@
   "author": "Samuel Ronce",
   "license": "MIT",
   "dependencies": {
-    "async-replace": "^1.0.1",
+    "async-replace-promise": "^2.0.0",
     "axios": "^0.18.1",
     "callsite": "^1.0.0",
     "jsep": "^0.3.4",

@@ -3,7 +3,7 @@ const md5 = require('md5')
 const jsep = require('jsep')
 const async = require('./utils/async')
 const isPromise = require('./utils/is-promise')
-const asyncReplace = require('async-replace')
+const asyncReplace = require('async-replace-promise')
 
 const Decorators = require('./decorators/decorators')
 const DecoratorEvent = require('./decorators/Event')
@@ -599,12 +599,8 @@ class Execution {
                         }*/
                     }
                 } else if (obj.text && !obj.__deepIndex) {
-                    value = await new Promise((resolve, reject) => {
-                        asyncReplace(obj.text, /\{([^\}]+)\}/g, async (match, sub, offset, string, done) => {
-                            done(null, await this.getValue(ins, obj.variables[sub].value, level))
-                        }, (err, result) => {
-                            resolve(result)
-                        })
+                    value  = await asyncReplace(obj.text, /\{([^\}]+)\}/g, async (match, sub) => {
+                        return this.getValue(ins, obj.variables[sub].value, level)
                     })
                 } else if (obj.type == 'executeFn') {
                     // obsolete
@@ -700,16 +696,12 @@ class Execution {
 
     execExpression(ins, expr, variables, level) {
         return new Promise(async (resolve, reject) => {
-            expr = await new Promise((resolve, reject) => {
-                asyncReplace(expr, /\{([0-9]+)\}/g, async (match, index, offset, string, done) => {
-                    let val = await this.getValue(ins, variables[index], level)
-                    if (!/^[0-9]+(\.[0-9]+)?$/.test(val) && !_.isBoolean(val) && val !== null) {
-                        val = `"${val}"`
-                    }
-                    done(null, val)
-                }, (err, result) => {
-                    resolve(result)
-                })
+            expr = await asyncReplace(expr, /\{([0-9]+)\}/g, async (match, index) => {
+                let val = await this.getValue(ins, variables[index], level)
+                if (!/^[0-9]+(\.[0-9]+)?$/.test(val) && !_.isBoolean(val) && val !== null) {
+                    val = `"${val}"`
+                }
+                return val
             })
             expr = expr.replace(/'/g, '"')
             expr = expr.replace(/not/g, '!')

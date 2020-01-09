@@ -1,4 +1,4 @@
-<script src="../dist/newbot.min.js"></script>
+<script src="../dist/newbot.with-parser.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 
 <div id="app">
@@ -10,108 +10,8 @@
 </div>
 
 <script>
+'use strict';
 
-const converse = new NewBot()
-converse.use(BotAnalytics())
-
-var MainSkill = (function () {
-    'use strict';
-
-    var formats = {
-        formats: {
-            quickReplies(text, array) {
-                return {
-                    text,
-                    array
-                }
-            }
-        },
-        shareFormats: true
-    };
-
-    var code = {
-        code: `@Event('start')
-start() {
-    @Format('quickReplies', ['play'])
-    > Hey, I suggest you play with me at a quiz!
-}`,
-        compiled: [{"name":"start","params":null,"type":"function","instructions":[{"output":"Hey, I suggest you play with me at a quiz!","params":null,"decorators":[{"name":"Format","params":["quickReplies",["play"]]}]}],"_file":{"start":{"offset":0,"line":1,"column":1},"end":{"offset":114,"line":5,"column":2}},"decorators":[{"name":"Event","params":["start"]}]}]
-    };
-
-    var code$1 = {
-        code: `$score = 0
-
-@Intent(/play/i)
-play() {
-    questions = [
-        {
-            str: 'What is the capital of France?',
-            choices: ['Paris', 'Lyon', 'Marseille'],
-            correct: 0
-        },
-        {
-            str: 'What is the largest planet in the solar system?',
-            choices: ['Earth', 'Jupiter', 'Saturn'],
-            correct: 1
-        },
-        {
-            str: 'Who bought Youtube in 2006?',
-            choices: ['Microsoft', 'Yahoo', 'Google'],
-            correct: 2
-        }
-    ]
-    for (question of questions) {
-        
-        @Format('quickReplies', question.choices)
-        > { question.str }
-
-        Prompt()
-
-        index = Array.indexOf(question.choices, :text)
-        
-        if (index == question.correct) {
-            > Very good answer
-            $score++
-        }
-        else {
-            ---
-            > It's wrong
-            > Wrong answer
-            ---
-        }
-
-    }
-
-    > Your score : { $score } / { questions.length }
-}`,
-        compiled: [{"variable":"$score","value":0,"_file":{"start":{"offset":0,"line":1,"column":1},"end":{"offset":12,"line":3,"column":1}},"decorators":[]},{"name":"play","params":null,"type":"function","instructions":[{"variable":"questions","value":[{"str":"What is the capital of France?","__deepIndex":["str","choices","correct"],"choices":["Paris","Lyon","Marseille"],"correct":0},{"str":"What is the largest planet in the solar system?","__deepIndex":["str","choices","correct"],"choices":["Earth","Jupiter","Saturn"],"correct":1},{"str":"Who bought Youtube in 2006?","__deepIndex":["str","choices","correct"],"choices":["Microsoft","Yahoo","Google"],"correct":2}],"_file":{"start":{"offset":42,"line":5,"column":5},"end":{"offset":525,"line":22,"column":5}},"decorators":[]},{"varLocal":{"variable":"question"},"array":{"variable":"questions"},"instructions":[{"output":{"text":"{0}","variables":[{"value":{"variable":"question","deep":["str"],"type":"object"}}]},"params":null,"decorators":[{"name":"Format","params":["quickReplies",{"variable":"question","deep":["choices"],"type":"object"}]}]},{"type":"executeFn","name":"Prompt","params":[],"_file":{"start":{"offset":650,"line":27,"column":9},"end":{"offset":668,"line":29,"column":9}},"decorators":[]},{"variable":"index","value":{"type":"executeFn","name":{"variable":"Array","deep":["indexOf"],"type":"object"},"params":[{"variable":"question","deep":["choices"],"type":"object"},{"variable":":text"}]},"_file":{"start":{"offset":668,"line":29,"column":9},"end":{"offset":732,"line":31,"column":9}},"decorators":[]},{"condition":{"variables":[{"variable":"index"},{"variable":"question","deep":["correct"],"type":"object"}],"expression":"{0} == {1}"},"instructions":[{"output":"Very good answer","params":null,"decorators":[]},{"variable":"$score","value":{"variables":[{"variable":"$score"}],"expression":"{0}+1"},"_file":{"start":{"offset":808,"line":33,"column":13},"end":{"offset":825,"line":34,"column":9}},"decorators":[]}],"conditionsElse":{"instructions":[{"group":[{"output":"It's wrong","params":null},{"output":"Wrong answer","params":null}],"decorators":[]}]},"_file":{"start":{"offset":732,"line":31,"column":9},"end":{"offset":941,"line":42,"column":5}},"decorators":[]}],"loop":true,"_file":{"start":{"offset":525,"line":22,"column":5},"end":{"offset":948,"line":44,"column":5}},"decorators":[]},{"output":{"text":"Your score : {0} / {1}","variables":[{"value":{"variable":"$score"}},{"value":{"variable":"questions","deep":["length"],"type":"object"}}]},"params":null,"decorators":[]}],"_file":{"start":{"offset":12,"line":3,"column":1},"end":{"offset":998,"line":45,"column":2}},"decorators":[{"name":"Intent","params":[{"regexp":"play","flags":["i"]}]}]}]
-    };
-
-    var quiz = {
-        code: code$1,
-        skills: {
-            formats
-        }
-    };
-
-    var main = {
-        code, 
-        skills: {
-            formats,
-            quiz
-        }
-    };
-
-    return main;
-
-}());
-
-
-
-    (async function () {
-        const converse = new NewBot(MainSkill)
-        converse.exec('yo', (output) => {
-            console.log(output)
-        })
-    })()
+var copy = new RegExp('aa', 'g');
+copy.global = false
 </script>

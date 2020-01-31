@@ -11,6 +11,9 @@
   "author": "Samuel Ronce",
   "license": "MIT",
   "dependencies": {
+    "@nlpjs/basic": "^4.0.2",
+    "@nlpjs/core": "^4.0.1",
+    "@nlpjs/nlp": "^4.0.2",
     "async-replace-promise": "^2.0.0",
     "axios": "^0.18.1",
     "callsite": "^1.0.0",
@@ -18,11 +21,11 @@
     "languages-js": "^2.3.0",
     "lodash": "^4.17.15",
     "md5": "^2.2.1",
-    "node-nlp": "^3.4.0",
     "pegjs": "^0.10.0",
     "static-eval": "^2.0.3"
   },
   "devDependencies": {
+    "@nlpjs/lang-fr": "^4.0.1",
     "chai": "^4.1.2",
     "compression-webpack-plugin": "^3.0.1",
     "mocha": "^6.2.2",

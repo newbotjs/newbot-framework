@@ -19,7 +19,8 @@ class Converse {
 
     constructor(options = {}, {
         loadSkills,
-        model
+        model,
+        modelLangs
     } = {}) {
         this._nlp = {}
         this.config = {}
@@ -31,6 +32,7 @@ class Converse {
         this._dbHook = {}
         this._hooks = {}
         this.model = model
+        this.modelLangs = modelLangs
         this._originNlpObject = {}
         this.script = ''
         this._obj = []
@@ -77,8 +79,19 @@ class Converse {
     }
 
     async loadNativeNlp() {
-        this.nlp('__native__', await Converse.nlpManager(this.model))
+        this.nlp('__native__', await Converse.nlpManager(this.model, this.modelLangs))
         return this
+    }
+
+    async setModelNlp(model, langs, _isAutoLoad) {
+        this.model = model
+        this.modelLangs = langs
+        await this.loadNativeNlp(true)
+        this.propagateNlp('__native__')
+        if (!_isAutoLoad) {
+            // reload skills for propagate NLP
+            await this.setSkills(this.options.skills)
+        }
     }
 
     async loadOptions(options, loadSkills = true) {
@@ -99,8 +112,7 @@ class Converse {
             }
         }
         if (!this.parent && this.model) {
-            await this.loadNativeNlp()
-            this.propagateNlp('__native__')
+           this.setModelNlp(this.model, this.modelLangs, true)
         }
         if (options.conditions) {
             this.conditions(options.conditions)

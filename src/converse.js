@@ -112,7 +112,7 @@ class Converse {
             }
         }
         if (!this.parent && this.model) {
-           this.setModelNlp(this.model, this.modelLangs, true)
+           await this.setModelNlp(this.model, this.modelLangs, true)
         }
         if (options.conditions) {
             this.conditions(options.conditions)

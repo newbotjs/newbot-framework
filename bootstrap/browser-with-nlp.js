@@ -1,5 +1,7 @@
 import { Converse, NewBot } from './browser'
-import './with-nlp'
+import applyNlp from './with-nlp'
+
+applyNlp()
 
 export {
     Converse,

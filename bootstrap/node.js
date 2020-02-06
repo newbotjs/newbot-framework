@@ -1,7 +1,7 @@
-require('../src/transpiler/load')
-require('./with-nlp')
+const fs = require('fs')
 
-const Converse = require('../src/converse')
+require('../src/transpiler/load')
+const Converse = require('./with-nlp')(fs)
 const ConverseTesting = require('../src/testing/converse-testing')
 
 module.exports = { Converse, NewBot: Converse, ConverseTesting }

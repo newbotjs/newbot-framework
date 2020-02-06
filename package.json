@@ -1,6 +1,6 @@
 {
   "name": "newbot",
-  "version": "0.6.0",
+  "version": "0.6.3",
   "description": "NewBot Framework is an open source Javascript framework for building chatbots, for 15 messaging platforms, with a modular and original dialogue system",
   "main": "index.js",
   "scripts": {

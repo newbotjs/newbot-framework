@@ -834,6 +834,10 @@ class Converse {
         let p = this.open()
             .then(() => {
                 intents = this._interpreter.decorators.get('Intent')
+                intents = intents.map(intent => {
+                    intent._skill = this
+                    return intent
+                })
             })
         this._skills.forEach((skills) => {
             if (!_.isArray(skills)) {
@@ -843,10 +847,7 @@ class Converse {
                 p = p
                     .then(() => skill.getAllIntents())
                     .then(skillIntents => {
-                        return intents = intents.concat(skillIntents.map(intent => {
-                            intent._skill = skill
-                            return intent
-                        }))
+                        return intents = intents.concat(skillIntents)
                     })
             }
         })

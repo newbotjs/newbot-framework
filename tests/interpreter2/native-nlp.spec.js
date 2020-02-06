@@ -109,4 +109,20 @@ describe('Test Native NLP', () => {
              .end()
      })
 
+     it('Not intent found', async () => {
+        await code(`
+             @Event('start')
+             start() {
+                 > Hey
+             }
+         `)
+         return user
+             .prompt('hello', testing => {
+                 const output = testing.output()
+                 assert.equal(output.length, 1)
+                 assert.equal(output[0], 'Hey')
+             })
+             .end()
+     })
+
 })

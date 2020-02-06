@@ -17,6 +17,7 @@ class ExtractIntents {
         const intents = await this.converse.getAllIntents()
         for (let intent of intents) {
             const langs = get(intent, '_skill.lang._list')
+            console.log('---', intent)
             if (langs) {
                 this.languages = [
                     ...this.languages,
@@ -46,7 +47,6 @@ class ExtractIntents {
     translate() {
         const langFiles = this.languages
         let cacheClone = []
-
         for (let i = 0 ; i < this.cache.length ; i++) {
             let { params } = this.cache[i]
             
@@ -58,7 +58,7 @@ class ExtractIntents {
                 const translated = instanceLang.translate(text)
                 cacheClone.push([langId, translated, this.cache[i].params[2]])
             }
-            
+
             for (let lang of langFiles) {
                 let langId = lang
                 const text = params[1].substr(1)

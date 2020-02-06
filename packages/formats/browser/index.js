@@ -1,6 +1,6 @@
 module.exports = {
     formats: {
-        quickReplies(text, actions) {
+        quickReplies(text, [actions]) {
             return {
                 text,
                 actions
@@ -23,6 +23,19 @@ module.exports = {
                 text,
                 image: url
             } 
+        },
+        buttons(text, [buttons]) {
+            return {
+                text,
+                buttons
+            }
+        },
+        carousel(text, [cards, actions]) {
+            return {
+                text,
+                cards,
+                actions
+            }
         }
     },
     shareFormats: true

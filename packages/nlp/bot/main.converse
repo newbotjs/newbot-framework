@@ -1,9 +1,0 @@
-@Intent('gretting', [
-    'hello',
-    'hi',
-    'hey',
-    'test'
-])
-hello() {
-    > Hey !
-}

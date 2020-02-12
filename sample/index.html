@@ -1,17 +1,14 @@
-<script src="../dist/newbot.with-parser.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue"></script>
-
 <div id="app">
-    <input type="text" v-model="msg" @keyup.enter="send()">
-    <button @click="send()">Envoyer</button>
-    <ul>
-        <li v-for="message in messages">{{ message }}</li>
-    </ul>
+
 </div>
 
 <script>
-'use strict';
 
-var copy = new RegExp('aa', 'g');
-copy.global = false
+NewBot.adptaterComponent(Vue)
+
+const converse = NewBot(MainSkill)
+
+converse.exec('open map', (output, done) => {
+    done()
+})
 </script>

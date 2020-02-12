@@ -1,6 +1,6 @@
 {
   "name": "newbot-formats",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "description": "Use different formats for compatible chatbots on Messenger, Slack, Viber, Microsoft Bot Framework, Google Actions, etc.",
   "main": "index.js",
   "scripts": {

@@ -1,0 +1,20 @@
+<script src="https://unpkg.com/newbot@latest/dist/newbot.with-nlp.min.js"></script>
+<script src="skill.js"></script>
+<div>
+    <input type="text" id="text">
+    <button id="submit">Ok</button>
+    <pre id="result"></pre>
+</div>
+<script>
+    var converse = new NewBot(MainSkill, {
+        model: '/model/model.nlp'
+    })
+    document.getElementById('submit').addEventListener('click', function() {
+        var text = document.getElementById('text').value
+        var result = document.getElementById('result')
+        converse.exec(text, (output, done) => {
+            result.innerText = JSON.stringify(output, null, 2)
+            done()
+        })
+    })
+</script>

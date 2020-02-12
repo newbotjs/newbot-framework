@@ -24,6 +24,12 @@ module.exports = {
                 image: url
             } 
         },
+        video(text, url) {
+            return {
+                text,
+                video: url
+            } 
+        },
         buttons(text, [buttons]) {
             return {
                 text,

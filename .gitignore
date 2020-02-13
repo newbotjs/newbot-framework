@@ -6,4 +6,5 @@ _*
 packages/**/dist
 !packages/prompts/dist
 newbot.config.js
+!packages/prompts/newbot.config.js
 editors

@@ -10,7 +10,7 @@
       "platforms": "all"
     }
   },
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Ask the user to enter text in a specific format",
   "main": "index.js",
   "keywords": [],
@@ -23,5 +23,8 @@
     "chrono-node": "^1.4.3",
     "newbot-formats": "^1.7.1",
     "validator": "^10.11.0"
+  },
+  "scripts": {
+    "build": "newbot build --entry skills/prompts/prompts.js"
   }
 }

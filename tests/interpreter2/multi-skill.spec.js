@@ -6,7 +6,7 @@ const {
 describe('Multi Skill', () => {
     let converse, user
 
-    function code(str) {
+    async function code(str) {
         converse = new ConverseTesting({
             code: str,
             skills: {
@@ -43,7 +43,10 @@ describe('Multi Skill', () => {
                     }
                 ]
             }
+        }, {
+            loadSkills: false
         })
+        await converse.loadSkills()
         user = converse.createUser({
             session: {
                 platform: 'test'
@@ -51,8 +54,8 @@ describe('Multi Skill', () => {
         })
     }
 
-    it('Test condition() in multi skills', () => {
-        code(`
+    it('Test condition() in multi skills', async () => {
+        await code(`
              @Event('start')
              start() {
                 helloSkill.displayProfile()

@@ -145,9 +145,13 @@ class Converse {
             this.propagateFormats()
         }
         if (loadSkills && options.skills) {
-            await this.setSkills(options.skills)
+            this.loadSkills()
         }
         this.load()
+    }
+
+    async loadSkills() {
+        await this.setSkills(this.options.skills)
     }
 
     get users() {
@@ -661,49 +665,13 @@ class Converse {
             for (let skillObj of _path) {
                 await this.skill(skillName, skillObj)
             }
-            return
+            return this
         }
 
         if (_.isString(_path)) {
-
-            let prefix = _path.split(':')
-            if (prefix.length > 1) {
-                dir = _path = prefix[1]
-                prefix = prefix[0]
-            } else {
-                prefix = null
+            skill = {
+                code: _path
             }
-
-            if (Browser.is() && prefix == 'node') {
-                return this
-            }
-            if (!Browser.is() && prefix == 'browser') {
-                return this
-            }
-
-            if (!/\//.test(_path)) {
-                dir = this.config.pathSkills || 'skills'
-                dir += `/${_path}`
-            }
-
-            // deprecated
-            /*if (Converse.SystemJS) {
-                if (Browser.is()) {
-                    SystemJS.set('conversescript', SystemJS.newModule({
-                        Converse
-                    }))
-                    if (!dir.endsWith('.js')) dir += '.js'
-                    skill = await SystemJS.import(dir)
-                } else {
-                    if (dir[0] == '.') {
-                        dir = this.parentPath + '/' + dir
-                    } else {
-                        dir = '@node/' + dir
-                    }
-                    skill = await SystemJS.import(dir)
-                }
-            }*/
-
         } else {
             skill = _path
         }

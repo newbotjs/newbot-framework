@@ -328,7 +328,8 @@ class Converse {
             if (!_.isArray(skills)) {
                 skills = [skills]
             }
-            for (let skill of skills) {
+            for (let i=0 ; i < skills.length ; i++) {
+                let skill = skills[i]
                 p = p.then(() => new Promise((resolve, reject) => {
                     let skillPromise = Promise.resolve()
                     if (this._canActivated.length > 0 && !this._canActivated.includes(skill.name)) {
@@ -349,6 +350,7 @@ class Converse {
                         }
                     }
                     skillPromise.then((mustExecute = true) => {
+                        user.setRealSkill(skill.name, i)
                         if (mustExecute) {
                             return skill.exec(input, userId, options, propagate).then((ret = {}) => {
                                 noExec &= ret.noExec

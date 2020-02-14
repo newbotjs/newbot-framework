@@ -452,7 +452,7 @@ class Execution {
                 }
     
                 if (! await execFn(this, ins)) {
-                    const skill = this.converse.skills().get(ins.name)
+                    const skill = this.getSkill(ins.name)
                     if (skill) {
                         ins.name = ins.deep[0]
                         ins.deep.splice(0, 1)
@@ -489,6 +489,15 @@ class Execution {
                 reject(err)
             }
         })
+    }
+
+    getSkill(name) {
+        const skill = this.converse.skills().get(name)
+        if (_.isArray(skill)) {
+            const index = this.user.getRealSkill(name)
+            return skill[index]
+        }
+        return skill
     }
 
     getScope(level) {

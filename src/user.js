@@ -8,6 +8,7 @@ class User {
             lock: {},
             actived: {}
         }
+        this._realSkill = {}
         this.varFn = {}
         this.magicVar = {}
         this.variables = {}
@@ -137,6 +138,14 @@ class User {
 
     retrieveSession() {
         return this.session
+    }
+
+    setRealSkill(skillName, index) {
+        this._realSkill[skillName] = index
+    }
+
+    getRealSkill(skillName) {
+        return this._realSkill[skillName] || 0
     }
 
     setLang(lang) {

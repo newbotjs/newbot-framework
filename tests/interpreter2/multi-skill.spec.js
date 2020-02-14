@@ -6,7 +6,7 @@ const {
 describe('Multi Skill', () => {
     let converse, user
 
-    async function code(str) {
+    async function code(str, platform = 'website') {
         converse = new ConverseTesting({
             code: str,
             skills: {
@@ -36,10 +36,7 @@ describe('Multi Skill', () => {
                             displayProfile() {
                                 > Default response
                             }
-                        `,
-                        condition(data) {
-                            return true
-                        }
+                        `
                     }
                 ]
             }
@@ -49,12 +46,12 @@ describe('Multi Skill', () => {
         await converse.loadSkills()
         user = converse.createUser({
             session: {
-                platform: 'test'
+                platform
             }
         })
     }
 
-    it('Test condition() in multi skills', async () => {
+    it('Test condition() in multi skills, default response', async () => {
         await code(`
              @Event('start')
              start() {
@@ -65,6 +62,21 @@ describe('Multi Skill', () => {
         return user
             .start(testing => {
                 assert.equal(testing.output(0), 'Default response')
+            })
+            .end()
+    })
+
+    it('Test condition() in multi skills, Gactions response', async () => {
+        await code(`
+             @Event('start')
+             start() {
+                helloSkill.displayProfile()
+             }
+         `, 'gactions')
+
+        return user
+            .start(testing => {
+                assert.equal(testing.output(0), 'Call profile API in Google Actions')
             })
             .end()
     })

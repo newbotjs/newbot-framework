@@ -330,7 +330,10 @@ class Converse {
             }
             for (let i=0 ; i < skills.length ; i++) {
                 let skill = skills[i]
-                p = p.then(() => new Promise((resolve, reject) => {
+                p = p.then((ignore = false) => new Promise((resolve, reject) => {
+                    if (ignore) {
+                        return resolve(ignore)
+                    }
                     let skillPromise = Promise.resolve()
                     if (this._canActivated.length > 0 && !this._canActivated.includes(skill.name)) {
                         skill._canActivated = [...this._canActivated, ...skill._canActivated]
@@ -354,10 +357,10 @@ class Converse {
                         if (mustExecute) {
                             return skill.exec(input, userId, options, propagate).then((ret = {}) => {
                                 noExec &= ret.noExec
-                                resolve()
+                                resolve(true)
                             }).catch(reject)
                         } else {
-                            resolve()
+                            resolve(false)
                         }
                     })
                 }))

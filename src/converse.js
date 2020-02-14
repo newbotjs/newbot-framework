@@ -64,7 +64,7 @@ class Converse {
      * Newbot.loader({
      *      systemjs: 
      * })
-     */
+     */ 
     static loader({
         systemjs
     }) {
@@ -90,6 +90,7 @@ class Converse {
         this.propagateNlp('__native__')
         if (!_isAutoLoad) {
             // reload skills for propagate NLP
+            this._skills.clear()
             await this.setSkills(this.options.skills)
         }
     }
@@ -175,7 +176,7 @@ class Converse {
         return this
     }
 
-    async open(reject) {
+    async open() {
         if (this._file) {
             if (Converse.SystemJS) this.code(await Converse.SystemJS.import(this._file))
         }
@@ -185,7 +186,7 @@ class Converse {
             this._obj = _.merge([], this._compiled)
         } else {
             this._transpiler = new Transpiler(this.script, this.namespace)
-            this._obj = this._transpiler.run(reject)
+            this._obj = this._transpiler.run()
         }
         this._interpreter = new Interpreter(this._obj, this.users, this)
         return this
@@ -202,92 +203,87 @@ class Converse {
         globalNoExec: true
     }) {
         let user
-        return new Promise(async (resolve, reject) => {
+        let noExecChildren
 
-            let noExecChildren
-
-            await this.open(reject)
-
-            if (!output) {
-                if (Browser.is()) {
-                    output = userId
-                    userId = 'conversescript-user'
-                } else {
-                    throw 'On NodeJS, you must give an identifier to the user. `.exec(input, userId, output)`'
-                }
-            }
-
-            if (!_.isObjectLike(input)) {
-                input = {
-                    text: input
-                }
-            }
-
-            user = this._users.get(userId)
-
-            if (_.isFunction(output)) {
-                output = {
-                    output
-                }
-            }
-            if (!user) {
-                user = new User(userId)
-                this._users.set(userId, user)
-                propagate.start = true
-            }
-            if (output.magicVariables) {
-                for (let variable in output.magicVariables) {
-                    user.setMagicVariable(variable, output.magicVariables[variable])
-                }
-            }
-
-            user.setMagicVariable('userId', userId)
-            user.resetHistory()
-
-            if (input.type == 'continue') {
-                user.setMagicVariable('event', input.data)
-            }
-
-            let p = Promise.resolve()
-                .then(() => {
-                    if (output.preUser) {
-                        return output.preUser(user, this)
-                    }
-                })
-                .then(() => {
-                    if (!this.parent && output.debug) {
-                        output.debug('begin', {
-                            user,
-                            data: output.data
-                        })
-                    }
-                })
-                .then(() => this.propagateExec(input, userId, output, propagate))
-                .then(noExec => {
-                    noExecChildren = !!noExec
-                    noExecChildren = noExecChildren || (!noExecChildren && user.getAddress(this.namespace))
-                })
-            if (input.type !== 'event' && input.type !== 'continue') {
-                p = p.then(() => {
-                    if (noExecChildren) {
-                        return this.execNlp(input, userId)
-                    }
-                    return input
-                })
+        if (!output) {
+            if (Browser.is()) {
+                output = userId
+                userId = 'conversescript-user'
             } else {
-                p = p.then(() => input)
+                throw 'On NodeJS, you must give an identifier to the user. `.exec(input, userId, output)`'
             }
-            p.then(async input => {
-                let ret = {}
-                if (noExecChildren) {
-                    ret = await this._interpreter.exec(user, input, output, propagate)
-                    if (ret) propagate.globalNoExec &= ret.nothing
+        }
+
+        if (!_.isObjectLike(input)) {
+            input = {
+                text: input
+            }
+        }
+
+        user = this._users.get(userId)
+
+        if (_.isFunction(output)) {
+            output = {
+                output
+            }
+        }
+        if (!user) {
+            user = new User(userId)
+            this._users.set(userId, user)
+            propagate.start = true
+        }
+        if (output.magicVariables) {
+            for (let variable in output.magicVariables) {
+                user.setMagicVariable(variable, output.magicVariables[variable])
+            }
+        }
+
+        user.setMagicVariable('userId', userId)
+        user.resetHistory()
+
+        if (input.type == 'continue') {
+            user.setMagicVariable('event', input.data)
+        }
+
+        let p = this.open()
+            .then(() => {
+                if (output.preUser) {
+                    return output.preUser(user, this)
                 }
-                resolve(ret)
-            }).catch((err) => {
-                reject(err)
             })
-        }).then((ret) => {
+            .then(() => {
+                if (!this.parent && output.debug) {
+                    output.debug('begin', {
+                        user,
+                        data: output.data
+                    })
+                }
+            })
+            .then(() => this.propagateExec(input, userId, output, propagate))
+            .then(noExec => {
+                noExecChildren = !!noExec
+                noExecChildren = noExecChildren || (!noExecChildren && user.getAddress(this.namespace))
+            })
+        if (input.type !== 'event' && input.type !== 'continue') {
+            p = p.then(() => {
+                if (noExecChildren) {
+                    return this.execNlp(input, userId)
+                }
+                return input
+            })
+        } else {
+            p = p.then(() => input)
+        }
+        
+        p = p.then(async input => {
+            let ret = {}
+            if (noExecChildren) {
+                ret = await this._interpreter.exec(user, input, output, propagate)
+                if (ret) propagate.globalNoExec &= ret.nothing
+            }
+            return ret
+        })
+        .then((ret) => {
             if (!this.parent) {
                 if (propagate.globalNoExec) {
                     if (this._hooks.nothing) this._hooks.nothing(input.text, {
@@ -313,6 +309,8 @@ class Converse {
             }
             return ret
         })
+
+        return p
     }
 
     propagateExec(input, userId, output, propagate) {

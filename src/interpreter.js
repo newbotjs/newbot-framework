@@ -50,7 +50,7 @@ class Execution {
             } else {
                 this.go().catch(this._errorScript)
             }
-        })
+        }).catch(this._errorScript)
     }
 
     deepBlock(insParent, deep, pointer = 0) {
@@ -150,7 +150,7 @@ class Execution {
             this.user.popAddress(this.namespace)
 
             const fnBlock = (index) => {
-                this.execFn(fn, index + 1, (args) => {
+                return this.execFn(fn, index + 1, (args) => {
 
                     if (args.hasActivateDecorator) {
                         
@@ -280,7 +280,7 @@ class Execution {
             this.converse.bufferFunction(this)
             this.converse.bufferFunction = null
         }
-        this.instructions(this.obj, 0, 'root', finish)
+       return this.instructions(this.obj, 0, 'root', finish)
     }
 
     async instructions(instructions, pointer, level = 'root', finish, options = {}) {
@@ -367,17 +367,16 @@ class Execution {
             } else if (ins.type && !options.refresh) {
                 switch (ins.type) {
                     case 'function':
-                        next()
+                         next()
                         break
                     case 'executeFn':
                         let value = await this.findFunctionAndExec(ins, level)
                         this.setReturnVariable(ins, value, level)
-                        next()
+                         next()
                         break
                 }
             }
         } catch (err) {
-            this._errorScript(err)
             throw this.error.throw(ins, err.id, err)
         }
     }
@@ -880,7 +879,7 @@ class Execution {
         if (_.isUndefined(this.interpreter.fn[ins.name])) {
             this.error.throw(ins, 'function.not.defined')
         }
-        this.instructions(ins.instructions, pointer, ins.name, done)
+        return this.instructions(ins.instructions, pointer, ins.name, done)
     }
 
     execParams(ins, params, level, done) {

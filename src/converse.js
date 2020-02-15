@@ -774,6 +774,11 @@ class Converse {
         }
         if (_.isString(nlpName)) {
             this._propagateNlp.push(nlpName)
+            return this
+        }
+        if (nlpName === true) {
+            this._propagateNlp = [...this._propagateNlp, ...Object.keys(this._nlp)]
+            return this
         }
         return this
     }

@@ -41,14 +41,6 @@ class Converse {
         this.namespace = 'default'
         this._functions = Functions
         this.lang = Languages.instance()
-        this.options = options
-        //this.parentPath = options._parentPath || this._findParentPath()
-        if (_.isString(options)) {
-            options = {
-                file: options
-            }
-        }
-
         const hasOptions = Object.keys(options)
         if (hasOptions.length > 0) {
             this.loadOptions(options, loadSkills)
@@ -96,6 +88,12 @@ class Converse {
     }
 
     async loadOptions(options, loadSkills = true) {
+        this.options = options
+        if (_.isString(options)) {
+            options = {
+                file: options
+            }
+        }
         if (options.file) {
             this.file(options.file)
         }
@@ -145,7 +143,7 @@ class Converse {
             this.propagateFormats()
         }
         if (loadSkills && options.skills) {
-            this.loadSkills()
+            await this.loadSkills()
         }
         this.load()
     }
@@ -192,6 +190,7 @@ class Converse {
             this._transpiler = new Transpiler(this.script, this.namespace)
             this._obj = this._transpiler.run()
         }
+        // TODO: 
         this._interpreter = new Interpreter(this._obj, this.users, this)
         return this
     }
@@ -339,6 +338,7 @@ class Converse {
                         skill._canActivated = [...this._canActivated, ...skill._canActivated]
                         for (let name of this._canActivated) {
                             if (this.name == name) continue
+                            // TODO: Prohibition after execution to modify skills...
                             skill._skills.set(name, this._skills.get(name))
                         }
                     }
@@ -352,12 +352,13 @@ class Converse {
                             skillPromise = Promise.resolve(skillPromise)
                         }
                     }
-                    skillPromise.then((mustExecute = true) => {
+                    skillPromise.then((mustExecute) => {
                         user.setRealSkill(skill.name, i)
-                        if (mustExecute) {
+                        if (mustExecute !== false) {
                             return skill.exec(input, userId, options, propagate).then((ret = {}) => {
                                 noExec &= ret.noExec
-                                resolve(true)
+                                // If the skill condition explicitly returns true, then ignore the other skills (for a skill array)
+                                resolve(mustExecute === true)
                             }).catch(reject)
                         } else {
                             resolve(false)

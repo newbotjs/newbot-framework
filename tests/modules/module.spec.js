@@ -73,7 +73,7 @@ describe('Module Test', () => {
             )
     })
 
-   /* it('module event', () => {
+    it('module event', () => {
         return u
             .event('parent', testing => {
                 assert.equal(testing.output(0), ['event works'])
@@ -402,5 +402,5 @@ describe('Module Test', () => {
                 })
         })
     }) 
-    */
+    
 })

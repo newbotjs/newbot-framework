@@ -1,0 +1,6 @@
+@Intent('openMap', [
+    'open map'
+])
+open() {
+    > I open map
+}

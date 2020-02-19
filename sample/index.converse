@@ -1,4 +1,0 @@
-@Event('start')
-hello() {
-    > { hey.hello() }
-}

@@ -5,7 +5,7 @@ import ChoiceRecognizers from '@microsoft/recognizers-text-choice'
 import NumberRecognizers from '@microsoft/recognizers-text-number'
 import SequenceRecognizers from '@microsoft/recognizers-text-sequence'
 import code from './prompts.converse'
-import languages from './languages'
+import languages from '../../languages'
 
 const getlang = function (params) {
     const {

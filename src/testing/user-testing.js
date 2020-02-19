@@ -122,11 +122,7 @@ class UserTesting {
 
     end() {
         return new Promise((resolve, reject) => {
-            Promise.resolve()
-                .then(() => {
-                    this._run(0, resolve)
-                })
-                .catch((error) => reject(error))
+            this._run(0, resolve, reject)
         }).then((error) => {
             this.throwSpy()
         })
@@ -137,7 +133,7 @@ class UserTesting {
         if (callback) callback.call(assert, assert)
     }
 
-    _run(p, done) {
+    _run(p, done, reject) {
         let test = this.testing[p]
 
         if (!test) {
@@ -145,10 +141,10 @@ class UserTesting {
         }
 
         const converse = input => {
-            this._converse(input, () => {
+            return this._converse(input, () => {
                 this._callbackAssert(test.callback)
-                this._run(p + 1, done)
-            })
+                this._run(p + 1, done, reject)
+            }).catch(reject)
         }
         switch (test.type) {
             case 'event':
@@ -207,14 +203,14 @@ class UserTesting {
                 },
                 data: this._data
             }, options)
-            this.converse.exec(input, this.id, options)
+            return this.converse.exec(input, this.id, options)
         }
 
         if (this.converse._testingWrapper) {
-            this.converse._testingWrapper(input, exec)
+            return this.converse._testingWrapper(input, exec)
         }
         else {
-            exec(input)
+            return exec(input)
         } 
     }
 

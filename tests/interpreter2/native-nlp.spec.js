@@ -2,6 +2,8 @@ const assert = require('assert')
 const { ConverseTesting } = require('../../index')
 const { train } = require('../../packages/train')
 const { LangFr } = require('@nlpjs/lang-fr');
+const { LangEn } = require('@nlpjs/lang-en');
+
 
 describe('Test Native NLP', () => {
     let converse, user
@@ -11,11 +13,13 @@ describe('Test Native NLP', () => {
             code: str,
             ...options
         })
-        const model = await train(converse, [LangFr])
-        await converse.setModelNlp(model, [LangFr])
+        const langs = [LangFr, LangEn]
+        const model = await train(converse, langs)
+        await converse.setModelNlp(model, langs)
         user = converse.createUser()
     }
 
+   
     it('Test native NLP', async () => {
        await code(`
             @Intent('hello', [
@@ -35,6 +39,23 @@ describe('Test Native NLP', () => {
             .end()
     })
 
+    it('Extract Entities', async () => {
+        await code(`
+             @Intent('room', [
+                 'get room tomorrow'
+             ])
+             room() {
+                 > Ok
+             }
+         `)
+         return user
+             .prompt('get room today', testing => {
+                const intent = testing.magicVariable('intent')
+                assert.equal(intent.date.type, 'date')
+             })
+             .end()
+     })
+
     it('Other language', async () => {
         await code(`
              @Intent('hello', {
@@ -47,6 +68,7 @@ describe('Test Native NLP', () => {
                  > Hey
              }
          `)
+         console.time('one')
          return user
              .prompt('je mange', testing => {
                  const output = testing.output()
@@ -54,6 +76,9 @@ describe('Test Native NLP', () => {
                  assert.equal(output[0], 'Hey')
              })
              .end()
+             .then(_ => {
+                console.timeEnd('one')
+             })
      })
 
      it('Other language, identifier', async () => {
@@ -124,5 +149,5 @@ describe('Test Native NLP', () => {
              })
              .end()
      })
-
+     
 })

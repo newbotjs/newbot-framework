@@ -105,7 +105,7 @@ class Decorators {
             }
             hasExec = true
             if (!canActivated) {
-                execution.execFn(fn, 0, (args) => {
+                await execution.execFn(fn, 0, (args) => {
                     if (finish) finish(args)
                     else return execution.end()
                 })

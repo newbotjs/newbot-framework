@@ -81,8 +81,14 @@ You can see all the documentation on https://newbot.io/en/docs
 
 MIT
 
-## 2020-02-06
-### Changed
+## Changed
+
+### 2020-02-19
+
+- Fix several bugs
+
+### 2020-02-06
+
 - It is possible to train the chatbot on the fly
 - The training now uses version 4 of the NLPJS module. The generated model is therefore different
 - 1 additional browser-side file is generated (dist/newbot.with-nlp.[min].js). NLPJS content is integrated into the final file

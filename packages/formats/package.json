@@ -4,18 +4,23 @@
   "description": "Use different formats for compatible chatbots on Messenger, Slack, Viber, Microsoft Bot Framework, Google Actions, etc.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --timeout 0 tests/*.spec.js"
+    "test": "npx ts-mocha tests/*.spec.ts",
+    "dev": "npx ts-node-dev --respawn --transpileOnly ./src/index.ts"
   },
   "author": "NewBot",
   "license": "MIT",
   "dependencies": {
-    "botbuilder": "^3.8.4",
+    "botbuilder": "^4.7.2",
     "lodash": "^4.17.11",
+    "messaging-api-messenger": "^0.8.2",
     "request": "^2.88.0",
     "request-promise": "^4.2.2",
+    "ts-node-dev": "^1.0.0-pre.44",
+    "typescript": "^3.8.2",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
-    "mocha": "^3.4.2"
+    "mocha": "^3.4.2",
+    "ts-mocha": "^6.0.0"
   }
 }

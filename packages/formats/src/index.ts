@@ -8,7 +8,10 @@ listFormats.forEach((name: string) => {
         if (!session) {
             return text
         }
-        const { source, agent } = session.message || session
+        let { source, agent } = session.message || session
+        if (source == agent) {
+            agent = undefined
+        }
         const p = platforms[source + (agent ? '-' + agent : '')]
         if (p) {
             const platform = new p(text, session, user)

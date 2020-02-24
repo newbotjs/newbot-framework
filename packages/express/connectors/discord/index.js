@@ -1,7 +1,6 @@
 const _ = require('lodash')
-const Session = require('newbot-formats/session/discord')
+const { DiscordSession } = require('newbot-sessions')
 const output = require('../../output')
-const handlers = require('./handlers')
 
 module.exports = function ({
     app,
@@ -10,12 +9,10 @@ module.exports = function ({
 }) {
     const client = new Discord.Client()
 
-    client.on('ready', () => {
-        console.log(`Logged in as ${client.user.tag}!`)
-    });
-
     client.on('message', msg => {
-        
+        const _converse = global.converse || converse
+        const session = new DiscordSession(msg)
+        _converse.exec(msg.content, output(session, settings))
     })
 
     client.login(settings.accessToken)

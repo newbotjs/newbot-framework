@@ -2,7 +2,7 @@
   "name": "newbot-formats",
   "version": "1.7.1",
   "description": "Use different formats for compatible chatbots on Messenger, Slack, Viber, Microsoft Bot Framework, Google Actions, etc.",
-  "main": "dist/index.js",
+  "main": "dist/packages/formats/index.js",
   "scripts": {
     "test": "npx ts-mocha tests/*.spec.ts",
     "dev": "npx ts-node-dev --respawn --transpileOnly ./src/index.ts",

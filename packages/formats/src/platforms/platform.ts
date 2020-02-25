@@ -78,6 +78,12 @@ export class PlatformFormat {
             b.type = 'webview'
             b.url = 'https://example.com'
         }*/
+        if (typeof b == 'string') {
+            b = {
+                type: 'postback',
+                title: b
+            }
+        }
         if (!b.event) {
             if (!b.type && !b.url) b.type = 'postback'
             else if (!b.type) b.type = 'web_url'

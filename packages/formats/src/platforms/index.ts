@@ -9,6 +9,7 @@ import { SlackBottenderFormat } from './slack/bottender'
 import { AlexaSdkFormat } from './alexa/alexa'
 import { BotBuilderFormat } from './ms-bot'
 import { DiscordFormat } from './discord/discord'
+import { WebFormat } from './website'
 
 const platforms: {
     [key: string]: any
@@ -23,7 +24,8 @@ const platforms: {
     'alexa': AlexaSdkFormat,
     'twitter:': TwitterFormat,
     'botbuilder': BotBuilderFormat,
-    'discord': DiscordFormat
+    'discord': DiscordFormat,
+    'website': WebFormat
 }
 
 export default platforms

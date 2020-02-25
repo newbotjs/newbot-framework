@@ -1,0 +1,18 @@
+{
+    "name": "NewBot",
+    "description": "",
+    "services": [
+        {
+            "type": "endpoint",
+            "appId": "",
+            "appPassword": "",
+            "endpoint": "http://localhost:3000",
+            "id": "72fe6110-57a7-11ea-be75-b5784050183c",
+            "name": "http://localhost:3000"
+        }
+    ],
+    "padlock": "",
+    "version": "2.0",
+    "overrides": null,
+    "path": "/home/samarium/www/newbot.io/bot/vm/conversescript/packages/formats/sample/NewBot.bot"
+}

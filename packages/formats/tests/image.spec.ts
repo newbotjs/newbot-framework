@@ -1,5 +1,7 @@
 import assert from 'assert'
-import formats from '../src'
+import formatsFn from '../src'
+
+const formats = formatsFn('en_EN')
 
 describe('Image Test', () => {
     describe('Messenger Test', () => {

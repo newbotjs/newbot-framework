@@ -1,0 +1,41 @@
+@Event('start')
+start() {
+    @Format('buttons', ['Quick Replies', 'Image', 'Video', 'Carousel'])
+    > Formats
+}
+
+@Intent(/quick replies/i)
+quickReplies() {
+    @Format('quickReplies', ['yes', 'no'])
+    > Quick Replies
+}
+
+@Intent(/image/i)
+image() {
+    @Format('image', 'https://newbot.io/images/logo.png')
+    > Image
+}
+
+@Intent(/video/i)
+video() {
+    @Format('video', 'http://media.w3.org/2010/05/sintel/trailer.mp4')
+    > video
+}
+
+@Intent(/carousel/i)
+carousel() {
+    @Format('carousel', [
+        {
+            title: 'NewBot',
+            subtitle: 'My website',
+            image: 'https://newbot.io/images/logo.png',
+            buttons: [
+                {
+                    title: 'Go to my website',
+                    url: 'https://newbot.io'
+                }
+            ]
+        }
+    ])
+    > carousel
+}

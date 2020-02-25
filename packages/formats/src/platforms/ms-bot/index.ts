@@ -2,7 +2,7 @@ import { MessageFactory, CardFactory, ActionTypes } from 'botbuilder'
 import { FormatInterface, Button } from '../format.interface'
 import { PlatformFormat } from '../platform'
 import { User } from '../../../../../types/user'
-import last from 'lodash/last'
+import last from 'lodash.last'
 
 export class BotBuilderFormat extends PlatformFormat implements FormatInterface {
 
@@ -12,10 +12,10 @@ export class BotBuilderFormat extends PlatformFormat implements FormatInterface 
 
     image(contentUrl: string, contentType?: string, name?: string) {
         if (!name) {
-            name = _.last(contentUrl.split('/'))
+            name =  last(contentUrl.split('/'))
         }
         if (!contentType) {
-            let ext = last(name.split('.'))
+            let ext = last(name?.split('.'))
             ext = ext.toLowerCase()
             if (['gif', 'png', 'jpeg', 'jpg'].indexOf(ext)) {
                 contentType = 'image/' + ext

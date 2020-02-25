@@ -5,10 +5,24 @@ import { Button, Card } from "./format.interface"
 export class PlatformFormat {
 
     static LANGS_ID = ['fr_FR', 'en_EN']
+    static formats: Array<string> = [
+        "image",
+        "video",
+        "quickReplies",
+        "buttons",
+        "location",
+        "contact",
+        "phone",
+        "email",
+        "carousel",
+        "signin"
+    ]
+
+    defaultLanguage: string = ''
 
     constructor(
             protected text: string, 
-            protected session: { message: { source: string } }, 
+            protected session: any, 
             protected user: User
     ) { }
 

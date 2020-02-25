@@ -1,5 +1,5 @@
 import querystring from 'querystring'
-import truncate from 'lodash/truncate'
+import truncate from 'lodash.truncate'
 import obj from 'messaging-api-messenger/lib/Messenger'
 import { FormatInterface, Button, Card } from '../format.interface'
 import { PlatformFormat } from '../platform'
@@ -137,7 +137,7 @@ export class MessengerFormat extends PlatformFormat implements FormatInterface {
 
     protected actions(actions: Array<any>) {
         return actions.map(action => {
-            if (_.isString(action)) {
+            if (typeof action == 'string') {
                 return {
                     content_type: 'text',
                     title: action,

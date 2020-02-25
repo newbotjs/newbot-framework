@@ -4,6 +4,12 @@ import { PlatformFormat } from '../platform'
 
 export class AlexaSdkFormat extends PlatformFormat implements FormatInterface {
 
+    static extraFormats: Array<string> = [
+        'apl',
+        'Amazon.Purchase.Buy',
+        'Amazon.Purchase.Cancel'
+    ]
+
     constructor(text: string, session: any, user: User) {
         super(text, session, user)
     }

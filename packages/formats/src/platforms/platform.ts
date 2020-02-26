@@ -15,7 +15,8 @@ export class PlatformFormat {
         "phone",
         "email",
         "carousel",
-        "signin"
+        "signin",
+        "webview"
     ]
 
     defaultLanguage: string = ''
@@ -112,5 +113,17 @@ export class PlatformFormat {
             card.buttons = card.buttons.map((b: Button) => this.mapButton(b))
         }
         return card
+    }
+
+    protected webviewUrl(params: any = {}) {
+        let { url, data } = params
+        if (!url.startsWith('http')) {
+            const baseUrl = process.env.SERVER_URL
+            url = (baseUrl ? baseUrl : '') + url
+        }
+        const btoa = str => Buffer.from(str).toString('base64')
+        const pdata = encodeURIComponent(btoa(JSON.stringify(data || {})))
+        url += `?data=${pdata}&webview=true`
+        return url
     }
 }

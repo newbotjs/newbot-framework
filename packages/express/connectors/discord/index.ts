@@ -19,12 +19,25 @@ export class DiscordConnector extends Connector implements PlatformConnector {
         return this.exec(msg.content, session)
     }
 
+    event(event: any, user: any) {
+        if (user.id == this.settings.appId) return
+        user.author = user
+        const session = new DiscordSession(user)
+        return super.event(event, session)
+    }
+
     registerRoutes() {
         if (!this.settings.accessToken) {
             return
         }
         this.client.login(this.settings.accessToken)
         this.client.on('message', this.handler.bind(this))
+        this.client.on('messageReactionAdd', (messageReaction: any, user: any) => {
+            this.event({
+                name: 'messageReactionAdd',
+                data: messageReaction
+            }, user)
+        })
     }
 
     proactive(obj: any) {

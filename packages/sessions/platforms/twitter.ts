@@ -1,12 +1,19 @@
-const crypto = require('crypto')
-const _ = require('lodash')
-const rp = require('request-promise')
+import crypto from 'crypto'
+import _ from 'lodash'
+import rp from 'request-promise'
 
 const uri = 'https://api.twitter.com/1.1'
 const uriUpload = 'https://upload.twitter.com/1.1'
 
-class TwitterSession {
-    constructor(config, body) {
+export class TwitterSession {
+
+    oauth: any
+    appId: string
+    text: string = ''
+    userId: string = ''
+    readonly platform: string = 'twitter'
+
+    constructor(private config: any, private body: any) {
         this.oauth = {
             consumer_key: config.consumerKey,
             consumer_secret: config.consumerSecret,
@@ -15,11 +22,10 @@ class TwitterSession {
         }
         this.appId = config.accessToken.split('-')[0]
         this.body = body
-        this.platform = 'twitter'
         this._parse()
     }
 
-    async send(messageData) {
+    async send(messageData: any) {
         if (_.isString(messageData)) {
             messageData = {
                 text: messageData
@@ -76,9 +82,6 @@ class TwitterSession {
     }
 
     _parse() {
-
-        console.log(JSON.stringify(this.body, null, 2))
-
         const {
             direct_message_events: dms
         } = this.body
@@ -115,20 +118,15 @@ class TwitterSession {
     }
 }
 
-const CRCToken = function (config, {
-    crc_token: crcToken
+export function TwitterCRCToken(config: any, {
+    crc_token = ''
 }) {
-    if (crcToken) {
-        const hash = crypto.createHmac('sha256', config.consumerSecret).update(crcToken).digest('base64')
+    if (crc_token) {
+        const hash = crypto.createHmac('sha256', config.consumerSecret).update(crc_token).digest('base64')
         return {
             response_token: 'sha256=' + hash
         }
     } else {
         throw new Error('Error: crc_token missing from request.')
     }
-}
-
-module.exports = {
-    TwitterSession,
-    CRCToken
 }

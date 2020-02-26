@@ -1,11 +1,14 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-class AlexaSession {
-    constructor(handlerInput) {
-        this.handlerInput = handlerInput
+export class AlexaSession {
+
+    dialogs: Array<any> = []
+    response: any
+    readonly platform: string = 'alexa'
+
+    constructor(private handlerInput: any) {
         this.dialogs = []
         this.response = null
-        this.platform = 'alexa'
     }
 
     supportsAPL() {
@@ -15,7 +18,7 @@ class AlexaSession {
         return aplInterface != null && aplInterface !== undefined
     }
 
-    async send(params) {
+    async send(params: any) {
         try {
             let responseBuilder = this.handlerInput.responseBuilder
 
@@ -86,5 +89,3 @@ class AlexaSession {
         return this.message.source
     }
 }
-
-module.exports = AlexaSession

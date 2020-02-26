@@ -1,9 +1,7 @@
-module.exports = class MsBotSession {
-    constructor(context) {
-        this.context = context
-    }
+export class MsBotSession {
+    constructor(private context: any) { }
 
-    send(input) {
+    send(input: any) {
         return this.context.sendActivity(input)
     }
 

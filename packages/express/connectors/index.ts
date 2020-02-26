@@ -20,4 +20,4 @@ export default {
     'gactions': GactionsConnector,
     'msbot': MsBotConnector,
     'discord': DiscordConnector
-}
+} 

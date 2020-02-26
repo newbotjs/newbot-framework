@@ -70,4 +70,15 @@ export class WebFormat extends PlatformFormat implements FormatInterface {
             cards
         }
     }
+
+    webview(params: any = {}) {
+        const url = this.webviewUrl(params)
+        return {
+            text: this.text,
+            webview: {
+                url,
+                height: params.height
+            }
+        }
+    }
 }

@@ -1,16 +1,20 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-class Session {
-    constructor(context, {
-        platform,
-        userId
+export class BottenderSession {
+
+    platform: string
+    userId: any
+
+    constructor(private context: any, {
+        platform = '',
+        userId = ''
     } = {}) {
         this.context = context
         this.platform = platform
         this.userId = userId
     }
 
-    send(methods) {
+    send(methods: any) {
         if (!_.isArray(methods)) {
             methods = [methods]
         }
@@ -65,5 +69,3 @@ class Session {
         return this.message.source
     }
 }
-
-module.exports = Session

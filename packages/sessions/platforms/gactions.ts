@@ -1,11 +1,13 @@
-const _ = require('lodash')
-const uuid = require('uuid/v1')
+import _ from 'lodash'
+import uuid from 'uuid/v1'
 
-class Session {
-    constructor(gactions, conv) {
+export class GactionsSession {
+
+    readonly platform: string = 'gactions'
+
+    constructor(private gactions: any, private conv: any) {
         this.conv = conv
         this.gactions = gactions
-        this.platform = 'gactions'
     }
 
     userId(id = uuid()) {
@@ -16,7 +18,7 @@ class Session {
         return userId
     }
 
-    send(params) {
+    send(params: any) {
         if (!_.isArray(params)) {
             params = [params]
         }
@@ -59,5 +61,3 @@ class Session {
         return this.message.source
     }
 }
-
-module.exports = Session

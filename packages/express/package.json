@@ -16,7 +16,7 @@
     "ask-sdk-core": "^2.7.0",
     "ask-sdk-express-adapter": "^2.0.0",
     "body-parser": "^1.19.0",
-    "botbuilder": "^3.16.0",
+    "botbuilder": "^4.7.2",
     "bottender": "^1.2.2",
     "discord.js": "^11.5.1",
     "express": "^4.17.1",

@@ -4,6 +4,9 @@ import { ViberBottenderConnector } from "./bottender/viber";
 import { TelegramBottenderConnector } from "./bottender/telegram";
 import { SlackBottenderConnector } from "./bottender/slack";
 import { AlexaConnector } from "./alexa";
+import { TwitterConnector } from "./twitter";
+import { GactionsConnector } from "./gactions";
+import { MsBotConnector } from "./ms-bot";
 
 export default {
     'messenger': MessengerBottenderConnector,
@@ -11,5 +14,8 @@ export default {
     'slack': SlackBottenderConnector,
     'telegram': TelegramBottenderConnector,
     'viber': ViberBottenderConnector,
-    'alexa': AlexaConnector
+    'alexa': AlexaConnector,
+    'twitter': TwitterConnector,
+    'gactions': GactionsConnector,
+    'msbot': MsBotConnector
 }

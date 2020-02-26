@@ -1,4 +1,4 @@
-class DiscordSession {
+module.exports = class DiscordSession {
     constructor(context) {
         this.context = context
         this.channel = context.message.channel

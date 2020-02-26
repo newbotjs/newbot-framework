@@ -29,6 +29,7 @@
     "@nlpjs/lang-fr": "^4.0.1",
     "chai": "^4.1.2",
     "compression-webpack-plugin": "^3.0.1",
+    "lerna": "^3.20.2",
     "mocha": "^6.2.2",
     "systemjs": "^0.21.4",
     "webpack": "^4.26.1",

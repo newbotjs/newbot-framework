@@ -2,10 +2,10 @@
   "name": "newbot-express",
   "version": "0.4.0",
   "description": "Easily create a server with Express and NewBot Framework",
-  "main": "server.js",
+  "main": "./dist/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "dev": "npx ts-node-dev --respawn --transpileOnly ./sample/server.ts",
+    "build": "npx tsc"
   },
   "keywords": [],
   "author": "NewBot",
@@ -17,16 +17,14 @@
     "ask-sdk-express-adapter": "^2.0.0",
     "body-parser": "^1.19.0",
     "botbuilder": "^3.16.0",
-    "bottender": "^0.15.17",
+    "bottender": "^1.2.2",
     "discord.js": "^11.5.1",
     "express": "^4.17.1",
     "lodash": "^4.17.14",
-    "messaging-api-line": "^0.8.0-alpha.7",
-    "messaging-api-messenger": "^0.7.16",
-    "messaging-api-slack": "^0.7.11",
-    "messaging-api-telegram": "^0.7.11",
-    "messaging-api-viber": "^0.7.11",
-    "newbot": "*",
-    "newbot-formats": "*"
+    "newbot": "0.7.0",
+    "newbot-formats": "1.7.0"
+  },
+  "devDependencies": {
+    "typescript": "^3.8.2"
   }
 }

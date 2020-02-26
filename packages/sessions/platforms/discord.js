@@ -1,7 +1,7 @@
 module.exports = class DiscordSession {
     constructor(context) {
         this.context = context
-        this.channel = context.message.channel
+        this.channel = context.channel
         this.platform = 'discord'
     }
 
@@ -19,7 +19,7 @@ module.exports = class DiscordSession {
 
     get user() {
         return {
-            id: this.message.author.id
+            id: this.context.author.id
         }
     }
 

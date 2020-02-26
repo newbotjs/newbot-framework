@@ -7,6 +7,7 @@ import { AlexaConnector } from "./alexa";
 import { TwitterConnector } from "./twitter";
 import { GactionsConnector } from "./gactions";
 import { MsBotConnector } from "./ms-bot";
+import { DiscordConnector } from "./discord";
 
 export default {
     'messenger': MessengerBottenderConnector,
@@ -17,5 +18,6 @@ export default {
     'alexa': AlexaConnector,
     'twitter': TwitterConnector,
     'gactions': GactionsConnector,
-    'msbot': MsBotConnector
+    'msbot': MsBotConnector,
+    'discord': DiscordConnector
 }

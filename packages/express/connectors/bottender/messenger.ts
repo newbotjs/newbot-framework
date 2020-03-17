@@ -7,6 +7,6 @@ export class MessengerBottenderConnector extends BottenderConnector {
     }
 
     registerRoutes() {
-        super.registerRoutes('Messenger')
+        super.registerRoutes('Messenger', { requiredToken: true })
     }
 }

@@ -8,25 +8,20 @@ export class MessengerBottenderFormat extends MessengerFormat implements FormatI
         super(text, session, user)
     }
 
-    image(contentUrl: string): any {
-        return [
-            this.text,
-            {
-                method: 'sendImage',
-                params: [
-                    contentUrl
-                ]
-            }
-        ]
+    image(contentUrl: string | { attachmentId: string }): any {
+        return this._attachment('sendImage', contentUrl)
     }
 
-    video(contentUrl: string): any {
-        return [this.text, {
-            method: 'sendVideo',
-            params: [
-                contentUrl
-            ]
-        }]
+    video(contentUrl: string | { attachmentId: string }): any {
+        return this._attachment('sendVideo', contentUrl)
+    }
+
+    audio(contentUrl: string | { attachmentId: string }) {
+        return this._attachment('sendAudio', contentUrl)
+    }
+
+    file(contentUrl: string | { attachmentId: string }) {
+        return this._attachment('sendFile', contentUrl)
     }
 
     private formatQuickReplies(quickReplies: Array<any>) {
@@ -39,6 +34,15 @@ export class MessengerBottenderFormat extends MessengerFormat implements FormatI
                 }
             ]
         }
+    }
+
+    private _attachment(method: string, contentUrl: string | { attachmentId: string }) {
+        return [this.text, {
+            method,
+            params: [
+                contentUrl
+            ]
+        }]
     }
 
     email(): any {

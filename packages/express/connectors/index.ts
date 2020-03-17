@@ -8,6 +8,7 @@ import { TwitterConnector } from "./twitter";
 import { GactionsConnector } from "./gactions";
 import { MsBotConnector } from "./ms-bot";
 import { DiscordConnector } from "./discord";
+import { WebConnector } from "./website";
 
 export default {
     'messenger': MessengerBottenderConnector,
@@ -19,5 +20,6 @@ export default {
     'twitter': TwitterConnector,
     'gactions': GactionsConnector,
     'msbot': MsBotConnector,
-    'discord': DiscordConnector
+    'discord': DiscordConnector,
+    'website': WebConnector
 } 

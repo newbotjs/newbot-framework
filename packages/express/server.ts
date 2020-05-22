@@ -35,16 +35,31 @@ export class NewBotExpressServer {
                 this.config = require(configFilePath)
             }
         }
+
+        if (settings.io) {
+            this.app.set('_io', settings.io)
+        }
     }
 
     registerRoutes() {
+
+        let server
     
         const registerRoute = (connectorName) => {
             const connector = connectors[connectorName]
             const settings = this.getSettings(connectorName)
             if (settings) {
                 this.platforms[connectorName] = new connector(this.app, this.converse, settings)
-                this.platforms[connectorName].registerRoutes()
+                this.app.post(settings.path || '/proactive/' + connectorName, (req, res, next) => {
+                    try {
+                        this.platforms[connectorName].proactive(req.body)
+                        res.status(204).send()
+                    }
+                    catch (err) {
+                        next(err)
+                    }  
+                })
+                return this.platforms[connectorName].registerRoutes()
             }
         }
 
@@ -60,7 +75,14 @@ export class NewBotExpressServer {
 
         for (let connectorName in connectors) {
             if (connectorName == 'alexa') continue
-            registerRoute(connectorName)
+            const ret = registerRoute(connectorName)
+            if (connectorName == 'website') {
+                server = ret
+            }
+        }
+
+        return {
+            server
         }
     }
 

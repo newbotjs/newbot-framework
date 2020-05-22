@@ -1,3 +1,5 @@
+import sessionMemory from '../memory/sessions'
+
 export class Connector {
 
     converse: any
@@ -37,6 +39,20 @@ export class Connector {
                 }
             }
         }, this.settings.output)
+    }
+
+    proactive(obj) {
+        const { id } = obj
+
+        if (!id) {
+            throw 'The id parameter (session id) is missing'
+        }
+
+        if (!sessionMemory.has(id)) {
+            throw 'Unable to find the session in memory'
+        }
+
+        return sessionMemory.get(id)
     }
 
 }

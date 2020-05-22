@@ -3,6 +3,7 @@ import socketIo from 'socket.io'
 import http from 'http'
 import { WebSession } from 'newbot-sessions'
 import { PlatformConnector } from "../connector.interface";
+import sessionMemory from '../../memory/sessions'
 
 export class WebConnector extends Connector implements PlatformConnector {
 
@@ -12,20 +13,16 @@ export class WebConnector extends Connector implements PlatformConnector {
 
     constructor(app: any, converse: any, settings: any) {
         super(app, converse, settings)
-        this.server = new http.Server(app)
-        this.io = socketIo(this.server, { origins: '*:*'})
-
-        app.use((req, res, next) => {
-            res.header("Access-Control-Allow-Origin", "*")
-            res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
-            res.header('Access-Control-Allow-Credentials', 'true')
-            next()
-        })
+        const io = this.app.get('_io')
+        if (io) {
+            this.io = io
+        }
     }
 
     handler(socket: any, input: any) {
         const { event } = input
         const session = new WebSession(socket)
+        sessionMemory.set(session.user.id, session)
         if (event) {
             return this.event(event, session)
         }
@@ -33,15 +30,28 @@ export class WebConnector extends Connector implements PlatformConnector {
     }
 
     registerRoutes() {
+        let server
+        if (!this.io) {
+            server = new http.Server(this.app)
+            this.io = socketIo(server)
+        }
         this.io.on('connection', (socket: any) => {
             socket.on('message', (data) => {
+                if (data.room) {
+                    socket.join(data.room)
+                }
                 this.handler(socket, data)
             })
+            socket.on('disconnect', () => {
+                sessionMemory.delete(socket.id)
+            })
         })
+        return server
     }
 
     proactive(obj: any) {
-        // TODO
+        const session = super.proactive(obj)
+        session.send(obj.data)
     }
 
 }

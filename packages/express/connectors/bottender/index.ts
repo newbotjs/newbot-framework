@@ -22,24 +22,34 @@ export class BottenderConnector extends Connector implements PlatformConnector {
         await this.exec(text, session)
     }
 
-    registerRoutes(platform: string, option: any = {}) {
+    registerRoutes(platform: string, option: any = {}): any {
         if (option.requiredToken && !this.settings.accessToken) {
-            return
+            return false
         }
         const bot = new bottender[platform + 'Bot'](this.settings).onEvent(this.handler.bind(this))
+        this.platform = platform
         this.client = bot.connector._client
         registerRoutes(this.app, bot, {
-            path: this.settings.path || '/' + platform.toLowerCase(),
+            path: this.routePath(),
             verifyToken: this.settings.verifyToken
         })
+        return true
     }
 
     proactive(obj: any) {
         const session = new BottenderSession(this.client, {
             userId: obj.userId,
-            platform: obj.platform
+            platform: this.platform.toLowerCase()
         })
-        return this.event(obj.event, session) 
+
+        session['proactive'] = true
+
+        if (obj.event) {
+            return this.event(obj.event, session) 
+        }
+        else {
+            return this.exec(obj.text || obj.data.text, session) 
+        }
     }
 
 }

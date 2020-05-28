@@ -50,9 +50,20 @@ export class NewBotExpressServer {
             const settings = this.getSettings(connectorName)
             if (settings) {
                 this.platforms[connectorName] = new connector(this.app, this.converse, settings)
-                this.app.post(settings.path || '/proactive/' + connectorName, (req, res, next) => {
+                this.app.post(this.platforms[connectorName].routePath() + connectorName + '/proactive', (req, res, next) => {
                     try {
-                        this.platforms[connectorName].proactive(req.body)
+                        if (this.settings.proactiveAuth) {
+                            const token = req.headers['authorization']
+                            if (token != this.settings.proactiveAuth) {
+                                const error: any = new Error('Proactive endpoints must have authorization')
+                                error.status = 403
+                                throw error
+                            }
+                        }
+                        this.platforms[connectorName].proactive({
+                            ...req.body,
+                            agent: 'agent'
+                        })
                         res.status(204).send()
                     }
                     catch (err) {
@@ -86,8 +97,12 @@ export class NewBotExpressServer {
         }
     }
 
-    proactiveEvent(obj: any) {
-        if (!obj.event) {
+    proactive(obj) {
+        return this.proactiveEvent(obj, false)
+    }
+
+    proactiveEvent(obj: any, isEvent: boolean = true) {
+        if (!obj.event && isEvent) {
             throw 'You did not put the event property'
         }
         if (_.isString(obj.event))  {
@@ -98,7 +113,7 @@ export class NewBotExpressServer {
         }
         if (!obj.platform) throw 'Please indicate the platform (messenger, telegram, viber, etc.)'
         if (!obj.userId) throw 'Please enter the user ID'
-        if (!obj.event.name) throw 'Please indicate the name of the event to be triggered'
+        if (isEvent && !obj.event.name) throw 'Please indicate the name of the event to be triggered'
 
         const client = this.platforms[obj.platform]
         if (!client) throw `This ${obj.platform} platform does not exist`
@@ -111,6 +126,7 @@ export class NewBotExpressServer {
         const dev = _.get(this.config, 'platforms.' + platformName)
         const obj = _.merge(process.env.NODE_ENV == 'production' ? production : dev, this.settings[platformName])
         obj.output = this.settings.output || {}
+        obj.baseUrl = this.settings.baseUrl || ''
         return obj
     }
 }

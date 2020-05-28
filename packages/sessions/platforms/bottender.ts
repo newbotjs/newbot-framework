@@ -43,7 +43,7 @@ export class BottenderSession {
             if (this.userId) {
                 params = [this.userId, ...params]
             }
-
+            
             this.context[obj.method].apply(this.context, params)
         }
     }

@@ -6,7 +6,15 @@ export class ViberBottenderConnector extends BottenderConnector {
         super(app, converse, settings)
     }
 
+    setWebhook() {
+        return this.client.setWebhook(this.routePath(this.settings.baseUrl))
+    }
+
     registerRoutes() {
-        super.registerRoutes('Viber', { requiredToken: true })
+        const bool = super.registerRoutes('Viber', { requiredToken: true })
+        if (bool) {
+            this.setWebhook()
+               .catch(console.log)
+        }
     }
 }

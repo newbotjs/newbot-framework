@@ -36,10 +36,10 @@ export class WebConnector extends Connector implements PlatformConnector {
             this.io = socketIo(server)
         }
         this.io.on('connection', (socket: any) => {
+            socket.on('join-room', (room) => {
+                socket.join(room)
+            })
             socket.on('message', (data) => {
-                if (data.room) {
-                    socket.join(data.room)
-                }
                 this.handler(socket, data)
             })
             socket.on('disconnect', () => {
@@ -50,8 +50,13 @@ export class WebConnector extends Connector implements PlatformConnector {
     }
 
     proactive(obj: any) {
-        const session = super.proactive(obj)
-        session.send(obj.data)
+        if (obj.room) {
+            this.io.to(obj.room).emit('message', obj.data)
+        }
+        else {
+            const session = super.proactive(obj)
+            session.send(obj.data)
+        }
     }
 
 }

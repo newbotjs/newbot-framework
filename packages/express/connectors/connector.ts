@@ -1,11 +1,22 @@
 import sessionMemory from '../memory/sessions'
+import { URL } from 'url'
 
 export class Connector {
 
     converse: any
+    platform: string = ''
 
     constructor(protected app: any, converse: any, protected settings: any) {
         this.converse = global['converse'] || converse
+    }
+
+    routePath(baseUrl = '') {
+        let path = ''
+        if (this.settings.baseUrl) {
+            const url = new URL(this.settings.baseUrl)
+            path = this.settings.baseUrl.replace(url.origin, '')
+        }
+        return (baseUrl || path) + (this.settings.path || '/') + this.platform.toLowerCase()
     }
 
     exec(text: string, session: any) {

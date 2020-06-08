@@ -840,6 +840,8 @@ class Execution {
 
             outputValue = await this.translate(ins, outputValue, level, ins.params)
 
+            let multiFormats = {}
+
             if (ins.decorators) {
                 for (let d of ins.decorators) {
                     if (d.name == 'Format') {
@@ -852,10 +854,21 @@ class Execution {
                             if (isPromise(outputValue)) {
                                 outputValue = await outputValue
                             }
+                            if (this.converse.config.mergeMultiFormats) {
+                                multiFormats = Object.assign(outputValue, multiFormats)
+                            }
+                            else {
+                                multiFormats[name] = outputValue
+                            }
                         }
                     }
                 }
             }
+
+            if (Object.keys(multiFormats).length > 1) {
+                outputValue = multiFormats
+            }
+
             const send = (outputChanged) => {
                 const output = outputChanged || outputValue
                 const ret = this.output(output, done, {
@@ -865,6 +878,7 @@ class Execution {
                     done()
                 }
             }
+
             const triggerFound = this._triggerHook('sending', outputValue, {
                 user: this.user,
                 data: this.options.data

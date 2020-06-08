@@ -93,6 +93,11 @@ class Converse {
                 languages: options.languages
             })
         }
+        if (options.mergeMultiFormats) {
+            this.configure({
+                mergeMultiFormats: options.mergeMultiFormats
+            })
+        }
         if (options.nlp) {
             for (let key in options.nlp) {
                 this.nlp(key, options.nlp[key])

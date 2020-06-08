@@ -21,7 +21,7 @@ class Transpiler {
         this.parser = parser
     }
 
-    run(reject) {
+    run() {
         if (browser.is() && !this.parser) {
             throw 'You can not use the parser. Integrate rather the "newbot.with-parser.min.js" file'
         }

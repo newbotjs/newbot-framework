@@ -3,8 +3,9 @@ const CompressionPlugin = require('compression-webpack-plugin')
 
 module.exports = {
     entry: {
-        newbot: './converse.js',
-        'newbot.with-parser': './converse-with-parser.js'
+        newbot: './bootstrap/browser.js',
+        'newbot.with-parser': './bootstrap/browser-with-parser.js',
+        'newbot.with-nlp': './bootstrap/browser-with-nlp.js'
     },
     output: {
         filename: '[name].min.js',

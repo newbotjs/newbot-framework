@@ -1,0 +1,38 @@
+{
+  "settings": {
+    "tag": "nlp",
+    "threshold": 0.5,
+    "autoLoad": true,
+    "autoSave": false,
+    "modelFileName": "model.nlp"
+  },
+  "nluManager": {
+    "settings": {
+      "tag": "nlu-manager"
+    },
+    "locales": [],
+    "languageNames": {},
+    "domainManagers": {},
+    "intentDomains": {},
+    "extraSentences": []
+  },
+  "ner": {
+    "settings": {
+      "tag": "ner"
+    },
+    "rules": {}
+  },
+  "nlgManager": {
+    "settings": {
+      "tag": "nlg-manager"
+    },
+    "responses": {}
+  },
+  "actionManager": {
+    "settings": {
+      "tag": "action-manager"
+    },
+    "actions": {}
+  },
+  "slotManager": {}
+}

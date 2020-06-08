@@ -132,7 +132,7 @@ module.exports = {
         session
     }, user) {
 
-        actions = quickReplies(session, actions, user)
+        actions = quickReplies(session, [actions], user)
 
         if (Utils.isWebSite(session)) {
             return browser.formats.quickReplies(text, actions)

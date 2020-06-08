@@ -19,7 +19,8 @@ class Converse {
 
     constructor(options = {}, {
         loadSkills,
-        model
+        model,
+        modelLangs
     } = {}) {
         this._nlp = {}
         this.config = {}
@@ -31,6 +32,7 @@ class Converse {
         this._dbHook = {}
         this._hooks = {}
         this.model = model
+        this.modelLangs = modelLangs
         this._originNlpObject = {}
         this.script = ''
         this._obj = []
@@ -39,14 +41,6 @@ class Converse {
         this.namespace = 'default'
         this._functions = Functions
         this.lang = Languages.instance()
-        this.options = options
-        //this.parentPath = options._parentPath || this._findParentPath()
-        if (_.isString(options)) {
-            options = {
-                file: options
-            }
-        }
-
         const hasOptions = Object.keys(options)
         if (hasOptions.length > 0) {
             this.loadOptions(options, loadSkills)
@@ -62,7 +56,7 @@ class Converse {
      * Newbot.loader({
      *      systemjs: 
      * })
-     */
+     */ 
     static loader({
         systemjs
     }) {
@@ -77,11 +71,29 @@ class Converse {
     }
 
     async loadNativeNlp() {
-        this.nlp('__native__', await Converse.nlpManager(this.model))
+        this.nlp('__native__', await Converse.nlpManager(this.model, this.modelLangs))
         return this
     }
 
+    async setModelNlp(model, langs, _isAutoLoad) {
+        this.model = model
+        this.modelLangs = langs
+        await this.loadNativeNlp(true)
+        this.propagateNlp('__native__')
+        if (!_isAutoLoad) {
+            // reload skills for propagate NLP
+            this._skills.clear()
+            await this.setSkills(this.options.skills)
+        }
+    }
+
     async loadOptions(options, loadSkills = true) {
+        this.options = options
+        if (_.isString(options)) {
+            options = {
+                file: options
+            }
+        }
         if (options.file) {
             this.file(options.file)
         }
@@ -104,8 +116,7 @@ class Converse {
             }
         }
         if (!this.parent && this.model) {
-            await this.loadNativeNlp()
-            this.propagateNlp('__native__')
+           await this.setModelNlp(this.model, this.modelLangs, true)
         }
         if (options.conditions) {
             this.conditions(options.conditions)
@@ -137,9 +148,13 @@ class Converse {
             this.propagateFormats()
         }
         if (loadSkills && options.skills) {
-            await this.setSkills(options.skills)
+            await this.loadSkills()
         }
         this.load()
+    }
+
+    async loadSkills() {
+        await this.setSkills(this.options.skills)
     }
 
     get users() {
@@ -168,7 +183,7 @@ class Converse {
         return this
     }
 
-    async open(reject) {
+    async open() {
         if (this._file) {
             if (Converse.SystemJS) this.code(await Converse.SystemJS.import(this._file))
         }
@@ -178,8 +193,9 @@ class Converse {
             this._obj = _.merge([], this._compiled)
         } else {
             this._transpiler = new Transpiler(this.script, this.namespace)
-            this._obj = this._transpiler.run(reject)
+            this._obj = this._transpiler.run()
         }
+        // TODO: 
         this._interpreter = new Interpreter(this._obj, this.users, this)
         return this
     }
@@ -195,92 +211,87 @@ class Converse {
         globalNoExec: true
     }) {
         let user
-        return new Promise(async (resolve, reject) => {
+        let noExecChildren
 
-            let noExecChildren
-
-            await this.open(reject)
-
-            if (!output) {
-                if (Browser.is()) {
-                    output = userId
-                    userId = 'conversescript-user'
-                } else {
-                    throw 'On NodeJS, you must give an identifier to the user. `.exec(input, userId, output)`'
-                }
-            }
-
-            if (!_.isObjectLike(input)) {
-                input = {
-                    text: input
-                }
-            }
-
-            user = this._users.get(userId)
-
-            if (_.isFunction(output)) {
-                output = {
-                    output
-                }
-            }
-            if (!user) {
-                user = new User(userId)
-                this._users.set(userId, user)
-                propagate.start = true
-            }
-            if (output.magicVariables) {
-                for (let variable in output.magicVariables) {
-                    user.setMagicVariable(variable, output.magicVariables[variable])
-                }
-            }
-
-            user.setMagicVariable('userId', userId)
-            user.resetHistory()
-
-            if (input.type == 'continue') {
-                user.setMagicVariable('event', input.data)
-            }
-
-            let p = Promise.resolve()
-                .then(() => {
-                    if (output.preUser) {
-                        return output.preUser(user, this)
-                    }
-                })
-                .then(() => {
-                    if (!this.parent && output.debug) {
-                        output.debug('begin', {
-                            user,
-                            data: output.data
-                        })
-                    }
-                })
-                .then(() => this.propagateExec(input, userId, output, propagate))
-                .then(noExec => {
-                    noExecChildren = !!noExec
-                    noExecChildren = noExecChildren || (!noExecChildren && user.getAddress(this.namespace))
-                })
-            if (input.type !== 'event' && input.type !== 'continue') {
-                p = p.then(() => {
-                    if (noExecChildren) {
-                        return this.execNlp(input, userId)
-                    }
-                    return input
-                })
+        if (!output) {
+            if (Browser.is()) {
+                output = userId
+                userId = 'conversescript-user'
             } else {
-                p = p.then(() => input)
+                throw 'On NodeJS, you must give an identifier to the user. `.exec(input, userId, output)`'
             }
-            p.then(async input => {
-                let ret = {}
-                if (noExecChildren) {
-                    ret = await this._interpreter.exec(user, input, output, propagate)
-                    if (ret) propagate.globalNoExec &= ret.nothing
+        }
+
+        if (!_.isObjectLike(input)) {
+            input = {
+                text: input
+            }
+        }
+
+        user = this._users.get(userId)
+
+        if (_.isFunction(output)) {
+            output = {
+                output
+            }
+        }
+        if (!user) {
+            user = new User(userId)
+            this._users.set(userId, user)
+            propagate.start = true
+        }
+        if (output.magicVariables) {
+            for (let variable in output.magicVariables) {
+                user.setMagicVariable(variable, output.magicVariables[variable])
+            }
+        }
+
+        user.setMagicVariable('userId', userId)
+        user.resetHistory()
+
+        if (input.type == 'continue') {
+            user.setMagicVariable('event', input.data)
+        }
+
+        let p = this.open()
+            .then(() => {
+                if (output.preUser) {
+                    return output.preUser(user, this)
                 }
-                resolve(ret)
-            }).catch((err) => {
-                reject(err)
             })
-        }).then((ret) => {
+            .then(() => {
+                if (!this.parent && output.debug) {
+                    output.debug('begin', {
+                        user,
+                        data: output.data
+                    })
+                }
+            })
+            .then(() => this.propagateExec(input, userId, output, propagate))
+            .then(noExec => {
+                noExecChildren = !!noExec
+                noExecChildren = noExecChildren || (!noExecChildren && user.getAddress(this.namespace))
+            })
+        if (input.type !== 'event' && input.type !== 'continue') {
+            p = p.then(() => {
+                if (noExecChildren) {
+                    return this.execNlp(input, userId)
+                }
+                return input
+            })
+        } else {
+            p = p.then(() => input)
+        }
+        
+        p = p.then(async input => {
+            let ret = {}
+            if (noExecChildren) {
+                ret = await this._interpreter.exec(user, input, output, propagate)
+                if (ret) propagate.globalNoExec &= ret.nothing
+            }
+            return ret
+        })
+        .then((ret) => {
             if (!this.parent) {
                 if (propagate.globalNoExec) {
                     if (this._hooks.nothing) this._hooks.nothing(input.text, {
@@ -306,6 +317,8 @@ class Converse {
             }
             return ret
         })
+
+        return p
     }
 
     propagateExec(input, userId, output, propagate) {
@@ -319,13 +332,18 @@ class Converse {
             if (!_.isArray(skills)) {
                 skills = [skills]
             }
-            for (let skill of skills) {
-                p = p.then(() => new Promise((resolve, reject) => {
+            for (let i=0 ; i < skills.length ; i++) {
+                let skill = skills[i]
+                p = p.then((ignore = false) => new Promise((resolve, reject) => {
+                    if (ignore) {
+                        return resolve(ignore)
+                    }
                     let skillPromise = Promise.resolve()
                     if (this._canActivated.length > 0 && !this._canActivated.includes(skill.name)) {
                         skill._canActivated = [...this._canActivated, ...skill._canActivated]
                         for (let name of this._canActivated) {
                             if (this.name == name) continue
+                            // TODO: Prohibition after execution to modify skills...
                             skill._skills.set(name, this._skills.get(name))
                         }
                     }
@@ -339,14 +357,16 @@ class Converse {
                             skillPromise = Promise.resolve(skillPromise)
                         }
                     }
-                    skillPromise.then((mustExecute = true) => {
-                        if (mustExecute) {
+                    skillPromise.then((mustExecute) => {
+                        user.setRealSkill(skill.name, i)
+                        if (mustExecute !== false) {
                             return skill.exec(input, userId, options, propagate).then((ret = {}) => {
                                 noExec &= ret.noExec
-                                resolve()
+                                // If the skill condition explicitly returns true, then ignore the other skills (for a skill array)
+                                resolve(mustExecute === true)
                             }).catch(reject)
                         } else {
-                            resolve()
+                            resolve(false)
                         }
                     })
                 }))
@@ -656,49 +676,13 @@ class Converse {
             for (let skillObj of _path) {
                 await this.skill(skillName, skillObj)
             }
-            return
+            return this
         }
 
         if (_.isString(_path)) {
-
-            let prefix = _path.split(':')
-            if (prefix.length > 1) {
-                dir = _path = prefix[1]
-                prefix = prefix[0]
-            } else {
-                prefix = null
+            skill = {
+                code: _path
             }
-
-            if (Browser.is() && prefix == 'node') {
-                return this
-            }
-            if (!Browser.is() && prefix == 'browser') {
-                return this
-            }
-
-            if (!/\//.test(_path)) {
-                dir = this.config.pathSkills || 'skills'
-                dir += `/${_path}`
-            }
-
-            // deprecated
-            /*if (Converse.SystemJS) {
-                if (Browser.is()) {
-                    SystemJS.set('conversescript', SystemJS.newModule({
-                        Converse
-                    }))
-                    if (!dir.endsWith('.js')) dir += '.js'
-                    skill = await SystemJS.import(dir)
-                } else {
-                    if (dir[0] == '.') {
-                        dir = this.parentPath + '/' + dir
-                    } else {
-                        dir = '@node/' + dir
-                    }
-                    skill = await SystemJS.import(dir)
-                }
-            }*/
-
         } else {
             skill = _path
         }
@@ -795,6 +779,11 @@ class Converse {
         }
         if (_.isString(nlpName)) {
             this._propagateNlp.push(nlpName)
+            return this
+        }
+        if (nlpName === true) {
+            this._propagateNlp = [...this._propagateNlp, ...Object.keys(this._nlp)]
+            return this
         }
         return this
     }
@@ -827,6 +816,10 @@ class Converse {
         let p = this.open()
             .then(() => {
                 intents = this._interpreter.decorators.get('Intent')
+                intents = intents.map(intent => {
+                    intent._skill = this
+                    return intent
+                })
             })
         this._skills.forEach((skills) => {
             if (!_.isArray(skills)) {
@@ -836,10 +829,7 @@ class Converse {
                 p = p
                     .then(() => skill.getAllIntents())
                     .then(skillIntents => {
-                        return intents = intents.concat(skillIntents.map(intent => {
-                            intent._skill = skill
-                            return intent
-                        }))
+                        return intents = intents.concat(skillIntents)
                     })
             }
         })

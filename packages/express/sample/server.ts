@@ -14,11 +14,17 @@ app.get('/proactive/:id', (req, res, next) => {
 })
 
 const newbotServer = new NewBotExpressServer(app, {
-    botPath: __dirname
-}, new MockConverse())
+    botPath: __dirname,
+    whatsapp: {
+        path: '/webhook/',
+        accessToken: process.env.ACCESS_TOKEN,
+        accountSid: process.env.ACCOUNT_SID,
+        phoneNumber: process.env.PHONE_NB
+    }
+})
 
 const { server } = newbotServer.registerRoutes() 
 
-server.listen(3000, () => {
+server.listen(3010, () => {
     console.log('Ok !')
 }) 

@@ -27,7 +27,7 @@ export class BottenderSession {
                     method: 'sendText',
                     params: [obj]
                 }
-                switch (this.platform) {
+                switch (this.source) {
                     case 'slack':
                         obj.method = 'postMessage'
                         break
@@ -43,7 +43,7 @@ export class BottenderSession {
             if (this.userId) {
                 params = [this.userId, ...params]
             }
-            
+
             this.context[obj.method].apply(this.context, params)
         }
     }

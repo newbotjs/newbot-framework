@@ -6,6 +6,7 @@ import { TwitterFormat } from './twitter'
 import { LineBottenderFormat } from './line/bottender'
 import { TelegramBottenderFormat } from './telegram/bottender'
 import { SlackBottenderFormat } from './slack/bottender'
+import { WhatsappBottenderFormat } from './whatsapp/bottender'
 import { AlexaSdkFormat } from './alexa/alexa'
 import { BotBuilderFormat } from './ms-bot'
 import { DiscordFormat } from './discord/discord'
@@ -19,6 +20,7 @@ const platforms: {
     'line-bottender': LineBottenderFormat,
     'telegram-bottender': TelegramBottenderFormat,
     'slack-bottender': SlackBottenderFormat,
+    'whatsapp-bottender': WhatsappBottenderFormat,
     'messenger': MessengerFormat,
     'gactions': ActionsOnGoogleFormat,
     'alexa': AlexaSdkFormat,

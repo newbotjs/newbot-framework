@@ -76,6 +76,10 @@ export class NewBotExpressServer {
 
         registerRoute('alexa')
 
+        this.app.use(bodyParser.urlencoded({
+            extended: true
+        }))
+
         this.app.use(
             bodyParser.json({
                 verify: (req:any, res: any, buf: any) => {

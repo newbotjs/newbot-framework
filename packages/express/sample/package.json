@@ -10,8 +10,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "botbuilder": "^4.9.2",
     "express": "^4.17.1",
-    "typescript": "^3.8.3"
+    "lodash.flatten": "^4.4.0",
+    "lodash.last": "^3.0.0",
+    "lodash.truncate": "^4.4.2",
+    "messaging-api-messenger": "^0.8.5",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.5",
+    "typescript": "^3.8.3",
+    "uuid": "^8.1.0"
   },
   "devDependencies": {
     "ts-node-dev": "^1.0.0-pre.44"

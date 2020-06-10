@@ -48,7 +48,7 @@ export class PlatformFormat {
                 }
             }
         }
-        if (_default) {
+        if (_default && prop[_default]) {
             return prop[_default]
         }
         return prop

@@ -3,12 +3,14 @@ import * as gactions from 'actions-on-google'
 import { GactionsSession } from 'newbot-sessions'
 import _ from 'lodash'
 import { PlatformConnector } from "../connector.interface";
+import generateActionFile from './generate'
 
 export class GactionsConnector extends Connector implements PlatformConnector {
 
     action: any
     clientId: string
     propClientId: string = 'platforms.gactions.signin.clientId'
+    platform: string = 'gactions'
 
     constructor(app: any, converse: any, settings: any) {
         super(app, converse, settings)
@@ -45,7 +47,10 @@ export class GactionsConnector extends Connector implements PlatformConnector {
         this.action.intent('actions.intent.OPTION', this.handleOption.bind(this))
         this.action.intent('actions.intent.SIGN_IN', this.handleSignin.bind(this))
 
-        this.app.post(this.settings.path || '/gactions', this.action)
+        this.app.post(this.routePath(), this.action)
+
+        if (this.settings.generate === undefined) this.settings.generate = true
+        if (this.settings.generate) generateActionFile(this.settings, this.routePath(this.settings.baseUrl))
     }
 
     proactive(obj: any) {

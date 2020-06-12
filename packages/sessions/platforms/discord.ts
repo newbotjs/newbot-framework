@@ -1,4 +1,6 @@
-export class DiscordSession {
+import { SessionInterface } from '../session.interface';
+
+export class DiscordSession implements SessionInterface {
 
     channel: any
     readonly platform: string = 'discord'

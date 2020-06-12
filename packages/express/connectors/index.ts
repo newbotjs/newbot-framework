@@ -13,6 +13,7 @@ import { WebConnector } from "./website";
 
 export default {
     'messenger': MessengerBottenderConnector,
+    'facebook': MessengerBottenderConnector,
     'line': LineBottenderConnector,
     'slack': SlackBottenderConnector,
     'telegram': TelegramBottenderConnector,

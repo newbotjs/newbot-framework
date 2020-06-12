@@ -15,11 +15,21 @@ app.get('/proactive/:id', (req, res, next) => {
 
 const newbotServer = new NewBotExpressServer(app, {
     botPath: __dirname,
-    whatsapp: {
+    baseUrl: 'https://',
+    /*whatsapp: {
         path: '/webhook/',
         accessToken: process.env.ACCESS_TOKEN,
         accountSid: process.env.ACCOUNT_SID,
         phoneNumber: process.env.PHONE_NB
+    },*/
+    gactions: {
+        generate: false,
+        path: '/webhook/',
+        projectId: 'test',
+        generateDir: __dirname + '/gactions',
+        triggers: {
+            en: 'Speack with'
+        }
     }
 })
 

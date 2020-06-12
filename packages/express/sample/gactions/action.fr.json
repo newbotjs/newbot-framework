@@ -1,0 +1,24 @@
+{
+  "actions": [
+    {
+      "description": "Default Intent",
+      "name": "MAIN",
+      "fulfillment": {
+        "conversationName": "newbot"
+      },
+      "intent": {
+        "name": "actions.intent.MAIN",
+        "trigger": {
+          "queryPatterns": "Parler avec Cono"
+        }
+      }
+    }
+  ],
+  "conversations": {
+    "newbot": {
+      "name": "newbot",
+      "url": "https://20cb685882ca.ngrok.io/webhook/gactions"
+    }
+  },
+  "locale": "fr"
+}

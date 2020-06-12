@@ -16,14 +16,18 @@
     "ask-sdk": "^2.7.0",
     "ask-sdk-core": "^2.7.0",
     "ask-sdk-express-adapter": "^2.0.0",
+    "axios": "^0.19.2",
     "body-parser": "^1.19.0",
     "botbuilder": "^4.7.2",
     "bottender": "^1.4.6",
     "discord.js": "^11.5.1",
     "express": "^4.17.1",
     "lodash": "^4.17.14",
+    "lodash.difference": "^4.5.0",
     "newbot": "0.7.0",
-    "newbot-formats": "1.7.0"
+    "newbot-formats": "1.7.0",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.5"
   },
   "devDependencies": {
     "typescript": "^3.8.2"

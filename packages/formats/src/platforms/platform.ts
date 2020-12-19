@@ -103,6 +103,9 @@ export class PlatformFormat {
     }
 
     quickReplies(actions: Array<any>): object | string {
+        if (actions.length == 0) {
+            return this.text
+        }
         actions = this.inlineQuickReplies(actions)
         return `${this.text} (${actions.reduce((a, b) => a + ', ' + b)})`
     }

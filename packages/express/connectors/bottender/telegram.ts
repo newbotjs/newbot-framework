@@ -7,6 +7,10 @@ export class TelegramBottenderConnector extends BottenderConnector {
     }
 
     registerRoutes() {
-        super.registerRoutes('Telegram', { requiredToken: true })
+        const bool = super.registerRoutes('Telegram', { requiredToken: true })
+        if (bool) {
+            this.setWebhook()
+               .catch(console.log)
+        }
     }
 }

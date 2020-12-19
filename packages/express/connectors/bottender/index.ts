@@ -11,6 +11,10 @@ export class BottenderConnector extends Connector implements PlatformConnector {
     constructor(app: any, converse: any, settings: any) {
         super(app, converse, settings)
     }
+
+    setWebhook() {
+        return this.client.setWebhook(this.routePath(this.settings.baseUrl))
+    }
    
     async handler(context: any) {
         const {

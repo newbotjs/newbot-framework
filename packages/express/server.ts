@@ -48,7 +48,7 @@ export class NewBotExpressServer {
         const registerRoute = (connectorName) => {
             const connector = connectors[connectorName]
             const settings = this.getSettings(connectorName)
-            if (settings) {
+            if (!settings.disabled) {
                 this.platforms[connectorName] = new connector(this.app, this.converse, settings)
                 this.app.post(this.platforms[connectorName].routePath() + connectorName + '/proactive', (req, res, next) => {
                     try {
@@ -128,7 +128,9 @@ export class NewBotExpressServer {
     private getSettings(platformName: string) {
         const production = _.get(this.config, 'production.platforms.' + platformName)
         const dev = _.get(this.config, 'platforms.' + platformName)
-        const obj = _.merge(process.env.NODE_ENV == 'production' ? production : dev, this.settings[platformName])
+        const objSetting = process.env.NODE_ENV == 'production' ? production : dev
+        const obj = _.merge(objSetting, this.settings[platformName])
+        obj.disabled = !objSetting
         obj.output = this.settings.output || {}
         obj.baseUrl = this.settings.baseUrl || ''
         return obj

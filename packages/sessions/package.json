@@ -10,5 +10,11 @@
   "license": "MIT",
   "devDependencies": {
     "typescript": "^3.8.2"
+  },
+  "dependencies": {
+    "lodash": "^4.17.20",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6",
+    "uuid": "^8.3.2"
   }
 }

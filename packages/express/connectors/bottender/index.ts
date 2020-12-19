@@ -34,8 +34,7 @@ export class BottenderConnector extends Connector implements PlatformConnector {
         this.platform = platform
         this.client = bot.connector._client
         registerRoutes(this.app, bot, {
-            path: this.routePath(),
-            verifyToken: this.settings.verifyToken
+            path: this.routePath()
         })
         return true
     }

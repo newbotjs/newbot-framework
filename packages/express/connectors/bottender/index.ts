@@ -1,6 +1,6 @@
 import { Connector } from "../connector";
 import { BottenderSession } from 'newbot-sessions'
-import { registerRoutes } from 'bottender/express'
+import { registerRoutes } from '@bottender/express'
 import * as bottender from 'bottender'
 import { PlatformConnector } from "../connector.interface";
 

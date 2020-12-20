@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import uuid from 'uuid/v1'
+import { v1 as uuid } from 'uuid'
 
 export class GactionsSession {
 

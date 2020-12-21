@@ -128,7 +128,7 @@ export class NewBotExpressServer {
     private getSettings(platformName: string) {
         const production = _.get(this.config, 'production.platforms.' + platformName)
         const dev = _.get(this.config, 'platforms.' + platformName)
-        const objSetting = process.env.NODE_ENV == 'production' ? production : dev
+        const objSetting = process.env.NODE_ENV == 'production' ? (production || dev) : dev
         const obj = _.merge(objSetting, this.settings[platformName])
         obj.disabled = !objSetting
         obj.output = this.settings.output || {}

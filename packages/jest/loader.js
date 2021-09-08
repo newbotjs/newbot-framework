@@ -1,15 +1,15 @@
-const Transpiler = require('../src/transpiler/lexer')
-require('../src/transpiler/load')
+const Transpiler = require('../../src/transpiler/lexer')
+require('../../src/transpiler/load')
 
-module.exports = function loader(code, map, meta) {
+module.exports.process = function (code, filepath) {
     const transpiler = new Transpiler(code)
     const obj = transpiler.run()
     const compiled = JSON.stringify(obj)
     code = code.replace(/`/g, '\\`')
     code = `
-export default {
+module.exports = {
 code: \`${code}\`,
 compiled: ${compiled}
 }`
     return code   
-};
+}

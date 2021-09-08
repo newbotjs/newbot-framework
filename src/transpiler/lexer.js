@@ -1,24 +1,16 @@
 const _ = require('../utils/lodash')
 const browser = require('../utils/browser')
 const ExecutionError = require('../error')
-let parser
-
-if (browser.is()) {
-    parser = window.newbotParser
-}
-else {
-    parser = global.newbotParser
-}
 
 if (typeof window != 'undefined') window._ = _
 
 class Transpiler {
-    
+
     constructor(script, namespace) {
         this.variables = {}
         this._script = script
         this.namespace = namespace
-        this.parser = parser
+        this.parser = Transpiler.newbotParser
     }
 
     run() {

@@ -1,7 +1,13 @@
 import Converse from '../src/converse'
 
-window.Converse = Converse
-const NewBot = window.NewBot = Converse
+let NewBot
+
+if (typeof window !== 'undefined') {
+    window.Converse = Converse
+    window.NewBot = Converse
+}
+
+NewBot = Converse
 
 export {
     Converse,

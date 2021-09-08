@@ -200,6 +200,10 @@ class Converse {
         return this
     }
 
+    getCodeCompiled() {
+        return this._obj
+    }
+
     continue(data, user, output) {
         return this.exec({
             type: 'continue',

@@ -15,7 +15,7 @@ Creating a conversational system can take a long time. The goal of NewBot Framew
 
 ## Docs
 
-[Last version](https://newbot.io/en/docs)
+[Last version](https://docs.newbot.io)
 
 ## Why not use Microsoft BotFramework or BotKit?
 

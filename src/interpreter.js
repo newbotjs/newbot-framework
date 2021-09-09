@@ -43,6 +43,7 @@ class Execution {
         this._finishScript = this.options._finishScript
         this._errorScript = this.options._errorScript
         this.error = new ExecutionError(interpreter.converse.script, this.namespace, this._errorScript)
+        this.error.on = this.converse._onError
         this.user.setMagicVariable('text', this.input)
         this.instructionsRoot(() => {
             if (this.event) {

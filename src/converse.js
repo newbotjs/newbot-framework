@@ -204,6 +204,10 @@ class Converse {
         return this._obj
     }
 
+    onError(cb) {
+        this._onError = cb 
+    }
+
     continue(data, user, output) {
         return this.exec({
             type: 'continue',

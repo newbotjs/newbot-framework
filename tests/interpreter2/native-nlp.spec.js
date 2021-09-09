@@ -17,6 +17,7 @@ describe('Test Native NLP', () => {
         const model = await train(converse, langs)
         await converse.setModelNlp(model, langs)
         user = converse.createUser()
+        return model
     }
 
    
@@ -40,7 +41,7 @@ describe('Test Native NLP', () => {
     })
 
     it('Extract Entities', async () => {
-        await code(`
+        const model = await code(`
              @Intent('room', [
                  'get room tomorrow'
              ])
@@ -51,7 +52,9 @@ describe('Test Native NLP', () => {
          return user
              .prompt('get room today', testing => {
                 const intent = testing.magicVariable('intent')
-                assert.equal(intent.date.type, 'date')
+                const entity = testing.magicVariable('entity')
+                assert.ok(entity.date)
+                assert.equal(intent.entities[0].entity, 'date')
              })
              .end()
      })

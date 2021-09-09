@@ -1,7 +1,7 @@
 const ExtractIntents = require('./extract')
 const { containerBootstrap } = require('@nlpjs/core')
 const { Nlp } = require('@nlpjs/nlp')
-const { BuiltinMicrosoft } = require('@nlpjs/builtin-microsoft')
+const { BuiltinCompromise } = require('@nlpjs/builtin-compromise')
 
 module.exports = {
     async train(converse, langs = []) {
@@ -12,7 +12,7 @@ module.exports = {
             container.use(lang)
         }
 
-        const builtin = new BuiltinMicrosoft()
+        const builtin = new BuiltinCompromise()
         container.register('extract-builtin-??', builtin, true)
         
         const nlp = container.get('nlp')

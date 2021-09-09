@@ -37,6 +37,7 @@ class ExecutionError {
     else {
       error = new Error(msg);
     }
+    if (this.on) this.on(error)
     if (this.reject) {
       return error
     }
@@ -75,7 +76,7 @@ class ExecutionError {
       .join(' / ') : 'unknow'
     const strSkill = `Skill : ${skillPath}. Line ${line}`
 
-    if (src && line >= 1 && line <= src.split('\n').length) {
+    if (src && typeof src == 'string' && line >= 1 && line <= src.split('\n').length) {
       var lines = src.split('\n');
       var start = Math.max(line - 3, 0);
       var end = Math.min(lines.length, line + 3);

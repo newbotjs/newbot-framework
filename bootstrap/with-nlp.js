@@ -1,14 +1,14 @@
 const { containerBootstrap } = require('@nlpjs/core')
 const { Nlp } = require('@nlpjs/nlp')
-const { BuiltinMicrosoft } = require('@nlpjs/builtin-microsoft')
+const {BuiltinCompromise} = require('@nlpjs/builtin-compromise')
 const processNlp = require('../src/nlp/native')
 const Converse = require('../src/converse')
 const browser = require('../src/utils/browser')
 
 module.exports = (fs) => {
-    Converse.nlpManager = async function(path, langs = []) {
+    Converse.nlpManager = async function(path, langs = []) {     
         const container = await containerBootstrap()
-        container.use(Nlp)
+        container.use(new Nlp({ forceNER: true, container }))
         const manager = container.get('nlp')
 
         for (let lang of langs) {
@@ -27,9 +27,9 @@ module.exports = (fs) => {
             manager.import(model)
         }
 
-        const builtin = new BuiltinMicrosoft()
+        const builtin = new BuiltinCompromise()
         container.register('extract-builtin-??', builtin, true)
-
+        
         return processNlp(manager)
     }
     return Converse
